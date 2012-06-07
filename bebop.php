@@ -13,7 +13,7 @@ License: TBA
 // http://buddypress.org/
 
 /*****************************************************************************
-** This program is distributed WITHOUT ANY WARRANTY; without even the 		**
+** This program is distributed WITHOUT ANY WARRANTY; without even the       **
 ** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. **
 *****************************************************************************/
 
@@ -35,12 +35,12 @@ function bebop_init() {
 	bebop_init_languages();
 	
 	//include files from core.
-	include_once('core/core.php');
+	include_once( 'core/core.php' );
 }
 
 //Create the log database if it does not already exist.
-function bebop_init_database() {
-	if( ! get_site_option("bebop_installed_version")) {
+function bebop_init_database( ) {
+	if( ! get_site_option( "bebop_installed_version" ) ) {
 		global $wpdb;
 		
 		$bebop_table_sql = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bebop_log (
@@ -52,25 +52,29 @@ function bebop_init_database() {
 		);";
 		
 		//run the query.
-		require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-		dbDelta($bebop_table_sql);
+		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+		dbDelta( $bebop_table_sql );
+		
+		//test
+		$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_log", array( 'type' => 'test type', 'message' => 'test message' ) );
 		
 		//update the installed version.
 		update_site_option("bebop_installed_version", BP_BEBOP_VERSION);
 		
 		//cleanup
-		unset($bebop_table_sql);
+		unset( $bebop_table_sql );
 	}
 }
 
 function bebop_init_settings() {
 	//not currently implemented
 }
+
 function bebop_init_languages() {
 	//not currently implemented
 }
 
 //hook into bp_init to start bebop. 
-add_action('bp_init', 'bebop_init', 4);
+add_action( 'bp_init', 'bebop_init', 4 );
     
 ?>
