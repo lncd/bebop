@@ -97,7 +97,7 @@ function bebop_delete_tables() {
 add_action( 'bp_init', 'bebop_init', 4 );
 
 //init tables  when the plugin is activated.
-register_activation_hook( __FILE__, 'bebop_init_tables' );
+//register_activation_hook( __FILE__, 'bebop_init_tables' );
 
 //register_deactivation_hook( __FILE__, 'bebop_delete_tables' );
     
