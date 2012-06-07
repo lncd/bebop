@@ -66,11 +66,11 @@ function bebop_init_tables() {
 	dbDelta( $bebop_data_sql );
 	
 	//tests
-	$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_log", array( 'type' => 'test type', 'message' => 'test message' ) );
-	$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_data", array( 'option' => 'test option', 'value' => 'test value' ) );
+	//$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_log", array( 'type' => 'test type', 'message' => 'test message' ) );
+	//$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_data", array( 'option' => 'test option', 'value' => 'test value' ) );
 	
 	//save the installed version.
-	$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_data", array( 'option' => 'bebop_installed_version', 'value' => BP_BEBOP_VERSION ) );
+	//$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_data", array( 'option' => 'bebop_installed_version', 'value' => BP_BEBOP_VERSION ) );
 	
 	//cleanup
 	unset( $bebop_log_sql );
