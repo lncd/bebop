@@ -20,8 +20,7 @@ License: TBA
 
 //initialise Bebop
 function bebop_init() {
-	
-	//turn on debugging
+
 	//define('WP_DEBUG', true);
 	
 	//Define plugin version
@@ -30,8 +29,6 @@ function bebop_init() {
 	
 	//init settings
 	bebop_init_settings();
-	
-	bebop_init_tables();
 	
 	//load languages
 	bebop_init_languages();
@@ -96,8 +93,8 @@ function bebop_delete_tables() {
 //hook into bp_init to start bebop. 
 add_action( 'bp_init', 'bebop_init', 4 );
 
-//init tables  when the plugin is activated.
-//register_activation_hook( __FILE__, 'bebop_init_tables' );
+//init tables when the plugin is activated.
+register_activation_hook( __FILE__, 'bebop_init_tables' );
 
 //register_deactivation_hook( __FILE__, 'bebop_delete_tables' );
     
