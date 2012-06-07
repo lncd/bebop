@@ -85,6 +85,8 @@ function bebop_init_languages() {
 }
 //remove the tables upon deactivation
 function bebop_delete_tables() {
+	global $wpdb;
+	
 	$bebop_log_sql = $wpdb->query("DROP TABLE IF EXISTS bebop_log");
 	$bebop_data_sql = $wpdb->query("DROP TABLE IF EXISTS bebop_date");
 }
