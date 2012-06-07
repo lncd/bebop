@@ -22,7 +22,7 @@ License: TBA
 function bebop_init() {
 	
 	//turn on debugging
-	define('WP_DEBUG', true);
+	//define('WP_DEBUG', true);
 	
 	//Define plugin version
 	define('BP_BEBOP_VERSION', '0.1');
