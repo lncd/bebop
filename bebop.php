@@ -37,9 +37,11 @@ function bebop_init() {
 	include_once( 'core/core.php' );
 }
 
-//Create the tables if they do not exist
-function bebop_init_tables() {
-
+//Code that should be fired when he plugin is activated.
+function bebop_activate() {
+	
+	//Database table stuffs
+	
 	global $wpdb;
 	
 	//log table - to log errors
@@ -83,19 +85,19 @@ function bebop_init_languages() {
 	//not currently implemented
 }
 //remove the tables upon deactivation
-function bebop_delete_tables() {
+/*function bebop_deactivate() {
 	global $wpdb;
 	
 	$bebop_log_sql = $wpdb->query("DROP TABLE IF EXISTS bebop_log");
 	$bebop_data_sql = $wpdb->query("DROP TABLE IF EXISTS bebop_date");
-}
+}*/
 
 //hook into bp_init to start bebop. 
 add_action( 'bp_init', 'bebop_init', 4 );
 
 //init tables when the plugin is activated.
-register_activation_hook( __FILE__, 'bebop_init_tables' );
+register_activation_hook( __FILE__, 'bebop_activate' );
 
-//register_deactivation_hook( __FILE__, 'bebop_delete_tables' );
+//register_deactivation_hook( __FILE__, 'bebop_deactivate' );
     
 ?>
