@@ -41,9 +41,11 @@ function bebop_init() {
 //Create the log database if it does not already exist.
 function bebop_init_database( ) {
 	if( ! get_site_option( "bebop_installed_version" ) ) {
+		
 		global $wpdb;
 		
-		$bebop_table_sql = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bebop_log (
+		//log table - to log errors
+		$bebop_log_sql = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bebop_log (
 			'id' int(10) NOT NULL auto_increment,
 			'date' timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 			'type' text NOT NULL,
@@ -51,15 +53,25 @@ function bebop_init_database( ) {
 			PRIMARY KEY  ('id')
 		);";
 		
-		//run the query.
+		//data table - to store data
+		$bebop_data_sql = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bebop_data (
+			'id' int(10) NOT NULL auto_increment,
+			'option' text NOT NULL,
+			'value' text NOT NULL,
+			PRIMARY KEY  ('id')
+		);";
+		
+		//run the queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $bebop_table_sql );
+		dbDelta( $bebop_data_sql );
 		
-		//test
+		//tests
 		$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_log", array( 'type' => 'test type', 'message' => 'test message' ) );
+		$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_data", array( 'option' => 'test option', 'value' => 'test value' ) );
 		
-		//update the installed version.
-		update_site_option("bebop_installed_version", BP_BEBOP_VERSION);
+		//save the installed version.
+		$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_data", array( 'option' => 'bebop_installed_version', 'value' => BP_BEBOP_VERSION ) );
 		
 		//cleanup
 		unset( $bebop_table_sql );
@@ -69,7 +81,6 @@ function bebop_init_database( ) {
 function bebop_init_settings() {
 	//not currently implemented
 }
-
 function bebop_init_languages() {
 	//not currently implemented
 }
