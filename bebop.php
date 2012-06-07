@@ -62,7 +62,7 @@ function bebop_init_tables( ) {
 	
 	//run the queries
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-	dbDelta( $bebop_table_sql );
+	dbDelta( $bebop_log_sql );
 	dbDelta( $bebop_data_sql );
 	
 	//tests
@@ -73,7 +73,8 @@ function bebop_init_tables( ) {
 	$sql_test = $wpdb->insert( $wpdb->prefix . "bebop_data", array( 'option' => 'bebop_installed_version', 'value' => BP_BEBOP_VERSION ) );
 	
 	//cleanup
-	unset( $bebop_table_sql );
+	unset( $bebop_log_sql );
+	unset( $bebop_data_sql );
 }
 
 function bebop_init_settings() {
@@ -82,11 +83,18 @@ function bebop_init_settings() {
 function bebop_init_languages() {
 	//not currently implemented
 }
+//remove the tables upon deactivation
+function bebop_delete_tables() {
+	$bebop_log_sql = $wpdb->query("DROP TABLE IF EXISTS bebop_log");
+	$bebop_data_sql = $wpdb->query("DROP TABLE IF EXISTS bebop_date");
+}
 
 //hook into bp_init to start bebop. 
 add_action( 'bp_init', 'bebop_init', 4 );
 
 //init tables if when the plugin is activated.
 register_activation_hook(__FILE__,'bebop_init_tables');
+
+register_deactivation_hook( __FILE__, 'bebop_delete_tables' );
     
 ?>
