@@ -21,12 +21,12 @@ License: TBA
 //initialise Bebop
 function bebop_init() {
 	
+	//turn on debugging
+	define('WP_DEBUG', true);
+	
 	//Define plugin version
 	define('BP_BEBOP_VERSION', '0.1');
 	//define('BP_BEBOP_IS_INSTALLED', 1);
-	
-	//init database - used as a log
-	bebop_init_database();
 	
 	//init settings
 	bebop_init_settings();
@@ -38,7 +38,7 @@ function bebop_init() {
 	include_once( 'core/core.php' );
 }
 
-//Create the log database if it does not already exist.
+//Create the datases if they do not exist
 function bebop_init_database( ) {
 	if( ! get_site_option( "bebop_installed_version" ) ) {
 		
@@ -87,5 +87,6 @@ function bebop_init_languages() {
 
 //hook into bp_init to start bebop. 
 add_action( 'bp_init', 'bebop_init', 4 );
+register_activation_hook(__FILE__,'bebop_init_databases');
     
 ?>
