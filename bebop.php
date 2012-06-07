@@ -39,7 +39,7 @@ function bebop_init() {
 }
 
 //Create the tables if they do not exist
-function bebop_init_tables( ) {
+function bebop_init_tables() {
 
 	global $wpdb;
 	
