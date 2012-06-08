@@ -31,6 +31,13 @@ function bebop_init() {
 	include_once( 'core/core.php' );
 }
 
+function bebop_init_settings() {
+	//not currently implemented
+}
+function bebop_init_languages() {
+	//not currently implemented
+}
+
 //Code that should be fired when he plugin is activated.
 function bebop_activate() {
 	
@@ -63,13 +70,6 @@ function bebop_activate() {
 	//cleanup
 	unset($bebop_table_log);
     unset($bebop_table_data);
-}
-
-function bebop_init_settings() {
-	//not currently implemented
-}
-function bebop_init_languages() {
-	//not currently implemented
 }
 //remove the tables upon deactivation
 function bebop_deactivate() {
