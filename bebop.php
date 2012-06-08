@@ -44,12 +44,12 @@ function bebop_activate() {
 global $wpdb;
         require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 
-        $buddystreamSql = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "buddystream_log (
-          `id` int(11) NOT NULL auto_increment,
-          `date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-          `type` text NOT NULL,
-          `message` text NOT NULL,
-          PRIMARY KEY  (`id`)
+        $buddystreamSql = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_log (
+          'id' int(11) NOT NULL auto_increment,
+          'date' timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+          'type' text NOT NULL,
+          'message' text NOT NULL,
+          PRIMARY KEY  ('id')
         );";
 
         dbDelta($buddystreamSql);
