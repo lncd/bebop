@@ -17,7 +17,6 @@ License: TBA
 ** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. **
 *****************************************************************************/
 
-
 //initialise Bebop
 function bebop_init() {
 
