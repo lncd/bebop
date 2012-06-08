@@ -66,7 +66,6 @@ function bebop_activate() {
 	//save the installed version.
 	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_data", array( 'option_name' => 'bebop_installed_version', 'option_value' => constant('BP_BEBOP_VERSION') ) );
 	
-	
 	//cleanup
 	unset($bebop_table_log);
     unset($bebop_table_data);
