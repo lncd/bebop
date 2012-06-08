@@ -20,12 +20,6 @@ License: TBA
 
 //initialise Bebop
 function bebop_init() {
-
-	//define('WP_DEBUG', true);
-	
-	//Define plugin version
-	define('BP_BEBOP_VERSION', '0.1');
-	//define('BP_BEBOP_IS_INSTALLED', 1);
 	
 	//init settings
 	bebop_init_settings();
@@ -45,18 +39,15 @@ function bebop_activate() {
 	
 	//define table sql
     $bebop_table_log = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_log ( 
-    	id int(10) NOT NULL auto_increment,
+    	id int(10) NOT NULL auto_increment PRIMARY KEY,
     	date timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-    	type text NOT NULL,
-    	message text NOT NULL,
-    	PRIMARY KEY  (id)
+    	type varchar(20) NOT NULL,
+    	message varchar(255) NOT NULL
     );";
 	$bebop_table_data = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_data ( 
-    	id int(10) NOT NULL auto_increment,
     	date timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-    	option_name text NOT NULL,
-    	option_value text NOT NULL,
-    	PRIMARY KEY  (option_name)
+    	option_name varchar(30) NOT NULL PRIMARY KEY,
+    	option_value varchar(30) NOT NULL
     );";       
 	//run queries
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
@@ -64,11 +55,9 @@ function bebop_activate() {
 	dbDelta($bebop_table_data);
 	
 	//tests
-	$sql_test = $wpdb->insert( $wpdb->base_prefix . "bp_bebop_log", array( 'type' => 'test type', 'message' => 'test message' ) );
-	$sql_test = $wpdb->insert( $wpdb->base_prefix . "bp_bebop_data", array( 'option_name' => 'test option', 'option_value' => 'test value' ) );
-	
+	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_log", array( 'type' => 'test type', 'message' => 'test message' ) );
 	//save the installed version.
-	$sql_test = $wpdb->insert( $wpdb->base_prefix . "bp_bebop_data", array( 'option_name' => 'bebop_installed_version', 'option_value' => constant('BP_BEBOP_VERSION') ) );
+	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_data", array( 'option_name' => 'bebop_installed_version', 'option_value' => constant('BP_BEBOP_VERSION') ) );
 	
 	
 	//cleanup
@@ -89,6 +78,11 @@ function bebop_deactivate() {
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_data");
 }
+//definitions
+
+//define('WP_DEBUG', true);
+define('BP_BEBOP_VERSION', '0.1');
+//define('BP_BEBOP_IS_INSTALLED', 1);
 
 //hook into bp_init to start bebop. 
 add_action( 'bp_init', 'bebop_init', 4 );
