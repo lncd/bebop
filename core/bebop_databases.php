@@ -25,7 +25,7 @@ class bebop_databases
 	function add_option($option, $value) {
 		global $wpdb;
 		
-		if( get_option($option, $value) ) {
+		if( $this->get_option($option) ) {
 			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_general_log (option_name, option_value) VALUES (%s, %s)", $wpdb->escape($option), $wpdb->escape($value) ) );
 			return true;
 		}
@@ -33,9 +33,9 @@ class bebop_databases
 			return "option already exists";
 		}
 	}
-	function get_option($option, $value) {
+	function get_option($option) {
 		global $wpdb;
-		return $wpdb->get_results( "SELECT option_value FROM " . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = " );
+		return $wpdb->get_results( "SELECT option_value FROM " . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape($option) . "' LIMIT 1" );
 	}
 	function update_option($option, $value) {
 		global $wpdb;
@@ -52,4 +52,10 @@ $bebop_databases->log_error('123', 'test error', 'test error message');
 $bebop_databases->log_general('test log', 'test log message');
 
 $bebop_databases->add_option('test_option', 'test_option');
+$bebop_databases->add_option('test_option', 'test_option');
+$result = $bebop_databases->get_option('bebop_installed_version');
+echo "<script>
+		alert('" . $result->$option_value . "');
+		</script>";
+
 ?> 
