@@ -59,7 +59,7 @@ function bebop_activate() {
     	error_type varchar(20) NOT NULL,
     	error_message varchar(255) NOT NULL
     );";
-	$bebop_option_data = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_option_data ( 
+	$bebop_options = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_options ( 
     	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     	option_name varchar(30) NOT NULL PRIMARY KEY,
     	option_value varchar(30) NOT NULL
@@ -68,7 +68,7 @@ function bebop_activate() {
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta($bebop_general_log);
 	dbDelta($bebop_error_log);   
-	dbDelta($bebop_option_data);
+	dbDelta($bebop_options);
 	
 	//tests
 	
@@ -82,13 +82,13 @@ function bebop_activate() {
 	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_error_log", array( 'feed_id' => '12345', 'error_type' => 'test type', 'error_message' => 'test message') );
 	
 	//add an option
-	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_option_data", array( 'option_name' => 'bebop_installed_version', 'option_value' => $wpdb->escape(constant('BP_BEBOP_VERSION')) ) );
+	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_options", array( 'option_name' => 'bebop_installed_version', 'option_value' => $wpdb->escape(constant('BP_BEBOP_VERSION')) ) );
 	
 
 	//cleanup
 	unset($bebop_general_log);
     unset($bebop_error_log);
-    unset($bebop_option_data);
+    unset($bebop_options);
 }
 //remove the tables upon deactivation
 function bebop_deactivate() {
@@ -96,7 +96,7 @@ function bebop_deactivate() {
 	
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log");
-	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_option_data");
+	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_options");
 }
 //definitions
 
@@ -104,14 +104,11 @@ function bebop_deactivate() {
 define('BP_BEBOP_VERSION', '0.1');
 //define('BP_BEBOP_IS_INSTALLED', 1);
 
-//Hooks
 
 //hook into bp_init to start bebop. 
 add_action( 'bp_init', 'bebop_init', 4 );
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
-
 register_deactivation_hook( __FILE__, 'bebop_deactivate' );
-    
 ?>
