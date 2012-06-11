@@ -29,6 +29,7 @@ function bebop_init() {
 	
 	//include files from core.
 	include_once( 'core/bebop_core.php' );
+	include_once( 'core/bebop_databases.php' );
 }
 
 function bebop_init_settings() {
@@ -64,7 +65,7 @@ function bebop_activate() {
     	option_value varchar(30) NOT NULL
     );";       
 	//run queries
-	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 	dbDelta($bebop_general_log);
 	dbDelta($bebop_error_log);   
 	dbDelta($bebop_option_data);
