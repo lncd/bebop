@@ -28,7 +28,7 @@ function bebop_init() {
 	bebop_init_languages();
 	
 	//include files from core.
-	include_once( 'core/core.php' );
+	include_once( 'core/bebop_core.php' );
 }
 
 function bebop_init_settings() {
@@ -45,26 +45,35 @@ function bebop_activate() {
 	global $wpdb;
 	
 	//define table sql
-    $bebop_table_log = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_log ( 
+    $bebop_general_log = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log ( 
     	id int(10) NOT NULL auto_increment PRIMARY KEY,
-    	date timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     	type varchar(20) NOT NULL,
     	message varchar(255) NOT NULL
     );";
-	$bebop_table_data = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_data ( 
-    	date timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+	$bebop_error_log = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log ( 
+    	id int(10) NOT NULL auto_increment PRIMARY KEY,
+    	feed_id int(10) NOT NULL,
+    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+    	error_type varchar(20) NOT NULL,
+    	error_message varchar(255) NOT NULL
+    );";
+	$bebop_option_data = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_option_data ( 
+    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     	option_name varchar(30) NOT NULL PRIMARY KEY,
     	option_value varchar(30) NOT NULL
     );";       
 	//run queries
 	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	dbDelta($bebop_table_log);    
-	dbDelta($bebop_table_data);
+	dbDelta($bebop_general_log);
+	dbDelta($bebop_error_log);   
+	dbDelta($bebop_option_data);
 	
 	//tests
-	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_log", array( 'type' => 'test type', 'message' => 'test message' ) );
+	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_general_log", array( 'type' => 'test type', 'message' => 'test message') );
+	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_error_log", array( 'feed_id' => 'random_feed', 'error_type' => 'test type', 'error_message' => 'test message') );
 	//save the installed version.
-	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_data", array( 'option_name' => 'bebop_installed_version', 'option_value' => constant('BP_BEBOP_VERSION') ) );
+	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_option_data", array( 'option_name' => 'bebop_installed_version', 'option_value' => constant('BP_BEBOP_VERSION') ) );
 	
 	//cleanup
 	unset($bebop_table_log);
@@ -82,6 +91,8 @@ function bebop_deactivate() {
 //define('WP_DEBUG', true);
 define('BP_BEBOP_VERSION', '0.1');
 //define('BP_BEBOP_IS_INSTALLED', 1);
+
+//Hooks
 
 //hook into bp_init to start bebop. 
 add_action( 'bp_init', 'bebop_init', 4 );
