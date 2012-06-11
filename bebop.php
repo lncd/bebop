@@ -70,22 +70,24 @@ function bebop_activate() {
 	dbDelta($bebop_option_data);
 	
 	//tests
-	$example_type = "example type";
-	$exampe_message = "example message";
-	//type 1
-	$wpdb->query( $wpdb->prepare( "INSERT INTO '" . $wpdb->base_prefix . "bp_bebop_general_log' ('type', 'message') VALUES (%s, %s)", $wpdb->escape($example_type), $wpdb->escape($example_message) ) );
 	
-	//type 2
+	//type 1 - using variables
+	$example_type = "example type";
+	$example_message = "example message";	
+	$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_general_log (type, message) VALUES (%s, %s)", $wpdb->escape($example_type), $wpdb->escape($example_message) ) );
+
+	
+	//type 2 - plain
 	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_error_log", array( 'feed_id' => '12345', 'error_type' => 'test type', 'error_message' => 'test message') );
 	
 	//add an option
-	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_option_data", array( 'option_name' => 'bebop_installed_version', 'option_value' => constant('BP_BEBOP_VERSION') ) );
+	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_option_data", array( 'option_name' => 'bebop_installed_version', 'option_value' => $wpdb->escape(constant('BP_BEBOP_VERSION')) ) );
 	
-	
-	
+
 	//cleanup
-	unset($bebop_table_log);
-    unset($bebop_table_data);
+	unset($bebop_general_log);
+    unset($bebop_error_log);
+    unset($bebop_option_data);
 }
 //remove the tables upon deactivation
 function bebop_deactivate() {
