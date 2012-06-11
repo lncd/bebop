@@ -70,10 +70,18 @@ function bebop_activate() {
 	dbDelta($bebop_option_data);
 	
 	//tests
-	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_general_log", array( 'type' => 'test type', 'message' => 'test message') );
-	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_error_log", array( 'feed_id' => 'random_feed', 'error_type' => 'test type', 'error_message' => 'test message') );
-	//save the installed version.
+	$example_type = "example type";
+	$exampe_message = "example message";
+	//type 1
+	$wpdb->query( $wpdb->prepare( "INSERT INTO '" . $wpdb->base_prefix . "bp_bebop_general_log' ('type', 'message') VALUES (%s, %s)", $wpdb->escape($example_type), $wpdb->escape($example_message) ) );
+	
+	//type 2
+	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_error_log", array( 'feed_id' => '12345', 'error_type' => 'test type', 'error_message' => 'test message') );
+	
+	//add an option
 	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_option_data", array( 'option_name' => 'bebop_installed_version', 'option_value' => constant('BP_BEBOP_VERSION') ) );
+	
+	
 	
 	//cleanup
 	unset($bebop_table_log);
@@ -83,8 +91,9 @@ function bebop_activate() {
 function bebop_deactivate() {
 	global $wpdb;
 	
-	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_log");
-	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_data");
+	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log");
+	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log");
+	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_option_data");
 }
 //definitions
 
@@ -97,7 +106,7 @@ define('BP_BEBOP_VERSION', '0.1');
 //hook into bp_init to start bebop. 
 add_action( 'bp_init', 'bebop_init', 4 );
 
-//init tables when the plugin is activated.
+//hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
 
 register_deactivation_hook( __FILE__, 'bebop_deactivate' );
