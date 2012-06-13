@@ -46,19 +46,20 @@ function bebop_activate() {
 	global $wpdb;
 	
 	//define table sql
+	$bebop_error_log = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log ( 
+    	id int(10) NOT NULL auto_increment PRIMARY KEY,
+    	feed_id int(10) NULL,
+    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+    	error_type varchar(30) NOT NULL,
+    	error_message varchar(255) NOT NULL
+    );";
     $bebop_general_log = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log ( 
     	id int(10) NOT NULL auto_increment PRIMARY KEY,
     	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     	type varchar(20) NOT NULL,
     	message varchar(255) NOT NULL
     );";
-	$bebop_error_log = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log ( 
-    	id int(10) NOT NULL auto_increment PRIMARY KEY,
-    	feed_id int(10) NOT NULL,
-    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-    	error_type varchar(20) NOT NULL,
-    	error_message varchar(255) NOT NULL
-    );";
+	
 	$bebop_options = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_options ( 
     	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
     	option_name varchar(30) NOT NULL PRIMARY KEY,
@@ -72,7 +73,7 @@ function bebop_activate() {
 	
 	//tests
 	
-	//type 1 - using variables
+	/*type 1 - using variables
 	$example_type = "example type";
 	$example_message = "example message";	
 	$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_general_log (type, message) VALUES (%s, %s)", $wpdb->escape($example_type), $wpdb->escape($example_message) ) );
@@ -83,7 +84,7 @@ function bebop_activate() {
 	
 	//add an option
 	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_options", array( 'option_name' => 'bebop_installed_version', 'option_value' => $wpdb->escape(constant('BP_BEBOP_VERSION')) ) );
-	
+	*/
 
 	//cleanup
 	unset($bebop_general_log);
