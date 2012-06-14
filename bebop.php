@@ -29,6 +29,8 @@ function bebop_init() {
 	
 	//include files from core.
 	include_once( 'core/bebop_tables.php' );
+	include_once( 'core/bebop_filters.php' );
+	include_once( 'core/bebop_page_loader.php' );
 
 	//Main content file
 	include_once( 'core/bebop_core.php' );
