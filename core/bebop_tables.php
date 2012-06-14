@@ -12,6 +12,12 @@ class bebop_tables
 			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_error_log (feed_id, error_type, error_message) VALUES (NULL, %s, %s)", $wpdb->escape($feed_id), $wpdb->escape($error_type), $wpdb->escape($error_message) ) );
 		}
 	}
+	function fetch_error_log() { //function to retrieve errors from the error table
+		global $wpdb;
+		
+		$result = $wpdb->get_row( "SELECT * FROM " . $wpdb->base_prefix . "bp_bebop_error_log" );
+		return $result;
+	}
 	
 	function log_general( $type, $message ) { //function to log general events into the log table.
 		global $wpdb;
