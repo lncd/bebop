@@ -28,8 +28,10 @@ function bebop_init() {
 	bebop_init_languages();
 	
 	//include files from core.
+	include_once( 'core/bebop_tables.php' );
+
+	//Main content file
 	include_once( 'core/bebop_core.php' );
-	include_once( 'core/bebop_databases.php' );
 }
 
 function bebop_init_settings() {
@@ -70,21 +72,6 @@ function bebop_activate() {
 	dbDelta($bebop_general_log);
 	dbDelta($bebop_error_log);   
 	dbDelta($bebop_options);
-	
-	//tests
-	
-	/*type 1 - using variables
-	$example_type = "example type";
-	$example_message = "example message";	
-	$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_general_log (type, message) VALUES (%s, %s)", $wpdb->escape($example_type), $wpdb->escape($example_message) ) );
-
-	
-	//type 2 - plain
-	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_error_log", array( 'feed_id' => '12345', 'error_type' => 'test type', 'error_message' => 'test message') );
-	
-	//add an option
-	$wpdb->insert( $wpdb->base_prefix . "bp_bebop_options", array( 'option_name' => 'bebop_installed_version', 'option_value' => $wpdb->escape(constant('BP_BEBOP_VERSION')) ) );
-	*/
 
 	//cleanup
 	unset($bebop_general_log);
