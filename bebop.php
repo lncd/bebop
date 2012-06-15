@@ -72,7 +72,7 @@ function bebop_activate() {
 		dbDelta($bebop_error_log);
 		dbDelta($bebop_general_log);   
 		dbDelta($bebop_options);
-	
+		
 		//cleanup
 		unset($bebop_error_log);
 		unset($bebop_general_log);
