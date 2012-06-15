@@ -33,7 +33,6 @@ function bebop_init() {
 	//Main content file
 	include_once( './core/bebop_core.php' );
 }
-
 function bebop_init_settings() {
 	//not currently implemented
 }
