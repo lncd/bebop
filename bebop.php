@@ -8,7 +8,6 @@ Author: Dale Mckeown
 Author URI: http://phone.online.lincoln.ac.uk/dmckeown
 License: TBA
 */
-
 // This plugin is intended for use on BuddyPress only.
 // http://buddypress.org/
 
@@ -20,19 +19,20 @@ License: TBA
 //initialise Bebop
 function bebop_init() {
 	//init settings
-	bebop_init_settings();
+	//bebop_init_settings();
 
 	//load languages
-	bebop_init_languages();
+	//bebop_init_languages();
 
 	//include files from core.
-	include_once( './core/bebop_tables.php' );
-	include_once( './core/bebop_filters.php' );
-	include_once( './core/bebop_page_loader.php' );
+	include_once( 'core/bebop_tables.php' );
+	//include_once( 'core/bebop_filters.php' );
+	//include_once( 'core/bebop_page_loader.php' );
 
 	//Main content file
-	include_once( './core/bebop_core.php' );
+	//include_once( 'core/bebop_core.php' );
 }
+
 function bebop_init_settings() {
 	//not currently implemented
 }
@@ -49,7 +49,7 @@ function bebop_activate() {
 		//define table sql
 		$bebop_error_log = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log ( 
 	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
-	    	feed_id int(10) NULL,
+	    	feed_id int(10) NOT NULL,
 	    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 	    	error_type varchar(30) NOT NULL,
 	    	error_message varchar(255) NOT NULL
@@ -92,13 +92,11 @@ function bebop_deactivate() {
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_options");
 }
 
-//define('WP_DEBUG', true);
 define('BP_BEBOP_VERSION', '0.1');
-//define('BP_BEBOP_IS_INSTALLED', 1);
-
-add_action( 'bp_init', 'bebop_init', 4 );
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
 register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' )
+
+add_action( 'bp_init', 'bebop_init', 4 );
