@@ -26,12 +26,12 @@ function bebop_init() {
 	bebop_init_languages();
 
 	//include files from core.
-	//include_once( 'core/bebop_tables.php' );
-	//include_once( 'core/bebop_filters.php' );
-	//include_once( 'core/bebop_page_loader.php' );
+	include_once( './core/bebop_tables.php' );
+	include_once( './core/bebop_filters.php' );
+	include_once( './core/bebop_page_loader.php' );
 
 	//Main content file
-	include_once( 'core/bebop_core.php' );
+	include_once( './core/bebop_core.php' );
 }
 
 function bebop_init_settings() {
@@ -97,9 +97,9 @@ function bebop_deactivate() {
 define('BP_BEBOP_VERSION', '0.1');
 //define('BP_BEBOP_IS_INSTALLED', 1);
 
+add_action( 'bp_init', 'bebop_init', 4 );
+
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
 register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' )
-//hook into bp_init to start bebop. 
-add_action( 'bp_init', 'bebop_init', 4 );
