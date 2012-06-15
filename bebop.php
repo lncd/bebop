@@ -26,11 +26,11 @@ function bebop_init() {
 
 	//include files from core.
 	include_once( 'core/bebop_tables.php' );
-	//include_once( 'core/bebop_filters.php' );
-	//include_once( 'core/bebop_page_loader.php' );
+	include_once( 'core/bebop_filters.php' );
+	include_once( 'core/bebop_page_loader.php' );
 
 	//Main content file
-	//include_once( 'core/bebop_core.php' );
+	include_once( 'core/bebop_core.php' );
 }
 
 function bebop_init_settings() {
@@ -79,6 +79,7 @@ function bebop_activate() {
     }
 	else {
 		//BuddyPress is not installed, stop Bebop form activationg and kill the script with an error message.
+		bebop_tables::log_error(0, 'BuddyPress Error', 'BuddyPress is not active.');
 		deactivate_plugins(basename(__FILE__)); // Deactivate this plugin
 		wp_die("You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again.");
 	}
