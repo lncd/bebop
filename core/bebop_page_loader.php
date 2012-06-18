@@ -11,7 +11,7 @@ function bebop_admin_menu() {
     	__('Bebop', 'bebop'), 
     	'manage_options',
     	'bebop_admin', 
-    	'bebop_welcome',
+    	'bebop_admin_pages',
     	WP_PLUGIN_URL . "/bebop/core/resources/images/bebop_icon.png"
      );
      /*add_submenu_page( 'bebop_admin', 'Admin', 'Admin', 'manage_options', 'bebop_admin', 'bebop_welcome' );
@@ -19,8 +19,7 @@ function bebop_admin_menu() {
 	 add_submenu_page( 'bebop_admin', 'random_function', 'random_function', 'random_function', 'random_function', 'random_function' ); */
 }
 
-function bebop_welcome() {
-	echo "Helloz?";
+function bebop_admin_pages() {
 	/*
 	else if ($_GET["settings"] == "cronjob") {
 		include WP_PLUGIN_DIR . "/buddystream/extentions/default/templates/Cronjob.php";
@@ -45,7 +44,8 @@ function bebop_welcome() {
 		include WP_PLUGIN_DIR . "/bebop/core/templates/logs.php";
 	}
 	else {
-		echo "no action found";
+		echo 'action not found. Loaded home instead.';
+		include WP_PLUGIN_DIR . "/bebop/core/templates/admin_home.php";
 	}
 }
 function random_function() {
@@ -54,6 +54,4 @@ function random_function() {
 
 add_action('admin_menu', 'bebop_admin_menu');
 add_action('network_admin_menu', 'bebop_admin_menu');
-
-
 ?> 
