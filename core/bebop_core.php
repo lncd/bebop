@@ -2,7 +2,7 @@
 /* Test classes and functions */
 
 //Tests
-bebop_tables::log_error(123, 'test error', 'test error message');
+/*bebop_tables::log_error(123, 'test error', 'test error message');
 bebop_tables::log_general('test log', 'test log message');
 
 bebop_tables::add_option('test_option', 'test_option');
@@ -19,5 +19,5 @@ bebop_tables::log_error(123, 'test error', 'test error message');
 bebop_tables::log_error(123, 'test error', 'test error message');
 bebop_tables::log_error(123, 'test error', 'test error message');
 bebop_tables::log_error(123, 'test error', 'test error message');
-
+*/
 ?> 
