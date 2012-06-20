@@ -1,14 +1,12 @@
 /* Bebop admin style sheet */
 #bebop_admin_container {
-	min-height:80%;
+	min-height:400px;
 	width:100%;
 }
-
 #bebop_admin_container a {
 	text-decoration:none;
 	color:#FFFFFF;
 }
-
 #bebop_admin_container a:hover {
 	color:#FFF68F;
 }
@@ -24,9 +22,7 @@
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
-.bebop_logo {
-	float:left;
-}
+
 .bebop_admin_box {
     padding:10px;
     border:1px solid #dddddd;
@@ -44,22 +40,27 @@
     background-image:-webkit-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
     background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.30, #efefef), color-stop(0.70, #dddddd));
     background-image:-ms-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    
 }
+.bebop_logo {
+	float:left;
+}
+
 .postbox-container {
 	width:49.5%;
 }
-
 .postbox {
 	margin:22px 11px 0px 11px;
 	 border-radius:7px;
     -moz-border-radius:7px;
     -webkit-border-radius:7px;
     background:#eeeeee;
+    padding:0px 2px 8px 2px;
+    text-align: justify;
 }
 .postbox h3 {
 	padding:10px;
 	font: 16pt "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	margin:0px;
     font-weight:normal;
     background-image:linear-gradient(bottom, #efefef 30%, #dddddd 70%);
     background-image:-o-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
@@ -68,9 +69,10 @@
     background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.30, #efefef), color-stop(0.70, #dddddd));
     background-image:-ms-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
 }
-.metabox-holder {
-	margin-top:-10px;
+.postbox a {
+	text-decoration:none;
 }
+
 .bebop_admin_menu {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
     margin-top:22pt;
@@ -79,7 +81,6 @@
     border-bottom:5px solid #eeeeee;
     text-align:center;
 }
-
 .bebop_admin_menu a {
     padding:10px;
     margin-right:4px;
@@ -104,7 +105,6 @@
     border-top:1px solid #dfdfdf;
     cursor: pointer;
 }
-
 .bebop_admin_menu a:hover {
     background-color:#000000;
     color:#000000;
@@ -115,8 +115,7 @@
     background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #FBEC5D), color-stop(0.5, #FFFACD));
     background-image:-ms-linear-gradient(bottom, #efefef 30%, #dddddd 70%); 
 }
-
-.bebop_admin_menu .activetab {
+.bebop_admin_menu .activetab,.bebop_admin_menu .activetab:hover {
     background-color:#444444;
     line-height:35px;
     color:#ffffff;
@@ -128,24 +127,6 @@
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, #000000), color-stop(0.5, #444444));
 }
 
-
-.bebop_admin_menu .tab_description {
-    background-image:url('../images/bebop_logo.png');
-    background-repeat:no-repeat;
-    background-position:10px 15px;
-    margin-left:20px;
-    font-size:9pt;
-    font-weight:bold;
-}
-
-.inside {
-    line-height:160%;
-}
-
-.inside a {
-    text-decoration:none;
-}
-
 .bebop_table {
     background-color:#ffffff;
     width:99%;
@@ -154,29 +135,23 @@
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
-
 .bebop_table td {
     padding:8px;
 }
-
 .bebop_table td:last {
     padding:5px;
     border:1px solid red;
 }
-
 .bebop_table a {
     text-decoration:none;
     color:#000000;
 }
-
 .bebop_table td div {
     float:left;
 }
-
 .bebop_table h2 {
     font-size:13px;
 }
-
 .bebop_table .header {
     background-color:#666666;
     color:#ffffff;
@@ -187,7 +162,6 @@
     background-image: -moz-linear-gradient(center bottom, rgb(102,102,102) 25%, rgb(143,143,143) 63%);
     text-shadow: 0px 1px 0px #000000;
 }
-
 .bebop_table .odd {
     background-color:#e9e9e9;
 }
