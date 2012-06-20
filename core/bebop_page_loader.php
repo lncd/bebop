@@ -14,7 +14,7 @@ function bebop_admin_menu() {
     	'bebop_admin_pages',
     	WP_PLUGIN_URL . "/bebop/core/resources/images/bebop_icon.png"
      );
-     add_submenu_page( 'bebop_admin', 'Admin', 'Admin', 'manage_options', 'bebop_admin', 'bebop_admin_pages' );
+     add_submenu_page( 'bebop_admin', 'Admin Main', 'Admin Main', 'manage_options', 'bebop_admin', 'bebop_admin_pages' );
      add_submenu_page( 'bebop_admin', 'General Settings', 'General Settings', '2', 'bebop_settings', 'bebop_admin_pages' );
 	 add_submenu_page( 'bebop_admin', 'OER Providers', 'OER Providers', '3', 'bebop_oer_providers', 'bebop_admin_pages' );
 	 add_submenu_page( 'bebop_admin', 'Cron', 'Cron', '4', 'bebop_cron', 'bebop_admin_pages' );
