@@ -79,5 +79,9 @@ class bebop_tables
 			return false;
 		}
 	}
+	
+	function sanitise_element($data) {
+		return stripslashes(strip_tags($data));
+	}
 }
 ?> 

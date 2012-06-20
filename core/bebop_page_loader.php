@@ -26,7 +26,7 @@ function bebop_admin_pages() {
 	if ( $_GET["page"] == "bebop_admin" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_admin.php";
 	}
-	else if ( $_GET["page"] == "bebop_settings" ){
+	/*else if ( $_GET["page"] == "bebop_settings" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_settings.php";
 	}
 	else if ( $_GET["page"] == "bebop_oer_providers" ){
@@ -34,7 +34,7 @@ function bebop_admin_pages() {
 	}
 	else if ( $_GET["page"] == "bebop_cron" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_cron.php";
-	}
+	}*/
 	else if ( $_GET["page"] == "bebop_error_log" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_error_log.php";
 	}
