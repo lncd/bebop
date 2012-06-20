@@ -2,6 +2,7 @@
 #bebop_admin_container {
 	min-height:400px;
 	width:100%;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 }
 #bebop_admin_container a {
 	text-decoration:none;
@@ -12,21 +13,29 @@
 }
 
 .bebop_error_box {
-    padding:10px;
-    border:1px solid #FF0000;
-    background-color:#EE5C42;
+    padding:15px;
+    border:1px solid #EE5C42;
+    background-color:#FF6A6A;
     color:#000000;
     font-size:13px;
-    margin:0 20px;
+    width:50%;
+    margin:22px auto;
     border-radius:5px;
     -moz-border-radius:5px;
     -webkit-border-radius:5px;
 }
-
+.bebop_admin_box, .postbox h3, .bebop_admin_menu a {
+	background-image:linear-gradient(bottom, #eeeeee 30%, #e5e5e5 70%);
+    background-image:-o-linear-gradient(bottom, #eeeeee 30%, #e5e5e5 70%);
+    background-image:-moz-linear-gradient(bottom, #eeeeee 30%, #e5e5e5 70%);
+    background-image:-webkit-linear-gradient(bottom, #eeeeee 30%, #e5e5e5 70%);
+    background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.30, #eeeeee), color-stop(0.70, #e5e5e5));
+    background-image:-ms-linear-gradient(bottom, #eeeeee 30%, #e5e5e5 70%);
+}
 .bebop_admin_box {
     padding:10px;
     border:1px solid #dddddd;
-    font: 16px "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+    font-size:16px;
     font-weight:normal;
     line-height:45px;
     margin:0 23px 0 0;
@@ -34,12 +43,6 @@
     border-radius:7px;
     -moz-border-radius:7px;
     -webkit-border-radius:7px;
-    background-image:linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-o-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-moz-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-webkit-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.30, #efefef), color-stop(0.70, #dddddd));
-    background-image:-ms-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
 }
 .bebop_logo {
 	float:left;
@@ -54,20 +57,17 @@
     -moz-border-radius:7px;
     -webkit-border-radius:7px;
     background:#eeeeee;
-    padding:0px 2px 8px 2px;
+    padding:0px;
     text-align: justify;
 }
 .postbox h3 {
 	padding:10px;
-	font: 16pt "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	font-size: 16pt;
 	margin:0px;
     font-weight:normal;
-    background-image:linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-o-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-moz-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-webkit-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.30, #efefef), color-stop(0.70, #dddddd));
-    background-image:-ms-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
+}
+.postbox.inside {
+	padding:0px 2px 8px 2px;
 }
 .postbox a {
 	text-decoration:none;
@@ -94,12 +94,6 @@
     -moz-border-radius-topright:5px;
     -webkit-border-top-left-radius:5px;
     -webkit-border-top-right-radius:5px;
-    background-image:linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-o-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-moz-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-webkit-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
-    background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.3, #efefef), color-stop(0.7, #dddddd));
-    background-image:-ms-linear-gradient(bottom, #efefef 30%, #dddddd 70%);
     border-left:1px solid #dfdfdf;
     border-right:1px solid #dfdfdf;
     border-top:1px solid #dfdfdf;
@@ -108,12 +102,12 @@
 .bebop_admin_menu a:hover {
     background-color:#000000;
     color:#000000;
-    background-image:linear-gradient(bottom, #efefef 50%, #dddddd 50%);
-    background-image:-o-linear-gradient(bottom, #efefef 50%, #dddddd 50%);
-    background-image:-moz-linear-gradient(bottom, #efefef 50%, #dddddd 50%);
-    background-image:-webkit-linear-gradient(bottom, #efefef 50%, #dddddd 50%);
+    background-image:linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-o-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-moz-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-webkit-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
     background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #FBEC5D), color-stop(0.5, #FFFACD));
-    background-image:-ms-linear-gradient(bottom, #efefef 30%, #dddddd 70%); 
+    background-image:-ms-linear-gradient(bottom, #FBEC5D 30%, #FFFACD 70%); 
 }
 .bebop_admin_menu .activetab,.bebop_admin_menu .activetab:hover {
     background-color:#444444;

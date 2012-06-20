@@ -2,7 +2,7 @@
 
 <?php include_once( 'admin_menu.php' ); ?>
 <div id='bebop_admin_container'>
-	
+
 	<div class="bebop_admin_box">
 	    <img class="bebop_logo" src="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_logo.png';?>"><br>
 	    Welcome to the OER plugin for BuddyPress. Developed by <a href='http://www.lncd.lincoln.ac.uk'>LNCD @ the University of Lincoln</a>.

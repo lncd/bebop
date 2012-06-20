@@ -14,44 +14,38 @@ function bebop_admin_menu() {
     	'bebop_admin_pages',
     	WP_PLUGIN_URL . "/bebop/core/resources/images/bebop_icon.png"
      );
-     /*add_submenu_page( 'bebop_admin', 'Admin', 'Admin', 'manage_options', 'bebop_admin', 'bebop_welcome' );
-     add_submenu_page( 'bebop_admin', 'Error Log', 'Error Log', 'manage_options', 'bebop_admin', 'bebop_welcome' );
-	 add_submenu_page( 'bebop_admin', 'random_function', 'random_function', 'random_function', 'random_function', 'random_function' ); */
+     add_submenu_page( 'bebop_admin', 'Admin', 'Admin', 'manage_options', 'bebop_admin', 'bebop_admin_pages' );
+     add_submenu_page( 'bebop_admin', 'General Settings', 'General Settings', '2', 'bebop_settings', 'bebop_admin_pages' );
+	 add_submenu_page( 'bebop_admin', 'OER Providers', 'OER Providers', '3', 'bebop_oer_providers', 'bebop_admin_pages' );
+	 add_submenu_page( 'bebop_admin', 'Cron', 'Cron', '4', 'bebop_cron', 'bebop_admin_pages' );
+	 add_submenu_page( 'bebop_admin', 'Error Log', 'Error Log', '5', 'bebop_error_log', 'bebop_admin_pages' );
+	 add_submenu_page( 'bebop_admin', 'General Log', 'General Log', '6', 'bebop_general_log', 'bebop_admin_pages' );
 }
 
 function bebop_admin_pages() {
-	/*
-	else if ($_GET["settings"] == "cronjob") {
-		include WP_PLUGIN_DIR . "/buddystream/extentions/default/templates/Cronjob.php";
+	if ( $_GET["page"] == "bebop_admin" ){
+		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_admin.php";
 	}
-	else if ($_GET["settings"] == "powercentral") {
-		include WP_PLUGIN_DIR . "/buddystream/extentions/default/templates/Powercentral.php";
+	else if ( $_GET["page"] == "bebop_settings" ){
+		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_settings.php";
 	}
-	else if ($_GET["settings"] == "general") {
-		include WP_PLUGIN_DIR . "/buddystream/extentions/default/templates/General.php";
+	else if ( $_GET["page"] == "bebop_oer_providers" ){
+		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_oer_providers.php";
 	}
-	else if ($_GET["settings"] == "log") {
-		include WP_PLUGIN_DIR . "/buddystream/extentions/default/templates/Log.php";
+	else if ( $_GET["page"] == "bebop_cron" ){
+		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_cron.php";
 	}
-	else if ($_GET["settings"] == "version2") {
-		include WP_PLUGIN_DIR . "/buddystream/extentions/default/templates/Version2.php";
+	else if ( $_GET["page"] == "bebop_error_log" ){
+		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_error_log.php";
 	}
-	*/
-	if ( ( ! isset($_GET["settings"]) )  && (  ! isset($_GET["view"]) ) ){
-		include WP_PLUGIN_DIR . "/bebop/core/templates/admin_home.php";
-	}
-	else if ( ( $_GET["view"] == "error_log" ) || ( $_GET["view"] == "general_log" ) ) {
-		include WP_PLUGIN_DIR . "/bebop/core/templates/logs.php";
+	else if ( $_GET["page"] == "bebop_general_log" ){
+		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_general_log.php";
 	}
 	else {
-		echo 'action not found. Loaded home instead.';
-		include WP_PLUGIN_DIR . "/bebop/core/templates/admin_home.php";
+		echo '<div class="bebop_error_box"><b>Bebop Error:</b> action not found. Loaded home instead.</div>';
+		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_admin.php";
 	}
-}
-function random_function() {
-	echo "random function....";
-}
-
+}  
 add_action('admin_menu', 'bebop_admin_menu');
 add_action('network_admin_menu', 'bebop_admin_menu');
 ?> 
