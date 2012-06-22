@@ -28,11 +28,11 @@ function bebop_admin_pages() {
 	}
 	/*else if ( $_GET["page"] == "bebop_settings" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_settings.php";
-	}
+	}*/
 	else if ( $_GET["page"] == "bebop_oer_providers" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_oer_providers.php";
 	}
-	else if ( $_GET["page"] == "bebop_cron" ){
+	/*else if ( $_GET["page"] == "bebop_cron" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_cron.php";
 	}*/
 	else if ( $_GET["page"] == "bebop_error_log" ){

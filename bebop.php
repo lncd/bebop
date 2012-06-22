@@ -10,6 +10,7 @@ Version: 0.1
 Author: Dale Mckeown
 Author URI: http://phone.online.lincoln.ac.uk/dmckeown
 License: TBA
+Credits: BuddySteam - buddystrem.net
 */
 // This plugin is intended for use on BuddyPress only.
 // http://buddypress.org/
