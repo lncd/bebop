@@ -6,7 +6,8 @@
 
 	<div class="bebop_admin_box">
 	    <img class="bebop_logo" src="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_logo.png';?>"><br>
-	    Welcome to the OER plugin for BuddyPress. Developed by <a href='http://www.lncd.lincoln.ac.uk'>LNCD @ the University of Lincoln</a>.
+	    <p>Welcome to the OER plugin for BuddyPress. Developed by <a href='http://www.lncd.lincoln.ac.uk'>LNCD @ the University of Lincoln</a>.</p>
+	    <p>Bebop was designed for academic institutions who want to bring Open Educational Resources from content providers and place them onto staff BuddyPress Profiles. This plugin aids the discovery of OER's  in the BuddyPress environment.</p>
 	    <div class="clear"></div>
 	</div>
 	
