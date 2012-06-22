@@ -41,10 +41,12 @@ class bebop_tables
 	
 	function get_option( $option_name ) { //function to get an option from the options table.
 		global $wpdb;
-		$result = $wpdb->get_var( "SELECT option_value FROM " . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape($option_name) . "' LIMIT 1" );
-		if( ! empty($result) ) {
-			return $result;
-			
+		$result = $wpdb->get_row( "SELECT option_value, option_name FROM " . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape($option_name) . "' LIMIT 1" );
+		if( ! empty($result->option_value) ) {
+			return $result->option_value;
+		}
+		else if ( ! empty($result->option_name) ) {
+			return $result->option_name;
 		}
 		else {
 			return false;
@@ -64,11 +66,12 @@ class bebop_tables
 			}
 		}
 		else {
-			return false;
+			bebop_tables::add_option( $option_name, $option_value );
+			bebop_tables::update_option( $option_name, $option_value );
 		}
 	}
 	
-	function remove_option( $option_name) { //function to remove an option from the options table.
+	function remove_option( $option_name ) { //function to remove an option from the options table.
 		global $wpdb;
 		
 		if( bebop_tables::get_option($option_name) != false ) {
