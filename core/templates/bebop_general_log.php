@@ -3,6 +3,13 @@
 
 <?php include_once( 'bebop_admin_menu.php' ); ?>
 <div id='bebop_admin_container'>
+	<div class="postbox width_98 margin-bottom_22px">
+    	<h3>Bebop Log</h3>
+    	<div class="inside">
+        	When stuff happens, it is logged here. 
+        </div>
+    </div>
+	<div class="clear"></div>
 
 	<table class='bebop_table'>
 		<tr class='nodata'>

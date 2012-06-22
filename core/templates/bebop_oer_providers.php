@@ -6,7 +6,7 @@
 	
 	<form id="settings_form" action="" method="post">
 	
-	<?php
+		<?php
 	    global $bp;
 	    if($_POST['submit']){
 	        
@@ -23,7 +23,7 @@
 	        
 	        echo '<div>Settings Saved</div>'; 
 	    }
-	?>  
+		?>
 	    
 	    <div class="metabox-holder">    
 	    <?php
@@ -52,8 +52,9 @@
 				    echo '<div class="postbox" style="float:left; width:200px; margin-right:20px;">
                         <div><h3 style="cursor:default; font-family:arial; font-size:13px; font-weight:bold;"><span class="admin_icon '.$extension['name'].'"></span> ' . $extension['displayname'] . '</h3>
                             <div class="inside" style="padding:10px;">
-                                <input id="bebop_'.$extension['name'] . '_provider" type="checkbox" name="bebop_'.$extension['name'] . '_provider"'; if( bebop_tables::get_option('bebop_' . $extension['name'] . '_provider') == 'on' ) { echo 'CHECKED'; } echo ' >
-                            </div>
+                                <span>enabled: </span><input id="bebop_'.$extension['name'] . '_provider" type="checkbox" name="bebop_'.$extension['name'] . '_provider"'; if( bebop_tables::get_option('bebop_' . $extension['name'] . '_provider') == 'on' ) { echo 'CHECKED'; } echo ' >';
+                          echo '<br><a href="'. plugins_url() . '/bebop/extensions/' . $extension['name'] . '/templates/admin_settings.php">Admin Settings</a>
+                          	</div>
                         </div>
                     </div>';
 	            }

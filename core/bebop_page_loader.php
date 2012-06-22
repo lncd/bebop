@@ -14,12 +14,12 @@ function bebop_admin_menu() {
     	'bebop_admin_pages',
     	WP_PLUGIN_URL . "/bebop/core/resources/images/bebop_icon.png"
      );
-     add_submenu_page( 'bebop_admin', 'Admin Main', 'Admin Main', 'manage_options', 'bebop_admin', 'bebop_admin_pages' );
-     add_submenu_page( 'bebop_admin', 'General Settings', 'General Settings', '2', 'bebop_settings', 'bebop_admin_pages' );
-	 add_submenu_page( 'bebop_admin', 'OER Providers', 'OER Providers', '3', 'bebop_oer_providers', 'bebop_admin_pages' );
-	 add_submenu_page( 'bebop_admin', 'Cron', 'Cron', '4', 'bebop_cron', 'bebop_admin_pages' );
-	 add_submenu_page( 'bebop_admin', 'Error Log', 'Error Log', '5', 'bebop_error_log', 'bebop_admin_pages' );
-	 add_submenu_page( 'bebop_admin', 'General Log', 'General Log', '6', 'bebop_general_log', 'bebop_admin_pages' );
+     add_submenu_page( 'bebop_admin', 'Admin Main', 'Admin Main', 'edit_pages', 'bebop_admin', 'bebop_admin_pages' );
+     add_submenu_page( 'bebop_admin', 'General Settings', 'General Settings', 'edit_pages', 'bebop_settings', 'bebop_admin_pages' );
+	 add_submenu_page( 'bebop_admin', 'OER Providers', 'OER Providers', 'edit_pages', 'bebop_oer_providers', 'bebop_admin_pages' );
+	 add_submenu_page( 'bebop_admin', 'Cron', 'Cron', 'edit_pages', 'bebop_cron', 'bebop_admin_pages' );
+	 add_submenu_page( 'bebop_admin', 'Error Log', 'Error Log', 'edit_pages', 'bebop_error_log', 'bebop_admin_pages' );
+	 add_submenu_page( 'bebop_admin', 'General Log', 'General Log', 'edit_pages', 'bebop_general_log', 'bebop_admin_pages' );
 }
 
 function bebop_admin_pages() {
