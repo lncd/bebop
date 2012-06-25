@@ -7,7 +7,7 @@ function BuddystreamTwitterImportStart(){
 
     if( ! get_site_option('tweetstream_user_settings_syncbp')){
         //add record to the log
-        BuddyStreamLog::log("Twitter import disabled.");
+        bebop_tables::log_error(1, 'Twitter', 'Import disabled');
         return false;
     }
 
