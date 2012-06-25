@@ -83,7 +83,8 @@ function bebop_activate() {
 		unset($bebop_options);
     }
 	else {
-		//BuddyPress is not installed, stop Bebop form activationg and kill the script with an error message.
+		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
+		include_once( 'core/bebop_tables.php' );
 		bebop_tables::log_error(0, 'BuddyPress Error', 'BuddyPress is not active.');
 		deactivate_plugins(basename(__FILE__)); // Deactivate this plugin
 		wp_die("You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again.");
@@ -100,9 +101,12 @@ function bebop_deactivate() {
 
 define('BP_BEBOP_VERSION', '0.1');
 
+
+
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
 register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' )
 
 add_action( 'bp_init', 'bebop_init', 4 );
+
