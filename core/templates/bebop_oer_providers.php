@@ -53,7 +53,7 @@
                         <div><h3 style="cursor:default; font-family:arial; font-size:13px; font-weight:bold;"><span class="admin_icon '.$extension['name'].'"></span> ' . $extension['displayname'] . '</h3>
                             <div class="inside" style="padding:10px;">
                                 <span>enabled: </span><input id="bebop_'.$extension['name'] . '_provider" type="checkbox" name="bebop_'.$extension['name'] . '_provider"'; if( bebop_tables::get_option('bebop_' . $extension['name'] . '_provider') == 'on' ) { echo 'CHECKED'; } echo ' >';
-                          echo '<br><a href="'. plugins_url() . '/bebop/extensions/' . $extension['name'] . '/templates/admin_settings.php">Admin Settings</a>
+                          echo '<br><a href="?page=bebop_' . $extension['name'] . '">Admin Settings</a>
                           	</div>
                         </div>
                     </div>';

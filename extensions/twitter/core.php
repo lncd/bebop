@@ -20,11 +20,8 @@ function bebop_twitter_post_update($content = "", $shortLink = "", $user_id = 0)
     $buddystreamOAuth->setAccessTokenSecret(get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret', 1));
     $buddystreamOAuth->setRequestType('POST');
     $buddystreamOAuth->setParameters(array('status' => BuddyStreamFilters::filterPostContent($content, $shortLink, 140)));
-    $buddystreamOAuth->oAuthRequest('https://api.twitter.com/1/statuses/update.json');
-    
+    $buddystreamOAuth->oAuthRequest('https://api.twitter.com/1/statuses/update.json');  
 }
 
 
-function bebop_twitter(){
-    bebop_extensions::page_loader('twitter');
-}
+bebop_extensions::page_loader('twitter');
