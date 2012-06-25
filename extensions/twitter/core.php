@@ -23,5 +23,7 @@ function bebop_twitter_post_update($content = "", $shortLink = "", $user_id = 0)
     $buddystreamOAuth->oAuthRequest('https://api.twitter.com/1/statuses/update.json');  
 }
 
-
-bebop_extensions::page_loader('twitter');
+//called from  menu item creation on bebop_page_loader.php
+function bebop_twitter() {
+    bebop_extensions::page_loader('twitter');
+}
