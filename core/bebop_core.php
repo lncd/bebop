@@ -20,4 +20,6 @@ bebop_tables::log_error(123, 'test error', 'test error message');
 bebop_tables::log_error(123, 'test error', 'test error message');
 bebop_tables::log_error(123, 'test error', 'test error message');
 */
+
+bebop_extensions::load_extensions();
 ?> 

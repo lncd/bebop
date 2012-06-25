@@ -63,6 +63,6 @@ function bebop_admin_pages() {
 		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_admin.php";
 	}
 }  
-add_action('admin_menu', 'bebop_admin_menu');
+//add_action('admin_menu', 'bebop_admin_menu');
 add_action('network_admin_menu', 'bebop_admin_menu');
 ?> 
