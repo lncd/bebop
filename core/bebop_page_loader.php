@@ -31,7 +31,6 @@ function bebop_admin_menu() {
     }
 }
 
-
 function bebop_admin_pages() {
 	if ( $_GET["page"] == "bebop_admin" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_admin.php";
@@ -58,5 +57,4 @@ function bebop_admin_pages() {
 }  
 add_action('admin_menu', 'bebop_admin_menu');
 add_action('network_admin_menu', 'bebop_admin_menu');
-/**/
 ?> 
