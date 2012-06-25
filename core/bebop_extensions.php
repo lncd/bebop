@@ -17,6 +17,7 @@ class bebop_extensions {
     }
 	
 	function page_loader($extensions) {
+		
         $config = parse_ini_file( WP_PLUGIN_DIR."/bebop/extensions/".$extensions."/config.ini" );
         if( ! isset($_GET["settings"])){ 
             $page = strtolower($config['defaultpage']);
@@ -28,7 +29,7 @@ class bebop_extensions {
         if( $_GET['child'] ) {
             $extensions = $_GET['child'];
 		}
-        include WP_PLUGIN_DIR."/bebop/extensions/".$extensions."/templates/admin_ ".$page.".php";
+        include WP_PLUGIN_DIR."/bebop/extensions/".$extensions."/templates/admin_".$page.".php";
     }
 	
 	function get_extension_configs() {
@@ -49,6 +50,7 @@ class bebop_extensions {
     }
 	
 	function extension_exist($extensions) {
+		
         if ( file_exists( WP_PLUGIN_DIR."/bebop/extensions/" . strtolower($extensions) . "/core.php" ) ) {
             return true;
         }
