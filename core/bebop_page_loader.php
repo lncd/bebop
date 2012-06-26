@@ -1,6 +1,60 @@
 <?php
 //File used to load pages
 
+/**
+ * User settings
+ */
+if( isset($_get['action'])) {
+	if($_GET['action'] == "logout") {
+	}
+	else {
+		bebop_setup_user_nav();
+	}
+}
+else {
+	bebop_setup_user_nav();
+}
+
+function bebop_setup_user_nav()
+{
+	global $bp;
+	var_dump($bp->loggedin_user->domain);
+	
+	bp_core_new_subnav_item(
+        array(
+            'name' => 'OER',
+            'slug' => 'bebop-oers',
+            'parent_url' => $bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/',
+            'parent_slug' => BP_SETTINGS_SLUG,
+            'screen_function' => 'bebop_default_user_settings',
+            'position' => 10,
+            'user_has_access' => bp_is_my_profile ()
+		)
+    );
+}
+
+
+function bebop_default_user_settings() {
+	echo "here";
+	bebop_extensions::user_page_loader('default','settings');
+}
+
+
+function bebop_default_settings_screen_title() {
+    echo 'no sure what this is (page_loader);';
+}
+
+function bebop_default_settings_screen_content() {
+    global $bp;
+    include WP_PLUGIN_DIR . "/bebop/core/templates/user/bebop_user_settings.php";
+}
+
+
+/*
+ * Admin pages
+ * 
+ * */
+
 function bebop_admin_menu() {
 
     if ( ! is_super_admin() ) {
@@ -57,41 +111,3 @@ function bebop_admin_pages() {
 }  
 //add_action('admin_menu', 'bebop_admin_menu');
 add_action('network_admin_menu', 'bebop_admin_menu');
-
-/**
- * User settings
- */
-
-function bebop_setup_user_nav() {
-	global $bp;
-
-		bp_core_new_subnav_item(
-            array(
-                'name' => 'OER Providers',
-                'slug' => 'bebop-oers',
-                'parent_url' => $bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/',
-                'parent_slug' => BP_SETTINGS_SLUG,
-                'screen_function' => 'bebop_default_user_settings',
-                'position' => 10,
-                'user_has_access' => bp_is_my_profile ()
-                )
-        );
-   
-}
-bebop_setup_user_nav();
-
-function bebop_default_user_settings()
-{
-   bebop_extensions::user_page_loader('default','settings');
-}
-
-function bebop_default_settings_screen_title()
-{
-    echo 'no sure what this is (page_loader);';
-}
-
-function bebop_default_settings_screen_content()
-{
-    global $bp;
-    include WP_PLUGIN_DIR . "/bebop/core/templates/user/bebop_user_settings.php";
-}

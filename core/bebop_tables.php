@@ -154,5 +154,4 @@ class bebop_tables
 	function sanitise_element($data) {
 		return $wpdb->escape(stripslashes(strip_tags($data)));
 	}
-}
-?> 
+} 

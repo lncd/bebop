@@ -19,7 +19,7 @@ Credits: BuddySteam - buddystrem.net
 ** This program is distributed WITHOUT ANY WARRANTY; without even the       **
 ** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. **
 *****************************************************************************/
-
+	
 //initialise Bebop
 function bebop_init() {
 	//init settings
@@ -117,4 +117,4 @@ register_activation_hook( __FILE__, 'bebop_activate' );
 register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' )
 
-add_action( 'bp_init', 'bebop_init', 4 );
+add_action( 'bp_init', 'bebop_init', 10 );

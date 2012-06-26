@@ -3,4 +3,3 @@
 class bebop_filters
 {
 }
-?> 

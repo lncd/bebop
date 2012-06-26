@@ -35,6 +35,7 @@ class bebop_extensions {
 	function user_page_loader($extension, $page = 'settings'){
 
         global $bp;
+		var_dump ("in user_page_loader");
 
         if ($bp->displayed_user->id != $bp->loggedin_user->id && $page != "album") {
                 header('location:' . get_site_url());
