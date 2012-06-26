@@ -3,7 +3,7 @@
  * Add javascript and stylesheet file for Youtube
  */
 
-wp_enqueue_style('buddystreamyoutube', plugins_url() . '/buddystream/extentions/youtube/style.css');
+//wp_enqueue_style('buddystreamyoutube', plugins_url() . '/buddystream/extentions/youtube/style.css');
 
 
 
@@ -11,8 +11,8 @@ wp_enqueue_style('buddystreamyoutube', plugins_url() . '/buddystream/extentions/
  * Replace all embed urls into new embed urls (old content)
  */
 
-add_filter( 'bp_get_activity_content','BuddystreamYoutubeEmbed', 8);
-add_filter( 'bp_get_activity_content_body','BuddystreamYoutubeEmbed', 8);
+add_filter( 'bp_get_activity_content','BebopYoutubeEmbed', 8);
+add_filter( 'bp_get_activity_content_body','BebopYoutubeEmbed', 8);
 function BebopYoutubeEmbed($text) {
     
     $return = "";

@@ -3,7 +3,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="<?php echo plugins_url();?>/buddystream/extentions/default/jquery.slickswitch.js" type="text/javascript"></script>
 
-<?php //echo BuddyStreamExtentions::tabLoader('youtube'); ?>
+
 
 <?php
  $arraySwitches = array(
