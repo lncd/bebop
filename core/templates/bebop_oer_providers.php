@@ -8,12 +8,13 @@
 	
 		<?php
 	    global $bp;
-	    if($_POST['submit']){
+	    if( isset($_POST['submit']) ){
 	        
 	        //reset the importer queue
 	        bebop_tables::update_option("bebop_importers_queue", "");
 	        
 	        //set the new importer queue
+	        $importerQueue = array();
 	        foreach ( bebop_extensions::get_extension_configs() as $extension ) {
 	            if( is_array($extension) && isset($_POST['bebop_' . $extension['name'] . '_provider']) && $_POST['bebop_' . $extension['name'] . '_provider'] == "on" ){
 	                $importerQueue[] = $extension['name'];
@@ -31,13 +32,13 @@
 	    //loop throught extensions directory and get all extensions
 	    foreach ( bebop_extensions::get_extension_configs() as $extension ) {
 	
-	        if(is_array($extension)) {
+	        if( is_array($extension) ) {
 	
 	            //does it need a parent if so does parent exists
 	            $loadExtension = true;
 	
-	            if( $extension['parent'] ) {
-	                if( ! bebop_extensions::extension_exist($extension['parent'])) {
+	            if( isset($extension['parent']) ) {
+	                if( ! bebop_extensions::extension_exist($extension['parent']) ) {
 	                    $loadExtension = false;
 	                }
 	            }
@@ -46,15 +47,18 @@
 	                //define vars
 	                define('bebop_'.$extension['name'] . '_provider', "");
 	
-	                if( $_POST){
+	                if( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
 	                    bebop_tables::update_option('bebop_' . $extension['name'] . '_provider', trim($_POST['bebop_' . $extension['name'] . '_provider']));
 	                }
+					
 				    echo '<div class="postbox" style="float:left; width:200px; margin-right:20px;">
                         <div><h3 style="cursor:default; font-family:arial; font-size:13px; font-weight:bold;"><span class="admin_icon '.$extension['name'].'"></span> ' . $extension['displayname'] . '</h3>
                             <div class="inside" style="padding:10px;">
                                 <span>enabled: </span><input id="bebop_'.$extension['name'] . '_provider" type="checkbox" name="bebop_'.$extension['name'] . '_provider"'; if( bebop_tables::get_option('bebop_' . $extension['name'] . '_provider') == 'on' ) { echo 'CHECKED'; } echo ' >';
-                          echo '<br><a href="?page=bebop_' . $extension['name'] . '">Admin Settings</a>
-                          	</div>
+								if( bebop_tables::get_option('bebop_' . $extension['name'] . '_provider') == 'on' ) {
+                          			echo '<br><a href="?page=bebop_' . $extension['name'] . '">Admin Settings</a>';
+								}
+                          echo '</div>
                         </div>
                     </div>';
 	            }
