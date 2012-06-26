@@ -71,11 +71,12 @@
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
     margin-top:22pt;
     margin-bottom:22pt;
-    height:37px;
+    height:auto;
     border-bottom:5px solid #eeeeee;
     text-align:center;
 }
 .bebop_admin_menu a {
+	display:inline-block;
     padding:10px;
     margin-right:4px;
     background-color:#D9D9D9;
@@ -101,7 +102,6 @@
 }
 .bebop_admin_menu .activetab,.bebop_admin_menu .activetab:hover {
     background-color:#444444;
-    line-height:35px;
     color:#ffffff;
     background-image:linear-gradient(bottom, #000000 50%, #444444 50%);
     background-image:-o-linear-gradient(bottom, #000000 50%, #444444 50%);
@@ -130,10 +130,10 @@
     margin:0px;
 }
 .bebop_settings_table th {
-	margin-bottom:5px;
 	font-weight:normal;
 	font-size:25px;
-	border-bottom:2px solid
+	border-bottom:1px solid #cecece;
+	padding:10px;
 }
 
 .bebop_table a {

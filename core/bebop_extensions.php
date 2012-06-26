@@ -26,7 +26,7 @@ class bebop_extensions {
             $page = strtolower($_GET["settings"]);
         }
 
-        if( $_GET['child'] ) {
+        if( ! empty( $_GET['child'] ) ) {
             $extensions = $_GET['child'];
 		}
         include WP_PLUGIN_DIR."/bebop/extensions/".$extensions."/templates/admin_".$page.".php";
