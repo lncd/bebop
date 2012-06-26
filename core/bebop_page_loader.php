@@ -24,7 +24,7 @@ function bebop_admin_menu() {
 	 //provider menu
 	 foreach( bebop_extensions::get_extension_configs() as $extension ) {
         if ( bebop_tables::get_option( "bebop_" . $extension['name'] . "_provider" ) ) {
-            if( ! $extension['parent'] ) {
+            if( empty( $extension['parent'] ) ) {
             	add_submenu_page('bebop_admin', ucfirst($extension['displayname']), ucfirst($extension['displayname']), 'manage_options', 'bebop_'.$extension['name'], 'bebop_'.$extension['name']);
             }
         }
@@ -57,4 +57,3 @@ function bebop_admin_pages() {
 }  
 //add_action('admin_menu', 'bebop_admin_menu');
 add_action('network_admin_menu', 'bebop_admin_menu');
-?> 

@@ -110,8 +110,8 @@
     background-image:-ms-linear-gradient(bottom, #000000 50%, #444444 50%);
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, #000000), color-stop(0.5, #444444));
 }
-
-.bebop_table {
+.bebop_table, .bebop_settings_table {
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
     background-color:#ffffff;
     width:99%;
     border:1px solid #cecece;
@@ -124,11 +124,18 @@
 .bebop_table tr:hover {
 	background:#eeeeee;
 }
-.bebop_table td, .bebop_table th {
+.bebop_table td, .bebop_table th, .bebop_settings_table td, .bebop_settings_table th {
     padding:8px;
     text-align:center;
     margin:0px;
 }
+.bebop_settings_table th {
+	margin-bottom:5px;
+	font-weight:normal;
+	font-size:25px;
+	border-bottom:2px solid
+}
+
 .bebop_table a {
     text-decoration:none;
     color:#000000;

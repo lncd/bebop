@@ -1,6 +1,7 @@
 <link rel="stylesheet" type="text/css" href="<?php echo plugins_url() . '/bebop/core/resources/css/admin.css'; ?>">
 <link rel="shortcut icon" href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
+<?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/bebop_admin_menu.php" ); ?>
 <div id='bebop_admin_container'>
 <?php
 global $bp;
@@ -11,12 +12,12 @@ $arraySwitches = array(
     'buddystream_twitter_share'
 );
 
-	if ($_POST) {
+	if ( $_POST ) {
 		bebop_tables::update_option('tweetstream_consumer_key', trim($_POST['tweetstream_consumer_key']));
 		bebop_tables::update_option('tweetstream_consumer_secret', trim($_POST['tweetstream_consumer_secret']));
 		bebop_tables::update_option('buddystream_twitter_user_settings_maximport', trim(strip_tags(strtolower($_POST['buddystream_twitter_user_settings_maximport']))));
       
-		if($_POST['tweetstream_consumer_key']){
+		if( $_POST['tweetstream_consumer_key'] ){
 			bebop_tables::update_option('buddystream_twitter_setup', true);
 		}
       
@@ -26,26 +27,18 @@ $arraySwitches = array(
 		echo '<div>Settings Saved</div>';
 	}
 	?>
-
-	<div class="bebop_admin_box">
-		Settings
-	</div>
 	
 	<form method="post" action="">
-		<table class="buddystream_table" cellspacing="0">
-		
-		<tr class="header">
-			<td colspan="2">Twitter API</td>
-		</tr>
-		  
+		<table class="bebop_settings_table">
+		<th colspan='2'>Twitter Settings</th>
 		<tr>
 			<td>Consumer key</td>
-			<td><input type="text" name="tweetstream_consumer_key" value="<?php echo bebop_tables::get_option('tweetstream_consumer_key'); ?>" size="50" /></td>
+			<td><input type="text" name="tweetstream_consumer_key" value="<?php echo bebop_tables::get_option('tweetstream_consumer_key'); ?>" size="50"></td>
 		</tr>
 		
-		<tr class="odd">
+		<tr>
 			<td>Consumer secret key:</td>
-			<td><input type="text" name="tweetstream_consumer_secret" value="<?php echo bebop_tables::get_option('tweetstream_consumer_secret'); ?>" size="50" /></td>
+			<td><input type="text" name="tweetstream_consumer_secret" value="<?php echo bebop_tables::get_option('tweetstream_consumer_secret'); ?>" size="50"></td>
 		</tr>
 		
 		<?php
