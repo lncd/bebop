@@ -2,20 +2,20 @@
 
 global $bp;
 
-if($_GET['reset'] == 'true'){
-    delete_user_meta($bp->loggedin_user->id,'tweetstream_token');
-    delete_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret');
-    delete_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp');
-    delete_user_meta($bp->loggedin_user->id,'tweetstream_token_temp');
-    delete_user_meta($bp->loggedin_user->id,'tweetstream_mention');
-    delete_user_meta($bp->loggedin_user->id,'tweetstream_synctoac');
-    delete_user_meta($bp->loggedin_user->id, 'tweetstream_synctoac');
-    delete_user_meta($bp->loggedin_user->id, 'tweetstream_filtermentions');
-    delete_user_meta($bp->loggedin_user->id, 'tweetstream_filtergood');
-    delete_user_meta($bp->loggedin_user->id, 'tweetstream_filterbad');
+if( $_GET['reset'] == 'true' ){
+    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_token');
+    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret');
+    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp');
+    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_token_temp');
+    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_mention');
+    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_synctoac');
+    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_synctoac');
+    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_filtermentions');
+    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_filtergood');
+    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_filterbad');
 }
 
-if (isset($_GET['oauth_token'])) {
+if ( isset( $_GET['oauth_token'] ) ) {
     
     //Handle the oAuth requests
     $buddystreamOAuth = new BuddyStreamOAuth();
@@ -32,9 +32,9 @@ if (isset($_GET['oauth_token'])) {
     
     $accessToken = $buddystreamOAuth->accessToken();
    
-    update_user_meta($bp->loggedin_user->id,'tweetstream_token',''.$accessToken['oauth_token'].'');
-    update_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret',''.$accessToken['oauth_token_secret'].'');
-    update_user_meta($bp->loggedin_user->id,'tweetstream_synctoac', 1);
+    bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_token',''.$accessToken['oauth_token'].'');
+    bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret',''.$accessToken['oauth_token_secret'].'');
+    bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_synctoac', 1);
 
     //for other plugins
     do_action('buddystream_twitter_activated');

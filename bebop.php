@@ -70,17 +70,26 @@ function bebop_activate() {
 	    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 	    	option_name varchar(30) NOT NULL PRIMARY KEY,
 	    	option_value varchar(30) NOT NULL
-	    );";       
+	    );";  
+		
+		$bebop_user_meta = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta ( 
+	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
+	    	user_id int(10) NOT NULL,
+	    	meta_name varchar(255) NOT NULL,
+	    	meta_value longtext NOT NULL
+	    );";   
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta($bebop_error_log);
 		dbDelta($bebop_general_log);   
 		dbDelta($bebop_options);
+		dbDelta($bebop_user_meta);
 		
 		//cleanup
 		unset($bebop_error_log);
 		unset($bebop_general_log);
 		unset($bebop_options);
+		unset($bebop_user_meta);
     }
 	else {
 		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
@@ -97,6 +106,7 @@ function bebop_deactivate() {
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_options");
+	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta");
 }
 
 define('BP_BEBOP_VERSION', '0.1');
