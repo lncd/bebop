@@ -93,5 +93,5 @@ function bebop_default_settings_screen_title()
 function bebop_default_settings_screen_content()
 {
     global $bp;
-    include WP_PLUGIN_DIR . "/bebop/extentions/default/templates/UserSettings.php";
+    include WP_PLUGIN_DIR . "/bebop/core/templates/user/bebop_user_settings.php";
 }

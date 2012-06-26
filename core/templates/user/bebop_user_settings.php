@@ -1,7 +1,7 @@
 <h3>
-<?php if(!isset($_GET['network'])){
-    echo "<h3>".__('Social networks', 'buddystream_lang')."</h3>";
-    echo __('Social networks setup description', 'buddystream_lang')."<br/><br/>";
+<?php if(!isset($_GET['eor'])){
+    echo "<h3>Provider</h3>";
+    echo "Provider Info <br/><br/>";
 }
 ?>
 </h3>
@@ -10,12 +10,15 @@
     <ul>
         <?php
 
-        //get the active
-        foreach(BuddyStreamExtentions::getExtentionsConfigs() as $extention){
-            if(get_site_option('buddystream_'.$extention['name'].'_power') == "on" && get_site_option('buddystream_'.$extention['name'].'_setup')){
-                echo '<li><a href="?network=' . $extention['name'] . '">'.ucfirst($extention['displayname']).'</a></li>';         
-                $activeExtentions[] = $extention['name'];
+        //get the active extension
+        foreach( bebop_extensions::get_extension_configs() as $extension ) {
+            if(bebop_tables::get_option('bebop_'.$extension['name'].'_provider') == "on" && bebop_tables::get_option('bebop_'.$extension['name'].'_setup')){
+                echo '<li><a href="?network=' . $extension['name'] . '">'.ucfirst($extension['displayname']).'</a></li>';         
+                $activeExtensions[] = $extension['name'];
             }
+			else {
+				echo "error with " . $extension['name'];
+			}
         }
         ?>
     </ul>
@@ -24,8 +27,9 @@
 <div>
 
 <?php
-if(isset($_GET['network'])){
-    include(WP_PLUGIN_DIR."/buddystream/extentions/".$_GET['network']."/templates/UserSettings.php");
+if(isset($_GET['oer'])){
+	
+    include(WP_PLUGIN_DIR."/bebop/extensions/".$_GET['eor']."/templates/user_settings.php");
 }
 ?>
 </div>

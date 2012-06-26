@@ -32,6 +32,32 @@ class bebop_extensions {
         include WP_PLUGIN_DIR."/bebop/extensions/".$extensions."/templates/admin_".$page.".php";
     }
 	
+	function user_page_loader($extension, $page = 'settings'){
+
+        global $bp;
+
+        if ($bp->displayed_user->id != $bp->loggedin_user->id && $page != "album") {
+                header('location:' . get_site_url());
+        }
+
+        add_action(
+            'bp_template_title',
+            'bebop_'.$extension.'_'.$page.'_screen_title'
+        );
+
+        add_action(
+            'bp_template_content',
+            'bebop_'.$extension.'_'.$page.'_screen_content'
+        );
+
+        bp_core_load_template(
+            apply_filters(
+                'bp_core_template_plugin',
+                'members/single/plugins'
+            )
+        );
+    }
+	
 	function get_extension_configs() {
 
         $config = array();
