@@ -1,5 +1,5 @@
 <h3>
-<?php if(!isset($_GET['eor'])){
+<?php if(!isset($_GET['oer'])){
     echo "<h3>Provider</h3>";
     echo "Provider Info <br/><br/>";
 }
@@ -29,7 +29,7 @@
 <?php
 if(isset($_GET['oer'])){
 	
-    include(WP_PLUGIN_DIR."/bebop/extensions/".$_GET['eor']."/templates/user_settings.php");
+    include(WP_PLUGIN_DIR."/bebop/extensions/".$_GET['oer']."/templates/user_settings.php");
 }
 ?>
 </div>

@@ -35,7 +35,6 @@ class bebop_extensions {
 	function user_page_loader($extension, $page = 'settings'){
 
         global $bp;
-		var_dump ("in user_page_loader");
 
         if ($bp->displayed_user->id != $bp->loggedin_user->id && $page != "album") {
                 header('location:' . get_site_url());
@@ -43,12 +42,12 @@ class bebop_extensions {
 
         add_action(
             'bp_template_title',
-            'bebop_'.$extension.'_'.$page.'_screen_title'
+            'bebop_'.$extension.'_user_'.$page.'_screen_title'
         );
 
         add_action(
             'bp_template_content',
-            'bebop_'.$extension.'_'.$page.'_screen_content'
+            'bebop_'.$extension.'_user_'.$page.'_screen_content'
         );
 
         bp_core_load_template(
