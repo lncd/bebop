@@ -50,8 +50,8 @@ function bebopTwitterPostUpdate($content = "", $shortLink = "", $user_id = 0) {
     $OAuth->setCallbackUrl($bp->root_domain);
     $OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
     $OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
-    $OAuth->setAccessToken(get_user_meta($bp->loggedin_user->id,'tweetstream_token', 1));
-    $OAuth->setAccessTokenSecret(get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret', 1));
+    $OAuth->setAccessToken(bebop_tables::get_user_meta($bp->loggedin_user->id,'tweetstream_token', 1));
+    $OAuth->setAccessTokenSecret(bebop_tables::get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret', 1));
     $OAuth->setRequestType('POST');
     $OAuth->setParameters(array('status' => BuddyStreamFilters::filterPostContent($content, $shortLink, 140)));
     $OAuth->oAuthRequest('https://api.twitter.com/1/statuses/update.json');

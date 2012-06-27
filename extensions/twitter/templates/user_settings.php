@@ -60,10 +60,10 @@ $tweetstream_filtergood     = bebop_tables::get_user_meta_value($bp->loggedin_us
 $tweetstream_filterbad      = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_filterbad');
 
 if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_token') ) {
-    echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'settings/buddystream-networks/?network=twitter" method="post">
+    echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'profile/bebop-oers/?oer=twitter" method="post">
     <h3>Twitter Settings</h3>';
     
-    if ( ! get_option('tweetstream_user_settings_syncbp')) {
+    if ( ! bebop_tables::get_option('tweetstream_user_settings_syncbp')) {
         echo 'no settings available';
 	}
 	else {
