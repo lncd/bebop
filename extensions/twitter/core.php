@@ -43,18 +43,18 @@ function bebopTwitterPostUpdate($content = "", $shortLink = "", $user_id = 0) {
     global $bp;
     
     //handle oauth calls
-    $buddystreamOAuth = new BuddyStreamOAuth();
-    $buddystreamOAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
-    $buddystreamOAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
-    $buddystreamOAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
-    $buddystreamOAuth->setCallbackUrl($bp->root_domain);
-    $buddystreamOAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
-    $buddystreamOAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
-    $buddystreamOAuth->setAccessToken(get_user_meta($bp->loggedin_user->id,'tweetstream_token', 1));
-    $buddystreamOAuth->setAccessTokenSecret(get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret', 1));
-    $buddystreamOAuth->setRequestType('POST');
-    $buddystreamOAuth->setParameters(array('status' => BuddyStreamFilters::filterPostContent($content, $shortLink, 140)));
-    $buddystreamOAuth->oAuthRequest('https://api.twitter.com/1/statuses/update.json');
+    $OAuth = new BuddyStreamOAuth();
+    $OAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
+    $OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
+    $OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
+    $OAuth->setCallbackUrl($bp->root_domain);
+    $OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
+    $OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
+    $OAuth->setAccessToken(get_user_meta($bp->loggedin_user->id,'tweetstream_token', 1));
+    $OAuth->setAccessTokenSecret(get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret', 1));
+    $OAuth->setRequestType('POST');
+    $OAuth->setParameters(array('status' => BuddyStreamFilters::filterPostContent($content, $shortLink, 140)));
+    $OAuth->oAuthRequest('https://api.twitter.com/1/statuses/update.json');
     
 }
 

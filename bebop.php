@@ -32,6 +32,7 @@ function bebop_init() {
 	bebop_init_languages();
 
 	//include files from core.
+	include_once( 'core/oauth.php' );
 	include_once( 'core/bebop_tables.php' );
 	include_once( 'core/bebop_filters.php' );
 	include_once( 'core/bebop_page_loader.php' );

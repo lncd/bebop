@@ -4,7 +4,7 @@
  * Including the OAuth class
  */
 
-include_once('BuddyStreamOauthClass.php');
+include_once('oauth_class.php');
 
 /**
  * BuddyStreamOAuth
@@ -309,7 +309,7 @@ class BuddyStreamOAuth{
              echo "<hr><pre>".$output."</pre><hr>";
              return false;
          }
-         
+         //error coming from here
          return $token;
       }
       
