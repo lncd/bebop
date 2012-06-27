@@ -2,7 +2,7 @@
 
 global $bp;
 
-if( $_GET['reset'] == 'true' ){
+if( (isset( $_GET['reset'] )) && ( $_GET['reset']  == 'true' ) ) {
     bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_token');
     bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret');
     bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp');

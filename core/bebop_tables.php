@@ -96,7 +96,7 @@ class bebop_tables
 		global $wpdb;
 		
 		if( bebop_tables::get_user_meta($user_id, $meta_name) == false ) {
-			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_user_meta (user_id, meta_name, meta_value) VALUES (%i, %s, %s)", $wpdb->escape($user_id), $wpdb->escape($meta_name), $wpdb->escape($meta_value) ) );
+			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_user_meta (user_id, meta_name, meta_value) VALUES (%s, %s, %s)", $wpdb->escape($user_id), $wpdb->escape($meta_name), $wpdb->escape($meta_value) ) );
 			return true;
 			
 		}
@@ -106,21 +106,30 @@ class bebop_tables
 		}
 	}
 	
-	function get_user_meta( $user_id, $meta_name ) { //function to get user meta from the user_meta table.
+	function check_user_meta_exists( $user_id, $meta_name ) { //function to check if user meta name exists in the user_meta table.
 		global $wpdb;
-		$result = $wpdb->get_row( "SELECT meta_name, meta_value FROM " . $wpdb->base_prefix . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_name = '" . $wpdb->escape($meta_name) . "' LIMIT 1" );
-		if( ! empty($result->meta_value) ) {
-			return $result->meta_value;
-		}
-		else if ( ! empty($result->meta_name) ) {
-			return $result->meta_name;
+		$result = $wpdb->get_row( "SELECT meta_name FROM " . $wpdb->base_prefix . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_name = '" . $wpdb->escape($meta_name) . "' LIMIT 1" );
+		
+		if ( ! empty($result->meta_name) ) {
+			return true;
 		}
 		else {
 			return false;
 		}
 	}
 	
-	function update_user_meta($user_id, $meta_name, $meta_value ) { //function to update user meta in the user_meta table.
+	function get_user_meta_value( $user_id, $meta_name ) { //function to get user meta from the user_meta table.
+		global $wpdb;
+		$result = $wpdb->get_row( "SELECT meta_value FROM " . $wpdb->base_prefix . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_name = '" . $wpdb->escape($meta_name) . "' LIMIT 1" );
+		if( ! empty($result->meta_value) ) {
+			return $result->meta_value;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	function update_user_meta( $user_id, $meta_name, $meta_value ) { //function to update user meta in the user_meta table.
 		global $wpdb;
 		
 		if( bebop_tables::get_user_meta($user_id, $meta_name) != false ) {
@@ -141,7 +150,7 @@ class bebop_tables
 	function remove_user_meta( $user_id, $meta_name ) { //function to remove user meta from the user_meta table.
 		global $wpdb;
 		
-		if( bebop_tables::get_option($user_id, $meta_name) != false ) {
+		if( bebop_tables::get_user_meta($user_id, $meta_name) != false ) {
 			$wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_name = '" . $wpdb->escape($meta_name) . "' LIMIT 1" );
 			return true;
 		}
