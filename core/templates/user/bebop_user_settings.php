@@ -14,7 +14,7 @@ $count_check = 0;
                		
         foreach( bebop_extensions::get_extension_configs() as $extension ) {
         	if(bebop_tables::get_option('bebop_'.$extension['name'].'_provider') == "on") {
-                	echo '<li><a href="?eor=' . $extension['name'] . '">'.ucfirst($extension['displayname']).'</a></li>';         
+                	echo '<li><a href="?oer=' . $extension['name'] . '">'.ucfirst($extension['displayname']).'</a></li>';         
                 	$activeExtensions[] = $extension['name'];
             	}
 				else {
