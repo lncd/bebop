@@ -44,11 +44,9 @@ $arraySwitches = array(
 		</tr>
 		
 		<?php
-
-		if( bebop_tables::get_option('tweetstream_consumer_key') && bebop_tables::get_option('tweetstream_consumer_secret') ) {
-			?> 
+		if( bebop_tables::get_option('tweetstream_consumer_key') && bebop_tables::get_option('tweetstream_consumer_secret') ){ 
 		
-			<tr class='header'>
+			echo " <tr class='header'>
 				<td colspan='2'>User options</td>
 			</tr>
 			
@@ -64,13 +62,10 @@ $arraySwitches = array(
 			
 			<tr valign='top'>
 				<td>Maximum Tweets to be imported per user, per day (empty = unlimited tweets import):</td>
-
 				<td><input type='text' name='buddystream_twitter_user_settings_maximport' value='" . bebop_tables::get_option('buddystream_twitter_user_settings_maximport') . "' size='5'></td>
 			</tr>";
-<?php
 		
-			if(bebop_tables::get_option('buddystream_sharebox') == 'on') { 
-
+			if( bebop_tables::get_option('buddystream_sharebox') == 'on' ) { 
 			
 			echo "<tr class='header'>
 				<td colspan='2'>Extra options</td>
@@ -87,4 +82,5 @@ $arraySwitches = array(
 		</form>";
 		?>
 <!-- End bebop_admin_container -->
+</div>
 </div>
