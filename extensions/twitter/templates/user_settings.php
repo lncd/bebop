@@ -16,8 +16,6 @@ if( (isset( $_GET['reset'] )) && ( $_GET['reset']  == 'true' ) ) {
 }
 
 if ( isset( $_GET['oauth_token'] ) ) {
-    
-	echo 'key' . bebop_tables::get_option("tweetstream_consumer_key");
 	
     //Handle the oAuth requests
     $OAuth = new BuddyStreamOAuth();
@@ -30,7 +28,7 @@ if ( isset( $_GET['oauth_token'] ) ) {
     $OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
     $OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
     $OAuth->setRequestToken(bebop_tables::get_user_meta_value($bp->loggedin_user->id,'tweetstream_token_temp'));
-    $OAuth->setRequestTokenSecret(get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp'));
+    $OAuth->setRequestTokenSecret(bebop_tables::get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp'));
     
     $accessToken = $OAuth->accessToken();
    
@@ -98,6 +96,7 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
 	echo '</form>';
 }
 else {
+	echo 'addasdsa';
      
 	echo '<h3>Twitter setup</h3>
 	You may setup you twitter intergration over here.<br/>
@@ -109,8 +108,8 @@ else {
 	$OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
 	$OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
 	$OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/bebop-oers/?oer=twitter');
-	$OAuth->setConsumerKey(get_site_option("tweetstream_consumer_key"));
-	$OAuth->setConsumerSecret(get_site_option("tweetstream_consumer_secret"));
+	$OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
+	$OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
 	 
 	//get requesttoken and save it for later use.
 	$requestToken = $OAuth->requestToken();
