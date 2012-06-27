@@ -9,7 +9,7 @@
 <div class="buddystream_album_navigation_links">
     <ul>
         <?php
-$count_check = 0;
+		$count_check = 0;
         //get the active extension
                		
         foreach( bebop_extensions::get_extension_configs() as $extension ) {
