@@ -133,8 +133,8 @@ class bebop_tables
 			}
 		}
 		else {
-			bebop_tables::add_option( $user_id, $meta_name, $meta_value );
-			bebop_tables::update_option( $user_id, $meta_name, $meta_value );
+			bebop_tables::add_user_meta( $user_id, $meta_name, $meta_value );
+			bebop_tables::update_user_meta( $user_id, $meta_name, $meta_value );
 		}
 	}
 	
