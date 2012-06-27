@@ -96,7 +96,8 @@ class bebop_tables
 		global $wpdb;
 		
 		if( bebop_tables::get_user_meta($user_id, $meta_name) == false ) {
-			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_user_meta (user_id, meta_name, meta_value) VALUES (%i, %s, %s)", $wpdb->escape($user_id), $wpdb->escape($meta_name), $wpdb->escape($meta_value) ) );
+			
+			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_user_meta (user_id, meta_name, meta_value) VALUES (%s, %s, %s)", $wpdb->escape($user_id), $wpdb->escape($meta_name), $wpdb->escape($meta_value) ) );
 			return true;
 			
 		}
@@ -141,7 +142,7 @@ class bebop_tables
 	function remove_user_meta( $user_id, $meta_name ) { //function to remove user meta from the user_meta table.
 		global $wpdb;
 		
-		if( bebop_tables::get_option($user_id, $meta_name) != false ) {
+		if( bebop_tables::get_user_meta($user_id, $meta_name) != false ) {
 			$wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_name = '" . $wpdb->escape($meta_name) . "' LIMIT 1" );
 			return true;
 		}
