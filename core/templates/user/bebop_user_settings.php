@@ -32,7 +32,7 @@
 <div>
 
 <?php
-if(isset($_GET['oer'])){
+if( isset($_GET['oer']) ) {
 	
     include(WP_PLUGIN_DIR."/bebop/extensions/".$_GET['oer']."/templates/user_settings.php");
 }
