@@ -22,11 +22,14 @@ Credits: BuddySteam - buddystrem.net
 
 //initialise Bebop
 function bebop_init() {
+		
+
+	
 	//init settings
-	//bebop_init_settings();
+	bebop_init_settings();
 
 	//load languages
-	//bebop_init_languages();
+	bebop_init_languages();
 
 	//include files from core.
 	include_once( 'core/bebop_tables.php' );
@@ -35,7 +38,7 @@ function bebop_init() {
 	include_once( 'core/bebop_extensions.php' );
 
 	//Main content file
-	include_once( 'core/bebop_core.php' );
+	include_once( 'core/bebop_core.php' );	
 }
 
 function bebop_init_settings() {

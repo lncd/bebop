@@ -1,6 +1,51 @@
 <?php
 //File used to load pages
 
+
+
+//This is not working as the $bp->loggedin_user is null even though its from buddypress.
+function bebop_setup_nav(){
+   
+    global $bp;
+   
+        bp_core_new_subnav_item(
+            array(
+                'name' => 'OER',
+                'slug' => 'bebop',
+                'parent_url' => $bp->loggedin_user->domain . BP_XPROFILE_SLUG.'/',
+                'parent_slug' => BP_XPROFILE_SLUG,
+                'screen_function' => 'bebop_default_user_settings',
+                'position' => 10,
+                'user_has_access' => bp_is_my_profile ()
+                ) 
+        );
+		var_dump($bp->loggedin_user->domain);
+}
+
+bebop_setup_nav();
+
+
+function bebop_default_user_settings()
+{
+  bebop_extensions::userPageLoader('default','settings');
+}
+
+function bebop_default_settings_screen_title()
+{
+    __('Social networks', 'buddystream_facebook');
+}
+
+function bebop_default_settings_screen_content()
+{
+    global $bp;
+    //include WP_PLUGIN_DIR . "/buddystream/extentions/default/templates/UserSettings.php";
+}
+
+
+
+
+
+
 function bebop_admin_menu() {
 
     if ( ! is_super_admin() ) {

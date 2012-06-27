@@ -58,4 +58,32 @@ class bebop_extensions {
         	return false;
 		}
     }
+	
+	
+	
+	function userPageLoader($extention, $page = 'settings'){
+
+        global $bp;
+
+        if ($bp->displayed_user->id != $bp->loggedin_user->id && $page != "album") {
+                header('location:' . get_site_url());
+        }
+
+        add_action(
+            'bp_template_title',
+            'bebop'.$extention.'_'.$page.'_screen_title'
+        );
+
+        add_action(
+            'bp_template_content',
+            'bebop'.$extention.'_'.$page.'_screen_content'
+        );
+
+        bp_core_load_template(
+            apply_filters(
+                'bp_core_template_plugin',
+                'members/single/plugins'
+            )
+        );
+    }
 }
