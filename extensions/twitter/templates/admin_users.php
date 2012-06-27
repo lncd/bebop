@@ -2,7 +2,7 @@
 <link rel="shortcut icon" href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
 <div id='bebop_admin_container'>
-<?php echo BuddyStreamExtentions::tabLoader('twitter'); ?>
+<?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
 
 <?php
 if (isset($_GET['user_id'])) {

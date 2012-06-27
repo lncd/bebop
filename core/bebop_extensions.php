@@ -26,10 +26,36 @@ class bebop_extensions {
             $page = strtolower($_GET["settings"]);
         }
 
-        if( $_GET['child'] ) {
+        if( ! empty( $_GET['child'] ) ) {
             $extensions = $_GET['child'];
 		}
         include WP_PLUGIN_DIR."/bebop/extensions/".$extensions."/templates/admin_".$page.".php";
+    }
+	
+	function user_page_loader($extension, $page = 'settings'){
+
+        global $bp;
+
+        if ($bp->displayed_user->id != $bp->loggedin_user->id && $page != "album") {
+                header('location:' . get_site_url());
+        }
+
+        add_action(
+            'bp_template_title',
+            'bebop_'.$extension.'_user_'.$page.'_screen_title'
+        );
+
+        add_action(
+            'bp_template_content',
+            'bebop_'.$extension.'_user_'.$page.'_screen_content'
+        );
+
+        bp_core_load_template(
+            apply_filters(
+                'bp_core_template_plugin',
+                'members/single/plugins'
+            )
+        );
     }
 	
 	function get_extension_configs() {

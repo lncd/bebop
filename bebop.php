@@ -19,7 +19,7 @@ Credits: BuddySteam - buddystrem.net
 ** This program is distributed WITHOUT ANY WARRANTY; without even the       **
 ** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. **
 *****************************************************************************/
-
+	
 //initialise Bebop
 function bebop_init() {
 		
@@ -73,23 +73,33 @@ function bebop_activate() {
 	    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 	    	option_name varchar(30) NOT NULL PRIMARY KEY,
 	    	option_value varchar(30) NOT NULL
-	    );";       
+	    );";  
+		
+		$bebop_user_meta = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta ( 
+	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
+	    	user_id int(10) NOT NULL,
+	    	meta_name varchar(255) NOT NULL,
+	    	meta_value longtext NOT NULL
+	    );";   
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta($bebop_error_log);
 		dbDelta($bebop_general_log);   
 		dbDelta($bebop_options);
+		dbDelta($bebop_user_meta);
 		
 		//cleanup
 		unset($bebop_error_log);
 		unset($bebop_general_log);
 		unset($bebop_options);
+		unset($bebop_user_meta);
     }
 	else {
-		//BuddyPress is not installed, stop Bebop form activationg and kill the script with an error message.
+		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
+		include_once( 'core/bebop_tables.php' );
 		bebop_tables::log_error(0, 'BuddyPress Error', 'BuddyPress is not active.');
-		deactivate_plugins(basename(__FILE__)); // Deactivate this plugin
-		wp_die("You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again.");
+		deactivate_plugins( basename(__FILE__) ); // Deactivate this plugin
+		wp_die( "You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again." );
 	}
 }
 //remove the tables upon deactivation
@@ -99,13 +109,15 @@ function bebop_deactivate() {
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_options");
+	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta");
 }
 
 define('BP_BEBOP_VERSION', '0.1');
+
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
 register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' )
 
-add_action( 'bp_init', 'bebop_init', 4 );
+add_action( 'bp_init', 'bebop_init', 5 );
