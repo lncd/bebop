@@ -12,12 +12,12 @@
 
         //get the active extension
         foreach( bebop_extensions::get_extension_configs() as $extension ) {
-            if(bebop_tables::get_option('bebop_'.$extension['name'].'_provider') == "on" && bebop_tables::get_option('bebop_'.$extension['name'].'_setup')){
+            if(bebop_tables::get_option('bebop_'.$extension['name'].'_provider') == "on") {
                 echo '<li><a href="?eor=' . $extension['name'] . '">'.ucfirst($extension['displayname']).'</a></li>';         
                 $activeExtensions[] = $extension['name'];
             }
 			else {
-				echo "error with " . $extension['name'];
+				echo "No extensions are currently active. Please activate them in the bebop OER provides admin panel.";
 			}
         }
         ?>
