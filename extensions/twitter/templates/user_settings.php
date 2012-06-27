@@ -16,25 +16,25 @@ if( (isset( $_GET['reset'] )) && ( $_GET['reset']  == 'true' ) ) {
 }
 
 if ( isset( $_GET['oauth_token'] ) ) {
-    
+	
     //Handle the oAuth requests
-    $buddystreamOAuth = new BuddyStreamOAuth();
-    $buddystreamOAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
-    $buddystreamOAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
-    $buddystreamOAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
+    $OAuth = new BuddyStreamOAuth();
+    $OAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
+    $OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
+    $OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
     
-    $buddystreamOAuth->setParameters(array('oauth_verifier' => $_GET['oauth_verifier']));
-    $buddystreamOAuth->setCallbackUrl($bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/buddystream-networks/?network=twitter');
-    $buddystreamOAuth->setConsumerKey(get_site_option("tweetstream_consumer_key"));
-    $buddystreamOAuth->setConsumerSecret(get_site_option("tweetstream_consumer_secret"));
-    $buddystreamOAuth->setRequestToken(get_user_meta($bp->loggedin_user->id,'tweetstream_token_temp', 1));
-    $buddystreamOAuth->setRequestTokenSecret(get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp', 1));
+    $OAuth->setParameters(array('oauth_verifier' => $_GET['oauth_verifier']));
+    $OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/buddystream-networks/?network=twitter');
+    $OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
+    $OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
+    $OAuth->setRequestToken(bebop_tables::get_user_meta_value($bp->loggedin_user->id,'tweetstream_token_temp'));
+    $OAuth->setRequestTokenSecret(bebop_tables::get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp'));
     
-    $accessToken = $buddystreamOAuth->accessToken();
+    $accessToken = $OAuth->accessToken();
    
     bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_token',''.$accessToken['oauth_token'].'');
     bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret',''.$accessToken['oauth_token_secret'].'');
-    bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_synctoac', 1);
+    bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_synctoac');
 
     //for other plugins
     do_action('bebop_twitter_activated');
@@ -60,10 +60,10 @@ $tweetstream_filtergood     = bebop_tables::get_user_meta_value($bp->loggedin_us
 $tweetstream_filterbad      = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_filterbad');
 
 if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_token') ) {
-    echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'settings/buddystream-networks/?network=twitter" method="post">
+    echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'profile/bebop-oers/?oer=twitter" method="post">
     <h3>Twitter Settings</h3>';
     
-    if ( ! get_option('tweetstream_user_settings_syncbp')) {
+    if ( ! bebop_tables::get_option('tweetstream_user_settings_syncbp')) {
         echo 'no settings available';
 	}
 	else {
@@ -96,30 +96,31 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
 	echo '</form>';
 }
 else {
+	echo 'addasdsa';
      
 	echo '<h3>Twitter setup</h3>
 	You may setup you twitter intergration over here.<br/>
 	Before you can begin using Twitter with this site you must authorize on Twitter by clicking the link below.<br/><br/>';
 	
 	//oauth
-	$buddystreamOAuth = new BuddyStreamOAuth();
-	$buddystreamOAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
-	$buddystreamOAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
-	$buddystreamOAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
-	$buddystreamOAuth->setCallbackUrl($bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/bebop-oers/?oer=twitter');
-	$buddystreamOAuth->setConsumerKey(get_site_option("tweetstream_consumer_key"));
-	$buddystreamOAuth->setConsumerSecret(get_site_option("tweetstream_consumer_secret"));
+	$OAuth = new BuddyStreamOAuth();
+	$OAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
+	$OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
+	$OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
+	$OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/bebop-oers/?oer=twitter');
+	$OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
+	$OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
 	 
 	//get requesttoken and save it for later use.
-	$requestToken = $buddystreamOAuth->requestToken();
-	$buddystreamOAuth->setRequestToken($requestToken['oauth_token']);
-	$buddystreamOAuth->setRequestTokenSecret($requestToken['oauth_token_secret']);
+	$requestToken = $OAuth->requestToken();
+	$OAuth->setRequestToken($requestToken['oauth_token']);
+	$OAuth->setRequestTokenSecret($requestToken['oauth_token_secret']);
 	 
 	bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_token_temp','' . $requestToken['oauth_token'].'');
 	bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp','' . $requestToken['oauth_token_secret'].'');
 	
 	//get the redirect url for the user
-	$redirectUrl = $buddystreamOAuth->getRedirectUrl();
+	$redirectUrl = $OAuth->getRedirectUrl();
 	if( $redirectUrl ) {
 		echo '<a href="' . $redirectUrl . '" class="buddystream_authorize_button">Start authorisaion</a><br/><br/>';
 	}
