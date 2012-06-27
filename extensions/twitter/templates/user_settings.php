@@ -2,7 +2,7 @@
 
 global $bp;
 
-if( $_GET['reset'] == 'true' ){
+if( (isset( $_GET['reset'] )) && ( $_GET['reset']  == 'true' ) ) {
     bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_token');
     bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret');
     bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp');
@@ -54,12 +54,12 @@ if ( $_POST ) {
 }
 
 //put some options into variables
-$tweetstream_synctoac       = bebop_tables::get_user_meta($bp->loggedin_user->id, 'tweetstream_synctoac');
-$tweetstream_filtermentions = bebop_tables::get_user_meta($bp->loggedin_user->id, 'tweetstream_filtermentions');
-$tweetstream_filtergood     = bebop_tables::get_user_meta($bp->loggedin_user->id, 'tweetstream_filtergood');
-$tweetstream_filterbad      = bebop_tables::get_user_meta($bp->loggedin_user->id, 'tweetstream_filterbad');
+$tweetstream_synctoac       = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_synctoac');
+$tweetstream_filtermentions = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_filtermentions');
+$tweetstream_filtergood     = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_filtergood');
+$tweetstream_filterbad      = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_filterbad');
 
-if ( bebop_tables::get_user_meta($bp->loggedin_user->id, 'tweetstream_token') ) {
+if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_token') ) {
     echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'settings/buddystream-networks/?network=twitter" method="post">
     <h3>Twitter Settings</h3>';
     
