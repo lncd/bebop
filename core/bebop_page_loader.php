@@ -18,7 +18,6 @@ else {
 function bebop_setup_user_nav()
 {
 	global $bp;
-	var_dump($bp->loggedin_user->domain);
 	
 	bp_core_new_subnav_item(
         array(
@@ -33,18 +32,16 @@ function bebop_setup_user_nav()
     );
 }
 
-
 function bebop_default_user_settings() {
-	echo "here";
 	bebop_extensions::user_page_loader('default','settings');
 }
 
 
-function bebop_default_settings_screen_title() {
-    echo 'no sure what this is (page_loader);';
+function bebop_default_user_settings_screen_title() {
+    echo 'This is the page title';
 }
 
-function bebop_default_settings_screen_content() {
+function bebop_default_user_settings_screen_content() {
     global $bp;
     include WP_PLUGIN_DIR . "/bebop/core/templates/user/bebop_user_settings.php";
 }
