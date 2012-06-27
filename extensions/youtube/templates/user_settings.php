@@ -1,7 +1,7 @@
 <?php
 
 
-if(isset($_GET['reset'])){
+if(isset($_GET['remove'])){
      bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bs_youtube_username');
 }
 
@@ -13,6 +13,7 @@ if ($_POST) {
     }
 
     $bs_youtube_username = bebop_tables::get_user_meta($bp->loggedin_user->id, 'bs_youtube_username',1);
+	echo $bs_youtube_username;
     if ($bs_youtube_username) {
       do_action('buddystream_youtube_activated');
     }
@@ -23,9 +24,11 @@ if ($_POST) {
         Youtube username<br/>
         <input type="text" name="bs_youtube_username" value="<?php echo $bs_youtube_username; ?>" size="50" /><br/><br/>
       
-        <input type="submit" class="buddystream_save_button" value="<?php echo __('Save settings', 'buddystream_lang');?>">
-        
+        <input type="submit" class="buddystream_save_button" value="Save Channel">
+        </form>
         <?php if($bs_youtube_username != ""): ?>
-            <a href="?network=youtube&reset=true" class="buddystream_reset_button"><?php echo __('Remove Youtube synchronization.','buddystream_facebook');?></a> 
+        <form id="settings_form" action="<?php echo  $bp->loggedin_user->domain.BP_XPROFILE_SLUG; ?>/bebop-oers/?oer=youtube" method="post">
+            <input type="submit" name="remove" class="buddystream_save_button" value="Remove Channel">
+        </form> 
         <?php endif; ?>
-    </form>
+    
