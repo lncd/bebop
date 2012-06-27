@@ -117,4 +117,4 @@ register_activation_hook( __FILE__, 'bebop_activate' );
 register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' )
 
-add_action( 'bp_init', 'bebop_init', 10 );
+add_action( 'bp_init', 'bebop_init', 5 );
