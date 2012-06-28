@@ -96,7 +96,9 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
 	echo '</form>';
 }
 else {
-	echo 'addasdsa';
+	
+	echo bebop_tables::get_option("tweetstream_consumer_key") . "<br>";
+	echo bebop_tables::get_option("tweetstream_consumer_secret");
      
 	echo '<h3>Twitter setup</h3>
 	You may setup you twitter intergration over here.<br/>
@@ -113,6 +115,7 @@ else {
 	 
 	//get requesttoken and save it for later use.
 	$requestToken = $OAuth->requestToken();
+	var_dump($requestToken);
 	$OAuth->setRequestToken($requestToken['oauth_token']);
 	$OAuth->setRequestTokenSecret($requestToken['oauth_token_secret']);
 	 
