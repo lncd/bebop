@@ -11,7 +11,7 @@ ini_set('include_path', $incPath);
 //include(ABSPATH . 'wp-load.php');
 
 //if we are ran from the BuddyStream cronservice save the new uniqueKey
-if (isset($_GET['uniqueKey'])) {
+if ( isset($_GET['uniqueKey']) ) {
 	//remember to put into database to retain cron times etc as this is the old method.
     update_site_option("buddystream_cronservices_uniquekey", $_GET['uniqueKey']);
 }
@@ -52,13 +52,14 @@ if( ! isset( $_GET['oer']) ) {
     //directory of extentions
     $handle = opendir(WP_PLUGIN_DIR . "/bebop/extensions");
 	
+	$extensions = array();
     //loop extentions so we can add active extentions to the import loop
     if ($handle) {
         while (false !== ($file = readdir($handle))) {
             if ($file != "." && $file != ".." && $file != ".DS_Store") {            	
                 if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $file . "/import.php")) {
-                    if (bebop_tables::check_option_exists("bebop_" . $file . "_provider")) {
-                        $extentions[] = $file;
+                    if ( bebop_tables::check_option_exists("bebop_" . $file . "_provider") ) {
+                        $extensions[] = $file;
                     }
                 }
             }
@@ -66,11 +67,11 @@ if( ! isset( $_GET['oer']) ) {
     }
 
     //save importers to database
-   bebop_tables::update_option("buddystream_importers", implode(",", $extentions));
+	bebop_tables::update_option("buddystream_importers", implode(",", $extensions));
 
     //check if there is a import queue, if empty reset
      if ( ! bebop_tables::check_option_exists("buddystream_importers_queue")) {         	
-         bebop_tables::update_option("buddystream_importers_queue", implode(",", $extentions));
+         bebop_tables::update_option("buddystream_importers_queue", implode(",", $extensions));
 		 
     }
 
@@ -84,10 +85,8 @@ if( ! isset( $_GET['oer']) ) {
     bebop_tables::update_option("buddystream_importers_queue", implode(",", $importers));
 }
  
-echo $importer;
 //start the importer for real 
 if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php")) {
-	echo "lol2";
     if ( bebop_tables::check_option_exists("bebop_" . $importer . "_provider") ) {
 
        include_once(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php");
