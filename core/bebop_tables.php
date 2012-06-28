@@ -48,7 +48,7 @@ class bebop_tables
 		global $wpdb;
 		$result = $wpdb->get_row( "SELECT option_name FROM " . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape($option_name) . "' LIMIT 1" );
 		if ( ! empty($result->option_name) ) {
-			return $result->option_name;
+			return true;
 		}
 		else {
 			return false;
