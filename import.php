@@ -65,29 +65,35 @@ if( ! isset( $_GET['oer']) ) {
             }
         }
     }
-
+	
     //save importers to database
 	bebop_tables::update_option("buddystream_importers", implode(",", $extensions));
 
     //check if there is a import queue, if empty reset
-     if ( ! bebop_tables::check_option_exists("buddystream_importers_queue")) {         	
-         bebop_tables::update_option("buddystream_importers_queue", implode(",", $extensions));
-		 
+     if ( ! bebop_tables::get_option_value("buddystream_importers_queue")) {         	
+         bebop_tables::update_option("buddystream_importers_queue", implode(",", $extensions));		 
     }
-
+	
+	
     //start the import (one per time)
     $importers = bebop_tables::get_option_value("buddystream_importers_queue");
     $importers = explode(",", $importers);
     $importer = current($importers);
 
+//	Remove this later
+var_dump($importer);
+//REMOVE THIS LATER^
+
+
+
     //remove importer form queue before starting real import
    unset($importers[0]);
     bebop_tables::update_option("buddystream_importers_queue", implode(",", $importers));
 }
- 
+
 //start the importer for real 
 if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php")) {
-    if ( bebop_tables::check_option_exists("bebop_" . $importer . "_provider") ) {
+    if ( bebop_tables::get_option_value("bebop_" . $importer . "_provider") ) {
 
        include_once(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php");
 
@@ -104,7 +110,7 @@ if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php"
                 'items' => $numberOfItems
             );
 
-            echo json_encode($infoArray);
+            //echo json_encode($infoArray);
         }
     }
 }
