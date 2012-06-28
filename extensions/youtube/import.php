@@ -3,7 +3,7 @@
  * Import starter
  */
 
-function BuddystreamYoutubeImportStart()
+/*function BuddystreamYoutubeImportStart()
 {
     $importer = new BuddyStreamYoutubeImport();
     return $importer->doImport();
