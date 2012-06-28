@@ -65,7 +65,7 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
     echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'profile/bebop-oers/?oer=twitter" method="post">
     <h3>Twitter Settings</h3>';
     
-    if ( ! bebop_tables::chech_option_exists('tweetstream_user_settings_syncbp')) {
+    if ( ! bebop_tables::check_option_exists('tweetstream_user_settings_syncbp')) {
         echo 'no settings available';
 	}
 	else {
