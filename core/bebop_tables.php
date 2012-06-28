@@ -92,6 +92,7 @@ class bebop_tables
 	/*
 	* User Meta
 	*/
+	
 	function add_user_meta( $user_id, $meta_name, $meta_value ) { //function to add user meta to the user_meta table.
 		global $wpdb;
 		

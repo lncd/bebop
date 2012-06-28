@@ -48,7 +48,7 @@
 	                define('bebop_'.$extension['name'] . '_provider', "");
 	
 	                if( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
-	                    bebop_tables::update_option('bebop_' . $extension['name'] . '_provider', trim($_POST['bebop_' . $extension['name'] . '_provider']));
+	                	bebop_tables::update_option('bebop_' . $extension['name'] . '_provider', trim($_POST['bebop_' . $extension['name'] . '_provider']));
 	                }
 					
 				    echo '<div class="postbox" style="float:left; width:200px; margin-right:20px;">
