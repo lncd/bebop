@@ -2,17 +2,19 @@
 
 global $bp;
 
-if( (isset( $_GET['reset'] )) && ( $_GET['reset']  == 'true' ) ) {
-    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_token');
-    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret');
-    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp');
-    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_token_temp');
-    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_mention');
-    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_synctoac');
-    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_synctoac');
-    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_filtermentions');
-    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_filtergood');
-    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_filterbad');
+if( isset( $_GET['reset'] ) ) {
+	if ( $_GET['reset']  == 'true' ) {
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_token');
+		bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_token_temp');
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret');
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp');
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_mention');
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id,'tweetstream_synctoac');
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_synctoac');
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_filtermentions');
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_filtergood');
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'tweetstream_filterbad');
+	}
 }
 
 if ( isset( $_GET['oauth_token'] ) ) {
@@ -28,13 +30,13 @@ if ( isset( $_GET['oauth_token'] ) ) {
     $OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
     $OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
     $OAuth->setRequestToken(bebop_tables::get_user_meta_value($bp->loggedin_user->id,'tweetstream_token_temp'));
-    $OAuth->setRequestTokenSecret(bebop_tables::get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret_temp'));
+    $OAuth->setRequestTokenSecret(bebop_tables::get_user_meta_value($bp->loggedin_user->id,'tweetstream_tokensecret_temp'));
     
     $accessToken = $OAuth->accessToken();
    
     bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_token',''.$accessToken['oauth_token'].'');
     bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret',''.$accessToken['oauth_token_secret'].'');
-    bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_synctoac');
+    bebop_tables::update_user_meta($bp->loggedin_user->id,'tweetstream_synctoac', 1);
 
     //for other plugins
     do_action('bebop_twitter_activated');
@@ -90,8 +92,8 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
     
     echo '<input type="submit" class="buddystream_save_button" value="Save Settings">';
     
-    if( bebop_tables::get_user_meta($bp->loggedin_user->id, 'tweetstream_token') ) {
-        echo '<a href="?network=twitter&reset=true" class="buddystream_reset_button">Remove twitter sync</a>';
+    if( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_token') ) {
+        echo '<a href="?oer=twitter&reset=true" class="buddystream_reset_button">Remove twitter sync</a>';
 	}
 	echo '</form>';
 }
@@ -109,13 +111,13 @@ else {
 	$OAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
 	$OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
 	$OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
-	$OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/bebop-oers/?oer=twitter');
+	$OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_XPROFILE_SLUG.'/bebop-oers/?oer=twitter');
 	$OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
 	$OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
 	 
 	//get requesttoken and save it for later use.
 	$requestToken = $OAuth->requestToken();
-	var_dump($requestToken);
+
 	$OAuth->setRequestToken($requestToken['oauth_token']);
 	$OAuth->setRequestTokenSecret($requestToken['oauth_token_secret']);
 	 

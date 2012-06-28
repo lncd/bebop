@@ -304,9 +304,6 @@ class BuddyStreamOAuth{
          $tokenSecretArray = explode("=",$outputArray[1]);
         
          $token = array('oauth_token' => $tokenArray[1], 'oauth_token_secret' => $tokenSecretArray[1]);
-		 
-		 echo "token";
-		 var_dump($token);
      
          if(!$tokenArray[1]){
              echo "<hr><pre>".$output."</pre><hr>";

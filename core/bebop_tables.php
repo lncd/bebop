@@ -37,7 +37,6 @@ class bebop_tables
 		if( bebop_tables::get_option($option_name) == false ) {
 			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_options (option_name, option_value) VALUES (%s, %s)", $wpdb->escape($option_name), $wpdb->escape($option_value) ) );
 			return true;
-			
 		}
 		else {
 			bebop_tables::log_error( _, 'bebop_option_error', "option: '" . $option_name . "' already exists.");
@@ -45,14 +44,22 @@ class bebop_tables
 		}
 	}
 	
-	function get_option( $option_name ) { //function to get an option from the options table.
+	function check_option_exists( $option_name ) { //function to chech whether an option exists in the options table.
 		global $wpdb;
-		$result = $wpdb->get_row( "SELECT option_value, option_name FROM " . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape($option_name) . "' LIMIT 1" );
+		$result = $wpdb->get_row( "SELECT option_name FROM " . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape($option_name) . "' LIMIT 1" );
+		if ( ! empty($result->option_name) ) {
+			return $result->option_name;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	function get_option_value( $option_name ) { //function to get an option from the options table.
+		global $wpdb;
+		$result = $wpdb->get_row( "SELECT option_value FROM " . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape($option_name) . "' LIMIT 1" );
 		if( ! empty($result->option_value) ) {
 			return $result->option_value;
-		}
-		else if ( ! empty($result->option_name) ) {
-			return $result->option_name;
 		}
 		else {
 			return false;
