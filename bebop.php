@@ -22,8 +22,6 @@ Credits: BuddySteam - buddystrem.net
 	
 //initialise Bebop
 function bebop_init() {
-		
-
 	
 	//init settings
 	bebop_init_settings();
@@ -40,6 +38,8 @@ function bebop_init() {
 
 	//Main content file
 	include_once( 'core/bebop_core.php' );	
+	
+	include_once( 'import.php' );	
 }
 
 function bebop_init_settings() {
