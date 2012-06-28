@@ -96,7 +96,9 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
 	echo '</form>';
 }
 else {
-	echo 'addasdsa';
+	
+	echo bebop_tables::get_option("tweetstream_consumer_key") . "asd";
+	echo bebop_tables::get_option("tweetstream_consumer_secret");
      
 	echo '<h3>Twitter setup</h3>
 	You may setup you twitter intergration over here.<br/>

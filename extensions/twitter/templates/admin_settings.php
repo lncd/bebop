@@ -31,4 +31,3 @@ if ( $_POST ) {
 </form>
 <!-- End bebop_admin_container -->
 </div>
-</div>
