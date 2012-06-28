@@ -8,7 +8,7 @@ ini_set('max_execution_time', 900);
 $incPath = str_replace("/wp-content/plugins/bebop", "", getcwd());
 
 ini_set('include_path', $incPath);
-include(ABSPATH . 'wp-load.php');
+//include(ABSPATH . 'wp-load.php');
 
 //if we are ran from the BuddyStream cronservice save the new uniqueKey
 if (isset($_GET['uniqueKey'])) {
@@ -43,11 +43,11 @@ if (isset($_GET['uniqueKey'])) {
 }*/
 
 //if network set skip auto loading network import and run the set network
-if( $_GET['oer'] ){
+if( isset($_GET['oer']) ) {
     $importer = $_GET['oer'];
 }
 
-if( ! $_GET['oer'] ){
+if( ! isset( $_GET['oer']) ) {
 
     //directory of extentions
     $handle = opendir(WP_PLUGIN_DIR . "/bebop/extensions");
