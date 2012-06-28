@@ -8,7 +8,7 @@ ini_set('max_execution_time', 900);
 $incPath = str_replace("/wp-content/plugins/bebop", "", getcwd());
 
 ini_set('include_path', $incPath);
-include(ABSPATH . 'wp-load.php');
+//include(ABSPATH . 'wp-load.php');
 
 //if we are ran from the BuddyStream cronservice save the new uniqueKey
 if (isset($_GET['uniqueKey'])) {
@@ -57,7 +57,7 @@ if( ! $_GET['oer'] ){
         while (false !== ($file = readdir($handle))) {
             if ($file != "." && $file != ".." && $file != ".DS_Store") {            	
                 if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $file . "/import.php")) {
-                    if (bebop_tables::get_option("bebop_" . $file . "_provider")) {
+                    if (bebop_tables::check_option_exists("bebop_" . $file . "_provider")) {
                         $extentions[] = $file;
                     }
                 }
@@ -66,16 +66,16 @@ if( ! $_GET['oer'] ){
     }
 
     //save importers to database
-   bebop_tables::update_option("buddystream_importers", implode(",", $extentions));
+   bebop_tables::get_option_value("buddystream_importers", implode(",", $extentions));
 
     //check if there is a import queue, if empty reset
-     if ( bebop_tables::get_option("buddystream_importers_queue") == false) {         	
+     if ( bebop_tables::get_option_value("buddystream_importers_queue") == false) {         	
          bebop_tables::update_option("buddystream_importers_queue", implode(",", $extentions));
 		 
     }
 
     //start the import (one per time)
-    $importers = bebop_tables::get_option("buddystream_importers_queue");
+    $importers = bebop_tables::get_option_value("buddystream_importers_queue");
     $importers = explode(",", $importers);
     $importer = current($importers);
 
@@ -84,11 +84,10 @@ if( ! $_GET['oer'] ){
     bebop_tables::update_option("buddystream_importers_queue", implode(",", $importers));
 }
  
-echo $importer;
+
 //start the importer for real 
 if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php")) {
-	echo "lol2";
-    if (bebop_tables::get_option("bebop_" . $importer . "_provider")) {
+    if (bebop_tables::get_option_value("bebop_" . $importer . "_provider")) {
 
        include_once(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php");
 
@@ -105,7 +104,7 @@ if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php"
                 'items' => $numberOfItems
             );
 
-            echo json_encode($infoArray);
+         //   echo json_encode($infoArray);
         }
     }
 }
