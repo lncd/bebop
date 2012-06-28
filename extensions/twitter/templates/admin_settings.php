@@ -19,12 +19,12 @@ if ( $_POST ) {
 	<th colspan='2'>Twitter Settings</th>
 		<tr>
 			<td>Twitter API Token</td>
-			<td><input type="text" name="tweetstream_consumer_key" value="<?php echo bebop_tables::get_option('tweetstream_consumer_key'); ?>" size="50"></td>
+			<td><input type="text" name="tweetstream_consumer_key" value="<?php echo bebop_tables::get_option_value('tweetstream_consumer_key'); ?>" size="50"></td>
 		</tr>
 		
 		<tr>
 			<td>Twitter API Secret:</td>
-			<td><input type="text" name="tweetstream_consumer_secret" value="<?php echo bebop_tables::get_option('tweetstream_consumer_secret'); ?>" size="50"></td>
+			<td><input type="text" name="tweetstream_consumer_secret" value="<?php echo bebop_tables::get_option_value('tweetstream_consumer_secret'); ?>" size="50"></td>
 		</tr>
 	</table>
 	<p class='submit'><input type='submit' class='button-primary' value='Save Changes'></p>

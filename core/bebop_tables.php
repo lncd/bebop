@@ -34,7 +34,7 @@ class bebop_tables
 	
 	function add_option( $option_name, $option_value ) { //function to add option to the options table.
 		global $wpdb;
-		if( bebop_tables::get_option($option_name) == false ) {
+		if( bebop_tables::check_option_exists($option_name) == false ) {
 			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_options (option_name, option_value) VALUES (%s, %s)", $wpdb->escape($option_name), $wpdb->escape($option_value) ) );
 			return true;
 		}
@@ -69,7 +69,7 @@ class bebop_tables
 	function update_option( $option_name, $option_value ) { //function to update an option in the options table.
 		global $wpdb;
 		
-		if( bebop_tables::get_option($option_name) != false ) {
+		if( bebop_tables::check_option_exists($option_name) == true ) {
 			$result = $wpdb->query( "UPDATE " . $wpdb->base_prefix . "bp_bebop_options SET option_value = '"  . $wpdb->escape($option_value) . "' WHERE option_name = '" . $wpdb->escape($option_name) . "' LIMIT 1" );
 			if( ! empty($result) ) {
 				return $result;
@@ -87,11 +87,12 @@ class bebop_tables
 	function remove_option( $option_name ) { //function to remove an option from the options table.
 		global $wpdb;
 		
-		if( bebop_tables::get_option($option_name) != false ) {
+		if( bebop_tables::check_option_exists($option_name) == true ) {
 			$wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_options  WHERE option_name = '" . $wpdb->escape($option_name) . "' LIMIT 1" );
 			return true;
 		}
 		else{
+			bebop_tables::log_error( _, 'bebop_option_error', "option: '" . $option_name . "' does not exist.");
 			return false;
 		}
 	}

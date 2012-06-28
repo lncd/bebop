@@ -27,8 +27,8 @@ if ( isset( $_GET['oauth_token'] ) ) {
     
     $OAuth->setParameters(array('oauth_verifier' => $_GET['oauth_verifier']));
     $OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/buddystream-networks/?network=twitter');
-    $OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
-    $OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
+    $OAuth->setConsumerKey(bebop_tables::get_option_value("tweetstream_consumer_key"));
+    $OAuth->setConsumerSecret(bebop_tables::get_option_value("tweetstream_consumer_secret"));
     $OAuth->setRequestToken(bebop_tables::get_user_meta_value($bp->loggedin_user->id,'tweetstream_token_temp'));
     $OAuth->setRequestTokenSecret(bebop_tables::get_user_meta_value($bp->loggedin_user->id,'tweetstream_tokensecret_temp'));
     
@@ -65,7 +65,7 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
     echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'profile/bebop-oers/?oer=twitter" method="post">
     <h3>Twitter Settings</h3>';
     
-    if ( ! bebop_tables::get_option('tweetstream_user_settings_syncbp')) {
+    if ( ! bebop_tables::chech_option_exists('tweetstream_user_settings_syncbp')) {
         echo 'no settings available';
 	}
 	else {
@@ -99,8 +99,8 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
 }
 else {
 	
-	echo bebop_tables::get_option("tweetstream_consumer_key") . "<br>";
-	echo bebop_tables::get_option("tweetstream_consumer_secret");
+	echo bebop_tables::get_option_value("tweetstream_consumer_key") . "<br>";
+	echo bebop_tables::get_option_value("tweetstream_consumer_secret");
      
 	echo '<h3>Twitter setup</h3>
 	You may setup you twitter intergration over here.<br/>
@@ -112,8 +112,8 @@ else {
 	$OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
 	$OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
 	$OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_XPROFILE_SLUG.'/bebop-oers/?oer=twitter');
-	$OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
-	$OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
+	$OAuth->setConsumerKey(bebop_tables::get_option_value("tweetstream_consumer_key"));
+	$OAuth->setConsumerSecret(bebop_tables::get_option_value("tweetstream_consumer_secret"));
 	 
 	//get requesttoken and save it for later use.
 	$requestToken = $OAuth->requestToken();

@@ -73,7 +73,7 @@ function bebop_admin_menu() {
 	 
 	 //provider menu
 	 foreach( bebop_extensions::get_extension_configs() as $extension ) {
-        if ( bebop_tables::get_option( "bebop_" . $extension['name'] . "_provider" ) ) {
+        if ( bebop_tables::check_option_exists( "bebop_" . $extension['name'] . "_provider" ) ) {
             if( ! isset( $extension['parent'] ) ) {
             	add_submenu_page('bebop_admin', ucfirst($extension['displayname']), ucfirst($extension['displayname']), 'manage_options', 'bebop_'.$extension['name'], 'bebop_'.$extension['name']);
             }
