@@ -57,7 +57,7 @@ if( ! $_GET['oer'] ){
         while (false !== ($file = readdir($handle))) {
             if ($file != "." && $file != ".." && $file != ".DS_Store") {            	
                 if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $file . "/import.php")) {
-                    if (bebop_tables::get_option("bebop_" . $file . "_provider")) {
+                    if (bebop_tables::check_option_exists("bebop_" . $file . "_provider")) {
                         $extentions[] = $file;
                     }
                 }
@@ -69,13 +69,13 @@ if( ! $_GET['oer'] ){
    bebop_tables::update_option("buddystream_importers", implode(",", $extentions));
 
     //check if there is a import queue, if empty reset
-     if ( bebop_tables::get_option("buddystream_importers_queue") == false) {         	
+     if ( ! bebop_tables::check_option_exists("buddystream_importers_queue")) {         	
          bebop_tables::update_option("buddystream_importers_queue", implode(",", $extentions));
 		 
     }
 
     //start the import (one per time)
-    $importers = bebop_tables::get_option("buddystream_importers_queue");
+    $importers = bebop_tables::get_option_value("buddystream_importers_queue");
     $importers = explode(",", $importers);
     $importer = current($importers);
 
@@ -88,7 +88,7 @@ echo $importer;
 //start the importer for real 
 if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php")) {
 	echo "lol2";
-    if (bebop_tables::get_option("bebop_" . $importer . "_provider")) {
+    if ( bebop_tables::check_option_exists("bebop_" . $importer . "_provider") ) {
 
        include_once(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php");
 
