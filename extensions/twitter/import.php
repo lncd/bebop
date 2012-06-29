@@ -63,9 +63,6 @@ class BuddyStreamTwitterImport{
 
                                 //go through tweets
                                 foreach ($items as $tweet) {
-                                	/*echo "<pre>";
-									var_dump($tweet);
-									echo "</pre><br><br>";*/
                                     $activity_info = bp_activity_get(array('filter' => array('secondary_id' => $user_meta->user_id."_".$tweet->id),'show_hidden' => true));
 
                                     if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content($tweet->text))  && ( ! $limitReached) ) {
