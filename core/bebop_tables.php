@@ -177,6 +177,7 @@ class bebop_tables
 	//maybe use this when tables can be considered stable. instead of inline escapes.
 	function sanitise_element($data) {
 		global $wpdb;
+		
 		return $wpdb->escape(stripslashes(strip_tags($data)));
 	}
 } 
