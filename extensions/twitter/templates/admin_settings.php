@@ -9,6 +9,10 @@ global $bp;
 if ( $_POST ) {
 	bebop_tables::update_option('tweetstream_consumer_key', trim($_POST['tweetstream_consumer_key']));
 	bebop_tables::update_option('tweetstream_consumer_secret', trim($_POST['tweetstream_consumer_secret']));
+	
+	var_dump(bebop_tables::update_option('tweetstream_user_settings_syncbp', trim($_POST['tweetstream_user_settings_syncbp'])));
+	
+	
 
 	echo '<div>Settings Saved</div>';
 }
@@ -26,6 +30,11 @@ if ( $_POST ) {
 			<td>Twitter API Secret:</td>
 			<td><input type="text" name="tweetstream_consumer_secret" value="<?php echo bebop_tables::get_option_value('tweetstream_consumer_secret'); ?>" size="50"></td>
 		</tr>
+		
+		<tr>
+            <td>Allow users to sync twitter?</td>
+            <td><input type="checkbox" name="tweetstream_user_settings_syncbp" id="tweetstream_user_settings_syncbp"<?php if( bebop_tables::get_option_value('tweetstream_user_settings_syncbp') == 'on') { echo ' CHECKED'; } ?>></td>
+        </tr>
 	</table>
 	<p class='submit'><input type='submit' class='button-primary' value='Save Changes'></p>
 </form>

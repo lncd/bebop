@@ -34,7 +34,7 @@ class BuddyStreamTwitterImport{
         if (bebop_tables::check_option_exists("tweetstream_consumer_key")) {
             if ( bebop_tables::check_option_exists('tweetstream_user_settings_syncbp') ) {
 
-                $user_metas = get_user_ids_from_meta_name('tweetstream_tokern');
+                $user_metas = get_user_ids_from_meta_name('tweetstream_token');
 
                 if ($user_metas) {
                     foreach ($user_metas as $user_meta) {

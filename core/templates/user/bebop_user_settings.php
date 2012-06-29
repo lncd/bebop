@@ -6,7 +6,7 @@
 ?>
 </h3>
 
-<div class="buddystream_album_navigation_links">
+<div>
     <ul>
         <?php
 
@@ -23,7 +23,6 @@
         ?>
     </ul>
 </div>
-<br/><br/>
 
 <?php
 if( isset($_GET['oer']) ) {

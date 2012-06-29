@@ -72,7 +72,7 @@ function bebop_activate() {
 	
 		$bebop_options = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_options ( 
 	    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-	    	option_name varchar(30) NOT NULL PRIMARY KEY,
+	    	option_name varchar(100) NOT NULL PRIMARY KEY,
 	    	option_value longtext NOT NULL
 	    );";  
 		
