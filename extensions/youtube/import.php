@@ -41,33 +41,36 @@ class BuddyStreamYoutubeImport
                // if (!$limitReached && get_user_meta($user_meta->user_id, 'bs_youtube_username', 1)) {
  				  if (bebop_tables::check_user_meta_exists($user_meta->user_id, 'bs_youtube_username')) {
                     //get these urls for import
-                    $importUrls = array('https://gdata.youtube.com/feeds/api/users/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bs_youtube_username') . '/uploads',
-                        'https://gdata.youtube.com/feeds/api/users/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bs_youtube_username') . '/favorites');
+                    $importUrls = 'http://gdata.youtube.com/feeds/api/users/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bs_youtube_username') . '/uploads';
 					
-					
-					//Working here atm and for some reason the feed is null
-					//Also $feed->get_oermalink() does not exist :S
-                    foreach ($importUrls as $importUrl) {
+
+						
+						echo $importUrls . "<br>";
 
                         $items = null;
                         $feed = new SimplePie();
-                        $feed->set_feed_url($importUrl);
+                        $feed->set_feed_url($importUrls);
                         $feed->set_cache_class('WP_Feed_Cache');
                         $feed->set_file_class('WP_SimplePie_File');
+						$feed->enable_cache(false);
                         $feed->set_cache_duration(0);
                         do_action_ref_array('wp_feed_options', array(&$feed, $importUrl));
                         $feed->init();
                         $feed->handle_content_type();
 
-                        if ( ! $feed->error) {
+					//	var_dump($feed);
+                        if (!$feed->error) {
                             $items = $feed->get_items();
                         }
+						else {
+							echo "<p>" . $feed->error . "</p><br>";
+						}
 											
-						
+
 						
                         if ($items) {
                             foreach ($items as $item) {
-
+							echo "we made it!";
                                // $limitReached = BuddyStreamFilters::limitReached('youtube', $user_meta->user_id);
 
                                 // get video player URL
@@ -112,7 +115,7 @@ class BuddyStreamYoutubeImport
                                     }
                                 }
                             }
-                        }
+                        
                     }
                 }
             }
