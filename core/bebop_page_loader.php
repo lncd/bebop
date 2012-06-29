@@ -104,7 +104,7 @@ function bebop_admin_pages() {
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_oer_providers.php";
 	}
 	else if ( $_GET["page"] == "bebop_cron" ){
-		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_cron.php";
+		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_cron_menu.php";
 	}
 	else if ( $_GET["page"] == "bebop_error_log" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_error_log.php";
