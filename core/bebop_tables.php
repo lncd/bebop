@@ -126,6 +126,12 @@ class bebop_tables
 			return false;
 		}
 	}
+	/*Special function to return list of users with a specific import type */
+	function get_user_ids_from_meta_name( $meta_name ) { //function to get user id's from the meta table
+		global $wpdb;
+		$result = $wpdb->get_results( "SELECT user_id FROM " . $wpdb->base_prefix . "bp_bebop_user_meta WHERE meta_name = '" . $wpdb->escape($meta_name) . "'");
+		return $result;
+	}
 	
 	function get_user_meta_value( $user_id, $meta_name ) { //function to get user meta from the user_meta table.
 		global $wpdb;

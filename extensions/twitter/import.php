@@ -3,9 +3,11 @@
  * Import starter
  */
 
-function BuddystreamTwitterImportStart(){
+function BuddystreamTwitterImportStart() {
+	
+	$user_metas = bebop_tables::get_user_ids_from_meta_name('tweetstream_token');
 
-    if( ! get_site_option('tweetstream_user_settings_syncbp')){
+    if( ! bebop_tables::check_option_exists('tweetstream_user_settings_syncbp')){
         //add record to the log
         bebop_tables::log_error(1, 'Twitter', 'Import disabled');
         return false;
@@ -29,12 +31,10 @@ class BuddyStreamTwitterImport{
         //item counter for in the logs
         $itemCounter = 0;
 
-        if (get_site_option("tweetstream_consumer_key")) {
-            if (get_site_option('tweetstream_user_settings_syncbp') == 0) {
+        if (bebop_tables::check_option_exists("tweetstream_consumer_key")) {
+            if ( bebop_tables::check_option_exists('tweetstream_user_settings_syncbp') ) {
 
-                $user_metas = $wpdb->get_results(
-                    $wpdb->prepare("SELECT user_id FROM $wpdb->usermeta where meta_key='tweetstream_token'")
-                );
+                $user_metas = get_user_ids_from_meta_name('tweetstream_tokern');
 
                 if ($user_metas) {
                     foreach ($user_metas as $user_meta) {
