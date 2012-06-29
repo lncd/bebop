@@ -81,7 +81,7 @@ function bebop_admin_menu() {
     }
 }
 
-
+//This deals with the bebop page loaders based on the link selected.
 function bebop_admin_pages() {
 	if ( $_GET["page"] == "bebop_admin" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin.php";
@@ -92,9 +92,9 @@ function bebop_admin_pages() {
 	else if ( $_GET["page"] == "bebop_oer_providers" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_oer_providers.php";
 	}
-	/*else if ( $_GET["page"] == "bebop_cron" ){
-		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_cron.php";
-	}*/
+	else if ( $_GET["page"] == "bebop_cron" ){
+		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_cron.php";
+	}
 	else if ( $_GET["page"] == "bebop_error_log" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_error_log.php";
 	}
