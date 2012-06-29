@@ -13,7 +13,6 @@ if ($_POST){
 }
 
     $bs_youtube_username = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bs_youtube_username');
-	echo $bs_youtube_username;
     if ($bs_youtube_username) {
       do_action('buddystream_youtube_activated');
     }
