@@ -26,7 +26,7 @@ if ( isset( $_GET['oauth_token'] ) ) {
     $OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
     
     $OAuth->setParameters(array('oauth_verifier' => $_GET['oauth_verifier']));
-    $OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_SETTINGS_SLUG.'/buddystream-networks/?network=twitter');
+    $OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_XPROFILE_SLUG.'/bebop-oers/?oer=twitter');
     $OAuth->setConsumerKey(bebop_tables::get_option_value("tweetstream_consumer_key"));
     $OAuth->setConsumerSecret(bebop_tables::get_option_value("tweetstream_consumer_secret"));
     $OAuth->setRequestToken(bebop_tables::get_user_meta_value($bp->loggedin_user->id,'tweetstream_token_temp'));
@@ -69,7 +69,7 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
         echo 'no settings available';
 	}
 	else {
-		echo '<br/><h5>Synt tweets to activity stream</h5>
+		echo '<br/><h5>Sync tweets to activity stream</h5>
 		<input type="radio" name="tweetstream_synctoac" id="tweetstream_synctoac" value="1"';  if ($tweetstream_synctoac == 1) { echo 'checked'; } echo '>
 		<label for="yes">Yes</label>/label>
 		
@@ -98,10 +98,6 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
 	echo '</form>';
 }
 else {
-	
-	echo bebop_tables::get_option_value("tweetstream_consumer_key") . "<br>";
-	echo bebop_tables::get_option_value("tweetstream_consumer_secret");
-     
 	echo '<h3>Twitter setup</h3>
 	You may setup you twitter intergration over here.<br/>
 	Before you can begin using Twitter with this site you must authorize on Twitter by clicking the link below.<br/><br/>';
