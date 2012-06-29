@@ -1,27 +1,8 @@
 <?php 
-function bebopTwitterSharing(){
- global $bp;
-    if (bebop_tables::check_option_exists("tweetstream_consumer_key")) {
-        if (get_user_meta($bp->loggedin_user->id, 'tweetstream_token',1)) {
-            echo'<span class="twitter_share_button" onclick="twitter_addTag()" id="'.__('Also post this to my Twitter account.', 'buddystream_twitter').'"></span>';
-
-            $max_message = __("You\'ve reached the max. amount of characters for a Tweet.  The Message will appear truncated on Twitter.", "bebop_twitter");
-            echo '<div class="twitter_share_counterbox">
-                    <div class="twitter_share_counter">140</div>
-                  </div>
-            <div class="twitter_hoverbox"></div>';
-
-        }
-    }
-}
 
 
-/**
- * Replace all twitpic and yfroc images for real thumbnails
- */
-
-add_filter( 'bp_get_activity_content','bebopTwitterSharing',5 );
-add_filter( 'bp_get_activity_content_body','bebopTwitterSharing',5 );
+add_filter( 'bp_get_activity_content','bebopTwitterImages',5 );
+add_filter( 'bp_get_activity_content_body','bebopTwitterImages',5 );
 
 function bebopTwitterImages($text) {
  
@@ -34,29 +15,6 @@ function bebopTwitterImages($text) {
   return $text;
 }
 
-/**
- * Post update to Twitter
- */
-
-function bebopTwitterPostUpdate($content = "", $shortLink = "", $user_id = 0) {
-    
-    global $bp;
-    
-    //handle oauth calls
-    $OAuth = new BuddyStreamOAuth();
-    $OAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
-    $OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
-    $OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
-    $OAuth->setCallbackUrl($bp->root_domain);
-    $OAuth->setConsumerKey(bebop_tables::get_option_value("tweetstream_consumer_key"));
-    $OAuth->setConsumerSecret(bebop_tables::get_option_value("tweetstream_consumer_secret"));
-    $OAuth->setAccessToken(bebop_tables::get_user_meta($bp->loggedin_user->id,'tweetstream_token', 1));
-    $OAuth->setAccessTokenSecret(bebop_tables::get_user_meta($bp->loggedin_user->id,'tweetstream_tokensecret', 1));
-    $OAuth->setRequestType('POST');
-    $OAuth->setParameters(array('status' => BuddyStreamFilters::filterPostContent($content, $shortLink, 140)));
-    $OAuth->oAuthRequest('https://api.twitter.com/1/statuses/update.json');
-    
-}
 
 /**
  * 
