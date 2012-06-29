@@ -47,8 +47,8 @@ class BuddyStreamTwitterImport{
                             //Handle the OAuth requests
                             $OAuth = new BuddyStreamOAuth();
                             $OAuth->setCallbackUrl($bp->root_domain);
-                            $OAuth->setConsumerKey(bebop_tables::get_option("tweetstream_consumer_key"));
-                            $OAuth->setConsumerSecret(bebop_tables::get_option("tweetstream_consumer_secret"));
+                            $OAuth->setConsumerKey(bebop_tables::get_option_value("tweetstream_consumer_key"));
+                            $OAuth->setConsumerSecret(bebop_tables::get_option_value("tweetstream_consumer_secret"));
                             $OAuth->setAccessToken(bebop_tables::get_user_meta_value($user_meta->user_id,'tweetstream_token'));
                             $OAuth->setAccessTokenSecret(bebop_tables::get_user_meta_value($user_meta->user_id,'tweetstream_tokensecret'));
 
@@ -63,16 +63,19 @@ class BuddyStreamTwitterImport{
 
                                 //go through tweets
                                 foreach ($items as $tweet) {
-
+                                	/*echo "<pre>";
+									var_dump($tweet);
+									echo "</pre><br><br>";*/
                                     $activity_info = bp_activity_get(array('filter' => array('secondary_id' => $user_meta->user_id."_".$tweet->id),'show_hidden' => true));
-                                    if ($activity_info['activities'][0] == null && !bp_activity_check_exists_by_content($tweet->text) && !$limitReached) {
 
-                                        $returnCreate = buddystreamCreateActivity(array(
+                                    if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content($tweet->text))  && ( ! $limitReached) ) {
+
+                                       $returnCreate = bebop_create_activity(array(
                                                 'user_id'       => $user_meta->user_id,
                                                 'extention'     => 'twitter',
                                                 'type'          => 'tweet',
                                                 'content'       => $tweet->text,
-                                                'item_id'       => $tweet->id,
+									     		'item_id'       => $tweet->id,
                                                 'raw_date'      => gmdate('Y-m-d H:i:s', strtotime($tweet->created_at)),
                                                 'actionlink'    => 'http://www.twitter.com/' . $screenName . '/status/'.$tweet->id
                                             )
@@ -89,12 +92,9 @@ class BuddyStreamTwitterImport{
                 }
             }
         }
-
         //add record to the log
         bebop_tables::log_general("Twitter", " imported ".$itemCounter." tweets.");
-
         //return number of items imported
         return $itemCounter;
-
     }
 }
