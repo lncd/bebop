@@ -39,7 +39,10 @@ function bebop_init() {
 	//Main content file
 	include_once( 'core/bebop_core.php' );	
 	
-	//include_once( 'import.php' );	
+	//include_once( 'import.php' );
+	
+	 bebop_tables::log_general('cron', 'general log.');
+
 }
 
 function bebop_init_settings() {
@@ -102,6 +105,17 @@ function bebop_activate() {
 		deactivate_plugins( basename(__FILE__) ); // Deactivate this plugin
 		wp_die( "You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again." );
 	}
+	
+	
+	add_filter( 'cron_schedules', 'myprefix_add_weekly_cron_schedule' );
+	
+	//This turns the cron on and ensures if its not existent it makes a new schedule.
+	if (!wp_next_scheduled('oer_cron_job')) {		
+		wp_schedule_event( time(), 'minutes', 'oer_cron_job');
+	}
+
+	
+	
 }
 //remove the tables upon deactivation
 function bebop_deactivate() {
@@ -111,6 +125,13 @@ function bebop_deactivate() {
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_options");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta");
+	
+	
+		//Checks if the cron is existent and if so clears it. before the deactivation
+	if (wp_next_scheduled('oer_cron_job')) {
+		wp_clear_scheduled_hook('oer_cron_job');		
+	}
+
 }
 
 define('BP_BEBOP_VERSION', '0.1');
@@ -122,3 +143,28 @@ register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' )
 
 add_action( 'bp_init', 'bebop_init', 5 );
+
+	//Adds the a
+	add_action( 'cron_hook', 'oer_cron_job' );
+
+
+function myprefix_add_weekly_cron_schedule( $schedules ) {
+    $schedules['minutes'] = array(
+        'interval' => 10, // 1 week in seconds
+        'display'  => __( 'Once Minute' ),
+    );
+ 
+    return $schedules;
+}
+
+ 
+function oer_cron_job() {
+	// Do cron tasks here.
+	// 1 minute maximum, keep that in mind.
+	
+	 bebop_tables::log_general('Cron done');
+}
+
+
+
+
