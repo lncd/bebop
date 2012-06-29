@@ -19,7 +19,18 @@ function bebop_setup_user_nav()
 {
 	global $bp;
 	
-	bp_core_new_subnav_item(
+	bp_core_new_nav_item( 
+    array( 
+        'name' => 'Open Educational Resources', 
+        'slug' => 'bebop-oers', 
+        'position' => 30, 
+        'show_for_displayed_user' => false, 
+        'screen_function' => 'bebop_default_user_settings', 
+        'default_subnav_slug' => 'bebop_default_user_settings', 
+        'item_css_id' => bp_is_my_profile ()
+    ));
+	
+	/*bp_core_new_subnav_item(
         array(
             'name' => 'OER',
             'slug' => 'bebop-oers',
@@ -29,7 +40,7 @@ function bebop_setup_user_nav()
             'position' => 10,
             'user_has_access' => bp_is_my_profile ()
 		)
-    );
+    );*/
 }
 
 function bebop_default_user_settings() {
