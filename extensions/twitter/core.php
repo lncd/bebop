@@ -20,8 +20,8 @@ function bebopTwitterSharing(){
  * Replace all twitpic and yfroc images for real thumbnails
  */
 
-add_filter( 'bp_get_activity_content','BuddystreamTwitterImages',5 );
-add_filter( 'bp_get_activity_content_body','BuddystreamTwitterImages',5 );
+add_filter( 'bp_get_activity_content','bebopTwitterImages',5 );
+add_filter( 'bp_get_activity_content_body','bebopTwitterImages',5 );
 
 function bebopTwitterImages($text) {
  
