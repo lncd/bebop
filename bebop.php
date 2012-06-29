@@ -35,14 +35,12 @@ function bebop_init() {
 	include_once( 'core/bebop_filters.php' );
 	include_once( 'core/bebop_page_loader.php' );
 	include_once( 'core/bebop_extensions.php' );
+	include_once( 'core/template/admin/bebop_cron.php');
 
 	//Main content file
 	include_once( 'core/bebop_core.php' );	
 	
-	//include_once( 'import.php' );
-	
-	 bebop_tables::log_general('cron', 'general log.');
-
+	//include_once( 'import.php' );	
 }
 
 function bebop_init_settings() {
@@ -106,15 +104,17 @@ function bebop_activate() {
 		wp_die( "You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again." );
 	}
 	
-	
-	add_filter( 'cron_schedules', 'myprefix_add_weekly_cron_schedule' );
+	bebop_cron::add_cron_filter();
+	bebop_cron::add_cron_action();
+	//add_filter( 'cron_schedules', 'myprefix_add_weekly_cron_schedule' );
 	
 	//This turns the cron on and ensures if its not existent it makes a new schedule.
-	if (!wp_next_scheduled('oer_cron_job')) {		
-		wp_schedule_event( time(), 'minutes', 'oer_cron_job');
-	}
+	/*if (!wp_next_scheduled('oer_cron_job')) {		
+		wp_schedule_event( time(), 'minutes', 'oer_cron_job');		
+	}*/
 
-	
+	//Adds the a
+add_action( 'oer_cron_job', 'cron_run' );
 	
 }
 //remove the tables upon deactivation
@@ -128,9 +128,9 @@ function bebop_deactivate() {
 	
 	
 		//Checks if the cron is existent and if so clears it. before the deactivation
-	if (wp_next_scheduled('oer_cron_job')) {
+	/*if (wp_next_scheduled('oer_cron_job')) {
 		wp_clear_scheduled_hook('oer_cron_job');		
-	}
+	}*/
 
 }
 
@@ -144,26 +144,12 @@ register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 
 add_action( 'bp_init', 'bebop_init', 5 );
 
-	//Adds the a
-	add_action( 'cron_hook', 'oer_cron_job' );
 
 
-function myprefix_add_weekly_cron_schedule( $schedules ) {
-    $schedules['minutes'] = array(
-        'interval' => 10, // 1 week in seconds
-        'display'  => __( 'Once Minute' ),
-    );
- 
-    return $schedules;
-}
 
- 
-function oer_cron_job() {
-	// Do cron tasks here.
-	// 1 minute maximum, keep that in mind.
-	
-	 bebop_tables::log_general('Cron done');
-}
+
+
+?>
 
 
 
