@@ -3,7 +3,7 @@
  * Import starter
  */
 
-/*function BuddystreamYoutubeImportStart()
+function BuddystreamYoutubeImportStart()
 {
     $importer = new BuddyStreamYoutubeImport();
     return $importer->doImport();
@@ -18,7 +18,6 @@ class BuddyStreamYoutubeImport
 
     public function doImport()
     {
-
         global $bp, $wpdb;
 
         require_once (ABSPATH . WPINC . '/class-feed.php');
@@ -36,16 +35,18 @@ class BuddyStreamYoutubeImport
 
         if ($user_metas) {
             foreach ($user_metas as $user_meta) {
-
                 //check for daylimit
-                $limitReached = BuddyStreamFilters::limitReached('youtube', $user_meta->user_id);
+             //   $limitReached = BuddyStreamFilters::limitReached('youtube', $user_meta->user_id);
 
-                if (!$limitReached && get_user_meta($user_meta->user_id, 'bs_youtube_username', 1)) {
-
+               // if (!$limitReached && get_user_meta($user_meta->user_id, 'bs_youtube_username', 1)) {
+ 				  if (bebop_tables::check_user_meta_exists($user_meta->user_id, 'bs_youtube_username')) {
                     //get these urls for import
-                    $importUrls = array('https://gdata.youtube.com/feeds/api/users/' . get_user_meta($user_meta->user_id, 'bs_youtube_username', 1) . '/uploads',
-                        'https://gdata.youtube.com/feeds/api/users/' . get_user_meta($user_meta->user_id, 'bs_youtube_username', 1) . '/favorites');
-
+                    $importUrls = array('https://gdata.youtube.com/feeds/api/users/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bs_youtube_username') . '/uploads',
+                        'https://gdata.youtube.com/feeds/api/users/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bs_youtube_username') . '/favorites');
+					
+					
+					//Working here atm and for some reason the feed is null
+					//Also $feed->get_oermalink() does not exist :S
                     foreach ($importUrls as $importUrl) {
 
                         $items = null;
@@ -58,14 +59,16 @@ class BuddyStreamYoutubeImport
                         $feed->init();
                         $feed->handle_content_type();
 
-                        if ( ! $feed->errors) {
+                        if ( ! $feed->error) {
                             $items = $feed->get_items();
                         }
-
+											
+						
+						
                         if ($items) {
                             foreach ($items as $item) {
 
-                                $limitReached = BuddyStreamFilters::limitReached('youtube', $user_meta->user_id);
+                               // $limitReached = BuddyStreamFilters::limitReached('youtube', $user_meta->user_id);
 
                                 // get video player URL
                                 $link = $item->get_permalink();
@@ -116,7 +119,7 @@ class BuddyStreamYoutubeImport
         }
 
         //add record to the log
-        BuddyStreamLog::log("Youtube imported " . $itemCounter . " video's.");
+      // BuddyStreamLog::log("Youtube imported " . $itemCounter . " video's.");
 
         //return number of items imported
         return $itemCounter;
