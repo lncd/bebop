@@ -1,7 +1,7 @@
 <?php 
 function bebopTwitterSharing(){
  global $bp;
-    if (bebop_tables::get_option_value("tweetstream_consumer_key")) {
+    if (bebop_tables::check_option_exists("tweetstream_consumer_key")) {
         if (get_user_meta($bp->loggedin_user->id, 'tweetstream_token',1)) {
             echo'<span class="twitter_share_button" onclick="twitter_addTag()" id="'.__('Also post this to my Twitter account.', 'buddystream_twitter').'"></span>';
 
@@ -20,8 +20,10 @@ function bebopTwitterSharing(){
  * Replace all twitpic and yfroc images for real thumbnails
  */
 
-add_filter( 'bp_get_activity_content','bebopTwitterImages',5 );
-add_filter( 'bp_get_activity_content_body','bebopTwitterImages',5 );
+
+add_filter( 'bp_get_activity_content','bebopTwitterSharing',5 );
+add_filter( 'bp_get_activity_content_body','bebopTwitterSharing',5 );
+
 
 function bebopTwitterImages($text) {
  

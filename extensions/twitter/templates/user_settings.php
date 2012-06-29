@@ -71,7 +71,7 @@ if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'tweetstream_toke
 	else {
 		echo '<br/><h5>Sync tweets to activity stream</h5>
 		<input type="radio" name="tweetstream_synctoac" id="tweetstream_synctoac" value="1"';  if ($tweetstream_synctoac == 1) { echo 'checked'; } echo '>
-		<label for="yes">Yes</label>/label>
+		<label for="yes">Yes</label>
 		
 		<input type="radio" name="tweetstream_synctoac" id="tweetstream_synctoac" value="0"'; if ($tweetstream_synctoac == 0) { echo 'checked'; } echo '>
 		<label for="no">No</label>
