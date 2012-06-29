@@ -18,8 +18,7 @@ Credits: BuddySteam - buddystrem.net
 /*****************************************************************************
 ** This program is distributed WITHOUT ANY WARRANTY; without even the       **
 ** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. **
-*****************************************************************************/
-	
+*****************************************************************************/	
 //initialise Bebop
 function bebop_init() {
 	
@@ -35,7 +34,6 @@ function bebop_init() {
 	include_once( 'core/bebop_filters.php' );
 	include_once( 'core/bebop_page_loader.php' );
 	include_once( 'core/bebop_extensions.php' );
-	include_once( 'core/template/admin/bebop_cron.php');
 
 	//Main content file
 	include_once( 'core/bebop_core.php' );	
@@ -53,7 +51,6 @@ function bebop_init_languages() {
 //Code that should be fired when he plugin is activated.
 function bebop_activate() {
 	global $wpdb;
-	
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	if( is_plugin_active('buddypress/bp-loader.php') ) {
 		//define table sql
@@ -97,24 +94,16 @@ function bebop_activate() {
 		unset($bebop_user_meta);
     }
 	else {
+
 		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
 		include_once( 'core/bebop_tables.php' );
 		bebop_tables::log_error(0, 'BuddyPress Error', 'BuddyPress is not active.');
 		deactivate_plugins( basename(__FILE__) ); // Deactivate this plugin
 		wp_die( "You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again." );
-	}
+	}	
 	
-	bebop_cron::add_cron_filter();
-	bebop_cron::add_cron_action();
-	//add_filter( 'cron_schedules', 'myprefix_add_weekly_cron_schedule' );
+	//This is the cron job section of the activation.
 	
-	//This turns the cron on and ensures if its not existent it makes a new schedule.
-	/*if (!wp_next_scheduled('oer_cron_job')) {		
-		wp_schedule_event( time(), 'minutes', 'oer_cron_job');		
-	}*/
-
-	//Adds the a
-add_action( 'oer_cron_job', 'cron_run' );
 	
 }
 //remove the tables upon deactivation
@@ -147,10 +136,31 @@ add_action( 'bp_init', 'bebop_init', 5 );
 
 
 
+//NOTE: CRON JOB from this point. "This needs putting in activation and deactivation of the plugin etc"
+
+	//Adds the schedule filter for changing the standard interval time.
+	add_filter( 'cron_schedules', 'myprefix_add_weekly_cron_schedule' );	
+	
+	//This function is then called and a new standard 'secs' is added.
+	function myprefix_add_weekly_cron_schedule( $schedules ) {
+    	$schedules['secs'] = array(
+     						    'interval' => 10, // This will need changing to the database value stored. 'Its in seconds'
+    						    'display'  => __( 'Once Weekly' ),
+    							); 
+   		return $schedules;
+	}
+	
+	//Hook into that action that'll fire every 10 seconds.
+	add_action( 'myprefix_my_cron_action', 'myprefix_function_to_run' );
+	
+	if ( ! wp_next_scheduled( 'myprefix_my_cron_action' ) ) {
+    	wp_schedule_event( time(), 'secs', 'myprefix_my_cron_action' );
+	}		
+	
+	//This is what is run every 10 seconds
+	function myprefix_function_to_run() {
+   		bebop_tables::log_general('cron', 'done log.');
+	}
 
 
 ?>
-
-
-
-
