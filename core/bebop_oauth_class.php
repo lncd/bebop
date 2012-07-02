@@ -1,13 +1,19 @@
 <?php
-// vim: foldmethod=marker
+
+
+/* All credits for this go to BuddyStream (http://buddystream.net),
+ * I merely changed class names to avoid redefinition errors i
+ * BuddyStream and Bebop are used at the same time, and made a few
+ * small changes.
+ */
 
 /* Generic exception class
  */
-class BuddyStreamOAuthException extends Exception {
+class bebop_oauth_exception extends Exception {
   // pass
 }
 
-class BuddyStreamOAuthConsumer {
+class bebop_oauth_consumer {
   public $key;
   public $secret;
 
@@ -22,7 +28,7 @@ class BuddyStreamOAuthConsumer {
   }
 }
 
-class BuddyStreamOAuthToken {
+class bebop_oauth_token {
   // access tokens and request tokens
   public $key;
   public $secret;
@@ -42,9 +48,9 @@ class BuddyStreamOAuthToken {
    */
   function to_string() {
     return "oauth_token=" .
-           BuddyStreamOAuthUtil::urlencode_rfc3986($this->key) .
+           bebop_oauth_util::urlencode_rfc3986($this->key) .
            "&oauth_token_secret=" .
-           BuddyStreamOAuthUtil::urlencode_rfc3986($this->secret);
+           bebop_oauth_util::urlencode_rfc3986($this->secret);
   }
 
   function __toString() {
@@ -56,7 +62,7 @@ class BuddyStreamOAuthToken {
  * A class for implementing a Signature Method
  * See section 9 ("Signing Requests") in the spec
  */
-abstract class BuddyStreamOAuthSignatureMethod {
+abstract class bebop_signature_method{
   /**
    * Needs to return the name of the Signature Method (ie HMAC-SHA1)
    * @return string
@@ -126,7 +132,7 @@ class BuddyStreamOAuthSignatureMethod_HMAC_SHA1 extends BuddyStreamOAuthSignatur
       ($token) ? $token->secret : ""
     );
 
-    $key_parts = BuddyStreamOAuthUtil::urlencode_rfc3986($key_parts);
+    $key_parts = bebop_oauth_util::urlencode_rfc3986($key_parts);
     $key = implode('&', $key_parts);
 
     return base64_encode(hash_hmac('sha1', $base_string, $key, true));
@@ -158,7 +164,7 @@ class BuddyStreamOAuthSignatureMethod_PLAINTEXT extends BuddyStreamOAuthSignatur
       ($token) ? $token->secret : ""
     );
 
-    $key_parts = BuddyStreamOAuthUtil::urlencode_rfc3986($key_parts);
+    $key_parts = bebop_oauth_util::urlencode_rfc3986($key_parts);
     $key = implode('&', $key_parts);
     $request->base_string = $key;
 
@@ -244,7 +250,7 @@ class BuddyStreamOAuthRequest {
 
   function __construct($http_method, $http_url, $parameters=NULL) {
     $parameters = ($parameters) ? $parameters : array();
-    $parameters = array_merge( BuddyStreamOAuthUtil::parse_parameters(parse_url($http_url, PHP_URL_QUERY)), $parameters);
+    $parameters = array_merge( bebop_oauth_util::parse_parameters(parse_url($http_url, PHP_URL_QUERY)), $parameters);
     $this->parameters = $parameters;
     $this->http_method = $http_method;
     $this->http_url = $http_url;
@@ -271,10 +277,10 @@ class BuddyStreamOAuthRequest {
     // parsed parameter-list
     if (!$parameters) {
       // Find request headers
-      $request_headers = BuddyStreamOAuthUtil::get_headers();
+      $request_headers = bebop_oauth_util::get_headers();
 
       // Parse the query-string to find GET parameters
-      $parameters = BuddyStreamOAuthUtil::parse_parameters($_SERVER['QUERY_STRING']);
+      $parameters = bebop_oauth_util::parse_parameters($_SERVER['QUERY_STRING']);
 
       // It's a POST request of the proper content-type, so parse POST
       // parameters and add those overriding any duplicates from GET
@@ -283,7 +289,7 @@ class BuddyStreamOAuthRequest {
           && strstr($request_headers['Content-Type'],
                      'application/x-www-form-urlencoded')
           ) {
-        $post_data = BuddyStreamOAuthUtil::parse_parameters(
+        $post_data = bebop_oauth_util::parse_parameters(
           file_get_contents(self::$POST_INPUT)
         );
         $parameters = array_merge($parameters, $post_data);
@@ -292,7 +298,7 @@ class BuddyStreamOAuthRequest {
       // We have a Authorization-header with OAuth data. Parse the header
       // and add those overriding any duplicates from GET or POST
       if (isset($request_headers['Authorization']) && substr($request_headers['Authorization'], 0, 6) == 'OAuth ') {
-        $header_parameters = BuddyStreamOAuthUtil::split_header(
+        $header_parameters = bebop_oauth_util::split_header(
           $request_headers['Authorization']
         );
         $parameters = array_merge($parameters, $header_parameters);
@@ -362,7 +368,7 @@ class BuddyStreamOAuthRequest {
       unset($params['oauth_signature']);
     }
 
-    return BuddyStreamOAuthUtil::build_http_query($params);
+    return bebop_oauth_util::build_http_query($params);
   }
 
   /**
@@ -379,7 +385,7 @@ class BuddyStreamOAuthRequest {
       $this->get_signable_parameters()
     );
 
-    $parts = BuddyStreamOAuthUtil::urlencode_rfc3986($parts);
+    $parts = bebop_oauth_util::urlencode_rfc3986($parts);
 
     return implode('&', $parts);
   }
@@ -426,7 +432,7 @@ class BuddyStreamOAuthRequest {
    * builds the data one would send in a POST request
    */
   public function to_postdata() {
-    return BuddyStreamOAuthUtil::build_http_query($this->parameters);
+    return bebop_oauth_util::build_http_query($this->parameters);
   }
 
   /**
@@ -435,7 +441,7 @@ class BuddyStreamOAuthRequest {
   public function to_header($realm=null) {
     $first = true;
 	if($realm) {
-      $out = 'Authorization: OAuth realm="' . BuddyStreamOAuthUtil::urlencode_rfc3986($realm) . '"';
+      $out = 'Authorization: OAuth realm="' . bebop_oauth_util::urlencode_rfc3986($realm) . '"';
       $first = false;
     } else
       $out = 'Authorization: OAuth';
@@ -444,12 +450,12 @@ class BuddyStreamOAuthRequest {
     foreach ($this->parameters as $k => $v) {
       if (substr($k, 0, 5) != "oauth") continue;
       if (is_array($v)) {
-        throw new BuddyStreamOAuthException('Arrays not supported in headers');
+        throw new bebop_oauth_exception('Arrays not supported in headers');
       }
       $out .= ($first) ? ' ' : ',';
-      $out .= BuddyStreamOAuthUtil::urlencode_rfc3986($k) .
+      $out .= bebop_oauth_util::urlencode_rfc3986($k) .
               '="' .
-              BuddyStreamOAuthUtil::urlencode_rfc3986($v) .
+              bebop_oauth_util::urlencode_rfc3986($v) .
               '"';
       $first = false;
     }
@@ -593,12 +599,12 @@ class BuddyStreamOAuthServer {
     if (!$signature_method) {
       // According to chapter 7 ("Accessing Protected Ressources") the signature-method
       // parameter is required, and we can't just fallback to PLAINTEXT
-      throw new BuddyStreamOAuthException('No signature method parameter. This parameter is required');
+      throw new bebop_oauth_exception('No signature method parameter. This parameter is required');
     }
 
     if (!in_array($signature_method,
                   array_keys($this->signature_methods))) {
-      throw new BuddyStreamOAuthException(
+      throw new bebop_oauth_exception(
         "Signature method '$signature_method' not supported " .
         "try one of the following: " .
         implode(", ", array_keys($this->signature_methods))
@@ -616,12 +622,12 @@ class BuddyStreamOAuthServer {
         : NULL;
 
     if (!$consumer_key) {
-      throw new BuddyStreamOAuthException("Invalid consumer key");
+      throw new bebop_oauth_exception("Invalid consumer key");
     }
 
     $consumer = $this->data_store->lookup_consumer($consumer_key);
     if (!$consumer) {
-      throw new BuddyStreamOAuthException("Invalid consumer");
+      throw new bebop_oauth_exception("Invalid consumer");
     }
 
     return $consumer;
@@ -639,7 +645,7 @@ class BuddyStreamOAuthServer {
       $consumer, $token_type, $token_field
     );
     if (!$token) {
-      throw new BuddyStreamOAuthException("Invalid $token_type token: $token_field");
+      throw new bebop_oauth_exception("Invalid $token_type token: $token_field");
     }
     return $token;
   }
@@ -671,7 +677,7 @@ class BuddyStreamOAuthServer {
     );
 
     if (!$valid_sig) {
-      throw new BuddyStreamOAuthException("Invalid signature");
+      throw new bebop_oauth_exception("Invalid signature");
     }
   }
 
@@ -680,14 +686,14 @@ class BuddyStreamOAuthServer {
    */
   private function check_timestamp($timestamp) {
     if( ! $timestamp )
-      throw new BuddyStreamOAuthException(
+      throw new bebop_oauth_exception(
         'Missing timestamp parameter. The parameter is required'
       );
     
     // verify that timestamp is recentish
     $now = time();
     if (abs($now - $timestamp) > $this->timestamp_threshold) {
-      throw new BuddyStreamOAuthException(
+      throw new bebop_oauth_exception(
         "Expired timestamp, yours $timestamp, ours $now"
       );
     }
@@ -698,7 +704,7 @@ class BuddyStreamOAuthServer {
    */
   private function check_nonce($consumer, $token, $nonce, $timestamp) {
     if( ! $nonce )
-      throw new BuddyStreamOAuthException(
+      throw new bebop_oauth_exception(
         'Missing nonce parameter. The parameter is required'
       );
 
@@ -710,17 +716,17 @@ class BuddyStreamOAuthServer {
       $timestamp
     );
     if ($found) {
-      throw new BuddyStreamOAuthException("Nonce already used: $nonce");
+      throw new bebop_oauth_exception("Nonce already used: $nonce");
     }
   }
 
 }
 
 
-class BuddyStreamOAuthUtil {
+class bebop_oauth_util {
   public static function urlencode_rfc3986($input) {
   if (is_array($input)) {
-    return array_map(array('BuddyStreamOAuthUtil', 'urlencode_rfc3986'), $input);
+    return array_map(array('bebop_oauth_util', 'urlencode_rfc3986'), $input);
   } else if (is_scalar($input)) {
     return str_replace(
       '+',
@@ -749,7 +755,7 @@ class BuddyStreamOAuthUtil {
     $params = array();
     if (preg_match_all('/('.($only_allow_oauth_parameters ? 'oauth_' : '').'[a-z_-]*)=(:?"([^"]*)"|([^,]*))/', $header, $matches)) {
       foreach ($matches[1] as $i => $h) {
-        $params[$h] = BuddyStreamOAuthUtil::urldecode_rfc3986(empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]);
+        $params[$h] = bebop_oauth_util::urldecode_rfc3986(empty($matches[3][$i]) ? $matches[4][$i] : $matches[3][$i]);
       }
       if (isset($params['realm'])) {
         unset($params['realm']);
@@ -815,8 +821,8 @@ class BuddyStreamOAuthUtil {
     $parsed_parameters = array();
     foreach ($pairs as $pair) {
       $split = explode('=', $pair, 2);
-      $parameter = BuddyStreamOAuthUtil::urldecode_rfc3986($split[0]);
-      $value = isset($split[1]) ? BuddyStreamOAuthUtil::urldecode_rfc3986($split[1]) : '';
+      $parameter = bebop_oauth_util::urldecode_rfc3986($split[0]);
+      $value = isset($split[1]) ? bebop_oauth_util::urldecode_rfc3986($split[1]) : '';
 
       if (isset($parsed_parameters[$parameter])) {
         // We have already recieved parameter(s) with this name, so add to the list
@@ -840,8 +846,8 @@ class BuddyStreamOAuthUtil {
     if (!$params) return '';
 
     // Urlencode both keys and values
-    $keys = BuddyStreamOAuthUtil::urlencode_rfc3986(array_keys($params));
-    $values = BuddyStreamOAuthUtil::urlencode_rfc3986(array_values($params));
+    $keys = bebop_oauth_util::urlencode_rfc3986(array_keys($params));
+    $values = bebop_oauth_util::urlencode_rfc3986(array_values($params));
     $params = array_combine($keys, $values);
 
     // Parameters are sorted by name, using lexicographical byte value ordering.

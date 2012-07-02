@@ -20,7 +20,7 @@ if( isset( $_GET['reset'] ) ) {
 if ( isset( $_GET['oauth_token'] ) ) {
 	
     //Handle the oAuth requests
-    $OAuth = new BuddyStreamOAuth();
+    $OAuth = new bebop_oauth();
     $OAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
     $OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
     $OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
@@ -103,7 +103,7 @@ else {
 	Before you can begin using Twitter with this site you must authorize on Twitter by clicking the link below.<br/><br/>';
 	
 	//oauth
-	$OAuth = new BuddyStreamOAuth();
+	$OAuth = new bebop_oauth();
 	$OAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
 	$OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
 	$OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');

@@ -19,7 +19,8 @@ Credits: BuddySteam - buddystrem.net
 ** This software is released without warranty or guarantee, and as such no  **
 *  liability or responsibility can be accepted by its authors or related     *
 ** organisations or institutions. YOU USE HIS SOFTWARE AT YOUR OWN RISK.    **
-*****************************************************************************/	
+*****************************************************************************/
+
 //initialise Bebop
 function bebop_init() {
 	
@@ -30,7 +31,7 @@ function bebop_init() {
 	bebop_init_languages();
 
 	//include files from core.
-	include_once( 'core/oauth.php' );
+	include_once( 'core/bebop_oauth.php' );
 	include_once( 'core/bebop_tables.php' );
 	include_once( 'core/bebop_filters.php' );
 	include_once( 'core/bebop_page_loader.php' );

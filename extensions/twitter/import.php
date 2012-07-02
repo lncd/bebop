@@ -45,7 +45,7 @@ class BuddyStreamTwitterImport{
                         if (!$limitReached && bebop_tables::get_user_meta_value($user_meta->user_id, 'tweetstream_synctoac')) {
 
                             //Handle the OAuth requests
-                            $OAuth = new BuddyStreamOAuth();
+                            $OAuth = new bebop_oauth();
                             $OAuth->setCallbackUrl($bp->root_domain);
                             $OAuth->setConsumerKey(bebop_tables::get_option_value("tweetstream_consumer_key"));
                             $OAuth->setConsumerSecret(bebop_tables::get_option_value("tweetstream_consumer_secret"));

@@ -1,17 +1,18 @@
 <?php
 
-/*
- * Including the OAuth class
+/* All credits for this go to BuddyStream (http://buddystream.net),
+ * I merely changed class names to avoid redefinition errors i
+ * BuddyStream and Bebop are used at the same time, and made a few
+ * small changes.
  */
 
 include_once('oauth_class.php');
 
 /**
- * BuddyStreamOAuth
  * This class handles all OAuth requests for multiple networks
  */
 
-class BuddyStreamOAuth{
+class bebop_oauth{
     
     protected $consumerKey;
     protected $consumerSecret;
@@ -274,7 +275,7 @@ class BuddyStreamOAuth{
             $callbackUrl = $this->getCallbackUrl();
         }
         
-      $consumer = new BuddyStreamOAuthConsumer($consumerKey,$consumerSecret,$callbackUrl);
+      $consumer = new bebop_oauth_consumer($consumerKey,$consumerSecret,$callbackUrl);
       return $consumer;
     }
     
@@ -293,8 +294,8 @@ class BuddyStreamOAuth{
         }
         
          $consumer = $this->getConsumer();
-         $req = BuddyStreamOAuthRequest::from_consumer_and_token($consumer, NULL, "GET", $this->getRequestTokenUrl(), $parameters);
-         $req->sign_request(new BuddyStreamOAuthSignatureMethod_HMAC_SHA1(), $consumer, NULL);
+         $req = bebop_oauth_request::from_consumer_and_token($consumer, NULL, "GET", $this->getRequestTokenUrl(), $parameters);
+         $req->sign_request(new bebop_signature_method_HMAC_SHA1(), $consumer, NULL);
          $req_url = $req->to_url();
          $output = $this->executeRequest($req_url);
 
@@ -330,8 +331,8 @@ class BuddyStreamOAuth{
          $consumer = $this->getConsumer();
          $token = $this->getConsumer($this->getRequestToken(), $this->getRequestTokenSecret(), $this->getCallbackUrl());
         
-         $req = BuddyStreamOAuthRequest::from_consumer_and_token($consumer, $token, "GET", $this->getAccessTokenUrl(), $parameters);
-         $req->sign_request(new BuddyStreamOAuthSignatureMethod_HMAC_SHA1(), $consumer, $token);
+         $req = bebop_oauth_request::from_consumer_and_token($consumer, $token, "GET", $this->getAccessTokenUrl(), $parameters);
+         $req->sign_request(new bebop_signature_method_HMAC_SHA1(), $consumer, $token);
          $req_url = $req->to_url();
 
          $output = $this->executeRequest($req_url);
@@ -365,8 +366,8 @@ class BuddyStreamOAuth{
        
          $consumer    = $this->getConsumer();
          $accessToken = $this->getConsumer($this->getAccessToken(), $this->getAccessTokenSecret(), $this->getCallbackUrl());
-         $req = BuddyStreamOAuthRequest::from_consumer_and_token($consumer, $accessToken, $this->getRequestType(), $url, $parameters);
-         $req->sign_request(new BuddyStreamOAuthSignatureMethod_HMAC_SHA1(), $consumer, $accessToken);
+         $req = bebop_oauth_request::from_consumer_and_token($consumer, $accessToken, $this->getRequestType(), $url, $parameters);
+         $req->sign_request(new bebop_signature_method_HMAC_SHA1(), $consumer, $accessToken);
        
          if($this->getRequestType() == 'GET'){
              return $this->executeRequest($req->to_url());
@@ -422,8 +423,8 @@ public function oAuthRequestPostXml($url){
      $consumer    = $this->getConsumer();
      $accessToken = $this->getConsumer($this->getAccessToken(), $this->getAccessTokenSecret(), $this->getCallbackUrl());
 
-     $req = BuddyStreamOAuthRequest::from_consumer_and_token($consumer, $accessToken, 'POST', $url, $this->getParameters());
-     $req->sign_request(new BuddyStreamOAuthSignatureMethod_HMAC_SHA1(), $consumer, $accessToken);
+     $req = bebop_oauth_request::from_consumer_and_token($consumer, $accessToken, 'POST', $url, $this->getParameters());
+     $req->sign_request(new bebop_signature_method_HMAC_SHA1(), $consumer, $accessToken);
 
      $ci = curl_init();
      curl_setopt($ci, CURLOPT_CUSTOMREQUEST, 'POST');
