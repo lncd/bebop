@@ -126,8 +126,8 @@ function bebop_deactivate() {
 
 function bebop_seconds_cron( $schedules ) {
 	$schedules['secs'] = array(
-		'interval' =>30, // This will need changing to the database value stored. 'Its in seconds'
-		'display'  => __( 'Once Weekly' ),
+		'interval' =>5,	//number of seconds
+		'display'  => __( 'Once Weekly' )
 	); 
 	return $schedules;
 }
@@ -137,7 +137,6 @@ function bebop_cron_function() {
 	include_once( 'import.php' );
 	bebop_tables::log_general("bebop_cron", " Bebop cron import service completed.");
 }
-
 function bebop_deactivate_cron() {
 	wp_clear_scheduled_hook( 'bebop_cron' );
 }
@@ -151,5 +150,4 @@ register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' );
 
 add_action( 'bp_init', 'bebop_init', 5 );
-
 ?>

@@ -26,7 +26,7 @@ if ( isset( $_GET['oauth_token'] ) ) {
     $OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
     
     $OAuth->setParameters(array('oauth_verifier' => $_GET['oauth_verifier']));
-    $OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_XPROFILE_SLUG.'/bebop-oers/?oer=');
+    $OAuth->setCallbackUrl($bp->loggedin_user->domain . 'bebop-oers/?oer=twitter');
     $OAuth->setConsumerKey(bebop_tables::get_option_value("twitter_consumer_key"));
     $OAuth->setConsumerSecret(bebop_tables::get_option_value("twitter_consumer_secret"));
     $OAuth->setRequestToken(bebop_tables::get_user_meta_value($bp->loggedin_user->id,'twitter_oauth_token_temp'));
@@ -45,11 +45,10 @@ if ( isset( $_GET['oauth_token'] ) ) {
 
 if ( $_POST ) {
     bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter_synctoac', $_POST['twitter_synctoac']);
-    bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter_filtermentions', $_POST['twitter_filtermentions']);
     bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter_filtergood', $_POST['twitter_filtergood']);
     bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter_filterbad', $_POST['twitter_filterbad']);
 
-    echo '<div class="buddystream_message">Settings Saved</div>';
+    echo '<div class="bebop_message">Settings Saved</div>';
 }
 
 //put some options into variables
@@ -60,7 +59,7 @@ $twitter_filterbad      = bebop_tables::get_user_meta_value($bp->loggedin_user->
 
 if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( bebop_tables::check_option_exists('twitter_consumer_key') ) ) {
 	if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_oauth_token') ){
-	    echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'profile/bebop-oers/?oer=" method="post">
+	    echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/?oer=twitter" method="post">
 	    <h3> Settings</h3>';
 	    
 			echo '<br/><h5>Sync tweets to activity stream</h5>
@@ -87,7 +86,7 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 	    echo '<input type="submit" value="Save Settings">';
 	    
 	    if( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_oauth_token') ) {
-	        echo '<a href="?oer=&reset=true">Remove sync</a>';
+	        echo '<a href="?oer=twitter&reset=true">Remove sync</a>';
 		}
 		echo '</form>';
 	}
@@ -101,7 +100,7 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 		$OAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
 		$OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
 		$OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
-		$OAuth->setCallbackUrl($bp->loggedin_user->domain . 'bebop-oers/?oer=');
+		$OAuth->setCallbackUrl($bp->loggedin_user->domain . 'bebop-oers/?oer=twitter');
 		$OAuth->setConsumerKey(bebop_tables::get_option_value("twitter_consumer_key"));
 		$OAuth->setConsumerSecret(bebop_tables::get_option_value("twitter_consumer_secret"));
 		 

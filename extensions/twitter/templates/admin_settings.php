@@ -34,7 +34,7 @@ if ( $_POST ) {
 			</tr>
 			
 		</table>
-		<p class='submit'><input type='submit' class='button-primary' value='Save Changes'></p>
+		<p class='submit'><input type='submit' value='Save Changes'></p>
 	</form>
 <!-- End bebop_admin_container -->
 </div>

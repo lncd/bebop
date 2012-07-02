@@ -7,8 +7,8 @@ ini_set('max_execution_time', 900);
 
 //$incPath = str_replace("/wp-content/plugins/bebop", "", getcwd());
 
-//ini_set('include_path', $incPath);
-//include(ABSPATH . 'wp-load.php');
+ini_set('include_path', $incPath);
+include(ABSPATH . 'wp-load.php');
 
 
 //if import a specific OER.
@@ -57,6 +57,7 @@ if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php"
        include_once(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php");
          if (function_exists("bebop_" . strtolower($importer) . "_start_import")) {
             $numberOfItems = call_user_func("bebop_" . strtolower($importer) . "_start_import");
+			 
             //create return array
             $infoArray = array(
                 'executed' => true,
