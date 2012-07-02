@@ -34,7 +34,7 @@ if( ! isset( $_GET['oer']) ) {
     }
 	
     //save importers to database
-	bebop_tables::update_option("bebopimporters", implode(",", $extensions));
+	bebop_tables::update_option("bebop_importers", implode(",", $extensions));
 
     //check if there is a import queue, if empty reset
      if ( ! bebop_tables::get_option_value("bebop_importers_queue")) {         	
@@ -55,8 +55,8 @@ if( ! isset( $_GET['oer']) ) {
 if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php")) {
     if ( bebop_tables::get_option_value("bebop_" . $importer . "_provider") ) {
        include_once(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php");
-         if (function_exists("bebop_" . ucfirst($importer) . "_start_import")) {
-            $numberOfItems = call_user_func("bebop_" . ucfirst($importer) . "_start_import");
+         if (function_exists("bebop_" . strtolower($importer) . "_start_import")) {
+            $numberOfItems = call_user_func("bebop_" . strtolower($importer) . "_start_import");
             //create return array
             $infoArray = array(
                 'executed' => true,

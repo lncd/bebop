@@ -7,9 +7,9 @@
 	
 	<?php
 	if ($_POST) {
-	   bebop_tables::update_option('tweetstream_filter', trim(strip_tags(strtolower($_POST ['tweetstream_filter']))));
-	   bebop_tables::update_option('tweetstream_filter_show', trim(strip_tags($_POST ['tweetstream_filter_show'])));
-	   bebop_tables::update_option('tweetstream_filterexplicit', trim(strip_tags(strtolower($_POST ['tweetstream_filterexplicit']))));
+	   bebop_tables::update_option('twitter_filter', trim(strip_tags(strtolower($_POST ['twitter_filter']))));
+	   bebop_tables::update_option('twitter_filter_show', trim(strip_tags($_POST ['twitter_filter_show'])));
+	   bebop_tables::update_option('twitter_filterexplicit', trim(strip_tags(strtolower($_POST ['twitter_filterexplicit']))));
 	   echo '<div>Saved</div>';
 	}
 	?>
@@ -25,12 +25,12 @@
             
             <tr>
                 <td>Filters</td>
-                <td><input type="text" name="tweetstream_filter"value="<?php echo bebop_tables::get_option('tweetstream_filter');?>" size="50" /></td>
+                <td><input type="text" name="twitter_filter"value="<?php echo bebop_tables::get_option_value('twitter_filter');?>" size="50" /></td>
             </tr>
 
             <tr class="odd">
                 <td>Explicit words</td>
-                <td><input type="text" name="tweetstream_filterexplicit" value="<?php echo bebop_tables::get_option('tweetstream_filterexplicit');?>" size="50" /></td>
+                <td><input type="text" name="twitter_filterexplicit" value="<?php echo bebop_tables::get_option_value('twitter_filterexplicit');?>" size="50" /></td>
             </tr>
         </table>
         <p class="submit"><input type="submit" class="button-primary" value="Save Changes" /></p>

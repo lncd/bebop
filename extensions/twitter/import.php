@@ -7,9 +7,9 @@ function bebop_twitter_start_import() {
 	
 	$user_metas = bebop_tables::get_user_ids_from_meta_name('twitter_oauth_token');
 	
-    if( ! bebop_tables::check_option_exists('tweetstream_user_settings_syncbp')){
+    if( ! bebop_tables::check_option_exists('twitter_oauth_token')){
         //add record to the log
-        bebop_tables::log_error(1, 'Twitter', 'Import disabled');
+        bebop_tables::log_error(1, 'Twitter', 'No oAuth token');
         return false;
     }
     $importer = new bebop_twitter_import();
@@ -30,8 +30,8 @@ class bebop_twitter_import {
         //item counter for in the logs
         $itemCounter = 0;
 
-        if (bebop_tables::check_option_exists("tweetstream_consumer_key")) {
-            if ( bebop_tables::check_option_exists('tweetstream_user_settings_syncbp') ) {
+        if (bebop_tables::check_option_exists("twitter_consumer_key")) {
+            if ( bebop_tables::check_option_exists('twitter_oauth_token') ) {
 
                 $user_metas = bebop_tables::get_user_ids_from_meta_name('twitter_oauth_token');
 
@@ -41,13 +41,13 @@ class bebop_twitter_import {
                         //check for daylimit
                         $limitReached = bebop_filters::import_limit_reached('twitter', $user_meta->user_id);
 
-                        if (!$limitReached && bebop_tables::get_user_meta_value($user_meta->user_id, 'tweetstream_synctoac')) {
+                        if (!$limitReached && bebop_tables::get_user_meta_value($user_meta->user_id, 'twitter_synctoac')) {
 
                             //Handle the OAuth requests
                             $OAuth = new bebop_oauth();
                             $OAuth->setCallbackUrl($bp->root_domain);
-                            $OAuth->setConsumerKey(bebop_tables::get_option_value("tweetstream_consumer_key"));
-                            $OAuth->setConsumerSecret(bebop_tables::get_option_value("tweetstream_consumer_secret"));
+                            $OAuth->setConsumerKey(bebop_tables::get_option_value("twitter_consumer_key"));
+                            $OAuth->setConsumerSecret(bebop_tables::get_option_value("twitter_consumer_secret"));
                             $OAuth->setAccessToken(bebop_tables::get_user_meta_value($user_meta->user_id,'twitter_oauth_token'));
                             $OAuth->setAccessTokenSecret(bebop_tables::get_user_meta_value($user_meta->user_id,'twitter_oauth_token_secret'));
 
@@ -58,7 +58,7 @@ class bebop_twitter_import {
 
                                 //update the user screen_name
                                 $screenName = ''.$items->status->user->screen_name[0];
-                                bebop_tables::update_user_meta($user_meta->user_id,'tweetstream_screenname', $screenName);
+                                bebop_tables::update_user_meta($user_meta->user_id,'twitter_screenname', $screenName);
 
                                 //go through tweets
                                 foreach ($items as $tweet) {
