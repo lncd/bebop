@@ -3,17 +3,16 @@
  * Import starter
  */
 
-function BuddystreamTwitterImportStart() {
+function bebop_twitter_start_import() {
 	
-	$user_metas = bebop_tables::get_user_ids_from_meta_name('tweetstream_token');
-
+	$user_metas = bebop_tables::get_user_ids_from_meta_name('twitter_oauth_token');
+	
     if( ! bebop_tables::check_option_exists('tweetstream_user_settings_syncbp')){
         //add record to the log
         bebop_tables::log_error(1, 'Twitter', 'Import disabled');
         return false;
     }
-
-    $importer = new BuddyStreamTwitterImport();
+    $importer = new bebop_twitter_import();
     return $importer->doImport();
 }
 
@@ -21,7 +20,7 @@ function BuddystreamTwitterImportStart() {
  * Twitter Import Class
  */
 
-class BuddyStreamTwitterImport{
+class bebop_twitter_import {
 
     //do the import
     public function doImport() {
@@ -34,7 +33,7 @@ class BuddyStreamTwitterImport{
         if (bebop_tables::check_option_exists("tweetstream_consumer_key")) {
             if ( bebop_tables::check_option_exists('tweetstream_user_settings_syncbp') ) {
 
-                $user_metas = bebop_tables::get_user_ids_from_meta_name('tweetstream_token');
+                $user_metas = bebop_tables::get_user_ids_from_meta_name('twitter_oauth_token');
 
                 if ($user_metas) {
                     foreach ($user_metas as $user_meta) {
@@ -49,8 +48,8 @@ class BuddyStreamTwitterImport{
                             $OAuth->setCallbackUrl($bp->root_domain);
                             $OAuth->setConsumerKey(bebop_tables::get_option_value("tweetstream_consumer_key"));
                             $OAuth->setConsumerSecret(bebop_tables::get_option_value("tweetstream_consumer_secret"));
-                            $OAuth->setAccessToken(bebop_tables::get_user_meta_value($user_meta->user_id,'tweetstream_token'));
-                            $OAuth->setAccessTokenSecret(bebop_tables::get_user_meta_value($user_meta->user_id,'tweetstream_tokensecret'));
+                            $OAuth->setAccessToken(bebop_tables::get_user_meta_value($user_meta->user_id,'twitter_oauth_token'));
+                            $OAuth->setAccessTokenSecret(bebop_tables::get_user_meta_value($user_meta->user_id,'twitter_oauth_token_secret'));
 
                             $items = $OAuth->oAuthRequest('http://api.twitter.com/1/statuses/user_timeline.xml');
                             $items = simplexml_load_string($items);
@@ -90,7 +89,7 @@ class BuddyStreamTwitterImport{
             }
         }
         //add record to the log
-        bebop_tables::log_general("Twitter", " imported ".$itemCounter." tweets.");
+        bebop_tables::log_general("bebop_twitter_import", " imported ".$itemCounter." tweets.");
         //return number of items imported
         return $itemCounter;
     }

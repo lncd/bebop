@@ -133,8 +133,9 @@ function bebop_seconds_cron( $schedules ) {
 }
 
 function bebop_cron_function() {
-	include_once( 'import.php' );	
-	bebop_tables::log_general( 'cron', 'done log.' );
+	bebop_tables::log_general("bebop_cron", " Bebop cron import service started.");
+	include_once( 'import.php' );
+	bebop_tables::log_general("bebop_cron", " Bebop cron import service completed.");
 }
 
 function bebop_deactivate_cron() {

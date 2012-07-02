@@ -118,7 +118,7 @@ abstract class bebop_signature_method{
  * character (ASCII code 38) even if empty.
  *   - Chapter 9.2 ("HMAC-SHA1")
  */
-class BuddyStreamOAuthSignatureMethod_HMAC_SHA1 extends BuddyStreamOAuthSignatureMethod {
+class bebop_signature_method_HMAC_SHA1 extends bebop_signature_method {
   function get_name() {
     return "HMAC-SHA1";
   }
@@ -144,7 +144,7 @@ class BuddyStreamOAuthSignatureMethod_HMAC_SHA1 extends BuddyStreamOAuthSignatur
  * over a secure channel such as HTTPS. It does not use the Signature Base String.
  *   - Chapter 9.4 ("PLAINTEXT")
  */
-class BuddyStreamOAuthSignatureMethod_PLAINTEXT extends BuddyStreamOAuthSignatureMethod {
+class bebop_signature_method_PLAINTEXT extends bebop_signature_method {
   public function get_name() {
     return "PLAINTEXT";
   }
@@ -180,7 +180,7 @@ class BuddyStreamOAuthSignatureMethod_PLAINTEXT extends BuddyStreamOAuthSignatur
  * specification.
  *   - Chapter 9.3 ("RSA-SHA1")
  */
-abstract class BuddyStreamOAuthSignatureMethod_RSA_SHA1 extends BuddyStreamOAuthSignatureMethod {
+abstract class bebop_signature_method_RSA_SHA1 extends bebop_signature_method {
   public function get_name() {
     return "RSA-SHA1";
   }
@@ -239,7 +239,7 @@ abstract class BuddyStreamOAuthSignatureMethod_RSA_SHA1 extends BuddyStreamOAuth
   }
 }
 
-class BuddyStreamOAuthRequest {
+class bebop_oauth_request {
   protected $parameters;
   protected $http_method;
   protected $http_url;
@@ -306,7 +306,7 @@ class BuddyStreamOAuthRequest {
 
     }
 
-    return new BuddyStreamOAuthRequest($http_method, $http_url, $parameters);
+    return new bebop_oauth_request($http_method, $http_url, $parameters);
   }
 
   /**
@@ -314,9 +314,9 @@ class BuddyStreamOAuthRequest {
    */
   public static function from_consumer_and_token($consumer, $token, $http_method, $http_url, $parameters=NULL) {
     $parameters = ($parameters) ?  $parameters : array();
-    $defaults = array("oauth_version" => BuddyStreamOAuthRequest::$version,
-                      "oauth_nonce" => BuddyStreamOAuthRequest::generate_nonce(),
-                      "oauth_timestamp" => BuddyStreamOAuthRequest::generate_timestamp(),
+    $defaults = array("oauth_version" => bebop_oauth_request::$version,
+                      "oauth_nonce" => bebop_oauth_request::generate_nonce(),
+                      "oauth_timestamp" => bebop_oauth_request::generate_timestamp(),
                       "oauth_consumer_key" => $consumer->key,
                       "oauth_callback" => $consumer->callback_url);
     if ($token)
@@ -324,7 +324,7 @@ class BuddyStreamOAuthRequest {
 
     $parameters = array_merge($defaults, $parameters);
 
-    return new BuddyStreamOAuthRequest($http_method, $http_url, $parameters);
+    return new bebop_oauth_request($http_method, $http_url, $parameters);
   }
 
   public function set_parameter($name, $value, $allow_duplicates = true) {
@@ -500,9 +500,9 @@ class BuddyStreamOAuthRequest {
   }
 }
 
-class BuddyStreamOAuthServer {
+class bebop_oauth_server {
   protected $timestamp_threshold = 300; // in seconds, five minutes
-  protected $version = '1.0';             // hi blaine
+  protected $version = '1.0';
   protected $signature_methods = array();
 
   protected $data_store;
@@ -592,7 +592,7 @@ class BuddyStreamOAuthServer {
    * figure out the signature with some defaults
    */
   private function get_signature_method($request) {
-    $signature_method = $request instanceof BuddyStreamOAuthRequest 
+    $signature_method = $request instanceof bebop_oauth_request 
         ? $request->get_parameter("oauth_signature_method")
         : NULL;
 
@@ -617,7 +617,7 @@ class BuddyStreamOAuthServer {
    * try to find the consumer for the provided request's consumer key
    */
   private function get_consumer($request) {
-    $consumer_key = $request instanceof BuddyStreamOAuthRequest 
+    $consumer_key = $request instanceof bebop_oauth_request 
         ? $request->get_parameter("oauth_consumer_key")
         : NULL;
 
@@ -656,10 +656,10 @@ class BuddyStreamOAuthServer {
    */
   private function check_signature($request, $consumer, $token) {
     // this should probably be in a different method
-    $timestamp = $request instanceof BuddyStreamOAuthRequest
+    $timestamp = $request instanceof bebop_oauth_request
         ? $request->get_parameter('oauth_timestamp')
         : NULL;
-    $nonce = $request instanceof BuddyStreamOAuthRequest
+    $nonce = $request instanceof bebop_oauth_request
         ? $request->get_parameter('oauth_nonce')
         : NULL;
 
