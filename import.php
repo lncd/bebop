@@ -34,21 +34,21 @@ if( ! isset( $_GET['oer']) ) {
     }
 	
     //save importers to database
-	bebop_tables::update_option("buddystream_importers", implode(",", $extensions));
+	bebop_tables::update_option("bebopimporters", implode(",", $extensions));
 
     //check if there is a import queue, if empty reset
-     if ( ! bebop_tables::get_option_value("buddystream_importers_queue")) {         	
-         bebop_tables::update_option("buddystream_importers_queue", implode(",", $extensions));		 
+     if ( ! bebop_tables::get_option_value("bebop_importers_queue")) {         	
+         bebop_tables::update_option("bebop_importers_queue", implode(",", $extensions));		 
     }
 	
     //start the import (one per time)
-    $importers = bebop_tables::get_option_value("buddystream_importers_queue");
+    $importers = bebop_tables::get_option_value("bebop_importers_queue");
     $importers = explode(",", $importers);
     $importer = current($importers);
 
     //remove importer form queue before starting real import
     unset($importers[0]);
-    bebop_tables::update_option("buddystream_importers_queue", implode(",", $importers));
+    bebop_tables::update_option("bebop_importers_queue", implode(",", $importers));
 }
 
 //start the importer for real 

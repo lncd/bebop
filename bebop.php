@@ -116,10 +116,10 @@ function bebop_activate() {
 function bebop_deactivate() {
 	global $wpdb;
 
-	/*$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log");
+	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_options");
-	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta");*/
+	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta");
 	
 	remove_action( 'bebop_cron', 'bebop_deactivate_cron' );
 }
