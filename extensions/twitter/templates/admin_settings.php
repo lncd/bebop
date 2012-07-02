@@ -30,7 +30,7 @@ if ( $_POST ) {
 	        
 	        <tr>
 				<td>Maximum amount of imports</td>
-				<td><input type="text" name="buddystream_twitter_user_settings_maximport" value="<?php echo bebop_tables::get_option_value('bebop_twitter_user_settings_maximport'); ?>" size="5" /></td>
+				<td><input type="text" name="bebop_twitter_maximport" value="<?php echo bebop_tables::get_option_value('bebop_twitter_maximport'); ?>" size="5" /></td>
 			</tr>
 			
 		</table>

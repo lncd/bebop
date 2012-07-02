@@ -2,12 +2,12 @@
 
 
 
-add_filter( 'bp_get_activity_content','bebopTwitterImages',5 );
-add_filter( 'bp_get_activity_content_body','bebopTwitterImages',5 );
+add_filter( 'bp_get_activity_content','bebop_twitter_photos',5 );
+add_filter( 'bp_get_activity_content_body','bebop_twitter_photos',5 );
 
 
 
-function bebopTwitterImages($text) {
+function bebop_twitter_photos($text) {
  
     if(bp_get_activity_type() == 'twitter'){
         $text = preg_replace('#http://twitpic.com/([a-z0-9_]+)#i', '<a href="http://twitpic.com/\\1" target="_blank" rel="external"><img width="60" src="http://twitpic.com/show/mini/\\1" /></a>', $text);
