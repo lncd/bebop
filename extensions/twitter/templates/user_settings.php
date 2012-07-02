@@ -107,7 +107,7 @@ else {
 	$OAuth->setRequestTokenUrl('http://api.twitter.com/oauth/request_token');
 	$OAuth->setAccessTokenUrl('http://api.twitter.com/oauth/access_token');
 	$OAuth->setAuthorizeUrl('https://api.twitter.com/oauth/authorize');
-	$OAuth->setCallbackUrl($bp->loggedin_user->domain . BP_XPROFILE_SLUG.'/bebop-oers/?oer=twitter');
+	$OAuth->setCallbackUrl($bp->loggedin_user->domain . 'bebop-oers/?oer=twitter');
 	$OAuth->setConsumerKey(bebop_tables::get_option_value("tweetstream_consumer_key"));
 	$OAuth->setConsumerSecret(bebop_tables::get_option_value("tweetstream_consumer_secret"));
 	 
@@ -123,7 +123,7 @@ else {
 	//get the redirect url for the user
 	$redirectUrl = $OAuth->getRedirectUrl();
 	if( $redirectUrl ) {
-		echo '<a href="' . $redirectUrl . '" class="buddystream_authorize_button">Start authorisaion</a><br/><br/>';
+		echo '<a href="' . $redirectUrl . '" class="buddystream_authorize_button">Start authorisation</a><br/><br/>';
 	}
 	else{
 		echo 'authentication is all broken :(';

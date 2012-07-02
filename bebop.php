@@ -7,8 +7,8 @@ Plugin Name: Bebop
 Plugin URI: http://bebop.blogs.lincoln.ac.uk/
 Description: Bebop is the name of a rapid innovation project funded by the Joint Information Systems Committee (JISC). The project involves the utilisation of OER's from 3rd party providers such as JORUM and slideshare.
 Version: 0.1
-Author: Dale Mckeown
-Author URI: http://phone.online.lincoln.ac.uk/dmckeown
+Authors: Dale Mckeown, David Whitehead
+Author URI: http://phone.online.lincoln.ac.uk/dmckeown, http://phone.online.lincoln.ac.uk/dwhitehead
 License: TBA
 Credits: BuddySteam - buddystrem.net
 */
@@ -16,8 +16,9 @@ Credits: BuddySteam - buddystrem.net
 // http://buddypress.org/
 
 /*****************************************************************************
-** This program is distributed WITHOUT ANY WARRANTY; without even the       **
-** implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. **
+** This software is released without warranty or guarantee, and as such no  **
+*  liability or responsibility can be accepted by its authors or related     *
+** organisations or institutions. YOU USE HIS SOFTWARE AT YOUR OWN RISK.    **
 *****************************************************************************/	
 //initialise Bebop
 function bebop_init() {
@@ -38,7 +39,15 @@ function bebop_init() {
 	//Main content file
 	include_once( 'core/bebop_core.php' );	
 	
-	//include_once( 'import.php' );	
+	//fire cron
+	add_action( 'bebop_cron', 'bebop_cron_function' ); 
+	
+	//Adds the schedule filter for changing the standard interval time.
+	add_filter( 'cron_schedules', 'bebop_seconds_cron' );
+	
+	if ( ! wp_next_scheduled( 'bebop_cron' ) ) {
+    	wp_schedule_event( time(), 'secs', 'bebop_cron' );
+	}
 }
 
 function bebop_init_settings() {
@@ -100,27 +109,35 @@ function bebop_activate() {
 		bebop_tables::log_error(0, 'BuddyPress Error', 'BuddyPress is not active.');
 		deactivate_plugins( basename(__FILE__) ); // Deactivate this plugin
 		wp_die( "You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again." );
-	}	
-	
-	//This is the cron job section of the activation.
-	
-	
+	}
 }
 //remove the tables upon deactivation
 function bebop_deactivate() {
 	global $wpdb;
 
-	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log");
+	/*$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_general_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_error_log");
 	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_options");
-	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta");
+	$wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta");*/
 	
-	
-		//Checks if the cron is existent and if so clears it. before the deactivation
-	/*if (wp_next_scheduled('oer_cron_job')) {
-		wp_clear_scheduled_hook('oer_cron_job');		
-	}*/
+	remove_action( 'bebop_cron', 'bebop_deactivate_cron' );
+}
 
+function bebop_seconds_cron( $schedules ) {
+	$schedules['secs'] = array(
+		'interval' =>30, // This will need changing to the database value stored. 'Its in seconds'
+		'display'  => __( 'Once Weekly' ),
+	); 
+	return $schedules;
+}
+
+function bebop_cron_function() {
+	include_once( 'import.php' );	
+	bebop_tables::log_general( 'cron', 'done log.' );
+}
+
+function bebop_deactivate_cron() {
+	wp_clear_scheduled_hook( 'bebop_cron' );
 }
 
 define('BP_BEBOP_VERSION', '0.1');
@@ -132,35 +149,5 @@ register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' )
 
 add_action( 'bp_init', 'bebop_init', 5 );
-
-
-
-
-//NOTE: CRON JOB from this point. "This needs putting in activation and deactivation of the plugin etc"
-
-	//Adds the schedule filter for changing the standard interval time.
-	add_filter( 'cron_schedules', 'myprefix_add_weekly_cron_schedule' );	
-	
-	//This function is then called and a new standard 'secs' is added.
-	function myprefix_add_weekly_cron_schedule( $schedules ) {
-    	$schedules['secs'] = array(
-     						    'interval' => 10, // This will need changing to the database value stored. 'Its in seconds'
-    						    'display'  => __( 'Once Weekly' ),
-    							); 
-   		return $schedules;
-	}
-	
-	//Hook into that action that'll fire every 10 seconds.
-	add_action( 'myprefix_my_cron_action', 'myprefix_function_to_run' );
-	
-	if ( ! wp_next_scheduled( 'myprefix_my_cron_action' ) ) {
-    	wp_schedule_event( time(), 'secs', 'myprefix_my_cron_action' );
-	}		
-	
-	//This is what is run every 10 seconds
-	function myprefix_function_to_run() {
-   		bebop_tables::log_general('cron', 'done log.');
-	}
-
 
 ?>
