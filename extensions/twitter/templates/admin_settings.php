@@ -7,8 +7,8 @@
 global $bp;
 
 if ( $_POST ) {
-	bebop_tables::update_option('twitter_consumer_key', trim($_POST['twitter_consumer_key']));
-	bebop_tables::update_option('twitter_consumer_secret', trim($_POST['twitter_consumer_secret']));
+	bebop_tables::update_option('bebop_twitterconsumer_key', trim($_POST['bebop_twitterconsumer_key']));
+	bebop_tables::update_option('bebop_twitterconsumer_secret', trim($_POST['bebop_twitterconsumer_secret']));
 	bebop_tables::update_option('bebop_twitter_maximport', trim($_POST['bebop_twitter_maximport']));
 
 	echo '<div>Settings Saved</div>';
@@ -20,12 +20,12 @@ if ( $_POST ) {
 		<th colspan='2'>Twitter Settings</th>
 			<tr>
 				<td>Twitter API Token</td>
-				<td><input type="text" name="twitter_consumer_key" value="<?php echo bebop_tables::get_option_value('twitter_consumer_key'); ?>" size="50"></td>
+				<td><input type="text" name="bebop_twitterconsumer_key" value="<?php echo bebop_tables::get_option_value('bebop_twitterconsumer_key'); ?>" size="50"></td>
 			</tr>
 			
 			<tr>
 				<td>Twitter API Secret:</td>
-				<td><input type="text" name="twitter_consumer_secret" value="<?php echo bebop_tables::get_option_value('twitter_consumer_secret'); ?>" size="50"></td>
+				<td><input type="text" name="bebop_twitterconsumer_secret" value="<?php echo bebop_tables::get_option_value('bebop_twitterconsumer_secret'); ?>" size="50"></td>
 			</tr>
 	        
 	        <tr>
