@@ -4,7 +4,32 @@ class bebop_tables
 {
 	/*
 	* Tables
-	*/	
+	*/
+	
+	//function to remove a table from the database.
+	function drop_table($table_name) {
+		global $wpdb;
+		
+		if( $wpdb->query("DROP TABLE IF EXISTS " . $wpdb->base_prefix . $table_name) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	//function rto remove activity data imported by the plugin.
+	function remove_activity_data() {
+		global $wpdb, $bp;
+		
+		if( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin'" ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 	function log_error( $feed_id=null, $error_type, $error_message ) { //function to log errors into the error table.
 		global $wpdb;
 		
