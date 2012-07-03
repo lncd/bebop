@@ -115,7 +115,8 @@ function bebop_activate() {
 //remove the tables upon deactivation
 function bebop_deactivate() {
 	global $wpdb;
-
+	
+	//delete tables and clean up the activity data
 	bebop_tables::drop_table('bp_bebop_general_log');
 	bebop_tables::drop_table('bp_bebop_error_log');
 	bebop_tables::drop_table('bp_bebop_options');
