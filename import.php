@@ -7,7 +7,7 @@ ini_set('max_execution_time', 900);
 
 //$incPath = str_replace("/wp-content/plugins/bebop", "", getcwd());
 
-ini_set('include_path', $incPath);
+//ini_set('include_path', $incPath);
 include(ABSPATH . 'wp-load.php');
 
 

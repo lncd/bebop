@@ -37,7 +37,7 @@ class bebop_twitter_import {
                     //check for daylimit
                     $limitReached = bebop_filters::import_limit_reached('twitter', $user_meta->user_id);
 
-                    if (!$limitReached && bebop_tables::get_user_meta_value($user_meta->user_id, 'twitter_synctoac')) {
+                    if (!$limitReached && bebop_tables::get_user_meta_value($user_meta->user_id, 'twitter_sync_to_activity_stream')) {
 
                         //Handle the OAuth requests
                         $OAuth = new bebop_oauth();
@@ -89,5 +89,4 @@ class bebop_twitter_import {
         return $itemCounter;
     }
 }
-bebop_tables::log_general("bebop_twitter_import", "EOF reached");
  

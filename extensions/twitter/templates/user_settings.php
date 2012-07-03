@@ -9,8 +9,7 @@ if( isset( $_GET['reset'] ) ) {
 	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'twitter_oauth_token_secret');
 	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'twitter_oauth_token_secret_temp');
 	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'twitter_mention');
-	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'twitter_synctoac');
-	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'twitter_synctoac');
+	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'twitter_sync_to_activity_stream');
 	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'twitter_filtermentions');
 	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'twitter_filtergood');
 	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'twitter_filterbad');
@@ -34,17 +33,16 @@ if ( isset( $_GET['oauth_token'] ) ) {
     
     $accessToken = $OAuth->accessToken();
    
-    bebop_tables::update_user_meta($bp->loggedin_user->id,'twitter_oauth_token',''.$accessToken['oauth_token'].'');
-    bebop_tables::update_user_meta($bp->loggedin_user->id,'twitter_oauth_token_secret',''.$accessToken['oauth_token_secret'].'');
-    bebop_tables::update_user_meta($bp->loggedin_user->id,'twitter_synctoac', 1);
+    bebop_tables::update_user_meta($bp->loggedin_user->id,'twitter_oauth_token', $accessToken['oauth_token'] );
+    bebop_tables::update_user_meta($bp->loggedin_user->id,'twitter_oauth_token_secret', $accessToken['oauth_token_secret'] );
+    bebop_tables::update_user_meta($bp->loggedin_user->id,'twitter_sync_to_activity_stream', 1);
 
     //for other plugins
-    do_action('bebop__activated');
-
+    do_action('bebop_twitter_activated');
   }
 
 if ( $_POST ) {
-    bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter_synctoac', $_POST['twitter_synctoac']);
+    bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter_sync_to_activity_stream', $_POST['twitter_sync_to_activity_stream']);
     bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter_filtergood', $_POST['twitter_filtergood']);
     bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter_filterbad', $_POST['twitter_filterbad']);
 
@@ -52,10 +50,10 @@ if ( $_POST ) {
 }
 
 //put some options into variables
-$twitter_synctoac       = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_synctoac');
-$twitter_filtermentions = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_filtermentions');
-$twitter_filtergood     = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_filtergood');
-$twitter_filterbad      = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_filterbad');
+$twitter_sync_to_activity_stream	= bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_sync_to_activity_stream');
+$twitter_filtermentions				= bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_filtermentions');
+$twitter_filtergood					= bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_filtergood');
+$twitter_filterbad					= bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_filterbad');
 
 if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( bebop_tables::check_option_exists('twitter_consumer_key') ) ) {
 	if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'twitter_oauth_token') ){
@@ -63,10 +61,10 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 	    <h3> Settings</h3>';
 	    
 			echo '<br/><h5>Sync tweets to activity stream</h5>
-			<input type="radio" name="twitter_synctoac" id="twitter_synctoac" value="1"';  if ($twitter_synctoac == 1) { echo 'checked'; } echo '>
+			<input type="radio" name="twitter_sync_to_activity_stream" id="twitter_sync_to_activity_stream" value="1"';  if ($twitter_sync_to_activity_stream == 1) { echo 'checked'; } echo '>
 			<label for="yes">Yes</label>
 			
-			<input type="radio" name="twitter_synctoac" id="twitter_synctoac" value="0"'; if ($twitter_synctoac == 0) { echo 'checked'; } echo '>
+			<input type="radio" name="twitter_sync_to_activity_stream" id="twitter_sync_to_activity_stream" value="0"'; if ($twitter_sync_to_activity_stream == 0) { echo 'checked'; } echo '>
 			<label for="no">No</label>
 			
 			<br>
@@ -104,7 +102,7 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 		$OAuth->setConsumerKey(bebop_tables::get_option_value("twitter_consumer_key"));
 		$OAuth->setConsumerSecret(bebop_tables::get_option_value("twitter_consumer_secret"));
 		 
-		//get requesttoken and save it for later use.
+		//get the oauth token
 		$requestToken = $OAuth->requestToken();
 	
 		$OAuth->setRequestToken($requestToken['oauth_token']);
@@ -124,5 +122,5 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 	}
 }//End if ( ( bebop_tables::get_option_value('bebop_twitter_on') == true) && ( bebop_tables::check_option_exists('twitter_consumer_key') ) ) {
 else {
-	echo 'Twitter has not yet been configured. Please contact the admin to make sure twitter is enables as an OER provider.';
+	echo 'Twitter has not yet been configured. Please contact the blog admin to make sure twitter is enables as an OER provider.';
 }
