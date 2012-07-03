@@ -84,7 +84,7 @@ class bebop_twitter_import {
             }
         }
         //add record to the log
-        bebop_tables::log_general("bebop_bebop_twitter_import", " imported ".$itemCounter." tweets.");
+        bebop_tables::log_general("bebop_twitter_import", " imported ".$itemCounter." tweets.");
         //return number of items imported
         return $itemCounter;
     }

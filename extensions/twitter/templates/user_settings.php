@@ -54,7 +54,7 @@ $bebop_twitter_filtergood					= bebop_tables::get_user_meta_value($bp->loggedin_
 $bebop_twitter_filterbad					= bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_twitter_filterbad');
 
 if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( bebop_tables::check_option_exists('bebop_twitter_consumer_key') ) ) {
-	if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_twitter_oauth_token') ){
+	if ( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_twitter_oauth_token') ) {
 	    echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/?oer=twitter" method="post">
 	    <h3> Settings</h3>';
 	    
