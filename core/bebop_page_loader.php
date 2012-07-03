@@ -33,9 +33,9 @@ function bebop_setup_user_nav()
 	/*bp_core_new_subnav_item(
         array(
             'name' => 'OER',
-            'slug' => 'bebop-oers',
-            'parent_url' => $bp->loggedin_user->domain . BP_XPROFILE_SLUG.'/',
-            'parent_slug' => BP_XPROFILE_SLUG,
+            'slug' => 'bebop-oers-twitter',
+            'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
+            'parent_slug' => 'bebop-oers',
             'screen_function' => 'bebop_default_user_settings',
             'position' => 10,
             'user_has_access' => bp_is_my_profile ()

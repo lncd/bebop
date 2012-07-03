@@ -3,9 +3,8 @@
  * Import starter
  */
 
-function BuddystreamYoutubeImportStart()
-{
-    $importer = new BuddyStreamYoutubeImport();
+function bebop_youtube_start_import() {
+    $importer = new bebop_youtube_import();
     return $importer->doImport();
 }
 
@@ -13,39 +12,25 @@ function BuddystreamYoutubeImportStart()
  * Youtube Import Class
  */
 
-class BuddyStreamYoutubeImport
-{
+class bebop_youtube_import {
 
-    public function doImport()
-    {
+    public function doImport() {
         global $bp, $wpdb;
 
         require_once (ABSPATH . WPINC . '/class-feed.php');
 
         $itemCounter = 0;
 
-        $user_metas = $wpdb->get_results(
-            $wpdb->prepare(
-                "SELECT user_id
-                        FROM $wpdb->usermeta where
-                        meta_key='bs_youtube_username'
-                        order by meta_value;"
-            )
-        );
+        $user_metas = $wpdb->get_results( $wpdb->prepare( "SELECT user_id FROM $wpdb->usermeta where meta_key='bs_youtube_username' order by meta_value"));
 
         if ($user_metas) {
             foreach ($user_metas as $user_meta) {
                 //check for daylimit
              //   $limitReached = BuddyStreamFilters::limitReached('youtube', $user_meta->user_id);
 
-               // if (!$limitReached && get_user_meta($user_meta->user_id, 'bs_youtube_username', 1)) {
- 				  if (bebop_tables::check_user_meta_exists($user_meta->user_id, 'bs_youtube_username')) {
+ 				  if (bebop_tables::check_user_meta_exists($user_meta->user_id, 'bebop_youtube_username')) {
                     //get these urls for import
-                    $importUrls = 'http://gdata.youtube.com/feeds/api/users/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bs_youtube_username') . '/uploads';
-					
-
-						
-						echo $importUrls . "<br>";
+                    $importUrls = 'http://gdata.youtube.com/feeds/api/users/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bebop_youtube_username') . '/uploads';
 
                         $items = null;
                         $feed = new SimplePie();
@@ -57,20 +42,16 @@ class BuddyStreamYoutubeImport
                         do_action_ref_array('wp_feed_options', array(&$feed, $importUrl));
                         $feed->init();
                         $feed->handle_content_type();
-
-					//	var_dump($feed);
+						
                         if (!$feed->error) {
                             $items = $feed->get_items();
                         }
 						else {
-							echo "<p>" . $feed->error . "</p><br>";
+							bebop_tables::log_general("bebop_youtube_import", 'feed error: ' . $feed->error);
 						}
-											
-
 						
                         if ($items) {
                             foreach ($items as $item) {
-							echo "we made it!";
                                // $limitReached = BuddyStreamFilters::limitReached('youtube', $user_meta->user_id);
 
                                 // get video player URL
@@ -106,7 +87,7 @@ class BuddyStreamYoutubeImport
                                             'content' => $content,
                                             'item_id' => $videoId,
                                             'raw_date' => date("Y-m-d H:i:s", $ts),
-                                            'actionlink' => 'http://www.youtube.com/' . get_user_meta($user_meta->user_id, 'bs_youtube_username', 1)
+                                            'actionlink' => 'http://www.youtube.com/' . get_user_meta($user_meta->user_id, 'bebop_youtube_username', 1)
                                         )
                                     );
 
@@ -122,8 +103,7 @@ class BuddyStreamYoutubeImport
         }
 
         //add record to the log
-      // BuddyStreamLog::log("Youtube imported " . $itemCounter . " video's.");
-
+		bebop_tables::log_general("bebop_youtube_import", "imported ".$itemCounter." video's.");
         //return number of items imported
         return $itemCounter;
     }
