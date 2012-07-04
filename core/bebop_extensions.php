@@ -46,9 +46,15 @@ class bebop_extensions {
 		}
     }
 	
-	function page_loader($extensions) {
+	function page_loader($extension) {
 		
-        $config = parse_ini_file( WP_PLUGIN_DIR."/bebop/extensions/".$extensions."/config.ini" );
+		if ( file_exists( WP_PLUGIN_DIR."/bebop/extensions/" . $extension . "/config.php" ) ) {
+        	if( ! function_exists('get_' . $extension . '_config') ) {
+        		require( WP_PLUGIN_DIR."/bebop/extensions/" . $extension . "/config.php" );
+			}
+            $config = call_user_func('get_' . $extension . '_config');
+        }
+		
         if( ! isset($_GET["settings"])){ 
             $page = strtolower($config['defaultpage']);
         }
@@ -57,9 +63,9 @@ class bebop_extensions {
         }
 
         if( ! empty( $_GET['child'] ) ) {
-            $extensions = $_GET['child'];
+            $extension = $_GET['child'];
 		}
-        include WP_PLUGIN_DIR."/bebop/extensions/".$extensions."/templates/admin_".$page.".php";
+        include WP_PLUGIN_DIR."/bebop/extensions/".$extension."/templates/admin_".$page.".php";
     }
 	
 	function user_page_loader($extension, $page = 'settings'){

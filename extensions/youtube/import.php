@@ -21,7 +21,7 @@ class bebop_youtube_import {
 
         $itemCounter = 0;
 
-        $user_metas = $wpdb->get_results( $wpdb->prepare( "SELECT user_id FROM $wpdb->usermeta where meta_key='bs_youtube_username' order by meta_value"));
+        $user_metas = bebop_tables::get_user_ids_from_meta_name('bebop_youtube_username');
 
         if ($user_metas) {
             foreach ($user_metas as $user_meta) {
@@ -52,7 +52,7 @@ class bebop_youtube_import {
 						
                         if ($items) {
                             foreach ($items as $item) {
-                               // $limitReached = BuddyStreamFilters::limitReached('youtube', $user_meta->user_id);
+								$limitReached = bebop_filters::import_limit_reached('youtube', $user_meta->user_id);
 
                                 // get video player URL
                                 $link = $item->get_permalink();
@@ -80,14 +80,14 @@ class bebop_youtube_import {
                                     //pre convert date
                                     $ts = strtotime($item->get_date());
 
-                                    $returnCreate = buddystreamCreateActivity(array(
+                                    $returnCreate = bebop_create_activity(array(
                                             'user_id' => $user_meta->user_id,
                                             'extention' => 'youtube',
                                             'type' => 'Youtube video',
                                             'content' => $content,
                                             'item_id' => $videoId,
                                             'raw_date' => date("Y-m-d H:i:s", $ts),
-                                            'actionlink' => 'http://www.youtube.com/' . get_user_meta($user_meta->user_id, 'bebop_youtube_username', 1)
+                                            'actionlink' => 'http://www.youtube.com/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bebop_youtube_username')
                                         )
                                     );
 
