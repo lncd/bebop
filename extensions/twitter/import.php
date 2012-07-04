@@ -63,13 +63,14 @@ class bebop_twitter_import {
                                 if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content($tweet->text))  && ( ! $limitReached) ) {
 
                                    $returnCreate = bebop_create_activity(array(
-                                            'user_id'       => $user_meta->user_id,
-                                            'extention'     => 'twitter',
-                                            'type'          => 'tweet',
-                                            'content'       => $tweet->text,
-								     		'item_id'       => $tweet->id,
-                                            'raw_date'      => gmdate('Y-m-d H:i:s', strtotime($tweet->created_at)),
-                                            'actionlink'    => 'http://www.twitter.com/' . $screenName . '/status/'.$tweet->id
+                                            'user_id'       	=> $user_meta->user_id,
+                                            'extention'     	=> 'twitter',
+                                            'type'          	=> 'tweet',
+                                            'content'       	=> $tweet->text,
+                                            'content_oembed' 	=> false,			//true if you want to use oembed, false if not.
+								     		'item_id'       	=> $tweet->id,
+                                            'raw_date'    	  	=> gmdate('Y-m-d H:i:s', strtotime($tweet->created_at)),
+                                            'actionlink'  	  	=> 'http://www.twitter.com/' . $screenName . '/status/'.$tweet->id
                                         )
                                     );
 

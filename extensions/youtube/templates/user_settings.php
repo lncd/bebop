@@ -22,12 +22,12 @@ if ($_POST){
    	  Youtube username<br/>
   	  <input type="text" name="bebop_youtube_username" value="<?php echo $bebop_youtube_username; ?>" size="50" /><br/><br/>      
    	 <input type="submit" value="Save Channel">
-    </form>
+</form>
 <?php if($bebop_youtube_username != "") {
 ?>
-	<form id="settings_form" action="<?php echo  $bp->loggedin_user->domain; ?>bebop-oers/?oer=youtube" method="post">
-	    <input type="submit" name="remove" value="Remove Channel">
-	</form> 
+<form id="settings_form" action="<?php echo  $bp->loggedin_user->domain; ?>bebop-oers/?oer=youtube" method="post">
+    <input type="submit" name="remove" value="Remove Channel">
+</form> 
 <?php
 }
 ?>

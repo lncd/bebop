@@ -23,10 +23,14 @@ function bebop_create_activity($params) {
 
         //do we already have this content if so do not import this item
         if($secondary == null){
-
-            //set the content 
-            $content = "";
-            $content = '<div class="bebp_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';
+			$content = '';
+			if( $params['content_oembed'] === true ) {
+	            //set the content 
+	            $content = '<div class="bebop_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';
+			}
+			else {
+				$content = $originalText;
+			}
 
             $activity = new BP_Activity_Activity();
             if( ! bebop_check_existing_content($originalText)){

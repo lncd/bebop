@@ -25,9 +25,6 @@ class bebop_youtube_import {
 
         if ($user_metas) {
             foreach ($user_metas as $user_meta) {
-                //check for daylimit
-             //   $limitReached = BuddyStreamFilters::limitReached('youtube', $user_meta->user_id);
-
  				  if (bebop_tables::check_user_meta_exists($user_meta->user_id, 'bebop_youtube_username')) {
                     //get these urls for import
                     $importUrls = 'http://gdata.youtube.com/feeds/api/users/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bebop_youtube_username') . '/uploads';
@@ -64,30 +61,32 @@ class bebop_youtube_import {
                                 $videoId = str_replace("&amp;feature", "", $videoId);
 
                                 //get the thumbnail
-                                $thumbnail = "http://i.ytimg.com/vi/" . $videoId . "/0.jpg";
+                               // $thumbnail = "http://i.ytimg.com/vi/" . $videoId . "/0.jpg";
 
                                 $activity_info = bp_activity_get(array('filter' => array('secondary_id' => $user_meta->user_id . "_" . $videoId), 'show_hidden' => true));
                                 if (!$activity_info['activities'][0]->id && !$limitReached) {
 
-                                    $description = "";
+                                   /* $description = "";
                                     $description = $item->get_content();
                                     if (strlen($description) > 400) {
                                         $description = substr($description, 0, 400) . "... <a href='http://www.youtube.com/watch/?v=" . $videoId . "'>read more</a>";
-                                    }
+                                    }*/
 
-                                    $content = '<a href="http://www.youtube.com/watch/?v=' . $videoId . '" class="bs_lightbox" id="' . $videoId . '" title="' . $item->get_title() . '"><img src="' . $thumbnail . '"></a><b>' . $item->get_title() . '</b> ' . $description;
+                                    $content = 'http://www.youtube.com/watch?v=' . $videoId;
 
                                     //pre convert date
                                     $ts = strtotime($item->get_date());
 
-                                    $returnCreate = bebop_create_activity(array(
-                                            'user_id' => $user_meta->user_id,
-                                            'extention' => 'youtube',
-                                            'type' => 'Youtube video',
-                                            'content' => $content,
-                                            'item_id' => $videoId,
-                                            'raw_date' => date("Y-m-d H:i:s", $ts),
-                                            'actionlink' => 'http://www.youtube.com/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bebop_youtube_username')
+                                    $returnCreate = bebop_create_activity(
+                                    	array(
+                                            'user_id' 			=> $user_meta->user_id,
+                                            'extention' 		=> 'youtube',
+                                            'type' 				=> 'Youtube video',
+                                            'content' 			=> $content,
+                                            'content_oembed' 	=> false,		//true if you want to use oembed, false if not.
+                                            'item_id' 			=> $videoId,
+                                            'raw_date' 			=> date("Y-m-d H:i:s", $ts),
+                                            'actionlink'	 	=> 'http://www.youtube.com/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bebop_youtube_username')
                                         )
                                     );
 
