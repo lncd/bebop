@@ -66,8 +66,12 @@ class bebop_extensions {
         if ( $handle ) {
             while ( false !== ( $file = readdir( $handle ) ) ) {
                 if ( $file != "." && $file != ".." && $file != ".DS_Store" ) {
-                    if ( file_exists( WP_PLUGIN_DIR."/bebop/extensions/" . $file . "/config.ini" ) ) {
-                        $config[] = parse_ini_file( WP_PLUGIN_DIR."/bebop/extensions/" . $file . "/config.ini" );
+                    if ( file_exists( WP_PLUGIN_DIR."/bebop/extensions/" . $file . "/config.php" ) ) {
+                    	if( ! function_exists('get_' . $file . '_config') ) {
+                    		require( WP_PLUGIN_DIR."/bebop/extensions/" . $file . "/config.php" );
+						}
+                        $config[] = call_user_func('get_' . $file . '_config');
+						var_dump($config);
                     }
                 }
             }
@@ -85,8 +89,6 @@ class bebop_extensions {
 		}
     }
 	
-	
-	
 	function userPageLoader($extention, $page = 'settings'){
 
         global $bp;
@@ -97,12 +99,12 @@ class bebop_extensions {
 
         add_action(
             'bp_template_title',
-            'bebop'.$extention.'_'.$page.'_screen_title'
+            'bebop' . $extention . '_' . $page . '_screen_title'
         );
 
         add_action(
             'bp_template_content',
-            'bebop'.$extention.'_'.$page.'_screen_content'
+            'bebop' . $extention . '_' . $page . '_screen_content'
         );
 
         bp_core_load_template(
