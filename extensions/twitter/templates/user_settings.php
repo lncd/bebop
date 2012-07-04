@@ -49,7 +49,7 @@ if ( $_POST ) {
 }
 
 //put some options into variables
-$bebop_twitter_sync_to_activity_stream	= bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_twitter_sync_to_activity_stream');
+$bebop_twitter_sync_to_activity_stream		= bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_twitter_sync_to_activity_stream');
 $bebop_twitter_filtergood					= bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_twitter_filtergood');
 $bebop_twitter_filterbad					= bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_twitter_filterbad');
 

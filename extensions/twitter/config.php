@@ -12,7 +12,5 @@ function get_twitter_config() {
 	);
 	return $config;
 }
-function abc(){
-	return 'o';
-}
+
 ?>
