@@ -75,7 +75,9 @@ class bebop_extensions {
         if ($bp->displayed_user->id != $bp->loggedin_user->id && $page != "album") {
                 header('location:' . get_site_url());
         }
-
+		
+		
+		//I believe this code is a problem on testbp.
         add_action('bp_template_title', 'bebop_'.$extension.'_user_'.$page.'_screen_title');
 
         add_action('bp_template_content', 'bebop_'.$extension.'_user_'.$page.'_screen_content');

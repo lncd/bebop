@@ -1,6 +1,5 @@
 <?php
 
-
 if(isset($_GET['remove'])){
 	//Removes the channel name.
      bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_youtube_username');
@@ -31,4 +30,3 @@ if ($_POST){
 <?php
 }
 ?>
-    
