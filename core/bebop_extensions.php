@@ -76,9 +76,7 @@ class bebop_extensions {
                 header('location:' . get_site_url());
         }
 		
-        add_action('bp_template_title', 'bebop_'.$extension.'_user_'.$page.'_screen_title');
-
-        add_action('bp_template_content', 'bebop_'.$extension.'_user_'.$page.'_screen_content');
+        add_action('bp_template_content', 'bebop_user_'.$page.'_screen_content');
 
         bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
     }

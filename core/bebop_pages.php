@@ -25,35 +25,48 @@ function bebop_setup_user_nav()
         'slug' => 'bebop-oers', 
         'position' => 30, 
         'show_for_displayed_user' => false, 
-        'screen_function' => 'bebop_default_user_settings', 
-        'default_subnav_slug' => 'bebop_default_user_settings', 
+        'screen_function' => 'bebop_user_settings', 
+        'default_subnav_slug' => 'bebop_user_settings', 
         'item_css_id' => bp_is_my_profile ()
     ));
 	
-	/*bp_core_new_subnav_item(
-        array(
-            'name' => 'OER',
-            'slug' => 'bebop-oers-twitter',
-            'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
-            'parent_slug' => 'bebop-oers',
-            'screen_function' => 'bebop_default_user_settings',
-            'position' => 10,
-            'user_has_access' => bp_is_my_profile ()
-		)
-    );*/
+	
+	$handle = opendir(WP_PLUGIN_DIR . "/bebop/extensions");
+	$extensions = array();
+    //loop extentions so we can add active extentions to the import loop
+    if ($handle) {
+        while (false !== ($file = readdir($handle))) {
+            if ($file != "." && $file != ".." && $file != ".DS_Store") {            	
+                if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $file . "/import.php")) {
+                    if ( bebop_tables::get_option_value("bebop_" . $file . "_provider") == "on" ) {
+                        
+						bp_core_new_subnav_item(
+					        array(
+					            'name' => ucfirst($file),
+					            'slug' => '?oer=' . $file,
+					            'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
+					            'parent_slug' => 'bebop-oers',
+					            'screen_function' => 'bebop_user_settings',
+					            'position' => 10,
+					            'user_has_access' => bp_is_my_profile ()
+							)
+					    );
+
+
+                    }
+                }
+            }
+        }
+    }
 }
 
-function bebop_default_user_settings() {
+function bebop_user_settings() {
 	bebop_extensions::user_page_loader('default','settings');
 }
 
-function bebop_default_user_settings_screen_title() {
-    echo 'title';
-}
-
-function bebop_default_user_settings_screen_content() {
+function bebop_user_settings_screen_content() {
     global $bp;
-    include WP_PLUGIN_DIR . "/bebop/core/templates/user/bebop_user_settings.php";
+   	include WP_PLUGIN_DIR . "/bebop/core/templates/user/bebop_user_settings.php";
 }
 
 /*

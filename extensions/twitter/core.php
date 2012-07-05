@@ -29,8 +29,3 @@ function bebop_twitter_photos($text) {
 function bebop_twitter() {
     bebop_extensions::page_loader('twitter');
 }
-
-
-function bebop_twitter_user_settings() {
-	bebop_extensions::user_page_loader('twitter','settings');
-}
