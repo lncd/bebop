@@ -5,9 +5,9 @@ class bebop_filters
 	public function import_limit_reached($extension, $userId){
 
 		//different day ot no day set, set the day and the counter to 0;
-		if (bebop_tables::get_user_meta_value($userId, 'bebop_' . $extension . '_counterdate', 1) != date('dmy')) {
-			bebop_tables::update_user_meta($userId, 'bebop_' . $extension . '_daycounter', '0');
-			bebop_tables::update_user_meta($userId, 'bebop_' . $extension . '_counterdate', date('dmy'));
+		if (bebop_tables::get_user_meta_value($userId, 'twitter', 'bebop_' . $extension . '_counterdate', 1) != date('dmy')) {
+			bebop_tables::update_user_meta($userId, 'twitter', 'bebop_' . $extension . '_daycounter', '0');
+			bebop_tables::update_user_meta($userId, 'twitter', 'bebop_' . $extension . '_counterdate', date('dmy'));
 		}
 		
 		//max items per day
