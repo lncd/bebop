@@ -87,6 +87,7 @@ function bebop_activate() {
 		$bebop_user_meta = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_user_meta ( 
 	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
 	    	user_id int(10) NOT NULL,
+	    	meta_type varchar(255) NOT NULL,
 	    	meta_name varchar(255) NOT NULL,
 	    	meta_value longtext NOT NULL
 	    );";   

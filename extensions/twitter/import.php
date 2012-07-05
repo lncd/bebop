@@ -54,7 +54,7 @@ class bebop_twitter_import {
 
                             //update the user screen_name
                             $screenName = ''.$items->status->user->screen_name[0];
-                            bebop_tables::update_user_meta($user_meta->user_id,'bebop_twitter_screenname', $screenName);
+                            bebop_tables::update_user_meta($user_meta->user_id, 'twitter', 'bebop_twitter_screenname', $screenName);
 
                             //go through tweets
                             foreach ($items as $tweet) {

@@ -22,7 +22,7 @@ class bebop_tables
 		global $wpdb, $bp;
 		
 		if( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE user_id = '" . $wpdb->escape($user_id) . "' AND type = '" . $wpdb->escape($provider) . "'") ) {
-			if($wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_name LIKE '" . $wpdb->escape($provider) . "' LIMIT 1" ) ) {
+			if($wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_type = '" . $wpdb->escape($provider) . "' LIMIT 1" ) ) {
 				return true;
 			}
 			else {
@@ -142,16 +142,15 @@ class bebop_tables
 	* User Meta
 	*/
 	
-	function add_user_meta( $user_id, $meta_name, $meta_value ) { //function to add user meta to the user_meta table.
+	function add_user_meta( $user_id, $meta_type, $meta_name, $meta_value ) { //function to add user meta to the user_meta table.
 		global $wpdb;
 		
 		if( bebop_tables::check_user_meta_exists($user_id, $meta_name) == false ) {
-			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_user_meta (user_id, meta_name, meta_value) VALUES (%s, %s, %s)", $wpdb->escape($user_id), $wpdb->escape($meta_name), $wpdb->escape($meta_value) ) );
+			$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)", $wpdb->escape($user_id), $wpdb->escape($meta_type), $wpdb->escape($meta_name), $wpdb->escape($meta_value) ) );
 			return true;
-			
 		}
 		else {
-			bebop_tables::log_error( _, 'bebop_user_meta_error', "meta: '" . $meta_name . "' already exists for user " . $user_id);
+			bebop_tables::log_error( _, 'bebop_user_meta_error', "meta: '" . $meta_name . "' already exists for user " . $user_id . 'in type ' . $meta_type);
 			return false;
 		}
 	}
@@ -185,7 +184,7 @@ class bebop_tables
 		}
 	}
 	
-	function update_user_meta( $user_id, $meta_name, $meta_value ) { //function to update user meta in the user_meta table.
+	function update_user_meta( $user_id, $meta_type, $meta_name, $meta_value ) { //function to update user meta in the user_meta table.
 		global $wpdb;
 		
 		if( bebop_tables::check_user_meta_exists($user_id, $meta_name) == true ) {
@@ -198,8 +197,8 @@ class bebop_tables
 			}
 		}
 		else {
-			bebop_tables::add_user_meta( $user_id, $meta_name, $meta_value );
-			bebop_tables::update_user_meta( $user_id, $meta_name, $meta_value );
+			bebop_tables::add_user_meta( $user_id, $meta_type, $meta_name, $meta_value );
+			bebop_tables::update_user_meta( $user_id, $meta_type, $meta_name, $meta_value );
 		}
 	}
 	
