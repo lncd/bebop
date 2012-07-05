@@ -18,7 +18,23 @@ class bebop_tables
 		}
 	}
 	
-	//function rto remove activity data imported by the plugin.
+	function remove_user_from_provider($user_id, $provider) {
+		global $wpdb, $bp;
+		
+		if( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE user_id = '" . $wpdb->escape($user_id) . "' AND type = '" . $wpdb->escape($provider) . "'") ) {
+			if($wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_name LIKE '" . $wpdb->escape($provider) . "' LIMIT 1" ) ) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+		else {
+			return false;
+		}
+	}
+	
+	//function to remove activity data imported by the plugin.
 	function remove_activity_data() {
 		global $wpdb, $bp;
 		
