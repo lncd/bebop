@@ -34,7 +34,7 @@ function bebop_init() {
 	include_once( 'core/bebop_oauth.php' );
 	include_once( 'core/bebop_tables.php' );
 	include_once( 'core/bebop_filters.php' );
-	include_once( 'core/bebop_page_loader.php' );
+	include_once( 'core/bebop_pages.php' );
 	include_once( 'core/bebop_extensions.php' );
 
 	//Main content file

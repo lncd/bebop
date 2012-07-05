@@ -47,7 +47,7 @@ class bebop_extensions {
     }
 	
 	function page_loader($extension) {
-		
+		$extension = strtolower($extension);
 		if ( file_exists( WP_PLUGIN_DIR."/bebop/extensions/" . $extension . "/config.php" ) ) {
         	if( ! function_exists('get_' . $extension . '_config') ) {
         		require( WP_PLUGIN_DIR."/bebop/extensions/" . $extension . "/config.php" );
@@ -76,8 +76,6 @@ class bebop_extensions {
                 header('location:' . get_site_url());
         }
 		
-		
-		//I believe this code is a problem on testbp.
         add_action('bp_template_title', 'bebop_'.$extension.'_user_'.$page.'_screen_title');
 
         add_action('bp_template_content', 'bebop_'.$extension.'_user_'.$page.'_screen_content');

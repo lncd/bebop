@@ -25,7 +25,7 @@ if( ! isset( $_GET['oer']) ) {
         while (false !== ($file = readdir($handle))) {
             if ($file != "." && $file != ".." && $file != ".DS_Store") {            	
                 if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $file . "/import.php")) {
-                    if ( bebop_tables::check_option_exists("bebop_" . $file . "_provider") ) {
+                    if ( bebop_tables::get_option_value("bebop_" . $file . "_provider") == "on") {
                         $extensions[] = $file;
                     }
                 }
@@ -52,13 +52,13 @@ if( ! isset( $_GET['oer']) ) {
 }
 
 //start the importer for real 
-if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php")) {
+if ( file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php") ) {
     if ( bebop_tables::get_option_value("bebop_" . $importer . "_provider") ) {
        include_once(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php");
-         if (function_exists("bebop_" . strtolower($importer) . "_start_import")) {
+         if ( function_exists("bebop_" . strtolower($importer) . "_start_import") ) {
             $numberOfItems = call_user_func("bebop_" . strtolower($importer) . "_start_import");
 			 
-            //create return array
+            //create return array - might not need this.
             $infoArray = array(
                 'executed' => true,
                 'date' => date('d-m-y H:i'),
