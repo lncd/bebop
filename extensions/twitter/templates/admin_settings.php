@@ -25,17 +25,17 @@ if( isset( $_GET['reset_user_id'] ) ) {
 
 <form method="post" class='bebop_admin_form'>
 	<fieldset>
-		<label>Twitter API Token</label>
-		<input type="text" name="bebop_twitter_consumer_key" value="<?php echo bebop_tables::get_option_value('bebop_twitter_consumer_key'); ?>" size="50">
+		<label for='bebop_twitter_consumer_key'>Twitter API Token:</label>
+		<input type="text" id="bebop_twitter_consumer_key" name="bebop_twitter_consumer_key" value="<?php echo bebop_tables::get_option_value('bebop_twitter_consumer_key'); ?>" size="50">
 
-		<label>Twitter API Secret:</label>
-		<input type="text" name="bebop_twitter_consumer_secret" value="<?php echo bebop_tables::get_option_value('bebop_twitter_consumer_secret'); ?>" size="50">
+		<label for='bebop_twitter_consumer_secret'>Twitter API Secret:</label>
+		<input type="text" id="bebop_twitter_consumer_secret" name="bebop_twitter_consumer_secret" value="<?php echo bebop_tables::get_option_value('bebop_twitter_consumer_secret'); ?>" size="50">
 
-		<label>Maximum amount of imports</label>
-		<input type="text" name="bebop_twitter_maximport" value="<?php echo bebop_tables::get_option_value('bebop_twitter_maximport'); ?>" size="5">
-
+		<label for='bebop_twitter_maximport'>Maximum amount of imports:</label>
+		<input type="text" id="bebop_twitter_maximport" name="bebop_twitter_maximport" value="<?php echo bebop_tables::get_option_value('bebop_twitter_maximport'); ?>" size="5">
+	<div class='bebop_button_container'><button>Save Changes</button></div>
 	</fieldset>
-	<input type='submit' value='Save Changes'>
+	
 </form>
 
 
