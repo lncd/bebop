@@ -6,20 +6,23 @@
 
 
 <?php
+
  $arraySwitches = array(
         'bebop_youtube_hide_sitewide',
         'bebop_youtube_album'
     );
 
   if ($_POST) {
-      update_site_option('bebop_youtube_maximport', trim(strip_tags(strtolower($_POST['bebop_youtube_maximport']))));
-      update_site_option('bebop_youtube_setup', true);
+  	
+	if($_POST['bebop_youtube_maximport']){
+    	update_site_option('bebop_youtube_maximport', trim(strip_tags(strtolower($_POST['bebop_youtube_maximport']))));
+    	update_site_option('bebop_youtube_setup', true);
       
-       foreach($arraySwitches as $switch){
-        update_site_option($switch, trim(strip_tags(strtolower($_POST[$switch]))));    
-      }
-      
-      echo '<div>Settings Saved</div>';
+    	foreach($arraySwitches as $switch){
+        	update_site_option($switch, trim(strip_tags(strtolower($_POST[$switch]))));    
+      	}  
+      	echo '<div>Settings Saved</div>';
+	}
    }
 ?>
 
@@ -50,3 +53,32 @@
 	</table>
 	  <p class="submit"><input type="submit" class="button-primary" value="Save Settings"></p>
 </form>
+
+<table class='bebop_table'>
+	<tr class='nodata'>
+		<th>User ID</th>
+		<th>Username</th>
+		<th>User email</th>
+		<th>Youtube Channel</th>
+	</tr>
+	<?php
+	$user_metas = bebop_tables::get_user_ids_from_meta_name('bebop_youtube_username');	
+
+	foreach( $user_metas as $user ) {
+		
+		$this_user = get_userdata($user->user_id);
+		echo "<tr>
+			<td>" . bebop_tables::sanitise_element($user->user_id) . "</td>
+			<td>" . bebop_tables::sanitise_element($this_user->user_login) . "</td>
+			<td>" . bebop_tables::sanitise_element($this_user->user_email) . "</td>
+			<td>" . bebop_tables::sanitise_element(bebop_tables::get_user_meta_value( $user->user_id, 'bebop_youtube_username' ) ) . "</td>
+			<td>
+				<form method='post' action=''>
+				<input type='submit' name='delsub' value='Delete'>
+				</form>
+			</td>
+		</tr>";
+	}
+	?>
+	<!-- <End bebop_table -->
+</table>
