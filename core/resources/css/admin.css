@@ -146,3 +146,11 @@
 .margin-bottom_22px {
 	margin-bottom:22px;
 }
+.bebop_green_box {
+	width:80%;
+	min-height:20pt;
+	line-height:20pt;
+	border:1px solid #000000;
+	background:#00ff00;
+}
+}
