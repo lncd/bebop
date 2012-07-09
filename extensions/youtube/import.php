@@ -83,7 +83,7 @@ class bebop_youtube_import {
                                             'extention' 		=> 'youtube',
                                             'type' 				=> 'Youtube video',
                                             'content' 			=> $content,
-                                            'content_oembed' 	=> false,		//true if you want to use oembed, false if not.
+                                            'content_oembed' 	=> true,		//true if you want to use oembed, false if not.
                                             'item_id' 			=> $videoId,
                                             'raw_date' 			=> date("Y-m-d H:i:s", $ts),
                                             'actionlink'	 	=> 'http://www.youtube.com/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bebop_youtube_username')
