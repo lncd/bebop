@@ -12,12 +12,14 @@ if ( $_POST ) {
 	bebop_tables::update_option('bebop_twitter_consumer_secret', trim($_POST['bebop_twitter_consumer_secret']));
 	bebop_tables::update_option('bebop_twitter_maximport', trim($_POST['bebop_twitter_maximport']));
 
-	echo '<div>Settings Saved</div>';
+	echo '<div class="bebop_green_box">Settings Saved</div>';
 }
 //remove the user
 if( isset( $_GET['reset_user_id'] ) ) {
 	$user_id = trim($_GET['reset_user_id']);
 	bebop_tables::remove_user_from_provider($user_id, 'twitter');
+	
+	echo '<div class="bebop_green_box">User has been removed.</div>';
 }
 ?>
 
@@ -43,21 +45,17 @@ if( isset( $_GET['reset_user_id'] ) ) {
 	<p class='submit'><input type='submit' value='Save Changes'></p>
 </form>
 
-<div class="postbox width_98 margin-bottom_22px">
-	<h3>Twitter Log</h3>
-	<div class="inside">
-		Users currently using twitter
-	</div>
-</div>
-<div class="clear"></div>
-	
-<table class='bebop_table'>
+<table class='bebop_settings_table'>
 	<tr class='nodata'>
-		<th>User ID</th>
-		<th>Username</th>
-		<th>User email</th>
-		<th>Twitter name</th>
-		<th>Options</th>
+		<th colspan='5'>Twitter users</th>
+	</tr>
+	
+	<tr class='nodata'>
+		<td>User ID</td>
+		<td>Username</td>
+		<td>User email</td>
+		<td>Twitter name</td>
+		<td>Options</td>
 	</tr>
 	<?php
 	$user_metas = bebop_tables::get_user_ids_from_meta_name('bebop_twitter_screenname');	

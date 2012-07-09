@@ -2,7 +2,7 @@
 
 global $bp;
 
-//resets the user's twitter data
+//resets the user's data data
 if( isset( $_GET['reset'] ) ) {
 	if ( $_GET['reset']  == 'true' ) {	
 		bebop_tables::remove_user_from_provider($bp->loggedin_user->id, 'twitter');

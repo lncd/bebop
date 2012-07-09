@@ -18,12 +18,11 @@ class bebop_tables
 		}
 	}
 	
-	//function to remove user data by oer provider
-	function remove_user_from_provider($user_id, $provider) {
+	//function to remove activity data imported by the plugin. - Part of the uninstall process.
+	function remove_activity_data() {
 		global $wpdb, $bp;
 		
-		if ( ($wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_type = '" . $wpdb->escape($provider) . "'") ) || 
-		( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin' AND type ='" . $wpdb->escape($provider) . "'" ) ) ) {
+		if( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin'" ) ) {
 			return true;
 		}
 		else {
@@ -31,11 +30,12 @@ class bebop_tables
 		}
 	}
 	
-	//function to remove activity data imported by the plugin. - Part of the uninstall process.
-	function remove_activity_data() {
+	//function to remove user data by oer provider
+	function remove_user_from_provider($user_id, $provider) {
 		global $wpdb, $bp;
 		
-		if( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin'" ) ) {
+		if ( ($wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_type = '" . $wpdb->escape($provider) . "'") ) || 
+		( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin' AND type ='" . $wpdb->escape($provider) . "'" ) ) ) {
 			return true;
 		}
 		else {
