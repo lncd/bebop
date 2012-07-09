@@ -8,7 +8,7 @@ if(isset($_GET['remove'])){
 
 if ($_POST){
 	//Updates the channel name.
-    bebop_tables::update_user_meta($bp->loggedin_user->id, 'bebop_youtube_username', $_POST['bebop_youtube_username']);
+    bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter', 'bebop_youtube_username', $_POST['bebop_youtube_username']);
 }
 
     $bebop_youtube_username = bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_youtube_username');
