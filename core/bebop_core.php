@@ -26,10 +26,10 @@ function bebop_create_activity($params) {
 			$content = '';
 			if( $params['content_oembed'] === true ) {
 	            //set the content 
-	            $content = '<div class="bebop_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';
+	            $content = $originalText;
 			}
 			else {
-				$content = $originalText;
+				$content = '<div class="bebop_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';				
 			}
 
             $activity = new BP_Activity_Activity();
