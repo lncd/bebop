@@ -13,6 +13,11 @@ if ( $_POST ) {
 
 	echo '<div>Settings Saved</div>';
 }
+//remove the user
+if( isset( $_GET['reset_user_id'] ) ) {
+	$user_id = trim($_GET['reset_user_id']);
+	bebop_tables::remove_user_from_provider($user_id, 'twitter');
+}
 ?>
 
 <form method="post" action="">
@@ -51,6 +56,7 @@ if ( $_POST ) {
 		<th>Username</th>
 		<th>User email</th>
 		<th>Twitter name</th>
+		<th>Options</th>
 	</tr>
 	<?php
 	$user_metas = bebop_tables::get_user_ids_from_meta_name('bebop_twitter_screenname');	
@@ -64,6 +70,7 @@ if ( $_POST ) {
 			<td>" . bebop_tables::sanitise_element($this_user->user_login) . "</td>
 			<td>" . bebop_tables::sanitise_element($this_user->user_email) . "</td>
 			<td>" . bebop_tables::sanitise_element(bebop_tables::get_user_meta_value( $user->user_id, 'bebop_twitter_screenname' ) ) . "</td>
+			<td><a href='?page=bebop_twitter&reset_user_id=" . bebop_tables::sanitise_element($user->user_id) . "'>Reset User</a></td>
 		</tr>";
 	}
 	?>

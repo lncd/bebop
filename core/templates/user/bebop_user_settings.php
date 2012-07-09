@@ -11,7 +11,7 @@
             }
         }
 		if( count($activeExtensions) == 0 ) {
-			echo "No extensions are currently active. Please activate them in the bebop OER provides admin panel.";
+			echo "No extensions are currently active. Please activate them in the bebop OER providers admin panel.";
 		}
 		else {
 			echo "Choose an OER source from the sub menu above. ";

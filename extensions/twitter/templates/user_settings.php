@@ -2,19 +2,9 @@
 
 global $bp;
 
+//resets the user's twitter data
 if( isset( $_GET['reset'] ) ) {
-	if ( $_GET['reset']  == 'true' ) {
-	    /*bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_oauth_token');
-		bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_oauth_token_temp');
-	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_oauth_token_secret');
-	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_oauth_token_secret_temp');
-	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_sync_to_activity_stream');
-	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_filtergood');
-	    bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_filterbad');
-		bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_screenname');
-		bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_daycounter');
-		bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_twitter_counterdate');*/
-		
+	if ( $_GET['reset']  == 'true' ) {	
 		bebop_tables::remove_user_from_provider($bp->loggedin_user->id, 'twitter');
 	}
 }
