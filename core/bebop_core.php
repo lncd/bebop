@@ -36,6 +36,7 @@ function bebop_create_activity($params) {
             if( ! bebop_check_existing_content($originalText)){
 
                 add_filter('bp_activity_action_before_save', 'bp_activity_filter_kses', 1);
+				
 
                 $activity->user_id           = $params['user_id'];
                 $activity->component         = 'bebop_oer_plugin';

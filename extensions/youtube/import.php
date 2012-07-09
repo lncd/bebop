@@ -66,13 +66,13 @@ class bebop_youtube_import {
                                 $activity_info = bp_activity_get(array('filter' => array('secondary_id' => $user_meta->user_id . "_" . $videoId), 'show_hidden' => true));
                                 if (!$activity_info['activities'][0]->id && !$limitReached) {
 
-                                   /* $description = "";
+                                    $description = "";
                                     $description = $item->get_content();
                                     if (strlen($description) > 400) {
                                         $description = substr($description, 0, 400) . "... <a href='http://www.youtube.com/watch/?v=" . $videoId . "'>read more</a>";
-                                    }*/
-
-                                    $content = 'http://www.youtube.com/watch?v=' . $videoId;
+                                    }
+									//This needs a line break but wordpress seems to filter line breaks... even &nbsp; <br> <br /> \n \r
+                                    $content = 'http://www.youtube.com/watch?v=' . $videoId . '' . $description;
 
                                     //pre convert date
                                     $ts = strtotime($item->get_date());
