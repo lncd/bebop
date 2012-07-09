@@ -12,7 +12,7 @@ if ( $_POST ) {
 	bebop_tables::update_option('bebop_twitter_consumer_secret', trim($_POST['bebop_twitter_consumer_secret']));
 	bebop_tables::update_option('bebop_twitter_maximport', trim($_POST['bebop_twitter_maximport']));
 
-	echo '<div class="bebop_green_box">Settings Saved</div>';
+	echo '<div class="bebop_green_box">Settings Saved.</div>';
 }
 //remove the user
 if( isset( $_GET['reset_user_id'] ) ) {
@@ -23,27 +23,21 @@ if( isset( $_GET['reset_user_id'] ) ) {
 }
 ?>
 
-<form method="post" action="">
-	<table class="bebop_settings_table">
-	<th colspan='2'>Twitter Settings</th>
-		<tr>
-			<td>Twitter API Token</td>
-			<td><input type="text" name="bebop_twitter_consumer_key" value="<?php echo bebop_tables::get_option_value('bebop_twitter_consumer_key'); ?>" size="50"></td>
-		</tr>
-		
-		<tr>
-			<td>Twitter API Secret:</td>
-			<td><input type="text" name="bebop_twitter_consumer_secret" value="<?php echo bebop_tables::get_option_value('bebop_twitter_consumer_secret'); ?>" size="50"></td>
-		</tr>
-        
-        <tr>
-			<td>Maximum amount of imports</td>
-			<td><input type="text" name="bebop_twitter_maximport" value="<?php echo bebop_tables::get_option_value('bebop_twitter_maximport'); ?>" size="5" /></td>
-		</tr>
-		
-	</table>
-	<p class='submit'><input type='submit' value='Save Changes'></p>
+<form method="post" class='bebop_admin_form'>
+	<fieldset>
+		<label>Twitter API Token</label>
+		<input type="text" name="bebop_twitter_consumer_key" value="<?php echo bebop_tables::get_option_value('bebop_twitter_consumer_key'); ?>" size="50">
+
+		<label>Twitter API Secret:</label>
+		<input type="text" name="bebop_twitter_consumer_secret" value="<?php echo bebop_tables::get_option_value('bebop_twitter_consumer_secret'); ?>" size="50">
+
+		<label>Maximum amount of imports</label>
+		<input type="text" name="bebop_twitter_maximport" value="<?php echo bebop_tables::get_option_value('bebop_twitter_maximport'); ?>" size="5">
+
+	</fieldset>
+	<input type='submit' value='Save Changes'>
 </form>
+
 
 <table class='bebop_settings_table'>
 	<tr class='nodata'>

@@ -147,10 +147,26 @@
 	margin-bottom:22px;
 }
 .bebop_green_box {
-	width:80%;
-	min-height:20pt;
-	line-height:20pt;
-	border:1px solid #000000;
-	background:#00ff00;
+	display:block;
+	width:35%;
+	background:#E1FFD6;
+	margin:0 auto 22px auto;
+	padding:10px;
+	text-align:center;
 }
+.bebop_admin_form {
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+    background-color:#ffffff;
+    width:99%;
+    border:1px solid #cecece;
+    border-radius:7px;
+    border-spacing:0;
+}
+.bebop_admin_form label {
+	width:45%;
+	text-align:right;
+	clear:both;
+}
+.bebop_admin_form input {
+	
 }
