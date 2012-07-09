@@ -21,8 +21,8 @@ class bebop_tables
 	function remove_user_from_provider($user_id, $provider) {
 		global $wpdb, $bp;
 		
-		if( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE user_id = '" . $wpdb->escape($user_id) . "' AND type = '" . $wpdb->escape($provider) . "'") ) {
-			if($wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_type = '" . $wpdb->escape($provider) . "' LIMIT 1" ) ) {
+		if($wpdb->get_results( "DELETE FROM " . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape($user_id) . "' AND meta_type = '" . $wpdb->escape($provider) . "'") ) {
+			if( $wpdb->get_results( "DELETE FROM " . $bp->activity->table_name ." WHERE user_id = '" . $wpdb->escape($user_id) . "' AND component = '" . $wpdb->escape($provider) . "' AND type = '" . $wpdb->escape($provider) . "'") ) {
 				return true;
 			}
 			else {
