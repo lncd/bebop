@@ -6,6 +6,7 @@
 <?php
 global $bp;
 
+//updates
 if ( $_POST ) {
 	bebop_tables::update_option('bebop_twitter_consumer_key', trim($_POST['bebop_twitter_consumer_key']));
 	bebop_tables::update_option('bebop_twitter_consumer_secret', trim($_POST['bebop_twitter_consumer_secret']));
@@ -62,9 +63,7 @@ if( isset( $_GET['reset_user_id'] ) ) {
 	$user_metas = bebop_tables::get_user_ids_from_meta_name('bebop_twitter_screenname');	
 	
 	foreach( $user_metas as $user ) {
-		
 		$this_user = get_userdata($user->user_id);
-		var_dump($this_user);
 		echo "<tr>
 			<td>" . bebop_tables::sanitise_element($user->user_id) . "</td>
 			<td>" . bebop_tables::sanitise_element($this_user->user_login) . "</td>
