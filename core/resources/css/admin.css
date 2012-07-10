@@ -157,16 +157,44 @@
 .bebop_admin_form {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
     background-color:#ffffff;
-    width:99%;
+    width:97%;
     border:1px solid #cecece;
     border-radius:7px;
     border-spacing:0;
+    margin:22px auto;
+    padding:10px;
 }
 .bebop_admin_form label {
+	display:inline-block;
 	width:45%;
 	text-align:right;
-	clear:both;
+	margin:5px 0;
+	padding:5px;
+	border:0px solid #000;
 }
 .bebop_admin_form input {
-	
+	padding:5px;
+	margin:5px 0;
+}
+.bebop_button_container {
+	text-align:center;
+}
+.bebop_admin_form button {
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	font-size:15px;
+	display:inline-block;
+	margin:10px auto 0px auto;
+	padding:10px;
+	text-align:center;
+	background-image:linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-o-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-moz-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-webkit-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #FBEC5D), color-stop(0.5, #FFFACD));
+    background-image:-ms-linear-gradient(bottom, #FBEC5D 30%, #FFFACD 70%); 
+	border:1px solid #FBEC5D;
+	border-radius:4px;
+}
+.bebop_admin_form button:active {
+	margin-top:15px;
 }
