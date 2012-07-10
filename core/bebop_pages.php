@@ -126,7 +126,7 @@ function bebop_admin_pages() {
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_general_log.php";
 	}
 	else {
-		echo '<div class="bebop_error_box"><b>Bebop Error:</b> action not found. Loaded home instead.</div>';
+		echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $_GET["page"] . '" page not found. Loaded home instead.</div>';
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin.php";
 	}
 }  

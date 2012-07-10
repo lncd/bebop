@@ -3,7 +3,7 @@
 
 <?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
 <div id='bebop_admin_container'>
-        <div class="postbox width_98 margin-bottom_22px">
+        <div class="postbox full_width center_margin margin-bottom_22px">
         	<h3>Bebop Errors</h3>
         	<div class="inside">
             	Logs any errors which the plugin has produced. Please report these to dmckeown-AT-lincoln-DOT-ac-DOT-uk (replace -AT- and -DOT- as necessary) 

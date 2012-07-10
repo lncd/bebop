@@ -5,6 +5,7 @@
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	border:0px solid #00FF00;
 	margin:22px auto 0 auto;
+	border:1px solid #000000;
 }
 #bebop_admin_container a {
 	text-decoration:none;
@@ -14,7 +15,7 @@
 	text-decoration:underline;
 }
 
-.bebop_error_box, .bebop_green_box {
+.bebop_error_box, .bebop_success_box {
 	display:block;
 	width:35%;
 	margin:0 auto;
@@ -26,7 +27,7 @@
 .bebop_error_box {
 	background:#FF6A6A;
 }
-.bebop_green_box {
+.bebop_success_box {
 	background:#E1FFD6;
 }
 .bebop_admin_box, .postbox h3, .bebop_admin_menu a {
@@ -43,20 +44,22 @@
     font-size:16px;
     font-weight:normal;
     line-height:45px;
-    margin:0 23px 0 0;
+    margin:0 auto;
     min-height:100px;
     border-radius:7px;
+    width:96.5%;
 }
+
 .bebop_logo {
 	float:left;
 }
 
 .postbox-container {
-	width:49.5%;
+	width:50%;
 }
 .postbox {
-	margin:22px 11px 0px 11px;
-	 border-radius:7px;
+	margin:22px 30px 0px 30px;
+	border-radius:7px;
     background:#eeeeee;
     padding:0px;
     text-align: justify;
@@ -72,6 +75,14 @@
 }
 .postbox a {
 	text-decoration:none;
+}
+
+.full_width {
+	width:97%;
+}
+.center_margin {
+	margin-left:auto;
+	margin-right:auto;
 }
 
 .bebop_admin_menu {

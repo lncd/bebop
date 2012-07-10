@@ -1,32 +1,31 @@
 <link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/admin.css';?>" type="text/css">
 <link rel="shortcut icon" href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
+<?php
+    global $bp;
+    if( isset($_POST['submit']) ){
+        
+        //reset the importer queue
+        bebop_tables::update_option("bebop_importers_queue", "");
+        
+        //set the new importer queue
+        $importerQueue = array();
+        foreach ( bebop_extensions::get_extension_configs() as $extension ) {
+            if( is_array($extension) && isset($_POST['bebop_' . $extension['name'] . '_provider']) && $_POST['bebop_' . $extension['name'] . '_provider'] == "on" ){
+                $importerQueue[] = $extension['name'];
+            }
+        }
+        bebop_tables::update_option("bebop_importers_queue", implode(",", $importerQueue));
+        
+        echo '<div class="bebop_success_box">Settings Saved.</div>';
+    }
+?>
+		
 <?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
-<div id='bebop_admin_container'>
+	<div id='bebop_admin_container'>
 	
 	<form id="settings_form" action="" method="post">
-	
-		<?php
-	    global $bp;
-	    if( isset($_POST['submit']) ){
-	        
-	        //reset the importer queue
-	        bebop_tables::update_option("bebop_importers_queue", "");
-	        
-	        //set the new importer queue
-	        $importerQueue = array();
-	        foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-	            if( is_array($extension) && isset($_POST['bebop_' . $extension['name'] . '_provider']) && $_POST['bebop_' . $extension['name'] . '_provider'] == "on" ){
-	                $importerQueue[] = $extension['name'];
-	            }
-	        }
-	        bebop_tables::update_option("bebop_importers_queue", implode(",", $importerQueue));
-	        
-	        echo '<div>Settings Saved</div>'; 
-	    }
-		?>
-	    
-	    <div class="metabox-holder">    
+	       
 	    <?php
 	    
 	    //loop throught extensions directory and get all extensions
@@ -65,7 +64,6 @@
 	        }
 	    }
 	    ?>
-	    </div>
 	
 		<div style="float:left; clear:both;">
 		    <input type="submit" name="submit" class="button-primary" value="Save Changes">

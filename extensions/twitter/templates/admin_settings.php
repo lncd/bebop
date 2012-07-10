@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/admin.css';?>" type="text/css">
 <link rel="shortcut icon" href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
-<?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" );
+<?php
 global $bp;
 
 //updates
@@ -10,17 +10,16 @@ if ( $_POST ) {
 	bebop_tables::update_option('bebop_twitter_consumer_secret', trim($_POST['bebop_twitter_consumer_secret']));
 	bebop_tables::update_option('bebop_twitter_maximport', trim($_POST['bebop_twitter_maximport']));
 
-	echo '<div class="bebop_green_box">Settings Saved.</div>';
+	echo '<div class="bebop_success_box">Settings Saved.</div>';
 }
 //remove the user
 if( isset( $_GET['reset_user_id'] ) ) {
 	$user_id = trim($_GET['reset_user_id']);
 	bebop_tables::remove_user_from_provider($user_id, 'twitter');
 	
-	echo '<div class="bebop_green_box">User has been removed.</div>';
+	echo '<div class="bebop_success_box">User has been removed.</div>';
 }
-?>
-
+include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
 <div id='bebop_admin_container'>
 <form method="post" class='bebop_admin_form'>
 	<fieldset>
