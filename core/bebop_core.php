@@ -62,19 +62,18 @@ function bebop_create_activity($params) {
                 //extra check to be sure we don't have a empty activity
                 $cleanContent = '';
                 $cleanContent = trim(strip_tags($activity->content));
-
+				
                 //check if item does not exist in the blacklist
                 if( (bebop_tables::get_user_meta_value($params['user_id'], 'bebop_blacklist_ids') ) && ( ! empty($cleanContent)) ) {
-
-                    if ( ! preg_match("/" . $params['item_id'] . "/i", bebop_tables::get_user_meta_value($params['user_id'], 'bebop_blacklist_ids', 1))) {
+                    if ( ! preg_match("/" . $params['item_id'] . "/i", bebop_tables::get_user_meta_value($params['user_id'], 'bebop_blacklist_ids', 1))) {                    	
                         $activity->save();
-                       // BuddyStreamFilters::updateDayLimitByOne($params['extention'], $params['user_id']);
+                        bebop_filters::day_increase($params['extention'], $params['user_id']);
                     }
 
                 }
                 else{
                     $activity->save();
-                   // BuddyStreamFilters::updateDayLimitByOne($params['extention'], $params['user_id']);
+                    bebop_filters::day_increase($params['extention'], $params['user_id']);
                 }
             }
             else{

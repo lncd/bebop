@@ -7,18 +7,11 @@
 
 <?php
 
-$arraySwitches = array(
-					   'bebop_youtube_hide_sitewide',
-   					   'bebop_youtube_album'
-  					  );
 
 if ($_POST) {
-   	update_site_option('bebop_youtube_maximport', trim(strip_tags(strtolower($_POST['bebop_youtube_maximport']))));
-   	update_site_option('bebop_youtube_setup', true);
-      
-   	foreach($arraySwitches as $switch){
-       	update_site_option($switch, trim(strip_tags(strtolower($_POST[$switch]))));    
-   	}  
+   	bebop_tables::update_option('bebop_youtube_maximport', trim(strip_tags(strtolower($_POST['bebop_youtube_maximport']))));
+   	bebop_tables::update_option('bebop_youtube_setup', true);      
+   	
    	echo '<div>Settings Saved</div>';
 }
   //remove the user
@@ -36,7 +29,7 @@ if( isset( $_GET['reset_user_id'] ) ) {
 
 <tr>
 			<td>Max import:</td>
-			<td><input type="text" name="bebop_youtube_maximport" value="<?php echo get_site_option('bebop_youtube_maximport'); ?>" size="5" /></td>
+			<td><input type="text" name="bebop_youtube_maximport" value="<?php echo bebop_tables::get_option_value('bebop_youtube_maximport'); ?>" size="5" /></td>
 		</tr>
 	
 	</table>

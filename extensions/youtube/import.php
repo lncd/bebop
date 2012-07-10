@@ -44,13 +44,13 @@ class bebop_youtube_import {
                             $items = $feed->get_items();
                         }
 						else {
-							bebop_tables::log_general("bebop_youtube_import", 'feed error: ' . $feed->error);
+							bebop_tables::log_error(_ ,"bebop_youtube_import", 'feed error: ' . $feed->error);
 						}
 						
                         if ($items) {
                             foreach ($items as $item) {
 								$limitReached = bebop_filters::import_limit_reached('youtube', $user_meta->user_id);
-
+								
                                 // get video player URL
                                 $link = $item->get_permalink();
 
@@ -71,8 +71,10 @@ class bebop_youtube_import {
                                     if (strlen($description) > 400) {
                                         $description = substr($description, 0, 400) . "... <a href='http://www.youtube.com/watch/?v=" . $videoId . "'>read more</a>";
                                     }
-									//This needs a line break but wordpress seems to filter line breaks... even &nbsp; <br> <br /> \n \r
-                                    $content = 'http://www.youtube.com/watch?v=' . $videoId . '' . $description;
+									
+									//This manually puts the link and description together with a line break.
+                                    $content = 'http://www.youtube.com/watch?v=' . $videoId . '
+                                    Description: ' . $description;
 
                                     //pre convert date
                                     $ts = strtotime($item->get_date());
