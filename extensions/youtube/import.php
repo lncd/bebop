@@ -44,7 +44,7 @@ class bebop_youtube_import {
                             $items = $feed->get_items();
                         }
 						else {
-							bebop_tables::log_general("bebop_youtube_import", 'feed error: ' . $feed->error);
+							bebop_tables::log_error(_ ,"bebop_youtube_import", 'feed error: ' . $feed->error);
 						}
 						
                         if ($items) {
@@ -64,6 +64,7 @@ class bebop_youtube_import {
                                // $thumbnail = "http://i.ytimg.com/vi/" . $videoId . "/0.jpg";
 
                                 $activity_info = bp_activity_get(array('filter' => array('secondary_id' => $user_meta->user_id . "_" . $videoId), 'show_hidden' => true));
+
                                 if (!$activity_info['activities'][0]->id && !$limitReached) {
 
                                     $description = "";
