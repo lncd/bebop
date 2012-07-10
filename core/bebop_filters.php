@@ -22,7 +22,7 @@ class bebop_filters
 		
 		//max items per day * < shud be false return*
 		if (bebop_tables::get_option_value('bebop_' . $extension . '_maximport')) {			
-			if (bebop_tables::get_user_meta_value($userId, 'bebop_' . $extension . '_daycounter',1) < bebop_tables::get_option_value('bebop_' . $extension . '_maximport')) {
+			if (bebop_tables::get_user_meta_value($userId, 'bebop_' . $extension . '_daycounter') < bebop_tables::get_option_value('bebop_' . $extension . '_maximport')) {
 				return false;
 			}
 		}
