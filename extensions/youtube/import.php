@@ -71,8 +71,10 @@ class bebop_youtube_import {
                                     if (strlen($description) > 400) {
                                         $description = substr($description, 0, 400) . "... <a href='http://www.youtube.com/watch/?v=" . $videoId . "'>read more</a>";
                                     }
-									//This needs a line break but wordpress seems to filter line breaks... even &nbsp; <br> <br /> \n \r
-                                    $content = 'http://www.youtube.com/watch?v=' . $videoId . '' . $description;
+									
+									//This manually puts the link and description together with a line break.
+                                    $content = 'http://www.youtube.com/watch?v=' . $videoId . '
+                                    Description: ' . $description;
 
                                     //pre convert date
                                     $ts = strtotime($item->get_date());
