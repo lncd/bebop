@@ -1,9 +1,7 @@
 <link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/admin.css';?>" type="text/css">
 <link rel="shortcut icon" href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
-<?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
-<div id='bebop_admin_container'>
-<?php
+<?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" );
 global $bp;
 
 //updates
@@ -23,8 +21,10 @@ if( isset( $_GET['reset_user_id'] ) ) {
 }
 ?>
 
+<div id='bebop_admin_container'>
 <form method="post" class='bebop_admin_form'>
 	<fieldset>
+		<legend><span class='header'>Twitter Settings</span></legend>
 		<label for='bebop_twitter_consumer_key'>Twitter API Token:</label>
 		<input type="text" id="bebop_twitter_consumer_key" name="bebop_twitter_consumer_key" value="<?php echo bebop_tables::get_option_value('bebop_twitter_consumer_key'); ?>" size="50">
 
@@ -35,21 +35,19 @@ if( isset( $_GET['reset_user_id'] ) ) {
 		<input type="text" id="bebop_twitter_maximport" name="bebop_twitter_maximport" value="<?php echo bebop_tables::get_option_value('bebop_twitter_maximport'); ?>" size="5">
 	<div class='bebop_button_container'><button>Save Changes</button></div>
 	</fieldset>
-	
 </form>
-
 
 <table class='bebop_settings_table'>
 	<tr class='nodata'>
-		<th colspan='5'>Twitter users</th>
+		<th colspan='5'>Twitter Users</th>
 	</tr>
 	
 	<tr class='nodata'>
-		<td>User ID</td>
-		<td>Username</td>
-		<td>User email</td>
-		<td>Twitter name</td>
-		<td>Options</td>
+		<td class='bold'>User ID</td>
+		<td class='bold'>Username</td>
+		<td class='bold'>User email</td>
+		<td class='bold'>Twitter name</td>
+		<td class='bold'>Options</td>
 	</tr>
 	<?php
 	$user_metas = bebop_tables::get_user_ids_from_meta_name('bebop_twitter_screenname');	
