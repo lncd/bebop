@@ -284,8 +284,8 @@ class bebop_oauth{
      * Returns a temporary request token from provider to do oauth calls.
      * 
      */
-    
-    public function requestToken(){
+    /*modified by Dale Mckeown*/
+    public function requestToken() {
           
         if($this->getParameters()){
             $parameters = $this->getParameters();
@@ -299,18 +299,25 @@ class bebop_oauth{
          $req_url = $req->to_url();
          $output = $this->executeRequest($req_url);
 
-         //create tokenarray from output
+         /*create tokenarray from output
          $outputArray = explode("&",$output);
          $tokenArray = explode("=",$outputArray[0]);
-         $tokenSecretArray = explode("=",$outputArray[1]);
+         $tokenSecretArray = explode("=",$outputArray[1]); */
+         
+         /* ^
+		  * |
+		  * Why???
+		  */
+		
+		 //parse he $_GET array into an 'real' array
+		 parse_str($output, $sanitised_array);
         
-         $token = array('oauth_token' => $tokenArray[1], 'oauth_token_secret' => $tokenSecretArray[1]);
-     
-         if(!$tokenArray[1]){
+         $token = array('oauth_token' => $sanitised_array['oauth_token'], 'oauth_token_secret' => $sanitised_array['oauth_token_secret']);
+
+         if( ! $sanitised_array['oauth_token'] ) {
              echo "<hr><pre>".$output."</pre><hr>";
              return false;
          }
-         //error coming from here
          return $token;
       }
       
