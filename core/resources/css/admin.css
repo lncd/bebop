@@ -4,7 +4,7 @@
 	width:100%;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	border:0px solid #00FF00;
-	margin:79px auto 0 auto;
+	margin:91px auto 0 auto;
 	border:0px solid #000000;
 }
 #bebop_admin_container a {
@@ -19,9 +19,9 @@
 	display:inline-block;
 	position:absolute;
 	top:0;
-	width:35%;
+	width:auto;
 	margin:0;
-	padding:10px;
+	padding:5px 10px;
 	text-align:center;
 	border-bottom-left-radius:5px;
 	border-bottom-right-radius:5px;
@@ -95,7 +95,7 @@
     width:100%;
 	top:0;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
-    margin:15px auto 0 auto;
+    margin:27px auto 0 auto;
     height:auto;
     border-bottom:5px solid #eeeeee;
     text-align:center;
