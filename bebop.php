@@ -159,4 +159,31 @@ register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' );
 
 add_action( 'bp_init', 'bebop_init', 5 );
+
+//This is a hook into the activity filter options.
+add_action('bp_activity_filter_options', 'load_new_options');
+
+//This is a hook into the member activity filter options.
+add_action('bp_member_activity_filter_options', 'load_new_options');
+
+//This function loads additional fitler options for the extensions.
+function load_new_options()
+{		
+	$handle = opendir( WP_PLUGIN_DIR . "/bebop/extensions" );
+    if ( $handle ) {
+    	while ( false !== ( $file = readdir($handle) ) ) {
+        	if ( $file != "." && $file != ".." && $file != ".DS_Store" ) {
+            	if ( file_exists( WP_PLUGIN_DIR."/bebop/extensions/" . $file . "/core.php" ) ) {
+                  	echo '<option value="' . ucfirst($file) .'">' . ucfirst($file) . '</option>';
+               	}
+			}
+		}
+	}	
+}
+
+
+
+
 ?>
+
+
