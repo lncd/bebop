@@ -33,7 +33,8 @@
 			<th># of OER's</th>
 			<th colspan='2'>Options</th>
 		</tr>
-	       
+		
+	       <form id="settings_form" action="" method="post">
 	    <?php
 	    
 	    //loop throught extensions directory and get all extensions
@@ -72,7 +73,10 @@
 	        }
 	    }
 	    ?>
+	   		 <div style="float:left; clear:both;">
+			    <input type="submit" name="submit" class="button-primary" value="Save Changes">
+			</div>
 	    </table>
-
+	</form>
 <!-- End bebop_admin_container -->
 </div>
