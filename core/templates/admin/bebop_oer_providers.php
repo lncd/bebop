@@ -4,7 +4,6 @@
 <?php
     global $bp;
     if( isset($_POST['submit']) ){
-        var_dump($_POST);
         //reset the importer queue
         bebop_tables::update_option("bebop_importers_queue", "");
         
@@ -51,14 +50,16 @@
 	            if( $loadExtension ){
 	                if( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
 	                	bebop_tables::update_option('bebop_' . $extension['name'] . '_provider', trim($_POST['bebop_' . $extension['name'] . '_provider']));
-						echo "done";
 	                }
+					else {
+						bebop_tables::update_option('bebop_' . $extension['name'] . '_provider', '');
+					}
 					echo "<tr>
 						<td>" . ucfirst($extension['name']) . "</td>
 						<td>" . bebop_tables::count_users_using_extension($extension['name']) . "</td>
 						<td>" . bebop_tables::count_oers_by_extension($extension['name']) . "</td>
 						<td>";
-						echo 'Enabled: <input id="bebop_'.$extension['name'] . '_provider" type="checkbox" name="bebop_'.$extension['name'] . '_provider"';
+						echo "<label for='bebop_" . $extension['name'] . "_provider'" . '>Enabled:<label><input id="bebop_'.$extension['name'] . '_provider" type="checkbox" name="bebop_'.$extension['name'] . '_provider"';
 						if( bebop_tables::get_option_value('bebop_' . $extension['name'] . '_provider') == 'on' ) {
 							echo 'CHECKED';
 						}
@@ -66,6 +67,9 @@
 						<td>";
 						if( bebop_tables::get_option_value('bebop_' . $extension['name'] . '_provider') == 'on' ) {
               				echo '<a href="?page=bebop_' . $extension['name'] . '">Admin Settings</a>';
+						}
+						else {
+							echo "enable for options";
 						}
 						echo"</td>
 					</tr>";			
