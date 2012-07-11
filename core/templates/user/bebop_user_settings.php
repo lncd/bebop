@@ -76,13 +76,8 @@
 
 <?php endif; ?>
 
-<?php do_action( 'bp_after_activity_loop' ); ?>
 
-<form action="" name="activity-loop-form" id="activity-loop-form" method="post">
 
-	<?php wp_nonce_field( 'activity_filter', '_wpnonce_activity_filter' ); ?>
-
-</form>
     </ul>
 </div>
 <?php
