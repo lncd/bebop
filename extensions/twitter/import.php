@@ -41,7 +41,7 @@ class bebop_twitter_import {
 
                         //Handle the OAuth requests
                         $OAuth = new bebop_oauth();
-                        $OAuth->setCallbackUrl($bp->root_domain);
+                        $OAuth->setCallbackUrl('$bp->root_domain');
                         $OAuth->setConsumerKey(bebop_tables::get_option_value("bebop_twitter_consumer_key"));
                         $OAuth->setConsumerSecret(bebop_tables::get_option_value("bebop_twitter_consumer_secret"));
                         $OAuth->setAccessToken(bebop_tables::get_user_meta_value($user_meta->user_id,'bebop_twitter_oauth_token'));
