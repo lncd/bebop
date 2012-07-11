@@ -4,8 +4,8 @@
 	width:100%;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	border:0px solid #00FF00;
-	margin:22px auto 0 auto;
-	border:1px solid #000000;
+	margin:79px auto 0 auto;
+	border:0px solid #000000;
 }
 #bebop_admin_container a {
 	text-decoration:none;
@@ -16,13 +16,16 @@
 }
 
 .bebop_error_box, .bebop_success_box {
-	display:block;
+	display:inline-block;
+	position:absolute;
+	top:0;
 	width:35%;
-	margin:0 auto;
+	margin:0;
 	padding:10px;
 	text-align:center;
 	border-bottom-left-radius:5px;
 	border-bottom-right-radius:5px;
+	z-index:5;
 }
 .bebop_error_box {
 	background:#FF6A6A;
@@ -86,8 +89,13 @@
 }
 
 .bebop_admin_menu {
+	display:inline-block;
+	position:absolute;
+	z-index:1;
+    width:100%;
+	top:0;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
-    margin:22pt auto 0 auto;
+    margin:15px auto 0 auto;
     height:auto;
     border-bottom:5px solid #eeeeee;
     text-align:center;

@@ -24,7 +24,15 @@
 <?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
 	<div id='bebop_admin_container'>
 	
-	<form id="settings_form" action="" method="post">
+	<table class='bebop_table'>
+		
+		<tr class='nodata'>
+			<th>Extension ID</th>
+			<th>Extension Name</th>
+			<th># of Users</th>
+			<th># of OER's</th>
+			<th colspan='2'>Options</th>
+		</tr>
 	       
 	    <?php
 	    
@@ -64,12 +72,7 @@
 	        }
 	    }
 	    ?>
-	
-		<div style="float:left; clear:both;">
-		    <input type="submit" name="submit" class="button-primary" value="Save Changes">
-		</div>
-	
-	</form>
+	    </table>
 
 <!-- End bebop_admin_container -->
 </div>
