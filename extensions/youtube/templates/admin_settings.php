@@ -1,7 +1,5 @@
-<link rel="stylesheet" type="text/css" href="<?php echo plugins_url() . '/bebop/core/resources/css/admin.css'; ?>">
-<link rel="stylesheet" href="<?php echo plugins_url();?>/buddystream/extentions/default/slickswitch.css" type="text/css" />
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script src="<?php echo plugins_url();?>/buddystream/extentions/default/jquery.slickswitch.js" type="text/javascript"></script>
+<link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/admin.css';?>" type="text/css">
+<link rel="shortcut icon" href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
 
 
@@ -12,28 +10,26 @@ if ($_POST) {
    	bebop_tables::update_option('bebop_youtube_maximport', trim(strip_tags(strtolower($_POST['bebop_youtube_maximport']))));
    	bebop_tables::update_option('bebop_youtube_setup', true);      
    	
-   	echo '<div>Settings Saved</div>';
+   	echo '<div class="bebop_success_box">Settings Saved.</div>';
 }
   //remove the user
 if( isset( $_GET['reset_user_id'] ) ) {
 	$user_id = trim($_GET['reset_user_id']);
 	bebop_tables::remove_user_from_provider($user_id, 'youtube');
+	
+	echo '<div class="bebop_success_box">User has been removed.</div>';
 }
-?>
 
-<form method="post" action="">
-	<table class="bebop_settings_table" cellspacing="0">          
-	
-
-			<th colspan='2'>Youtube settings</th>
-
-<tr>
-			<td>Max import:</td>
-			<td><input type="text" name="bebop_youtube_maximport" value="<?php echo bebop_tables::get_option_value('bebop_youtube_maximport'); ?>" size="5" /></td>
-		</tr>
-	
-	</table>
-	  <p class="submit"><input type="submit" class="button-primary" value="Save Settings"></p>
+include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
+<div id='bebop_admin_container'>
+<form method="post" class='bebop_admin_form'>
+	<fieldset>  
+		<legend><span class='header'>Youtube Settings</span></legend>
+		<label for='bebop_youtube_maximport'>Maximum amount of imports:</label>
+		<input type="text" id="bebop_youtube_maximport" name="bebop_youtube_maximport" value="<?php echo bebop_tables::get_option_value('bebop_youtube_maximport'); ?>" size="5">
+		<div class='bebop_button_container'><button>Save Changes</button></div>	
+	</fieldset>
+	  
 </form>
 
 <table class='bebop_table'>
@@ -61,3 +57,6 @@ if( isset( $_GET['reset_user_id'] ) ) {
 ?>
 	<!-- <End bebop_table -->
 </table>
+
+<!-- End bebop_admin_container -->
+</div>
