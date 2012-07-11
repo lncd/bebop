@@ -52,9 +52,9 @@ class bebop_twitter_import {
 
                         if ($items && !$items->error) {
 
-                            //update the user screen_name
-                            $screenName = ''.$items->status->user->screen_name[0];
-                            bebop_tables::update_user_meta($user_meta->user_id, 'twitter', 'bebop_twitter_screenname', $screenName);
+                            //update the user username
+                            $username = ''.$items->status->user->screen_name[0];
+                            bebop_tables::update_user_meta($user_meta->user_id, 'twitter', 'bebop_twitter_username', $username);
 
                             //go through tweets
                             foreach ($items as $tweet) {
@@ -70,7 +70,7 @@ class bebop_twitter_import {
                                             'content_oembed' 	=> false,			//true if you want to use oembed, false if not.
 								     		'item_id'       	=> $tweet->id,
                                             'raw_date'    	  	=> gmdate('Y-m-d H:i:s', strtotime($tweet->created_at)),
-                                            'actionlink'  	  	=> 'http://www.twitter.com/' . $screenName . '/status/'.$tweet->id
+                                            'actionlink'  	  	=> 'http://www.twitter.com/' . $username . '/status/'.$tweet->id
                                         )
                                     );
 

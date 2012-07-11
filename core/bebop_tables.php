@@ -6,6 +6,21 @@ class bebop_tables
 	* Tables
 	*/
 	
+	function count_users_using_extension($extension) {
+		global $wpdb;
+		
+		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM " . $wpdb->base_prefix . "bp_bebop_user_meta WHERE meta_name = 'bebop_" . $wpdb->escape($extension) . "_username'" ) );
+		return $count;
+	}
+	
+	function count_oers_by_extension($extension) {
+		global $wpdb, $bp;
+
+		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin' AND type = '" . $wpdb->escape($extension) . "'" ) );
+		return $count;
+	}
+	
+	
 	//function to remove a table from the database.
 	function drop_table($table_name) {
 		global $wpdb;
