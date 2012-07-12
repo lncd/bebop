@@ -33,16 +33,16 @@
       
     <!-- This section creates the drop-down menu with its classes hooked into buddypress -->
     <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
-		
-		<li id="activity-filter-select" class="last">
-			<label for="activity-filter-by">Show:</label> 
-			<select id="activity-filter-by">
-				<option value="-1">Everything</option>
-				<!-- This adds the hook from the main bebop file to add the extension filter -->
-				<?php do_action( 'bp_activity_filter_options' ); ?>
-			</select>
-		</li>
-				
+		<ul class="clearfix">
+			<li id="activity-filter-select" class="last">		
+				<label for="activity-filter-by">Show:</label> 
+				<select id="activity-filter-by">
+					<option value="-1">Everything</option>
+					<!-- This adds the hook from the main bebop file to add the extension filter -->
+					<?php do_action( 'bp_activity_filter_options' ); ?>
+				</select>
+			</li>
+		</ul>	
 	</div>
 
 	<!-- This is the class which will be refreshed when a different menu item is selected -->
