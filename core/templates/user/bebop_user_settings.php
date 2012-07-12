@@ -1,6 +1,7 @@
 <?php if( ! isset($_GET['oer']) ) {?>
 	<div>
 	<ul>
+
 	    <?php  
 	    //Only shows if it is the users profile.  
 	    if(bp_is_my_profile())
@@ -20,14 +21,17 @@
 				echo "Choose an OER source from the sub menu above. ";
 			}
 		}
-	
-	
-	
+		
+
+
+
+	var_dump( bp_ajax_querystring( 'activity' ));
 	//This is being modified atm
-	
+
         ?>
+        <div id="content">
         <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
-				<ul>
+				<ul class="clearfix">
 					<li id="activity-filter-select" class="last">
 						<label for="activity-filter-by"><?php _e( 'Show:', 'buddypress' ); ?></label> 
 						<select id="activity-filter-by">
@@ -39,7 +43,7 @@
 					</li>
 				</ul>
 			</div><!-- .item-list-tabs -->
-        
+        <div class="activity" role="main">
         <?php if ( bp_has_activities( bp_ajax_querystring( 'activity' ) ) ) : ?>
 
 	<?php /* Show pagination if JS is not enabled, since the "Load More" link will do nothing */ ?>
@@ -51,6 +55,7 @@
 	</noscript>
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>
+	<div id="content">
 
 		<ul id="activity-stream" class="activity-list item-list">
 
@@ -61,10 +66,12 @@
 		<?php locate_template( array( 'activity/entry.php' ), true, false ); ?>
 
 	<?php endwhile; ?>
-
+	
 	<?php if ( empty( $_POST['page'] ) ) : ?>
 
 		</ul>
+			</div>
+
 
 	<?php endif; ?>
 
@@ -77,9 +84,11 @@
 <?php endif; ?>
 
 
-
+</div>
     </ul>
 </div>
+</div>
+
 <?php
 }
 else {
