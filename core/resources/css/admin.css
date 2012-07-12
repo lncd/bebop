@@ -9,10 +9,10 @@
 }
 #bebop_admin_container a {
 	text-decoration:none;
-	color:#aaaaaa;
+	color:#000000;
 }
 #bebop_admin_container a:hover {
-	text-decoration:underline;
+	text-decoration:none;
 }
 
 .bebop_error_box, .bebop_success_box {
@@ -51,6 +51,13 @@
     min-height:100px;
     border-radius:7px;
     width:96.5%;
+}
+.bebop_admin_box a {
+	text-decoration:none;
+	color:#aaaaaa;
+}
+.bebop_admin_box a:hover {
+	text-decoration:underline;
 }
 
 .bebop_logo {
@@ -218,6 +225,7 @@
 	text-align:center;
 }
 .bebop_admin_form button, .options_button {
+	display:inline-block;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	font-size:15px;
 	margin:10px auto 10px auto;
@@ -235,4 +243,7 @@
 .bebop_admin_form button:active, .options_button:active {
 	margin-top:13px;
 	margin-bottom:7px;
+}
+.no_border {
+	border:0px;
 }

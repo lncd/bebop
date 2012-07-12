@@ -21,8 +21,8 @@
 ?>
 		
 <?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
-	<div id='bebop_admin_container'>
-	<form id="settings_form" action="" method="post">
+<div id='bebop_admin_container'>
+	<form action="" method="post" class='bebop_admin_form no_border'>
 	<table class='bebop_table'>
 		
 		<tr class='nodata'>
@@ -48,11 +48,13 @@
 	            }
 	
 	            if( $loadExtension ){
-	                if( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
-	                	bebop_tables::update_option('bebop_' . $extension['name'] . '_provider', trim($_POST['bebop_' . $extension['name'] . '_provider']));
-	                }
-					else {
-						bebop_tables::update_option('bebop_' . $extension['name'] . '_provider', '');
+	            	if( isset($_POST['submit']) ) {
+		                if( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
+		                	bebop_tables::update_option('bebop_' . $extension['name'] . '_provider', trim($_POST['bebop_' . $extension['name'] . '_provider']));
+		                }
+						else {
+							bebop_tables::update_option('bebop_' . $extension['name'] . '_provider', '');
+						}
 					}
 					echo "<tr>
 						<td>" . ucfirst($extension['name']) . "</td>
@@ -78,12 +80,8 @@
 	    }
 	    ?>
 	    </table>
-	    <div style="float:left; clear:both;">
-		    <input type="submit" name="submit" class="button-primary" value="Save Changes">
-		</div>
-	    </form>
-	   
-	    
+    <div style='width:97%; margin:0 auto 22px auto;'><button id='submit' name='submit'>Save Changes</button></div>
+    </form>
 
 <!-- End bebop_admin_container -->
 </div>

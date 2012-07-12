@@ -1,7 +1,19 @@
 <link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/admin.css';?>" type="text/css">
 <link rel="shortcut icon" href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
-<?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
+<?php include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); 
+
+if( isset($_GET) ) {
+	if( isset($_GET['clear_table']) ) {
+		if( $table_row_data = bebop_tables::flush_table_data('bp_bebop_general_log') ) {
+			echo '<div class="bebop_success_box">Table data cleared.</div>';
+		}
+		else {
+			echo '<div class="bebop_error_box">Error clearing table data.</div>';
+		}
+	}
+}
+?>
 <div id='bebop_admin_container'>
 	<div class="postbox full_width center_margin margin-bottom_22px">
     	<h3>Bebop Log</h3>
@@ -9,6 +21,7 @@
         	When stuff happens, it is logged here. 
         </div>
     </div>
+    <div style='width:97%; margin:0 auto 22px auto;'><a class='options_button' href="<?php echo $_SERVER['PHP_SELF'] . '?' . http_build_query($_GET); ?>&clear_table=true">Flush table data</a></div>
 	<div class="clear"></div>
 
 	<table class='bebop_table'>

@@ -5,7 +5,7 @@
 global $bp;
 
 //updates
-if ( $_POST ) {
+if( isset($_POST['submit']) ){
 	bebop_tables::update_option('bebop_twitter_consumer_key', trim($_POST['bebop_twitter_consumer_key']));
 	bebop_tables::update_option('bebop_twitter_consumer_secret', trim($_POST['bebop_twitter_consumer_secret']));
 	bebop_tables::update_option('bebop_twitter_maximport', trim($_POST['bebop_twitter_maximport']));
@@ -32,7 +32,7 @@ include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php"
 
 		<label for='bebop_twitter_maximport'>Maximum amount of imports:</label>
 		<input type="text" id="bebop_twitter_maximport" name="bebop_twitter_maximport" value="<?php echo bebop_tables::get_option_value('bebop_twitter_maximport'); ?>" size="5">
-	<div class='bebop_button_container'><button>Save Changes</button></div>
+	<div class='bebop_button_container'><button id='submit' name='submit'>Save Changes</button></div>
 	</fieldset>
 </form>
 
