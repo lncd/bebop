@@ -21,9 +21,7 @@
 			}
 		}
 	
-	
-	
-	//This is being modified atm
+		//This is being modified atm
 	
         ?>
         <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
