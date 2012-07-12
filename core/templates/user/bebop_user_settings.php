@@ -4,7 +4,7 @@
 	if(bp_is_my_profile())
 	{
 		echo "<h3>User Settings</h3>";
-		
+		$activeExtensions = array();
        	//get the active extension
        	foreach( bebop_extensions::get_extension_configs() as $extension ) {
 		    if(bebop_tables::get_option_value('bebop_'.$extension['name'].'_provider') == "on") {     

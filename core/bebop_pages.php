@@ -90,7 +90,7 @@ function bebop_admin_menu() {
     	WP_PLUGIN_URL . "/bebop/core/resources/images/bebop_icon.png"
      );
      add_submenu_page( 'bebop_admin', 'Admin Main', 'Admin Main', 'manage_options', 'bebop_admin', 'bebop_admin_pages' );
-     add_submenu_page( 'bebop_admin', 'General Settings', 'General Settings', 'manage_options', 'bebop_settings', 'bebop_admin_pages' );
+     add_submenu_page( 'bebop_admin', 'General Settings', 'General Settings', 'manage_options', 'bebop_admin_settings', 'bebop_admin_pages' );
 	 add_submenu_page( 'bebop_admin', 'OER Providers', 'OER Providers', 'manage_options', 'bebop_oer_providers', 'bebop_admin_pages' );
 	 add_submenu_page( 'bebop_admin', 'Cron', 'Cron', 'manage_options', 'bebop_cron', 'bebop_admin_pages' );
 	 add_submenu_page( 'bebop_admin', 'Error Log', 'Error Log', 'manage_options', 'bebop_error_log', 'bebop_admin_pages' );
@@ -111,14 +111,14 @@ function bebop_admin_pages() {
 	if ( $_GET["page"] == "bebop_admin" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin.php";
 	}
-	/*else if ( $_GET["page"] == "bebop_settings" ){
-		include WP_PLUGIN_DIR . "/bebop/core/templates/bebop_settings.php";
-	}*/
+	else if ( $_GET["page"] == "bebop_admin_settings" ){
+		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_settings.php";
+	}
 	else if ( $_GET["page"] == "bebop_oer_providers" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_oer_providers.php";
 	}
 	else if ( $_GET["page"] == "bebop_cron" ){
-		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_cron_menu.php";
+		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_cron.php";
 	}
 	else if ( $_GET["page"] == "bebop_error_log" ){
 		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_error_log.php";
