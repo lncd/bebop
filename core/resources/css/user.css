@@ -1,0 +1,25 @@
+.button_auth {
+	display:inline-block;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	font-size:15px;
+	margin:10px auto 10px auto;
+	padding:10px;
+	text-align:center;
+	background-image:linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-o-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-moz-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-webkit-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+    background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #FBEC5D), color-stop(0.5, #FFFACD));
+    background-image:-ms-linear-gradient(bottom, #FBEC5D 30%, #FFFACD 70%); 
+	border:1px solid #FBEC5D;
+	border-radius:4px;
+	text-decoration:none;
+	color:#000000;
+}
+.button_auth:hover {
+	color:#000000;
+}
+.button_auth:active {
+	margin-top:13px;
+	margin-bottom:7px;
+}

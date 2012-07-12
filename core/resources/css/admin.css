@@ -217,7 +217,7 @@
 .bebop_button_container {
 	text-align:center;
 }
-.bebop_admin_form button {
+.bebop_admin_form button, .options_button {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	font-size:15px;
 	margin:10px auto 10px auto;
@@ -232,7 +232,7 @@
 	border:1px solid #FBEC5D;
 	border-radius:4px;
 }
-.bebop_admin_form button:active {
+.bebop_admin_form button:active, .options_button:active {
 	margin-top:13px;
 	margin-bottom:7px;
 }

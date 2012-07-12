@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/user.css';?>" type="text/css">
 <?php
 
 global $bp;
@@ -60,14 +61,14 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 			<input type="submit" value="Save Settings">';
 	    
 	    if( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_twitter_oauth_token') ) {
-	        echo '<a href="?oer=twitter&reset=true">Remove sync</a>';
+	        echo '<br><a class="button_auth" href="?oer=twitter&reset=true">Remove Authorisation</a>';
 		}
 		echo '</form>';
 	}
 	else {
 		echo '<h3> setup</h3>
-		You may setup you  intergration over here.<br/>
-		Before you can begin using  with this site you must authorise on  by clicking the link below.<br/><br/>';
+		You may setup twitter intergration over here.
+		Before you can begin using twitter with this site you must authorise on twitter by clicking the link below.';
 		
 		//oauth
 		$OAuth = new bebop_oauth();
@@ -91,7 +92,7 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 		//get the redirect url for the user
 		$redirectUrl = $OAuth->getRedirectUrl();
 		if( $redirectUrl ) {
-			echo '<a href="' . $redirectUrl . '">Start authorisation</a><br/><br/>';
+			echo '<br><a class="button_auth" href="' . $redirectUrl . '">Start Authorisation</a>';
 		}
 		else{
 			echo 'authentication is all broken :(';
