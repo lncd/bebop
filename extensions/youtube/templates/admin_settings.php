@@ -32,13 +32,17 @@ include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php"
 	  
 </form>
 
-<table class='bebop_table'>
+<table class='bebop_settings_table'>
 	<tr class='nodata'>
-		<th>User ID</th>
-		<th>Username</th>
-		<th>User email</th>
-		<th>Youtube Channel</th>
-		<th>Options</th>
+		<th colspan='5'>Youtube Users</th>
+	</tr>
+	
+	<tr class='nodata'>
+		<td class='bold'>User ID</td>
+		<td class='bold'>Username</td>
+		<td class='bold'>User email</td>
+		<td class='bold'>Youtube Channel</td>
+		<td class='bold'>Options</td>
 	</tr>
 	<?php
 	$user_metas = bebop_tables::get_user_ids_from_meta_name('bebop_youtube_username');	

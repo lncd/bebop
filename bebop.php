@@ -141,15 +141,27 @@ function bebop_deactivate() {
 	bebop_tables::drop_table('bp_bebop_user_meta');
 	bebop_tables::drop_table('bp_bebop_oer_buffer');
 	bebop_tables::remove_activity_data();
-
+	
 	//delete the cron 
-	remove_action( 'bebop_cron', 'bebop_deactivate_cron' );
+	wp_clear_scheduled_hook( 'bebop_cron' );	
 }
 
+//This function sets up the time interval for the cron schedule.
 function bebop_seconds_cron( $schedules ) {
 	
+	//Gets the time or sets a default if they are new.
+	if(bebop_tables::get_option_value('bebop_general_crontime'))
+	{	
+		$time = bebop_tables::get_option_value('bebop_general_crontime');
+	}
+	else
+	{
+		$time = 60;
+		bebop_tables::update_option('bebop_general_crontime', $time);			
+	} 
+	
 	$schedules['secs'] = array(
-		'interval' =>30,	//number of seconds
+		'interval' =>$time,	//number of seconds
 		'display'  => __( 'Once Weekly' )
 	); 
 	return $schedules;
@@ -164,9 +176,6 @@ function bebop_cron_function() {
 		echo 'failed to load';
 	}
 	bebop_tables::log_general("bebop_cron", " Bebop cron import service completed.");
-}
-function bebop_deactivate_cron() {
-	wp_clear_scheduled_hook( 'bebop_cron' );
 }
 
 define('BP_BEBOP_VERSION', '0.1');
