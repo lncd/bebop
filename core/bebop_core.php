@@ -33,7 +33,7 @@ function bebop_create_buffer_item($params) {
 
             if( ! bebop_check_existing_content_buffer($originalText)) {
 
-                $oer_user_id = $params['user_id'];
+                $oer_user_id 		   = $params['user_id'];
                 $oer_type              = $params['extention'];
                 $oer_content           = $content;
                 $oer_secondary_item_id = $params['user_id'] . "_" . $params['item_id'];
@@ -50,8 +50,6 @@ function bebop_create_buffer_item($params) {
                 $activity->action .= ' ' . __('posted&nbsp;a', 'bebop' . $extention['name'])." ";
                 $activity->action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__($params['type'], 'bebop_'.$extention['name']);
                 $activity->action .= '</a>: ';
-
-                remove_filter('bp_activity_action_before_save', 'bp_activity_filter_kses', 1);
 
                 //extra check to be sure we don't have a empty activity
                 $cleanContent = '';
