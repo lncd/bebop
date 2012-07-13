@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/user.css';?>" type="text/css">
 <?php
 
 if(isset($_GET['remove'])){
@@ -20,12 +21,12 @@ if ($_POST){
     <h3>Youtube Settings</h3>
    	  Youtube username<br/>
   	  <input type="text" name="bebop_youtube_username" value="<?php echo $bebop_youtube_username; ?>" size="50" /><br/><br/>      
-   	 <input type="submit" value="Save Channel">
+   	 <input type="submit" class="button_auth" value="Save Channel">
 </form>
 <?php if($bebop_youtube_username != "") {
 ?>
 <form id="settings_form" action="<?php echo  $bp->loggedin_user->domain; ?>bebop-oers/?oer=youtube" method="post">
-    <input type="submit" name="remove" value="Remove Channel">
+    <input type="submit" class="button_auth" name="remove" value="Remove Channel">
 </form> 
 <?php
 }

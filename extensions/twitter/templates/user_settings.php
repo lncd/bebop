@@ -56,9 +56,9 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 			<label for="yes">Yes</label>
 			
 			<input type="radio" name="bebop_twitter_sync_to_activity_stream" id="bebop_twitter_sync_to_activity_stream" value="0"'; if ($bebop_twitter_sync_to_activity_stream == 0) { echo 'checked'; } echo '>
-			<label for="no">No</label>
+			<label for="no">No</label><br><br>
 
-			<input type="submit" value="Save Settings">';
+			<input type="submit" class="button_auth" value="Save Settings">';
 	    
 	    if( bebop_tables::get_user_meta_value($bp->loggedin_user->id, 'bebop_twitter_oauth_token') ) {
 	        echo '<br><a class="button_auth" href="?oer=twitter&reset=true">Remove Authorisation</a>';
@@ -92,7 +92,7 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 		//get the redirect url for the user
 		$redirectUrl = $OAuth->getRedirectUrl();
 		if( $redirectUrl ) {
-			echo '<br><a class="button_auth" href="' . $redirectUrl . '">Start Authorisation</a>';
+			echo '<br><a href="' . $redirectUrl . '" class="button_auth">Start Authorisation</a>';
 		}
 		else{
 			echo 'authentication is all broken :(';
