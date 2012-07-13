@@ -62,7 +62,7 @@ class bebop_twitter_import {
 
                                 if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content($tweet->text))  && ( ! $limitReached) ) {
 
-                                   $returnCreate = bebop_create_activity(array(
+                                   $returnCreate = bebop_create_buffer_item(array(
                                             'user_id'       	=> $user_meta->user_id,
                                             'extention'     	=> 'twitter',
                                             'type'          	=> 'tweet',

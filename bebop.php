@@ -92,12 +92,19 @@ function bebop_activate() {
 	    	meta_value longtext NOT NULL
 	    );";   
 	    
-	    $bebop_activity_buffer = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_activity_buffer ( 
+	    $bebop_activity_buffer = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_oer_buffer ( 
 	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
 	    	user_id int(10) NOT NULL,
 	    	type varchar(255) NOT NULL,
 	    	action text NOT NULL,
-	    	content longtext NOT NULL
+	    	content longtext NOT NULL,
+	    	primary_link varchar(150) NOT NULL,
+	    	item_id varchar(75) NOT NULL,
+	    	secondary_item_id varchar(75),
+	    	date_recorded datetime,
+	    	hide_sitewide tinyint(1),
+	    	mptt_left int(11) NOT NULL,
+	    	mptt_right int(11) NOT NULL 
 	    );"; 
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -132,6 +139,7 @@ function bebop_deactivate() {
 	bebop_tables::drop_table('bp_bebop_error_log');
 	bebop_tables::drop_table('bp_bebop_options');
 	bebop_tables::drop_table('bp_bebop_user_meta');
+	bebop_tables::drop_table('bp_bebop_oer_buffer');
 	bebop_tables::remove_activity_data();
 
 	//delete the cron 
@@ -169,31 +177,6 @@ register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' );
 
 add_action( 'bp_init', 'bebop_init', 5 );
-
-//This is a hook into the activity filter options.
-add_action('bp_activity_filter_options', 'load_new_options');
-
-//This is a hook into the member activity filter options.
-add_action('bp_member_activity_filter_options', 'load_new_options');
-
-//This function loads additional fitler options for the extensions.
-function load_new_options()
-{		
-	$handle = opendir( WP_PLUGIN_DIR . "/bebop/extensions" );
-    if ( $handle ) {
-    	while ( false !== ( $file = readdir($handle) ) ) {
-        	if ( $file != "." && $file != ".." && $file != ".DS_Store" ) {
-            	if ( file_exists( WP_PLUGIN_DIR."/bebop/extensions/" . $file . "/core.php" ) ) {
-                  	echo '<option value="' . ucfirst($file) .'">' . ucfirst($file) . '</option>';
-               	}
-			}
-		}
-	}	
-}
-
-
-
-
 ?>
 
 

@@ -79,7 +79,7 @@ class bebop_youtube_import {
                                     //pre convert date
                                     $ts = strtotime($item->get_date());
 
-                                    $returnCreate = bebop_create_activity(
+                                    $returnCreate = bebop_create_buffer_item(
                                     	array(
                                             'user_id' 			=> $user_meta->user_id,
                                             'extention' 		=> 'youtube',
