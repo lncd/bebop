@@ -32,39 +32,28 @@ function bebop_create_buffer_item($params) {
 			}
 
             if( ! bebop_check_existing_content_buffer($originalText)) {
-
-                $oer_user_id 		   = $params['user_id'];
-                $oer_type              = $params['extention'];
-                $oer_content           = $content;
-                $oer_secondary_item_id = $params['user_id'] . "_" . $params['item_id'];
-                $oer_date_recorded     = $params['raw_date'];
-
+            	
+				$action = '<a href="' . bp_core_get_user_domain($params['user_id']) .'" title="' . bp_core_get_username($params['user_id']).'">'.bp_core_get_user_displayname($params['user_id']).'</a>';
+                $action .= ' ' . __('posted&nbsp;a', 'bebop' . $extention['name'])." ";
+                $action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__($params['type'], 'bebop_'.$extention['name']);
+                $action .= '</a>: ';
+                
                 if (bebop_tables::get_option_value('bebop_'. $params['extention'] . '_hide_sitewide') == "on") {
                     $oer_hide_sitewide = 1;
                 }
 				else {
 					$oer_hide_sitewide = 0;
 				}
-
-                $activity->action .= '<a href="' . bp_core_get_user_domain($params['user_id']) .'" title="' . bp_core_get_username($params['user_id']).'">'.bp_core_get_user_displayname($params['user_id']).'</a>';
-                $activity->action .= ' ' . __('posted&nbsp;a', 'bebop' . $extention['name'])." ";
-                $activity->action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__($params['type'], 'bebop_'.$extention['name']);
-                $activity->action .= '</a>: ';
-
+				
                 //extra check to be sure we don't have a empty activity
                 $cleanContent = '';
                 $cleanContent = trim(strip_tags($activity->content));
-				
-                //check if item does not exist in the blacklist
-                if( (bebop_tables::get_user_meta_value($params['user_id'], 'bebop_blacklist_ids') ) && ( ! empty($cleanContent)) ) {
-                    if ( ! preg_match("/" . $params['item_id'] . "/i", bebop_tables::get_user_meta_value($params['user_id'], 'bebop_blacklist_ids', 1))) {                    	
-                        $activity->save();
-                        bebop_filters::day_increase($params['extention'], $params['user_id']);
-                    }
 
-                }
-                else{
-                    $activity->save();
+                if( ! empty($cleanContent) ) {                   	
+					$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_oer_buffer (user_id, type, action, content, secondary_item_id, date_recorded, hide_sitewide) VALUES (%s, %s, %s, %s, %s, %s, %s )", 
+	                   $wpdb->escape(user_id), $wpdb->escape($params['user_id']), $wpdb->escape($params['extention']), $wpdb->escape($action), $wpdb->escape($content), $wpdb->escape($params['user_id'] . "_" . $params['item_id']),
+	                   $wpdb->escape($params['raw_date']), $wpdb->escape($oer_hide_sitewide)
+					) );
                     bebop_filters::day_increase($params['extention'], $params['user_id']);
                 }
             }
@@ -172,7 +161,7 @@ add_action('bp_activity_filter_options', 'load_new_options');
 //This is a hook into the member activity filter options.
 add_action('bp_member_activity_filter_options', 'load_new_options');
 
-//This function loads additional fitler options for the extensions.
+//This function loads additional filter options for the extensions.
 function load_new_options()
 {		
 	$handle = opendir( WP_PLUGIN_DIR . "/bebop/extensions" );
