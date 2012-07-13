@@ -3,8 +3,10 @@
 bebop_extensions::load_extensions();
 
 function bebop_create_buffer_item($params) {
-	 global $bp, $wpdb;
-
+	global $bp, $wpdb;
+	
+	echo "here";
+	
     if(is_array($params)) {
 
         //load config of extention
@@ -56,6 +58,7 @@ function bebop_create_buffer_item($params) {
 					) );
                     bebop_filters::day_increase($params['extention'], $params['user_id']);
                 }
+			
             }
             else{
                 return false;

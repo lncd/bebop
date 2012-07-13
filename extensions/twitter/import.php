@@ -62,7 +62,7 @@ class bebop_twitter_import {
 
                                 if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content($tweet->text))  && ( ! $limitReached) ) {
 
-                                   $returnCreate = bebop_create_buffer_item(array(
+                                   if(bebop_create_buffer_item(array(
                                             'user_id'       	=> $user_meta->user_id,
                                             'extention'     	=> 'twitter',
                                             'type'          	=> 'tweet',
@@ -72,9 +72,7 @@ class bebop_twitter_import {
                                             'raw_date'    	  	=> gmdate('Y-m-d H:i:s', strtotime($tweet->created_at)),
                                             'actionlink'  	  	=> 'http://www.twitter.com/' . $username . '/status/'.$tweet->id
                                         )
-                                    );
-
-                                    if($returnCreate){
+                                    )) {
                                         $itemCounter++;
                                     }
                                 }

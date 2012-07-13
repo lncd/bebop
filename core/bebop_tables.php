@@ -93,7 +93,7 @@ class bebop_tables
 	function fetch_table_data($table_name) { //function to retrieve stuff from tables
 		global $wpdb;
 		
-		$result = $wpdb->get_results( "SELECT * FROM " . $wpdb->base_prefix . $table_name );
+		$result = $wpdb->get_results( "SELECT * FROM " . $wpdb->base_prefix . $table_name . " ORDER BY timestamp DESC");
 		return $result;
 	}
 	
@@ -240,8 +240,8 @@ class bebop_tables
 	
 	//maybe use this when tables can be considered stable. instead of inline escapes.
 	function sanitise_element($data) {
-		global $wpdb;
+
 		
-		return $wpdb->escape(stripslashes(strip_tags($data)));
+		return stripslashes(strip_tags($data));
 	}
 } 

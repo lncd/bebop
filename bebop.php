@@ -10,7 +10,7 @@ Version: 0.1
 Authors: Dale Mckeown, David Whitehead
 Author URI: http://phone.online.lincoln.ac.uk/dmckeown, http://phone.online.lincoln.ac.uk/dwhitehead
 License: TBA
-Credits: BuddySteam - buddystrem.net
+Credits: BuddySteam - buddystream.net
 */
 // This plugin is intended for use on BuddyPress only.
 // http://buddypress.org/
@@ -98,13 +98,9 @@ function bebop_activate() {
 	    	type varchar(255) NOT NULL,
 	    	action text NOT NULL,
 	    	content longtext NOT NULL,
-	    	primary_link varchar(150) NOT NULL,
-	    	item_id varchar(75) NOT NULL,
 	    	secondary_item_id varchar(75),
 	    	date_recorded datetime,
-	    	hide_sitewide tinyint(1),
-	    	mptt_left int(11) NOT NULL,
-	    	mptt_right int(11) NOT NULL 
+	    	hide_sitewide tinyint(1)
 	    );"; 
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
