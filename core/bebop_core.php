@@ -31,12 +31,11 @@ function bebop_create_buffer_item($params) {
 				$content = '<div class="bebop_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';				
 			}
 
-            $activity = new BP_Activity_Activity();
             if( ! bebop_check_existing_content_buffer($originalText)) {
+            	
 				
 
-                $activity->user_id           = $params['user_id'];
-                $activity->component         = 'bebop_oer_plugin';
+                $oer_user_id = $params['user_id'];
                 $activity->type              = $params['extention'];
                 $activity->content           = $content;
                 $activity->secondary_item_id = $params['user_id'] . "_" . $params['item_id'];

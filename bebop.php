@@ -147,8 +147,9 @@ function bebop_deactivate() {
 }
 
 function bebop_seconds_cron( $schedules ) {
+	
 	$schedules['secs'] = array(
-		'interval' =>5,	//number of seconds
+		'interval' =>30,	//number of seconds
 		'display'  => __( 'Once Weekly' )
 	); 
 	return $schedules;
