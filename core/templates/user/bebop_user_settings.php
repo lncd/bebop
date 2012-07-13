@@ -19,7 +19,6 @@
 			echo "Choose an OER source from the sub menu above. ";
 		}
 	}
-
 	/*This function overrides the current query string and sets it to null to ensure
 	  the current drop down menu is not attempted to be matched with ones from the activity stream etc. */
 	function dropdown_query_override ( $query_string ) {
@@ -30,6 +29,12 @@
 	//Adds the filter to the function.
 	add_filter( 'bp_ajax_querystring', 'dropdown_query_override' );?>
     
+    <!-- This overrides the current filter in the cookie to nothing "i.e. 
+    	 on page refresh it will reset back to default" -->
+    <script type="text/javascript">    
+		jQuery.cookie('bp-activity-filter', "");	​
+	</script>  
+      
       
     <!-- This section creates the drop-down menu with its classes hooked into buddypress -->
     <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
