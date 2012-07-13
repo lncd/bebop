@@ -32,28 +32,24 @@ function bebop_create_buffer_item($params) {
 			}
 
             if( ! bebop_check_existing_content_buffer($originalText)) {
-            	
-				
 
-                $oer_user_id = $params['user_id'];
-                $activity->type              = $params['extention'];
-                $activity->content           = $content;
-                $activity->secondary_item_id = $params['user_id'] . "_" . $params['item_id'];
-                $activity->date_recorded     = $params['raw_date'];
+                $oer_user_id 		   = $params['user_id'];
+                $oer_type              = $params['extention'];
+                $oer_content           = $content;
+                $oer_secondary_item_id = $params['user_id'] . "_" . $params['item_id'];
+                $oer_date_recorded     = $params['raw_date'];
 
                 if (bebop_tables::get_option_value('bebop_'. $params['extention'] . '_hide_sitewide') == "on") {
-                    $activity->hide_sitewide = 1;
+                    $oer_hide_sitewide = 1;
                 }
 				else {
-					$activity->hide_sitewide = 0;
+					$oer_hide_sitewide = 0;
 				}
 
                 $activity->action .= '<a href="' . bp_core_get_user_domain($params['user_id']) .'" title="' . bp_core_get_username($params['user_id']).'">'.bp_core_get_user_displayname($params['user_id']).'</a>';
                 $activity->action .= ' ' . __('posted&nbsp;a', 'bebop' . $extention['name'])." ";
                 $activity->action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__($params['type'], 'bebop_'.$extention['name']);
                 $activity->action .= '</a>: ';
-
-                remove_filter('bp_activity_action_before_save', 'bp_activity_filter_kses', 1);
 
                 //extra check to be sure we don't have a empty activity
                 $cleanContent = '';
