@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/user.css';?>" type="text/css">
+<div id='bebop_user_container'>
 <?php
 
 global $bp;
@@ -102,3 +103,5 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 else {
 	echo 'Twitter has not yet been configured. Please contact the blog admin to make sure twitter is enables as an OER provider.';
 }
+
+echo '</div>';

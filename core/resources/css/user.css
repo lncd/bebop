@@ -1,3 +1,15 @@
+#bebop_user_container {
+	min-height:200px;
+	width:100%;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	border:0px solid #00FF00;
+	margin:0 auto;
+	border:0px solid #000000;
+}
+#bebop_user_container a, #bebop_user_container a:hover {
+	color:#000000;
+}
+
 .button_auth {
 	display:inline-block;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
@@ -23,10 +35,3 @@
 	margin-top:13px;
 	margin-bottom:7px;
 }
-
-a, a:link {
-	color:#000000;
-}
-
-
-

@@ -1,13 +1,14 @@
 <link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/user.css';?>" type="text/css">
+<div id='bebop_user_container'>
 <?php
 
-if(isset($_GET['remove'])){
+if( isset( $_GET['reset'] ) ) {
 	//Removes the channel name.
      bebop_tables::remove_user_meta($bp->loggedin_user->id, 'bebop_youtube_username');
 }
 
 
-if ($_POST){
+if ( $_POST ) {
 	//Updates the channel name.
     bebop_tables::update_user_meta($bp->loggedin_user->id, 'youtube', 'bebop_youtube_username', $_POST['bebop_youtube_username']);
 }
@@ -23,11 +24,9 @@ if ($_POST){
   	  <input type="text" name="bebop_youtube_username" value="<?php echo $bebop_youtube_username; ?>" size="50" /><br/><br/>      
    	 <input type="submit" class="button_auth" value="Save Channel">
 </form>
-<?php if($bebop_youtube_username != "") {
-?>
-<form id="settings_form" action="<?php echo  $bp->loggedin_user->domain; ?>bebop-oers/?oer=youtube" method="post">
-    <input type="submit" class="button_auth" name="remove" value="Remove Channel">
-</form> 
 <?php
+if( ! empty( $bebop_youtube_username ) ) {
+	echo '<br><a class="button_auth" href="?oer=youtube&reset=true">Remove Channel</a>';
 }
 ?>
+</div>
