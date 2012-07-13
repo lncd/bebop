@@ -91,18 +91,28 @@ function bebop_activate() {
 	    	meta_name varchar(255) NOT NULL,
 	    	meta_value longtext NOT NULL
 	    );";   
+	    
+	    $bebop_activity_buffer = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_activity_buffer ( 
+	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
+	    	user_id int(10) NOT NULL,
+	    	type varchar(255) NOT NULL,
+	    	action text NOT NULL,
+	    	content longtext NOT NULL
+	    );"; 
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta($bebop_error_log);
 		dbDelta($bebop_general_log);   
 		dbDelta($bebop_options);
 		dbDelta($bebop_user_meta);
+		dbDelta($bebop_activity_buffer);
 		
 		//cleanup
 		unset($bebop_error_log);
 		unset($bebop_general_log);
 		unset($bebop_options);
 		unset($bebop_user_meta);
+		unset($bebop_activity_buffer);
     }
 	else {
 

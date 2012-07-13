@@ -15,8 +15,7 @@ else {
 	bebop_setup_user_nav();
 }
 
-function bebop_setup_user_nav()
-{
+function bebop_setup_user_nav() {
 	global $bp;
 	
 	//Shows in the profile all the time.
@@ -31,11 +30,21 @@ function bebop_setup_user_nav()
     ));
 	
 	//Checks to make sure its the users profile before looping through the different extensions options.
-	if(bp_is_my_profile())
-	{
+	if(bp_is_my_profile()) {
 		$handle = opendir(WP_PLUGIN_DIR . "/bebop/extensions");
 		$extensions = array();
     	
+		bp_core_new_subnav_item(
+        	array(
+	            'name' => 'Home',
+            	'slug' => 'Home',
+            	'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
+            	'parent_slug' => 'bebop-oers',
+            	'screen_function' => 'bebop_user_settings',
+            	'position' => 10,
+            	'user_has_access' => bp_is_my_profile ()
+			)
+    	);
     	//loop extentions so we can add active extentions to the import loop
     	if ($handle) {
 	        while (false !== ($file = readdir($handle))) {
@@ -49,7 +58,7 @@ function bebop_setup_user_nav()
 					            	'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
 					            	'parent_slug' => 'bebop-oers',
 					            	'screen_function' => 'bebop_user_settings',
-					            	'position' => 10,
+					            	'position' => 20,
 					            	'user_has_access' => bp_is_my_profile ()
 								)
 					    	);
