@@ -53,7 +53,7 @@ if( isset($_GET) ) {
 		<?php
 	}
 	else {
-		echo "<div class='standard_class'>No data found.</div>";
+		echo "<div class='standard_class'>No data found in the error table.</div>";
 	}
 	?>
 <!-- End bebop_admin_container -->
