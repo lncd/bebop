@@ -20,10 +20,31 @@
 		}
 	}
 	
-	/*This function overrides the current query string and sets it to null to ensure
+	/*This function overrides the current query string and sets it to all the OER to ensure
 	  the current drop down menu is not attempted to be matched with ones from the activity stream etc. */
 	function dropdown_query_override ( $query_string ) {
-		$query_string = '';
+		
+		$string_build = '';	
+				
+		//Loops through all the different extensions and adds the active extensions to the temp variable.
+   	  	foreach( bebop_extensions::get_extension_configs() as $extension ) {
+	  		if(bebop_tables::get_option_value('bebop_'.$extension['name'].'_provider') == "on") {     
+           		$string_build .= $extension['name'] . ',';
+       		}
+   		}
+			
+		/*Checks to make sure the string is not empty and if it is then simply returns all_oer which results in
+		  nothing being shown. */
+		if($string_build !== '')
+		{			
+			//Removes the end ","
+			$string_build = substr($string_build, 0,-1);				
+				
+			//Recreates the query string with the new views.
+			$query_string = 'type=' . $string_build . '&action=' . $string_build;
+		}
+		
+		$query_string .= '&per_page=10';
 		return $query_string;
 	}
 		
@@ -42,7 +63,6 @@
 			<li id="activity-filter-select" class="last">		
 				<label for="activity-filter-by">Show:</label> 
 				<select id="activity-filter-by">
-					<option value="-1">Everything</option>
 					<!-- This adds the hook from the main bebop file to add the extension filter -->
 					<?php do_action( 'bp_activity_filter_options' ); ?>
 				</select>
