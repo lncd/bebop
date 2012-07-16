@@ -20,7 +20,7 @@ function bebop_create_buffer_item($params) {
         }
 
         //check if the secondary_id already exists
-        $secondary = $wpdb->get_row( $wpdb->prepare("SELECT secondary_item_id FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id='" . $params['item_id'] . "'") );
+        $secondary = $wpdb->get_row( $wpdb->prepare("SELECT secondary_item_id FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id = '" . $params['item_id'] . "'") );
 
         //do we already have this content if so do not import this item
         if($secondary == null){
@@ -33,7 +33,7 @@ function bebop_create_buffer_item($params) {
 				$content = '<div class="bebop_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';				
 			}
 
-            if( ! bebop_check_existing_content_buffer($originalText)) {
+            if( ! bebop_check_existing_content_buffer($originalText) ) {
             	
 				$action = '<a href="' . bp_core_get_user_domain($params['user_id']) .'" title="' . bp_core_get_username($params['user_id']).'">'.bp_core_get_user_displayname($params['user_id']).'</a>';
                 $action .= ' ' . __('posted&nbsp;a', 'bebop' . $extention['name'])." ";
