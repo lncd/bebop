@@ -13,7 +13,7 @@ include(ABSPATH . 'wp-load.php');
 
 //if import a specific OER.
 if( isset($_GET['oer']) ) {
-    $importer = $_GET['oer'];
+    $importers[] = $_GET['oer'];
 }
 
 if( ! isset( $_GET['oer']) ) {
@@ -40,30 +40,18 @@ if( ! isset( $_GET['oer']) ) {
          bebop_tables::update_option("bebop_importers_queue", implode(",", $extensions));		 
     }
 	
-    //start the import (one per time)
     $importers = bebop_tables::get_option_value("bebop_importers_queue");
     $importers = explode(",", $importers);
-    $importer = current($importers);
-
-    //remove importer form queue before starting real import
-    unset($importers[0]);
-    bebop_tables::update_option("bebop_importers_queue", implode(",", $importers));
 }
 
 //start the importer for real 
-if ( file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php") ) {
-    if ( bebop_tables::get_option_value("bebop_" . $importer . "_provider") ) {
-       include_once(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php");
-         if ( function_exists("bebop_" . strtolower($importer) . "_start_import") ) {
-            $numberOfItems = call_user_func("bebop_" . strtolower($importer) . "_start_import");
-			 
-            //create return array - might not need this.
-            $infoArray = array(
-                'executed' => true,
-                'date' => date('d-m-y H:i'),
-                'network' => $importer,
-                'items' => $numberOfItems
-            );
-        }
-    }
+foreach($importers as $importer) {
+	if ( file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php") ) {
+	    if ( bebop_tables::get_option_value("bebop_" . $importer . "_provider") ) {
+	       include_once(WP_PLUGIN_DIR . "/bebop/extensions/" . $importer . "/import.php");
+	         if ( function_exists("bebop_" . strtolower($importer) . "_start_import") ) {
+	            $numberOfItems = call_user_func("bebop_" . strtolower($importer) . "_start_import");
+	        }
+	    }
+	}
 }
