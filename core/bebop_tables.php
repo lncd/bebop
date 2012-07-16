@@ -3,7 +3,7 @@
 class bebop_tables
 {
 	/*
-	* Tables
+	* Admin functions
 	*/
 	function flush_table_data($table_name) {
 		global $wpdb;
@@ -31,7 +31,6 @@ class bebop_tables
 		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin' AND type = '" . $wpdb->escape($extension) . "'" ) );
 		return $count;
 	}
-	
 	
 	//function to remove a table from the database.
 	function drop_table($table_name) {
@@ -69,6 +68,10 @@ class bebop_tables
 			return false;
 		}
 	}
+	
+	/*
+	* Tables
+	*/
 	
 	function log_error( $feed_id=null, $error_type, $error_message ) { //function to log errors into the error table.
 		global $wpdb;
@@ -238,10 +241,7 @@ class bebop_tables
 		}
 	}
 	
-	//maybe use this when tables can be considered stable. instead of inline escapes.
 	function sanitise_element($data) {
-
-		
 		return stripslashes(strip_tags($data));
 	}
 } 

@@ -247,3 +247,6 @@
 .no_border {
 	border:0px;
 }
+.standard_class {
+	width:97%; margin:0 auto 22px auto;
+}

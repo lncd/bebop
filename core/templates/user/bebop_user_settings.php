@@ -87,10 +87,6 @@
 	echo '</div>';
 }
 else {
-	
-	$script_name = explode('/', $_SERVER['SCRIPT_NAME']);
-	var_dump($script_name);
-	
 	if( isset($_GET['action'])) {
 		if( strtolower($_GET['action']) == 'manage_oers/' ) {
 			include(WP_PLUGIN_DIR."/bebop/core/templates/user/oer_manager.php");
