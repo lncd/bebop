@@ -70,6 +70,18 @@ class bebop_tables
 	}
 	
 	/*
+	 * Plugins
+	 */
+	 
+	 function fetch_oer_data($table_name) { //function to retrieve oer data from the cache
+		global $wpdb;
+		
+		$result = $wpdb->get_results( "SELECT * FROM " . $wpdb->base_prefix . $table_name);
+		return $result;
+	}
+	 
+	
+	/*
 	* Tables
 	*/
 	
