@@ -160,27 +160,6 @@ function bebop_create_activity($params) {
     return true;
 }
 
-//This is a hook into the activity filter options.
-add_action('bp_activity_filter_options', 'load_new_options');
-
-//This is a hook into the member activity filter options.
-add_action('bp_member_activity_filter_options', 'load_new_options');
-
-//This function loads additional filter options for the extensions.
-function load_new_options()
-{		
-	$handle = opendir( WP_PLUGIN_DIR . "/bebop/extensions" );
-    if ( $handle ) {
-    	while ( false !== ( $file = readdir($handle) ) ) {
-        	if ( $file != "." && $file != ".." && $file != ".DS_Store" ) {
-            	if ( file_exists( WP_PLUGIN_DIR."/bebop/extensions/" . $file . "/core.php" ) ) {
-                  	echo '<option value="' . ucfirst($file) .'">' . ucfirst($file) . '</option>';
-               	}
-			}
-		}
-	}	
-}
-
 function bebop_check_existing_content_activity ($content){
 
     global $wpdb, $bp;
@@ -199,4 +178,81 @@ function bebop_check_existing_content_buffer($content){
     $content = trim($content);
 
     $wpdb->get_var("SELECT content FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE content LIKE '%" . $content . "%'");
+}
+
+
+//Hook functions.
+
+//This is a hook into the activity filter options.
+add_action('bp_activity_filter_options', 'load_new_options');
+
+//This is a hook into the member activity filter options.
+add_action('bp_member_activity_filter_options', 'load_new_options');
+
+//This function loads additional filter options for the extensions.
+function load_new_options()
+{		
+	$store = array();
+    
+	//gets only the active extension list.
+    foreach( bebop_extensions::get_extension_configs() as $extension ) {
+	    if(bebop_tables::get_option_value('bebop_'.$extension['name'].'_provider') == "on") {     
+           	$store[] =  '<option value="' . ucfirst($extension['name']) .'">' . ucfirst($extension['name']) . '</option>';
+       	}
+    }
+		
+	//Ensures the All OER only shows if there are two or more OER's to choose from.
+	if(count($store) > 1)
+	{
+		echo '<option value="all_oer">All OER</option>';			
+	}
+		
+	//Outputs the options
+	foreach($store as $option)
+	{
+		echo $option;
+	} 		
+}
+
+/*This function overrides the current query string and sets it to null to ensure
+  the current drop down menu is not attempted to be matched with ones from the activity stream etc. */
+function dropdown_query_checker ( $query_string ) {
+		
+	//Passes the query string as an array
+	parse_str($query_string, $str );
+		
+	//Checks if the all_oer has been selected.
+	if($str['type'] === "all_oer")
+	{
+		$string_build = '';	
+		
+		//Loops through all the different extensions and adds the active extensions to the temp variable.
+   	  	foreach( bebop_extensions::get_extension_configs() as $extension ) {
+	  		if(bebop_tables::get_option_value('bebop_'.$extension['name'].'_provider') == "on") {     
+           		$string_build .= $extension['name'] . ',';
+       		}
+   		}
+			
+		/*Checks to make sure the string is not empty and if it is then simply returns all_oer which results in
+		  nothing being shown. */
+		if($string_build !== '')
+		{			
+			//Removes the end ","
+			$string_build = substr($string_build, 0,-1);				
+				
+			//Recreates the query string with the new views.
+			$query_string = 'type=' . $string_build . '&action=' . $string_build;
+		}
+	}
+
+	return $query_string;
+}	
+	
+//This adds a hook before the loading of the activity data to adjust if all_oer is selected.
+add_action('bp_before_activity_loop', 'load_new_options2');
+
+function load_new_options2()
+{
+	//Adds the filter to the function to check for all_oer and rebuild the query if so.
+	add_filter( 'bp_ajax_querystring', 'dropdown_query_checker' );
 }
