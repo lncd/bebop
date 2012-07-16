@@ -19,6 +19,7 @@
 			echo "Choose an OER source from the sub menu above. ";
 		}
 	}
+	
 	/*This function overrides the current query string and sets it to null to ensure
 	  the current drop down menu is not attempted to be matched with ones from the activity stream etc. */
 	function dropdown_query_override ( $query_string ) {
@@ -34,7 +35,6 @@
     <script type="text/javascript">
 		jQuery.cookie('bp-activity-filter', "");	
 	</script>  
-      
       
     <!-- This section creates the drop-down menu with its classes hooked into buddypress -->
     <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
@@ -62,27 +62,27 @@
 				</div>
 			</noscript>
 				
-<?php		//This section adds the list styles on the first run. 
+			<?php //This section adds the list styles on the first run. 
 			if ( empty( $_POST['page'] ) ) { 
 				echo '<ul id="activity-stream" class="activity-list item-list">';
 			}			
-				//This section loops through the query records and uses the buddypress activity/entry to output them.
-				while ( bp_activities() ) {	
-			 		bp_the_activity();
-		 			locate_template( array( 'activity/entry.php' ), true, false );
-				}
-
+			//This section loops through the query records and uses the buddypress activity/entry to output them.
+			while ( bp_activities() ) {	
+		 		bp_the_activity();
+	 			locate_template( array( 'activity/entry.php' ), true, false );
+			}
 			//This ends the list section for style on the first run.
 			if ( empty( $_POST['page'] ) ) {
 				echo '</ul>';
 			} 
 		} 
-		else {?>
-
+		else {
+			?>
 			<div id="message" class="info">
 				<p><?php _e( 'Sorry, there was no activity found. Please try a different filter.', 'buddypress' ); ?></p>
 			</div>
-<?php	}
+			<?php
+		}
 	//Closes the record import div
 	echo '</div>';
 }
