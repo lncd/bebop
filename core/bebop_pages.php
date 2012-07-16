@@ -48,7 +48,7 @@ function bebop_setup_user_nav() {
 		bp_core_new_subnav_item(
         	array(
 	            'name' => 'Validate OERs',
-            	'slug' => '?action=validate',
+            	'slug' => '?action=manage_oers',
             	'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
             	'parent_slug' => 'bebop-oers',
             	'screen_function' => 'bebop_user_settings',

@@ -4,7 +4,7 @@
 
 global $bp;
 
-echo "
+echo "here";
 
 
 

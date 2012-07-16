@@ -1,4 +1,4 @@
-<?php if( ! isset($_GET['oer']) ) {  
+<?php if( ( ! isset($_GET['oer']) ) && ( ! isset($_GET['action']) ) ) {  
 	
 	//Only shows if it is the users profile.  
 	if(bp_is_my_profile())
@@ -87,12 +87,17 @@
 	echo '</div>';
 }
 else {
+	
+	$script_name = explode('/', $_SERVER['SCRIPT_NAME']);
+	var_dump($script_name);
+	
 	if( isset($_GET['action'])) {
-		if($_GET['action'] == 'oer_buffer') {
-			include(WP_PLUGIN_DIR."/bebop/core/templates/user/validate_oers.php");
+		if( strtolower($_GET['action']) == 'manage_oers/' ) {
+			include(WP_PLUGIN_DIR."/bebop/core/templates/user/oer_manager.php");
 		}
 	}
 	else {
+		
 		include(WP_PLUGIN_DIR."/bebop/extensions/" . $_GET['oer'] . "/templates/user_settings.php");
 	}
 }
