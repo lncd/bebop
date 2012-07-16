@@ -52,7 +52,7 @@
 
 	<!-- This is the class which will be refreshed when a different menu item is selected -->
     <div class="activity" role="main">
-        <?php if ( bp_has_activities( bp_ajax_querystring( 'activity' ) ) ){ ?>
+        <?php if ( bp_has_activities( bp_ajax_querystring( 'activity' ) ) ) { ?>
 
 			<?php /* Show pagination if JS is not enabled, since the "Load More" link will do nothing */ ?>
 			<noscript>
@@ -87,7 +87,14 @@
 	echo '</div>';
 }
 else {
-	include(WP_PLUGIN_DIR."/bebop/extensions/" . $_GET['oer'] . "/templates/user_settings.php");
+	if( isset($_GET['action'])) {
+		if($_GET['action'] == 'oer_buffer') {
+			include(WP_PLUGIN_DIR."/bebop/core/templates/user/validate_oers.php");
+		}
+	}
+	else {
+		include(WP_PLUGIN_DIR."/bebop/extensions/" . $_GET['oer'] . "/templates/user_settings.php");
+	}
 }
 ?>
 

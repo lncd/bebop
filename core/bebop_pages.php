@@ -45,6 +45,17 @@ function bebop_setup_user_nav() {
             	'user_has_access' => bp_is_my_profile ()
 			)
     	);
+		bp_core_new_subnav_item(
+        	array(
+	            'name' => 'Validate OERs',
+            	'slug' => '?action=validate',
+            	'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
+            	'parent_slug' => 'bebop-oers',
+            	'screen_function' => 'bebop_user_settings',
+            	'position' => 20,
+            	'user_has_access' => bp_is_my_profile ()
+			)
+    	);
     	//loop extentions so we can add active extentions to the import loop
     	if ($handle) {
 	        while (false !== ($file = readdir($handle))) {
@@ -58,7 +69,7 @@ function bebop_setup_user_nav() {
 					            	'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
 					            	'parent_slug' => 'bebop-oers',
 					            	'screen_function' => 'bebop_user_settings',
-					            	'position' => 20,
+					            	'position' => 30,
 					            	'user_has_access' => bp_is_my_profile ()
 								)
 					    	);

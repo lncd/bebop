@@ -88,7 +88,6 @@ if ( ( bebop_tables::get_option_value('bebop_twitter_provider') == 'on') && ( be
 		 
 		bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter', 'bebop_twitter_oauth_token_temp','' . $requestToken['oauth_token'].'');
 		bebop_tables::update_user_meta($bp->loggedin_user->id, 'twitter', 'bebop_twitter_oauth_token_secret_temp','' . $requestToken['oauth_token_secret'].'');
-	
 		
 		//get the redirect url for the user
 		$redirectUrl = $OAuth->getRedirectUrl();
