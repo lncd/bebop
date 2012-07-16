@@ -61,7 +61,6 @@ function bebop_create_buffer_item($params) {
 				else {
 					bebop_tables::log_error( _, 'import error', "could not import.");
 				}
-			
             }
             else{
                 return false;
