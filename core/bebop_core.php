@@ -244,7 +244,7 @@ function dropdown_query_checker ( $query_string ) {
 			$query_string = 'type=' . $string_build . '&action=' . $string_build;
 		}
 	}
-
+	
 	return $query_string;
 }	
 	
