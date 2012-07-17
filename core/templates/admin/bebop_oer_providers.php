@@ -61,7 +61,7 @@
 						<td>" . bebop_tables::count_users_using_extension($extension['name']) . "</td>
 						<td>" . bebop_tables::count_oers_by_extension($extension['name']) . "</td>
 						<td>";
-						echo "<label for='bebop_" . $extension['name'] . "_provider'" . '>Enabled:<label><input id="bebop_'.$extension['name'] . '_provider" type="checkbox" name="bebop_'.$extension['name'] . '_provider"';
+						echo "<label for='bebop_" . $extension['name'] . "_provider'>Enabled:</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
 						if( bebop_tables::get_option_value('bebop_' . $extension['name'] . '_provider') == 'on' ) {
 							echo 'CHECKED';
 						}

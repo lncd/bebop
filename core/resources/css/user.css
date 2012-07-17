@@ -37,10 +37,11 @@
 }
 
 .bebop_user_table {
-	width:99%;
+	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
+	width:100%;
 	border:1px solid #000; 
 }
 .bebop_user_table th {
-	font-size:20px;
+	font-size:16px;
 	text-align:center;
 }
