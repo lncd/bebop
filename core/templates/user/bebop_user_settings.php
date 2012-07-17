@@ -1,5 +1,5 @@
 <?php if( ( ! isset($_GET['oer']) ) && ( ! isset($_GET['action']) ) ) {  
-	
+
 	//Only shows if it is the users profile.  
 	if(bp_is_my_profile())
 	{
@@ -42,19 +42,18 @@
 				
 			//Recreates the query string with the new views.
 			$query_string = 'type=' . $string_build . '&action=' . $string_build;
-		}
-		
-		$query_string .= '&per_page=10';
+		}		
+
 		return $query_string;
-	}
-		
-	//Adds the filter to the function.
-	add_filter( 'bp_ajax_querystring', 'dropdown_query_override' );?>
+	}?>
+    
+    
     
     <!-- This overrides the current filter in the cookie to nothing "i.e. 
     	 on page refresh it will reset back to default" -->
     <script type="text/javascript">
-		jQuery.cookie('bp-activity-filter', "");	
+    jQuery.cookie
+		jQuery.cookie('bp-activity-filter', "all_oer");	
 	</script>  
       
     <!-- This section creates the drop-down menu with its classes hooked into buddypress -->
@@ -69,53 +68,10 @@
 			</li>
 		</ul>	
 	</div>
-
-	<!-- This is the class which will be refreshed when a different menu item is selected -->
-    <div class="activity" role="main">
-        <?php if ( bp_has_activities( bp_ajax_querystring( 'activity' ) ) ) { ?>
-
-			<?php /* Show pagination if JS is not enabled, since the "Load More" link will do nothing */ ?>
-			<noscript>
-				<div class="pagination">
-					<div class="pag-count"><?php bp_activity_pagination_count(); ?></div>
-					<div class="pagination-links"><?php bp_activity_pagination_links(); ?></div>
-				</div>
-			</noscript>
-				
-			<?php //This section adds the list styles on the first run. 
-			if ( empty( $_POST['page'] ) ) { 
-				echo '<ul id="activity-stream" class="activity-list item-list">';
-			}			
-			//This section loops through the query records and uses the buddypress activity/entry to output them.
-			while ( bp_activities() ) {	
-		 		bp_the_activity();
-	 			locate_template( array( 'activity/entry.php' ), true, false );
-			}
-			//This ends the list section for style on the first run.
-			if ( empty( $_POST['page'] ) ) {
-				echo '</ul>';
-			} 
-		} 
-		else {
-			?>
-			<div id="message" class="info">
-				<p><?php _e( 'Sorry, there was no activity found. Please try a different filter.', 'buddypress' ); ?></p>
-			</div>
-			<?php
-		}
-	//Closes the record import div
-	echo '</div>';
-}
-else {
-	if( isset($_GET['action'])) {
-		if( strtolower($_GET['action']) == 'manage_oers/' ) {
-			include(WP_PLUGIN_DIR."/bebop/core/templates/user/oer_manager.php");
-		}
-	}
-	else {
-		
-		include(WP_PLUGIN_DIR."/bebop/extensions/" . $_GET['oer'] . "/templates/user_settings.php");
-	}
-}
+		<!--This deals with pulling the activity stream -->
+		<div class="activity" role="main">
+				<?php locate_template( array( 'activity/activity-loop.php' ), true ); ?>
+			</div><!-- .activity -->
+<?php }
 ?>
 
