@@ -217,13 +217,21 @@ function load_new_options()
 /*This function overrides the current query string and sets it to null to ensure
   the current drop down menu is not attempted to be matched with ones from the activity stream etc. */
 function dropdown_query_checker ( $query_string ) {
-		
+	global $bp;
+	
 	//Passes the query string as an array
 	parse_str($query_string, $str );
 		
 	//Checks if the all_oer has been selected.
 	if($str['type'] === "all_oer")
-	{
+	{		
+		$page_number;
+		//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
+		if($str['page'])
+		{
+			$page_number = '&page=' . $str['page'];
+		}	
+		
 		$string_build = '';	
 		
 		//Loops through all the different extensions and adds the active extensions to the temp variable.
@@ -241,10 +249,14 @@ function dropdown_query_checker ( $query_string ) {
 			$string_build = substr($string_build, 0,-1);				
 				
 			//Recreates the query string with the new views.
-			$query_string = 'type=' . $string_build . '&action=' . $string_build;
+			$query_string = 'type=' . $string_build . '&action=' . $string_build . $page_number;			
 		}
 	}
-	
+	//Checks to see if its on the OER page, and if so puts a page limit on the items shown.
+	if($bp->current_component === 'bebop-oers')
+	{
+		$query_string .= '&per_page=2';
+	}	
 	return $query_string;
 }	
 	
