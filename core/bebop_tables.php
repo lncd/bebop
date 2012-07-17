@@ -73,13 +73,29 @@ class bebop_tables
 	 * Plugins
 	 */
 	 
-	 function fetch_oer_data($table_name) { //function to retrieve oer data from the cache
+	 function fetch_oer_data($user_id, $table_name) { //function to retrieve oer data from the cache
+	 
 		global $wpdb;
 		
-		$result = $wpdb->get_results( "SELECT * FROM " . $wpdb->base_prefix . $table_name);
+		//only pull data form active extensions
+		$handle = opendir(WP_PLUGIN_DIR . "/bebop/extensions");
+		$extensions = array();
+		//loop extentions so we can add active extentions to the import loop
+		if ($handle) {
+		    while (false !== ($file = readdir($handle))) {        	
+		        if ($file != "." && $file != ".." && $file != ".DS_Store") {            	
+		            if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $file . "/import.php")) {
+		                if ( bebop_tables::get_option_value("bebop_" . $file . "_provider") == "on") {
+		                    $extensions[] = "'" . $file . "'";
+		                }
+		            }
+		        }
+		    }
+		}
+		$names = join(',',$wpdb->escape($extensions));
+		$result = $wpdb->get_results( "SELECT * FROM " . $wpdb->base_prefix . $table_name . " WHERE user_id = '" . $wpdb->escape($user_id) . "' AND type IN (" . stripslashes($names) . ") ORDER BY date_recorded DESC");
 		return $result;
 	}
-	 
 	
 	/*
 	* Tables

@@ -35,6 +35,13 @@
 	margin-top:13px;
 	margin-bottom:7px;
 }
-.standard_class {
-	width:97%; margin:0 auto 22px auto;
+
+.bebop_user_table {
+	width:100%;
+	border:1px solid #000; 
+}
+.bebop_user_table th {
+	font-size:20px;
+	text-align:center;
+	
 }

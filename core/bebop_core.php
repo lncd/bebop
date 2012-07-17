@@ -20,7 +20,7 @@ function bebop_create_buffer_item($params) {
         }
 
         //check if the secondary_id already exists
-        $secondary = $wpdb->get_row( $wpdb->prepare("SELECT secondary_item_id FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id = '" . $params['item_id'] . "'") );
+        $secondary = $wpdb->get_row( $wpdb->prepare("SELECT secondary_item_id FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id = '" . $params['user_id'] . "_" . $params['item_id'] . "'") );
 
         //do we already have this content if so do not import this item
         if($secondary == null){
@@ -52,8 +52,8 @@ function bebop_create_buffer_item($params) {
                 $cleanContent = trim(strip_tags($content));
 
                 if( ! empty($cleanContent) ) {                   	
-					$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_oer_buffer (user_id, type, action, content, secondary_item_id, date_recorded, hide_sitewide) VALUES (%s, %s, %s, %s, %s, %s, %s )", 
-	                    $wpdb->escape($params['user_id']), $wpdb->escape($params['extention']), $wpdb->escape($action), $wpdb->escape($content),
+					$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_oer_buffer (user_id, ,status, type, action, content, secondary_item_id, date_recorded, hide_sitewide) VALUES (%s, %s, %s, %s, %s, %s, %s, %s )", 
+	                    $wpdb->escape($params['user_id']), 'unverified', $wpdb->escape($params['extention']), $wpdb->escape($action), $wpdb->escape($content),
 	                    $wpdb->escape($params['user_id'] . "_" . $params['item_id']), $wpdb->escape($params['raw_date']), $wpdb->escape($oer_hide_sitewide)
 					) );
                     bebop_filters::day_increase($params['extention'], $params['user_id']);
@@ -63,7 +63,7 @@ function bebop_create_buffer_item($params) {
 				}
             }
             else{
-                return false;
+                bebop_tables::log_error( _, 'import error', "content seems to be the same...");
             }
         }
         else{

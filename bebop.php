@@ -95,6 +95,7 @@ function bebop_activate() {
 	    $bebop_activity_buffer = "CREATE TABLE IF NOT EXISTS " . $wpdb->base_prefix . "bp_bebop_oer_buffer ( 
 	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
 	    	user_id int(10) NOT NULL,
+	    	status varchar(75( NOT NULL,
 	    	type varchar(255) NOT NULL,
 	    	action text NOT NULL,
 	    	content longtext NOT NULL,
