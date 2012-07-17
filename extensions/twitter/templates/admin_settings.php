@@ -37,7 +37,6 @@ include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php"
 </form>
 <?php
 $user_metas = bebop_tables::get_user_ids_from_meta_name('bebop_twitter_username');
-var_dump($user_metas);
 if(count($user_metas) > 0 ) {
 	?>
 	<table class='bebop_settings_table'>

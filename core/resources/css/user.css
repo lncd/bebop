@@ -37,11 +37,10 @@
 }
 
 .bebop_user_table {
-	width:100%;
+	width:99%;
 	border:1px solid #000; 
 }
 .bebop_user_table th {
 	font-size:20px;
 	text-align:center;
-	
 }

@@ -5,8 +5,6 @@ bebop_extensions::load_extensions();
 function bebop_create_buffer_item($params) {
 	global $bp, $wpdb;
 	
-	echo "here";
-	
     if(is_array($params)) {
 
         //load config of extention
@@ -52,7 +50,7 @@ function bebop_create_buffer_item($params) {
                 $cleanContent = trim(strip_tags($content));
 
                 if( ! empty($cleanContent) ) {                   	
-					$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_oer_buffer (user_id, ,status, type, action, content, secondary_item_id, date_recorded, hide_sitewide) VALUES (%s, %s, %s, %s, %s, %s, %s, %s )", 
+					$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_oer_buffer (user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide) VALUES (%s, %s, %s, %s, %s, %s, %s, %s )", 
 	                    $wpdb->escape($params['user_id']), 'unverified', $wpdb->escape($params['extention']), $wpdb->escape($action), $wpdb->escape($content),
 	                    $wpdb->escape($params['user_id'] . "_" . $params['item_id']), $wpdb->escape($params['raw_date']), $wpdb->escape($oer_hide_sitewide)
 					) );
@@ -222,26 +220,28 @@ function dropdown_query_checker ( $query_string ) {
 	parse_str($query_string, $str );
 		
 	//Checks if the all_oer has been selected.
-	if($str['type'] === "all_oer")
-	{
-		$string_build = '';	
-		
-		//Loops through all the different extensions and adds the active extensions to the temp variable.
-   	  	foreach( bebop_extensions::get_extension_configs() as $extension ) {
-	  		if(bebop_tables::get_option_value('bebop_'.$extension['name'].'_provider') == "on") {     
-           		$string_build .= $extension['name'] . ',';
-       		}
-   		}
+	if(isset($str['type'])) {
+		if($str['type'] === "all_oer")
+		{
+			$string_build = '';	
 			
-		/*Checks to make sure the string is not empty and if it is then simply returns all_oer which results in
-		  nothing being shown. */
-		if($string_build !== '')
-		{			
-			//Removes the end ","
-			$string_build = substr($string_build, 0,-1);				
+			//Loops through all the different extensions and adds the active extensions to the temp variable.
+	   	  	foreach( bebop_extensions::get_extension_configs() as $extension ) {
+		  		if(bebop_tables::get_option_value('bebop_'.$extension['name'].'_provider') == "on") {     
+	           		$string_build .= $extension['name'] . ',';
+	       		}
+	   		}
 				
-			//Recreates the query string with the new views.
-			$query_string = 'type=' . $string_build . '&action=' . $string_build;
+			/*Checks to make sure the string is not empty and if it is then simply returns all_oer which results in
+			  nothing being shown. */
+			if($string_build !== '')
+			{			
+				//Removes the end ","
+				$string_build = substr($string_build, 0,-1);				
+					
+				//Recreates the query string with the new views.
+				$query_string = 'type=' . $string_build . '&action=' . $string_build;
+			}
 		}
 	}
 	
