@@ -1,12 +1,12 @@
 <?php
+session_start();
+
 
 bebop_extensions::load_extensions();
 
 function bebop_create_buffer_item($params) {
 	global $bp, $wpdb;
-	
-	echo "here";
-	
+
     if(is_array($params)) {
 
         //load config of extention
@@ -217,13 +217,14 @@ function load_new_options()
 /*This function overrides the current query string and sets it to null to ensure
   the current drop down menu is not attempted to be matched with ones from the activity stream etc. */
 function dropdown_query_checker ( $query_string ) {
+	//Buddypress global variable.
 	global $bp;
+
+	//Passes the query string as an array as its easy to determine the page number then "if any".
+	parse_str($query_string,$str);
 	
-	//Passes the query string as an array
-	parse_str($query_string, $str );
-		
 	//Checks if the all_oer has been selected.
-	if($str['type'] === "all_oer")
+	if($bp->current_component === 'bebop-oers')
 	{		
 		$page_number;
 		//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
@@ -232,6 +233,7 @@ function dropdown_query_checker ( $query_string ) {
 			$page_number = '&page=' . $str['page'];
 		}	
 		
+		//Sets the string_build variable ready.
 		$string_build = '';	
 		
 		//Loops through all the different extensions and adds the active extensions to the temp variable.
@@ -250,13 +252,32 @@ function dropdown_query_checker ( $query_string ) {
 				
 			//Recreates the query string with the new views.
 			$query_string = 'type=' . $string_build . '&action=' . $string_build . $page_number;			
+		}		
+		
+		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
+		$_SESSION['previous_area']=1;
+		
+		//Checks to see if its the start of the OER page and if so ensure its set to the default " but if blank = all activty stream"
+		if($query_string === '')
+		{
+			echo "here";
+			$query_string = 'type=all-oer&action=all-oer';
 		}
-	}
-	//Checks to see if its on the OER page, and if so puts a page limit on the items shown.
-	if($bp->current_component === 'bebop-oers')
-	{
+		
+		//Sets the page number for the bebop-oers page.
 		$query_string .= '&per_page=2';
+		
+	}
+	else //This checks if the oer page was visited so it can reset the filters for the activity stream.
+	{
+		if($_SESSION['previous_area'])
+		{
+			 session_unset($_SESSION['previous_area']); 
+			 $query_string = '';
+		}	
 	}	
+
+	//Returns the query string.
 	return $query_string;
 }	
 	
