@@ -243,11 +243,10 @@ function load_new_options()
 function dropdown_query_checker ( $query_string ) {
 	//Buddypress global variable.
 	global $bp;
-var_dump($query_string);
 
 	//Passes the query string as an array as its easy to determine the page number then "if any".
 	parse_str($query_string,$str);
-	
+
 	$page_number;		
 	//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
 	if($str['page'])
@@ -256,7 +255,8 @@ var_dump($query_string);
 	}	
 	
 	//Checks if the all_oer has been selected.
-	if($str['type'] === 'all-oer')
+	if($str['type'] === 'all_oer' || $bp->current_component === 'bebop-oers' &&
+	$str['type'] === NULL)
 	{
 		//Sets the string_build variable ready.
 			$string_build = '';	
@@ -298,10 +298,10 @@ var_dump($query_string);
 			 $query_string = '';
 		}	
 	}	
-	
+	//Puts the current page number onto the query.
 	$query_string .= $page_number;
 	
-	var_dump($query_string);
+
 	//Returns the query string.
 	return $query_string;
 }	
