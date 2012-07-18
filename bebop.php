@@ -1,5 +1,7 @@
 <?php
 //STOP CACHING THE PAGE!
+ob_start();
+session_start();
 header("Cache-Control: no-cache, must-revalidate"); // HTTP/1.1
 header("Expires: Mon, 26 Jul 1997 05:00:00 GMT"); // Date in the past
 /*
@@ -184,6 +186,8 @@ register_deactivation_hook( __FILE__, 'bebop_deactivate' );
 //register_uninstall_hook( __FILE__, 'bebop_deactivate' );
 
 add_action( 'bp_init', 'bebop_init', 5 );
+
+ob_end_flush();
 ?>
 
 

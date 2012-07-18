@@ -40,8 +40,6 @@ if( count($unverified_oers) > 0 ) {
 		"</tr>";
 	}
 	echo "</table>
-	<button type='submit' id='verify' class='button_auth' value='verify'>Verify</button>
-	<button type='submit' id='remove' class='button_auth' value='remove'>Remove</button>
 	</form>";
 }
 else {

@@ -1,6 +1,4 @@
 <?php
-
-
 bebop_extensions::load_extensions();
 
 function time_since($date) {
@@ -225,14 +223,12 @@ function load_new_options()
     }
 		
 	//Ensures the All OER only shows if there are two or more OER's to choose from.
-	if(count($store) > 1)
-	{
+	if(count($store) > 1) {
 		echo '<option value="all_oer">All OERs</option>';			
 	}
 		
 	//Outputs the options
-	foreach($store as $option)
-	{
+	foreach($store as $option) {
 		echo $option;
 	} 		
 }
@@ -248,16 +244,14 @@ function dropdown_query_checker ( $query_string ) {
 
 	$page_number = '';		
 	//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
-	if(isset($str['page']))
-	{
+	if( isset($str['page']) ) {
 		$page_number = '&page=' . $str['page'];
 	}	
 	
 	//Checks if the all_oer has been selected or as a default on the bebop-oer page to show all_oer.
-	if($str['type'] === 'all_oer' || $bp->current_component === 'bebop-oers' &&
-	$str['type'] === NULL)
-	{
-		//Sets the string_build variable ready.
+	if(isset($str['type'])) {
+		if($str['type'] === 'all_oer' || $bp->current_component === 'bebop-oers' && $str['type'] === NULL) {
+			//Sets the string_build variable ready.
 			$string_build = '';	
 		
 			//Loops through all the different extensions and adds the active extensions to the temp variable.
@@ -269,19 +263,17 @@ function dropdown_query_checker ( $query_string ) {
 			
 			/*Checks to make sure the string is not empty and if it is then simply returns all_oer which results in
 			  nothing being shown. */
-			if($string_build !== '')
-			{			
+			if($string_build !== '') {			
 				//Removes the end ","
 				$string_build = substr($string_build, 0,-1);				
 				
 				//Recreates the query string with the new views.
 				$query_string = 'type=' . $string_build . '&action=' . $string_build . $page_number;			
 			}			
+		}
 	}
-	
 	//Checks if its the OER page for the page limiter
-	if($bp->current_component === 'bebop-oers')
-	{		
+	if($bp->current_component === 'bebop-oers') {		
 		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
 		$_SESSION['previous_area']=1;
 		
@@ -289,10 +281,8 @@ function dropdown_query_checker ( $query_string ) {
 		$query_string .= '&per_page=2';
 		
 	}
-	else //This checks if the oer page was visited so it can reset the filters for the activity stream.
-	{
-		if($_SESSION['previous_area'])
-		{
+	else { //This checks if the oer page was visited so it can reset the filters for the activity stream.
+		if(isset($_SESSION['previous_area'])) {
 			 session_unset($_SESSION['previous_area']); 
 			 $query_string = '';
 			 echo '<script type="text/javascript">';
