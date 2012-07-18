@@ -254,7 +254,7 @@ function dropdown_query_checker ( $query_string ) {
 		$page_number = '&page=' . $str['page'];
 	}	
 	
-	//Checks if the all_oer has been selected.
+	//Checks if the all_oer has been selected or as a default on the bebop-oer page to show all_oer.
 	if($str['type'] === 'all_oer' || $bp->current_component === 'bebop-oers' &&
 	$str['type'] === NULL)
 	{
@@ -301,7 +301,6 @@ function dropdown_query_checker ( $query_string ) {
 	//Puts the current page number onto the query.
 	$query_string .= $page_number;
 	
-
 	//Returns the query string.
 	return $query_string;
 }	
