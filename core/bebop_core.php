@@ -227,7 +227,7 @@ function load_new_options()
 	//Ensures the All OER only shows if there are two or more OER's to choose from.
 	if(count($store) > 1)
 	{
-		echo '<option value="all_oer">All OER</option>';			
+		echo '<option value="all_oer">All OERs</option>';			
 	}
 		
 	//Outputs the options
@@ -246,9 +246,9 @@ function dropdown_query_checker ( $query_string ) {
 	//Passes the query string as an array as its easy to determine the page number then "if any".
 	parse_str($query_string,$str);
 
-	$page_number;		
+	$page_number = '';		
 	//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
-	if($str['page'])
+	if(isset($str['page']))
 	{
 		$page_number = '&page=' . $str['page'];
 	}	
@@ -283,7 +283,7 @@ function dropdown_query_checker ( $query_string ) {
 	if($bp->current_component === 'bebop-oers')
 	{		
 		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
-		//$_SESSION['previous_area']=1;
+		$_SESSION['previous_area']=1;
 		
 		//Sets the page number for the bebop-oers page.
 		$query_string .= '&per_page=2';
@@ -293,8 +293,11 @@ function dropdown_query_checker ( $query_string ) {
 	{
 		if($_SESSION['previous_area'])
 		{
-			 //session_unset($_SESSION['previous_area']); 
+			 session_unset($_SESSION['previous_area']); 
 			 $query_string = '';
+			 echo '<script type="text/javascript">';
+			 echo 'jQuery.cookie("bp-activity-filter", "");';
+			 echo '</script>';
 		}	
 	}	
 	//Puts the current page number onto the query.
