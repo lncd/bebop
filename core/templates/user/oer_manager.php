@@ -48,30 +48,4 @@ else {
 	echo "<p>Unfortunately, we could not find any OERs to manage.</p>";
 }
 echo '</div>';
-
-
-function time_since($date) {
-	$date = strtotime($date);
-	$since = time() - $date;
-	
-    $chunks = array(
-        array(60 * 60 * 24 * 365 , 'year'),
-        array(60 * 60 * 24 * 30 , 'month'),
-        array(60 * 60 * 24 * 7, 'week'),
-        array(60 * 60 * 24 , 'day'),
-        array(60 * 60 , 'hour'),
-        array(60 , 'minute'),
-        array(1 , 'second')
-    );
-
-    for ($i = 0, $j = count($chunks); $i < $j; $i++) {
-        $seconds = $chunks[$i][0];
-        $name = $chunks[$i][1];
-        if (($count = floor($since / $seconds)) != 0) {
-            break;
-        }
-    }
-    $print = ($count == 1) ? '1 '.$name : "$count {$name}s ago";
-    return $print;
-}
 ?>
