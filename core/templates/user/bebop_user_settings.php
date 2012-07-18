@@ -18,7 +18,8 @@
 		else {
 			echo "Choose an OER source from the sub menu above. ";
 		}
-	}?>
+	}
+	?>
     
     
     
@@ -40,10 +41,22 @@
 			</li>
 		</ul>	
 	</div>
-		<!--This deals with pulling the activity stream -->
-		<div class="activity" role="main">
-				<?php locate_template( array( 'activity/activity-loop.php' ), true ); ?>
-			</div><!-- .activity -->
-<?php }
+	<!--This deals with pulling the activity stream -->
+	<div class="activity" role="main">
+		<?php locate_template( array( 'activity/activity-loop.php' ), true ); ?>
+	</div><!-- .activity -->
+<?php
+}
+else {
+	if( isset($_GET['action'])) {
+		if( strtolower($_GET['action']) == 'manage_oers/' ) {
+			include(WP_PLUGIN_DIR."/bebop/core/templates/user/oer_manager.php");
+		}
+	}
+	else {
+
+		include(WP_PLUGIN_DIR."/bebop/extensions/" . $_GET['oer'] . "/templates/user_settings.php");
+	}
+}
 ?>
 

@@ -1,66 +1,90 @@
 <?php
 session_start();
 
-
 bebop_extensions::load_extensions();
 
+function time_since($date) {
+	$date = strtotime($date);
+	$since = time() - $date;
+	
+    $chunks = array(
+        array(60 * 60 * 24 * 365 , 'year'),
+        array(60 * 60 * 24 * 30 , 'month'),
+        array(60 * 60 * 24 * 7, 'week'),
+        array(60 * 60 * 24 , 'day'),
+        array(60 * 60 , 'hour'),
+        array(60 , 'minute'),
+        array(1 , 'second')
+    );
+
+    for ($i = 0, $j = count($chunks); $i < $j; $i++) {
+        $seconds = $chunks[$i][0];
+        $name = $chunks[$i][1];
+        if (($count = floor($since / $seconds)) != 0) {
+            break;
+        }
+    }
+    $print = ($count == 1) ? '1 '.$name : "$count {$name}s ago";
+    return $print;
+}
+ 
 function bebop_create_buffer_item($params) {
-	global $bp, $wpdb;
-
+      global $bp, $wpdb;
+ 
     if(is_array($params)) {
-
+ 
         //load config of extention
         $originalText = $params['content'];
-		
+           
         foreach(bebop_extensions::get_extension_configs() as $extention){
             if(isset($extention['hashtag'])){
                 $originalText = str_replace($extention['hashtag'], "", $originalText);
                 $originalText = trim($originalText);
             }
         }
-
+ 
         //check if the secondary_id already exists
-        $secondary = $wpdb->get_row( $wpdb->prepare("SELECT secondary_item_id FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id='" . $params['item_id'] . "'") );
-
+        $secondary = $wpdb->get_row( $wpdb->prepare("SELECT secondary_item_id FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id='" . $params['user_id'] .'_' . $params['item_id'] . "'") );
+ 
         //do we already have this content if so do not import this item
         if($secondary == null){
-			$content = '';
-			if( $params['content_oembed'] === true ) {
-	            //set the content 
-	            $content = $originalText;
-			}
-			else {
-				$content = '<div class="bebop_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';				
-			}
-
+                  $content = '';
+                  if( $params['content_oembed'] === true ) {
+                  //set the content
+                  $content = $originalText;
+                  }
+                  else {
+                        $content = '<div class="bebop_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';                      
+                  }
+ 
             if( ! bebop_check_existing_content_buffer($originalText)) {
-            	
-				$action = '<a href="' . bp_core_get_user_domain($params['user_id']) .'" title="' . bp_core_get_username($params['user_id']).'">'.bp_core_get_user_displayname($params['user_id']).'</a>';
+                 
+                        $action = '<a href="' . bp_core_get_user_domain($params['user_id']) .'" title="' . bp_core_get_username($params['user_id']).'">'.bp_core_get_user_displayname($params['user_id']).'</a>';
                 $action .= ' ' . __('posted&nbsp;a', 'bebop' . $extention['name'])." ";
                 $action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__($params['type'], 'bebop_'.$extention['name']);
                 $action .= '</a>: ';
-                
+               
                 if (bebop_tables::get_option_value('bebop_'. $params['extention'] . '_hide_sitewide') == "on") {
                     $oer_hide_sitewide = 1;
                 }
-				else {
-					$oer_hide_sitewide = 0;
-				}
-				
+                        else {
+                              $oer_hide_sitewide = 0;
+                        }
+                       
                 //extra check to be sure we don't have a empty activity
                 $cleanContent = '';
                 $cleanContent = trim(strip_tags($content));
-
-                if( ! empty($cleanContent) ) {                   	
-					$wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_oer_buffer (user_id, type, action, content, secondary_item_id, date_recorded, hide_sitewide) VALUES (%s, %s, %s, %s, %s, %s, %s )", 
-	                    $wpdb->escape($params['user_id']), $wpdb->escape($params['extention']), $wpdb->escape($action), $wpdb->escape($content),
-	                    $wpdb->escape($params['user_id'] . "_" . $params['item_id']), $wpdb->escape($params['raw_date']), $wpdb->escape($oer_hide_sitewide)
-					) );
+ 
+                if( ! empty($cleanContent) ) {                  
+                              $wpdb->query( $wpdb->prepare( "INSERT INTO " . $wpdb->base_prefix . "bp_bebop_oer_buffer (user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide) VALUES (%s, %s, %s, %s, %s, %s, %s )",
+                          $wpdb->escape($params['user_id']), 'unverified', $wpdb->escape($params['extention']), $wpdb->escape($action), $wpdb->escape($content),
+                          $wpdb->escape($params['user_id'] . "_" . $params['item_id']), $wpdb->escape($params['raw_date']), $wpdb->escape($oer_hide_sitewide)
+                              ) );
                     bebop_filters::day_increase($params['extention'], $params['user_id']);
                 }
-				else {
-					bebop_tables::log_error( _, 'import error', "could not import.");
-				}
+                        else {
+                              bebop_tables::log_error( _, 'import error', "could not import.");
+                        }
             }
             else{
                 return false;
@@ -70,7 +94,7 @@ function bebop_create_buffer_item($params) {
             return false;
         }
     }
-
+ 
     return true;
 }
 
