@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 
 bebop_extensions::load_extensions();
 
