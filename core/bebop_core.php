@@ -219,50 +219,48 @@ function load_new_options()
 function dropdown_query_checker ( $query_string ) {
 	//Buddypress global variable.
 	global $bp;
+var_dump($query_string);
 
 	//Passes the query string as an array as its easy to determine the page number then "if any".
 	parse_str($query_string,$str);
 	
+	$page_number;		
+	//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
+	if($str['page'])
+	{
+		$page_number = '&page=' . $str['page'];
+	}	
+	
 	//Checks if the all_oer has been selected.
+	if($str['type'] === 'all-oer')
+	{
+		//Sets the string_build variable ready.
+			$string_build = '';	
+		
+			//Loops through all the different extensions and adds the active extensions to the temp variable.
+   	  		foreach( bebop_extensions::get_extension_configs() as $extension ) {
+	  			if(bebop_tables::get_option_value('bebop_'.$extension['name'].'_provider') == "on") {     
+          	 		$string_build .= $extension['name'] . ',';
+       			}
+   			}
+			
+			/*Checks to make sure the string is not empty and if it is then simply returns all_oer which results in
+			  nothing being shown. */
+			if($string_build !== '')
+			{			
+				//Removes the end ","
+				$string_build = substr($string_build, 0,-1);				
+				
+				//Recreates the query string with the new views.
+				$query_string = 'type=' . $string_build . '&action=' . $string_build . $page_number;			
+			}			
+	}
+	
+	//Checks if its the OER page for the page limiter
 	if($bp->current_component === 'bebop-oers')
 	{		
-		$page_number;
-		//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
-		if($str['page'])
-		{
-			$page_number = '&page=' . $str['page'];
-		}	
-		
-		//Sets the string_build variable ready.
-		$string_build = '';	
-		
-		//Loops through all the different extensions and adds the active extensions to the temp variable.
-   	  	foreach( bebop_extensions::get_extension_configs() as $extension ) {
-	  		if(bebop_tables::get_option_value('bebop_'.$extension['name'].'_provider') == "on") {     
-           		$string_build .= $extension['name'] . ',';
-       		}
-   		}
-			
-		/*Checks to make sure the string is not empty and if it is then simply returns all_oer which results in
-		  nothing being shown. */
-		if($string_build !== '')
-		{			
-			//Removes the end ","
-			$string_build = substr($string_build, 0,-1);				
-				
-			//Recreates the query string with the new views.
-			$query_string = 'type=' . $string_build . '&action=' . $string_build . $page_number;			
-		}		
-		
 		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
-		$_SESSION['previous_area']=1;
-		
-		//Checks to see if its the start of the OER page and if so ensure its set to the default " but if blank = all activty stream"
-		if($query_string === '')
-		{
-			echo "here";
-			$query_string = 'type=all-oer&action=all-oer';
-		}
+		//$_SESSION['previous_area']=1;
 		
 		//Sets the page number for the bebop-oers page.
 		$query_string .= '&per_page=2';
@@ -272,11 +270,14 @@ function dropdown_query_checker ( $query_string ) {
 	{
 		if($_SESSION['previous_area'])
 		{
-			 session_unset($_SESSION['previous_area']); 
+			 //session_unset($_SESSION['previous_area']); 
 			 $query_string = '';
 		}	
 	}	
-
+	
+	$query_string .= $page_number;
+	
+	var_dump($query_string);
 	//Returns the query string.
 	return $query_string;
 }	
