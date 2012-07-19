@@ -95,48 +95,6 @@ function bebop_create_buffer_item($params) {
     return true;
 }
 
-function bebop_create_activity($params) {
-
-    global $bp, $wpdb;
-
-    if(is_array($params)) {
-        //check if the secondary_id already exists
-        $secondary = $wpdb->get_row( $wpdb->prepare("SELECT secondary_item_id FROM {$bp->activity->table_name} WHERE secondary_item_id='" . $params['secondary_item_id'] . "'") );
-
-        if($secondary == null) {
-            $activity = new BP_Activity_Activity();
-
-            add_filter('bp_activity_action_before_save', 'bp_activity_filter_kses', 1);
-			
-            $activity->user_id           = $params['user_id'];
-            $activity->component         = 'bebop_oer_plugin';
-            $activity->type              = $params['extention'];
-			$activity->action			 = $params['action'];
-            $activity->content           = $params['content'];
-            $activity->secondary_item_id = $params['secondary_item_id'];
-            $activity->date_recorded     = $params['raw_date'];
-
-            if (bebop_tables::get_option_value('bebop_'. $params['extention'] . '_hide_sitewide') == "on") {
-                $activity->hide_sitewide = 1;
-            }
-			else {
-				$activity->hide_sitewide = 0;
-			}
-
-            remove_filter('bp_activity_action_before_save', 'bp_activity_filter_kses', 1);
-               	
-            $activity->save();
-            bebop_filters::day_increase($params['extention'], $params['user_id']);
-            ebop_filters::day_increase($params['extention'], $params['user_id']);
-		}
-        else{
-            bebop_tables::log_error( _, 'Activity Stream', "This content already exists in the activity stream.");
-        }
-    }
-
-    return true;
-}
-
 function bebop_check_existing_content_activity ($content){
 
     global $wpdb, $bp;

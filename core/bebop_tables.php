@@ -99,11 +99,23 @@ class bebop_tables
 	function fetch_individual_oer_data($secondary_item_id) {
 		global $wpdb;
 		$result = $wpdb->get_results( "SELECT * FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id = '" . $wpdb->escape($secondary_item_id) . "'");
-		if( ! empty($result->secondary_item_id) ) {
-			return $result;
+		if( ! empty($result[0]->secondary_item_id) ) {
+			return $result[0];
 		}
 		else {
 			bebop_tables::log_error( '_', 'Activity Stream', "could not find $secondary_item_id in the oer buffer.");
+		}
+	}
+	
+	function update_oer_data($secondary_item_id, $column, $value) {
+		global $wpdb;
+		
+		$result = $wpdb->query( "UPDATE " . $wpdb->base_prefix . "bp_bebop_oer_buffer SET $column = '"  . $wpdb->escape($value) . "' WHERE secondary_item_id = '" . $wpdb->escape($secondary_item_id) . "' LIMIT 1" );
+		if( ! empty($result) ) {
+			return $result;
+		}
+		else {
+			return false;
 		}
 	}
 	

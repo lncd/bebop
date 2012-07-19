@@ -4,19 +4,57 @@
 <?php
 
 if(isset($_POST)) {
-	var_dump($_POST);
-	echo '<br><br>';
 	if(isset($_POST['action'])) {
+		//Add OER's to the activity stream.
 		if($_POST['action'] == 'verify') {
-			foreach (array_keys($_POST) as $oer) {
+			foreach (array_keys($_POST) as $oer) { //get the array key id.
 				if($oer != 'action') {
-					$data = bebop_tables::fetch_individual_oer_data($oer);
-					if( ! empty($data['id']) ) {
-						var_dump($data);
+					$data = bebop_tables::fetch_individual_oer_data($oer); //go and fetch data from he activity buffer table.
+					if( ! empty($data->id) ) {
+						global $wpdb;
+						
+						//add it to the activity stream!
+						//check if the secondary_id already exists
+				        $secondary_id = $wpdb->get_row( $wpdb->prepare("SELECT secondary_item_id FROM {$bp->activity->table_name} WHERE secondary_item_id='" . $data->secondary_item_id . "'") );
+				
+				        if( empty($secondary_id) ) {
+				            $activity = new BP_Activity_Activity();
+				
+				            add_filter('bp_activity_action_before_save', 'bp_activity_filter_kses', 1);
+							
+				            $activity->user_id           = $data->user_id;
+				            $activity->component         = 'bebop_oer_plugin';
+				            $activity->type              = $data->type;
+							$activity->action			 = $data->action;
+				            $activity->content           = $data->content;
+				            $activity->secondary_item_id = $data->secondary_item_id;
+				            $activity->date_recorded     = $data->date_recorded;
+				
+				            if (bebop_tables::get_option_value('bebop_'. $data->type . '_hide_sitewide') == "on") {
+				                $activity->hide_sitewide = 1;
+				            }
+							else {
+								$activity->hide_sitewide = 0;
+							}
+				
+				            remove_filter('bp_activity_action_before_save', 'bp_activity_filter_kses', 1);
+							
+							
+				            if( bebop_tables::update_oer_data($data->secondary_item_id, 'status', 'verified') ) {
+					            $activity->save();
+					            bebop_filters::day_increase($data->type, $data->user_id);
+							}
+							else {
+								 bebop_tables::log_error( '_', 'Activity Stream', "Could not update the oer buffer status.");
+							}
+						}
+				        else{
+				            bebop_tables::log_error( '_', 'Activity Stream', "This content already exists in the activity stream.");
+			        	}
 					}
 				}
-			}
-		}
+			} //End foreach (array_keys($_POST) as $oer) {
+		}//End if($_POST['action'] == 'verify') {
 		else if ($_POST['action'] == 'delete') {
 		}
 	}
