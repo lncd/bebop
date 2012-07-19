@@ -5,9 +5,17 @@
 
 if(isset($_POST)) {
 	var_dump($_POST);
-	
+	echo '<br><br>';
 	if(isset($_POST['action'])) {
 		if($_POST['action'] == 'verify') {
+			foreach (array_keys($_POST) as $oer) {
+				if($oer != 'action') {
+					$data = bebop_tables::fetch_individual_oer_data($oer);
+					if( ! empty($data['id']) ) {
+						var_dump($data);
+					}
+				}
+			}
 		}
 		else if ($_POST['action'] == 'delete') {
 		}
@@ -22,9 +30,9 @@ if(isset($_POST)) {
 
 global $bp;
 
-$unverified_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'bp_bebop_oer_buffer', 'unverified');
-$verified_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'bp_bebop_oer_buffer', 'verified');
-$removed_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'bp_bebop_oer_buffer', 'removed');
+$unverified_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'unverified');
+$verified_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'verified');
+$removed_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'removed');
 
 
 if( count($unverified_oers) > 0 ) {

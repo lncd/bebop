@@ -73,8 +73,7 @@ class bebop_tables
 	 * Plugins
 	 */
 	 
-	 function fetch_oer_data($user_id, $table_name, $status) { //function to retrieve oer data from the cache
-	 
+	 function fetch_oer_data($user_id, $status) { //function to retrieve oer data from the cache
 		global $wpdb;
 		
 		//only pull data form active extensions
@@ -93,8 +92,19 @@ class bebop_tables
 		    }
 		}
 		$names = join(',',$wpdb->escape($extensions));
-		$result = $wpdb->get_results( "SELECT * FROM " . $wpdb->base_prefix . $table_name . " WHERE user_id = '" . $wpdb->escape($user_id) . "' AND status = '" . $wpdb->escape($status) . "' AND type IN (" . stripslashes($names) . ") ORDER BY date_recorded DESC");
+		$result = $wpdb->get_results( "SELECT * FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE user_id = '" . $wpdb->escape($user_id) . "' AND status = '" . $wpdb->escape($status) . "' AND type IN (" . stripslashes($names) . ") ORDER BY date_recorded DESC");
 		return $result;
+	}
+
+	function fetch_individual_oer_data($secondary_item_id) {
+		global $wpdb;
+		$result = $wpdb->get_results( "SELECT * FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id = '" . $wpdb->escape($secondary_item_id) . "'");
+		if( ! empty($result->secondary_item_id) ) {
+			return $result;
+		}
+		else {
+			bebop_tables::log_error( '_', 'Activity Stream', "could not find $secondary_item_id in the oer buffer.");
+		}
 	}
 	
 	/*
