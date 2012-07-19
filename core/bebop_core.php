@@ -80,7 +80,7 @@ function bebop_create_buffer_item($params) {
                     bebop_filters::day_increase($params['extention'], $params['user_id']);
                 }
                 else {
-                	bebop_tables::log_error( _, 'import error', "could not import.");
+                	bebop_tables::log_error( '_', 'import error', "could not import.");
                 }
             }
             else{
@@ -94,15 +94,26 @@ function bebop_create_buffer_item($params) {
  
     return true;
 }
+//hook and function to update status in the buffer table if the activity belongs to this plugin.
+add_action( 'bp_activity_deleted_activities', 'update_bebop_status' );
 
-function bebop_check_existing_content_activity ($content){
-
-    global $wpdb, $bp;
-
-    $content = strip_tags($content);
-    $content = trim($content);
-
-    $wpdb->get_var("SELECT content FROM {$bp->activity->table_name} WHERE content LIKE '%" . $content . "%'");
+function update_bebop_status($ids) {
+	 global $wpdb, $bp;
+	 
+	 bebop_tables::log_error( '_', 'data', $wpdb . $bp);
+	
+	foreach ($ids as $id) {
+		$result = $wpdb->get_row("SELECT component, secondary_item_id FROM {$bp->activity->table_name} WHERE id = '" . $wpdb->escape($id) . "'");
+		//bebop_tables::log_error( '_', 'data', "data: " . $result->component . $result->secondary_item_id);
+		if($result->component == 'bebop_oer_plugin') {
+			if( ! bebop_tables::update_oer_data($result->secondary_item_id, 'status', 'deleted') ) {
+				 //bebop_tables::log_error( '_', 'Activity Stream', "Could not update the oer buffer status.");
+			}
+		}
+		else {
+			//bebop_tables::log_error( '_', 'data', "data: $wpdb". $result->component);
+		}
+	}
 }
 
 function bebop_check_existing_content_buffer($content){
@@ -112,9 +123,13 @@ function bebop_check_existing_content_buffer($content){
     $content = strip_tags($content);
     $content = trim($content);
 
-    $wpdb->get_var("SELECT content FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE content LIKE '%" . $content . "%'");
+    if($wpdb->get_row("SELECT content FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE content LIKE '%" . $content . "%'")) {
+    	return true;
+	}
+	else {
+		return false;
+	}
 }
-
 
 //Hook functions.
 
@@ -219,8 +234,7 @@ function dropdown_query_checker ( $query_string ) {
 //This adds a hook before the loading of the activity data to adjust if all_oer is selected.
 add_action('bp_before_activity_loop', 'load_new_options2');
 
-function load_new_options2()
-{
+function load_new_options2() {
 	//Adds the filter to the function to check for all_oer and rebuild the query if so.
 	add_filter( 'bp_ajax_querystring', 'dropdown_query_checker' );
 }
