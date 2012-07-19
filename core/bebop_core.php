@@ -236,6 +236,8 @@ function load_new_options()
 /*This function overrides the current query string and sets it to null to ensure
   the current drop down menu is not attempted to be matched with ones from the activity stream etc. */
 function dropdown_query_checker ( $query_string ) {
+
+	var_dump($_POST);
 	//Buddypress global variable.
 	global $bp;
 
@@ -260,7 +262,7 @@ function dropdown_query_checker ( $query_string ) {
           	 		$string_build .= $extension['name'] . ',';
        			}
    			}
-			
+
 			/*Checks to make sure the string is not empty and if it is then simply returns all_oer which results in
 			  nothing being shown. */
 			if($string_build !== '') {			
@@ -268,7 +270,8 @@ function dropdown_query_checker ( $query_string ) {
 				$string_build = substr($string_build, 0,-1);				
 				
 				//Recreates the query string with the new views.
-				$query_string = 'type=' . $string_build . '&action=' . $string_build . $page_number;			
+				$query_string = 'type=' . $string_build . '&action=' . $string_build;	
+						
 			}			
 		}
 	}
@@ -285,17 +288,19 @@ function dropdown_query_checker ( $query_string ) {
 		if(isset($_SESSION['previous_area'])) {
 			 session_unset($_SESSION['previous_area']); 
 			 $query_string = '';
-			 echo '<script type="text/javascript">';
-			 echo 'jQuery.cookie("bp-activity-filter", "");';
-			 echo '</script>';
+			// echo '<script type="text/javascript">';
+			// echo 'jQuery.cookie("bp-activity-filter", "");';
+			// echo '</script>';
 		}	
 	}	
 	//Puts the current page number onto the query.
 	$query_string .= $page_number;
 	
+	var_dump($query_string);
 	//Returns the query string.
 	return $query_string;
 }	
+	
 	
 //This adds a hook before the loading of the activity data to adjust if all_oer is selected.
 add_action('bp_before_activity_loop', 'load_new_options2');

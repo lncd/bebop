@@ -21,8 +21,6 @@
 	}
 	?>
     
-    
-    
     <!-- This overrides the current filter in the cookie to nothing "i.e. 
     	 on page refresh it will reset back to default" -->
     <script type="text/javascript">
