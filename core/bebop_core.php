@@ -275,7 +275,7 @@ function dropdown_query_checker ( $query_string ) {
 	//Checks if its the OER page for the page limiter
 	if($bp->current_component === 'bebop-oers') {		
 		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
-		$_SESSION['previous_area']=1;
+		$_SESSION['previous_area'] = 1;
 		
 		//Sets the page number for the bebop-oers page.
 		$query_string .= '&per_page=2';
