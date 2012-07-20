@@ -147,11 +147,11 @@ function load_new_options()
 	} 		
 }
 
-/*This function overrides the current query string and sets it to null to ensure
-  the current drop down menu is not attempted to be matched with ones from the activity stream etc. */
+/*This function is added to the filter of the current query string and deals with the OER page
+ * as well as the all_oer option. This is because the all_oer is not a type thus the query for what
+ * to pull from the database needs to be created manually. */
 function dropdown_query_checker ( $query_string ) {
 
-	var_dump($_POST);
 	//Buddypress global variable.
 	global $bp;
 
@@ -185,7 +185,10 @@ function dropdown_query_checker ( $query_string ) {
 				
 				//Recreates the query string with the new views.
 				$query_string = 'type=' . $string_build . '&action=' . $string_build;	
-						
+				
+				/*Puts the current page number onto the query for the all_oer. 
+				(others are dealt with by the activity stream processes)*/
+				$query_string .= $page_number;						
 			}			
 		}
 	}
@@ -202,19 +205,21 @@ function dropdown_query_checker ( $query_string ) {
 		if(isset($_SESSION['previous_area'])) {
 			 session_unset($_SESSION['previous_area']); 
 			 $query_string = '';
-			// echo '<script type="text/javascript">';
-			// echo 'jQuery.cookie("bp-activity-filter", "");';
-			// echo '</script>';
+			 
+			 /*This ensures that the default activity stream is reset if they have left the OER page.
+			 "This is done to stop the dropdown list and activity stream being the same as the oer page was 
+			  peviously on."*/
+			 echo  "<script type='text/javascript' src='" . WP_CONTENT_URL . "/plugins/bebop/core/resources/js/bebop_functions.js" . "'></script>";
+			 echo '<script type="text/javascript">';
+			 echo 'bebop_activity_cookie_modify("","");';	
+			 echo '</script>';
+			 $_COOKIE['bp-activity-filter'] = '';			 
 		}	
-	}	
-	//Puts the current page number onto the query.
-	$query_string .= $page_number;
+	}
 	
-	var_dump($query_string);
 	//Returns the query string.
 	return $query_string;
-}	
-	
+}
 	
 //This adds a hook before the loading of the activity data to adjust if all_oer is selected.
 add_action('bp_before_activity_loop', 'load_new_options2');
