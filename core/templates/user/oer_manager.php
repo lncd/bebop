@@ -101,6 +101,32 @@ if( count($unverified_oers) > 0 ) {
 	</form>';
 }
 else if( count($verified_oers) > 0 ) {
+	echo "<form class='bebop_user_form' method='post'>";
+	echo "<h4> Unverified OERs</h4>
+	<table class='bebop_user_table width_90'>
+		<tr>
+			<th>Type</th>
+			<th>Published</th>
+			<th>Content</th>
+			<th>Select</th>
+		</tr>";
+		
+	foreach ($unverified_oers as $unverified_oer) {
+		echo "<tr>
+			<td>" . bebop_tables::sanitise_element(ucfirst($unverified_oer->type)) . "</td>" .
+			"<td>" . time_since($unverified_oer->date_recorded) . "</td>" .
+			"<td>" . bebop_tables::sanitise_element($unverified_oer->content) . "</td>" .
+			"<td class='checkbox_container'><div class='checkbox'><input type='checkbox' id='" . $unverified_oer->secondary_item_id . "' name='" . $unverified_oer->secondary_item_id . "'></div></td>" .
+		"</tr>";
+	}
+	echo "</table>";
+	echo '
+		<h4>Action</h4>
+		<label for="verify">Verify:</label><input type="radio" name="action" id="verify" value="verify"><br>
+		<label for="delete">Delete:</label><input type="radio" name="action" id="delete" value="delete"><br>
+		
+		<input type="submit" class="button_auth" value="Submit">
+	</form>';
 }
 else if( count($removed_oers) > 0 ) {
 }
