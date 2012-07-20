@@ -100,8 +100,8 @@ function bebop_activate() {
 	    	status varchar(75) NOT NULL,
 	    	type varchar(255) NOT NULL,
 	    	action text NOT NULL,
-	    	activity_stream_id int(20),
 	    	content longtext NOT NULL,
+	    	activity_stream_id int(20),
 	    	secondary_item_id varchar(75),
 	    	date_recorded datetime,
 	    	hide_sitewide tinyint(1)
