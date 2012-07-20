@@ -72,7 +72,6 @@ $unverified_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'unverif
 $verified_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'verified');
 $removed_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'removed');
 
-
 if( count($unverified_oers) > 0 ) {
 	echo "<form class='bebop_user_form' method='post'>";
 	echo "<h4> Unverified OERs</h4>
