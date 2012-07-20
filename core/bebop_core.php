@@ -94,24 +94,28 @@ function bebop_create_buffer_item($params) {
  
     return true;
 }
+
+
 //hook and function to update status in the buffer table if the activity belongs to this plugin.
 add_action( 'bp_activity_deleted_activities', 'update_bebop_status' );
 
-function update_bebop_status($ids) {
-	 global $wpdb, $bp;
-	 
-	 bebop_tables::log_error( '_', 'data', $wpdb . $bp);
+function update_bebop_status($deleted_ids) {
+	 global $wpdb;
 	
-	foreach ($ids as $id) {
-		$result = $wpdb->get_row("SELECT component, secondary_item_id FROM {$bp->activity->table_name} WHERE id = '" . $wpdb->escape($id) . "'");
-		//bebop_tables::log_error( '_', 'data', "data: " . $result->component . $result->secondary_item_id);
-		if($result->component == 'bebop_oer_plugin') {
-			if( ! bebop_tables::update_oer_data($result->secondary_item_id, 'status', 'deleted') ) {
-				 //bebop_tables::log_error( '_', 'Activity Stream', "Could not update the oer buffer status.");
+	foreach ($deleted_ids as $id) {
+		$query = "SELECT secondary_item_id FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE activity_stream_id = '" . $id . "'";
+		$result = $wpdb->get_row($query);
+		ob_start();
+		var_dump($query);
+		var_dump($result);
+		$res = ob_get_clean();
+		bebop_tables::log_error( '_', 'data', "res: " . $res);
+		if( ! empty( $result['secondary_item_id'] ) ) {
+			bebop_tables::log_error( '_', 'data', "data: " . $result['secondary_item_id'] . $id);
+			if( ( ! bebop_tables::update_oer_data($result['secondary_item_id'], 'status', 'deleted') )  &&
+			( ! bebop_tables::update_oer_data($result['secondary_item_id'], 'activity_stream_id', '') ) ) {
+				 bebop_tables::log_error( '_', 'Activity Stream', "Could not update the oer buffer status.");
 			}
-		}
-		else {
-			//bebop_tables::log_error( '_', 'data', "data: $wpdb". $result->component);
 		}
 	}
 }

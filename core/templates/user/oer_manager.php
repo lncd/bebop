@@ -39,9 +39,9 @@ if(isset($_POST)) {
 				
 				            remove_filter('bp_activity_action_before_save', 'bp_activity_filter_kses', 1);
 							
-							
-				            if( bebop_tables::update_oer_data($data->secondary_item_id, 'status', 'verified') ) {
-					            $activity->save();
+							if($activity->save()) {
+				           		bebop_tables::update_oer_data($data->secondary_item_id, 'status', 'verified');
+								bebop_tables::update_oer_data($data->secondary_item_id, 'activity_stream_id', $activity_stream_id = $wpdb->insert_id);
 					            bebop_filters::day_increase($data->type, $data->user_id);
 							}
 							else {
@@ -65,7 +65,7 @@ if(isset($_POST)) {
 <h3> OER Manager</h3>
 <p>Here you can manage your OER's. Change the filter to switch between approved content, removed content, and unverified content.</p>
 <?php
-
+//UPDATE wp_bp_bebop_oer_buffer SET status = 'unverified' WHERE status != 'unverified'
 global $bp;
 
 $unverified_oers = bebop_tables::fetch_oer_data($bp->loggedin_user->id, 'unverified');
