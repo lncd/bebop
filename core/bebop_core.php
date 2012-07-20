@@ -211,7 +211,7 @@ function dropdown_query_checker ( $query_string ) {
 		$_SESSION['previous_area'] = 1;
 		
 		//Sets the page number for the bebop-oers page.
-		$query_string .= '&per_page=2';
+		$query_string .= '&per_page=10';
 		
 	}
 	else { //This checks if the oer page was visited so it can reset the filters for the activity stream.
