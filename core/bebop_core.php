@@ -103,13 +103,7 @@ function update_bebop_status($deleted_ids) {
 	 global $wpdb;
 	
 	foreach ($deleted_ids as $id) {
-		$query = "SELECT secondary_item_id FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE activity_stream_id = '" . $id . "'";
-		$result = $wpdb->get_row($query);
-		ob_start();
-		var_dump($query);
-		var_dump($result->secondary_item_id);
-		$res = ob_get_clean();
-		bebop_tables::log_error( '_', 'data', $res);
+		$result = $wpdb->get_row("SELECT secondary_item_id FROM " . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE activity_stream_id = '" . $id . "'");
 		if( ! empty( $result->secondary_item_id ) ) {
 			bebop_tables::update_oer_data($result->secondary_item_id, 'status', 'deleted');
 			bebop_tables::update_oer_data($result->secondary_item_id, 'activity_stream_id', '');
