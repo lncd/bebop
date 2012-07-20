@@ -19,12 +19,21 @@
 			echo "Choose an OER source from the sub menu above. ";
 		}
 	}
+	$_COOKIE['bp-activity-filter'] = "all_oer";
+	
+	echo  "<script type='text/javascript' src='" . WP_CONTENT_URL . "/plugins/bebop/core/resources/js/bebop_functions.js" . "'></script>";
 	?>
-    
+	
     <!-- This overrides the current filter in the cookie to nothing "i.e. 
     	 on page refresh it will reset back to default" -->
-    <script type="text/javascript">
-		jQuery.cookie('bp-activity-filter', "all_oer");	
+    <script type="text/javascript">    
+		var scope = "";
+		var filter = "all_oer";		
+		
+		<?php /*This function below deals with the first load of the activity stream in the OER page,
+		  it has been directly taken from the global.js buddypress file in the activity section
+	 	  and modified due to lack of pratical hooks. Taken from bp_activity_request(scope, filter).*/ ?>
+		bebop_activity_cookie_modify(scope,filter);	
 	</script>  
       
     <!-- This section creates the drop-down menu with its classes hooked into buddypress -->
