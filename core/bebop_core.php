@@ -107,15 +107,15 @@ function update_bebop_status($deleted_ids) {
 		$result = $wpdb->get_row($query);
 		ob_start();
 		var_dump($query);
-		var_dump($result);
+		var_dump($result->secondary_item_id);
 		$res = ob_get_clean();
-		bebop_tables::log_error( '_', 'data', "res: " . $res);
-		if( ! empty( $result['secondary_item_id'] ) ) {
-			bebop_tables::log_error( '_', 'data', "data: " . $result['secondary_item_id'] . $id);
-			if( ( ! bebop_tables::update_oer_data($result['secondary_item_id'], 'status', 'deleted') )  &&
-			( ! bebop_tables::update_oer_data($result['secondary_item_id'], 'activity_stream_id', '') ) ) {
-				 bebop_tables::log_error( '_', 'Activity Stream', "Could not update the oer buffer status.");
-			}
+		bebop_tables::log_error( '_', 'data', $res);
+		if( ! empty( $result->secondary_item_id ) ) {
+			bebop_tables::update_oer_data($result->secondary_item_id, 'status', 'deleted');
+			bebop_tables::update_oer_data($result->secondary_item_id, 'activity_stream_id', '');
+		}
+		else {
+			bebop_tables::log_error( '_', 'data', 'its not this');
 		}
 	}
 }
