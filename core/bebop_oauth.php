@@ -12,8 +12,7 @@ include_once('bebop_oauth_class.php');
  * This class handles all OAuth requests for multiple networks
  */
 
-class bebop_oauth{
-    
+class bebop_oauth {
     protected $consumerKey;
     protected $consumerSecret;
     protected $requestTokenUrl;

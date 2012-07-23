@@ -1,14 +1,13 @@
 <?php
 //table manipulation.
-class bebop_tables
-{
+class bebop_tables {
 	/*
 	* Admin functions
 	*/
-	function flush_table_data($table_name) {
+	function flush_table_data( $table_name ) {
 		global $wpdb;
 		
-		if($wpdb->get_results( "TRUNCATE TABLE " . $wpdb->base_prefix . $table_name )) {
+		if($wpdb->get_results( 'TRUNCATE TABLE ' . $wpdb->base_prefix . $table_name )) {
 			//if we get results, something has gone wrong...
 			bebop_tables::log_error( _, 'Table Truncate error', "Could not empty the $table_name table.");
 			return false;

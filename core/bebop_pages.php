@@ -4,7 +4,7 @@
 /**
  * User settings
  */
-if( isset($_get['action'])) {
+if( isset( $_get['action'] ) ) {
 	if($_GET['action'] == "logout") {
 	}
 	else {
@@ -30,7 +30,7 @@ function bebop_setup_user_nav() {
     ));
 	
 	//Checks to make sure its the users profile before looping through the different extensions options.
-	if(bp_is_my_profile()) {
+	if( bp_is_my_profile() ) {
 		$handle = opendir(WP_PLUGIN_DIR . "/bebop/extensions");
 		$extensions = array();
     	
@@ -94,7 +94,7 @@ function bebop_setup_user_nav() {
 }
 
 function bebop_user_settings() {
-	bebop_extensions::user_page_loader('default','settings');
+	bebop_extensions::user_page_loader( 'default','settings' );
 }
 
 function bebop_user_settings_screen_content() {

@@ -1,6 +1,4 @@
 <?php
-
-
 /* All credits for this go to BuddyStream (http://buddystream.net),
  * I merely changed class names to avoid redefinition errors i
  * BuddyStream and Bebop are used at the same time, and made a few
@@ -17,7 +15,7 @@ class bebop_oauth_consumer {
   public $key;
   public $secret;
 
-  function __construct($key, $secret, $callback_url=NULL) {
+  function __construct( $key, $secret, $callback_url = NULL ) {
     $this->key = $key;
     $this->secret = $secret;
     $this->callback_url = $callback_url;
@@ -37,7 +35,7 @@ class bebop_oauth_token {
    * key = the token
    * secret = the token secret
    */
-  function __construct($key, $secret) {
+  function __construct( $key, $secret ) {
     $this->key = $key;
     $this->secret = $secret;
   }

@@ -1,8 +1,6 @@
 <?php
 //Filters modify data and return the values to the original function.
-class bebop_filters
-{
-	
+class bebop_filters {
 	//This grabs the day counter for that specific extension and increases it by one.	
 	public function day_increase($extension, $userId){
         $database_count = bebop_tables::get_user_meta_value($userId, 'bebop_' . $extension . '_daycounter');
