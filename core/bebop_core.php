@@ -6,16 +6,15 @@ function time_since( $date ) {
 	$since = time() - $date;
 	
     $chunks = array(
-		array(60 * 60 * 24 * 365, 'year'),
-		array(60 * 60 * 24 * 30, 'month'),
-		array(60 * 60 * 24 * 7, 'week'),
-		array(60 * 60 * 24, 'day'),
-		array(60 * 60, 'hour'),
-		array(60, 'minute'),
-		array(1, 'second'),
+		array( 60 * 60 * 24 * 365, 'year' ),
+		array( 60 * 60 * 24 * 30, 'month' ),
+		array( 60 * 60 * 24 * 7, 'week' ),
+		array( 60 * 60 * 24, 'day' ),
+		array( 60 * 60, 'hour' ),
+		array( 60, 'minute' ),
+		array( 1, 'second' ),
     );
-	
-    for ($i = 0, $j = count( $chunks ); $i < $j; $i++) {
+	for ( $i = 0, $j = count( $chunks ); $i < $j; $i++ ) {
 		$seconds = $chunks[$i][0];
 		$name    = $chunks[$i][1];
 		if ( ( $count = floor( $since / $seconds ) ) != 0 ) {
@@ -28,8 +27,7 @@ function time_since( $date ) {
 
 function bebop_create_buffer_item( $params ) {
 	global $bp, $wpdb;
-	
-    if( is_array( $params ) ) {
+	if( is_array( $params ) ) {
         //load config of extention
         $originalText = $params['content'];
 		foreach( bebop_extensions::get_extension_configs() as $extention ) {
@@ -45,7 +43,7 @@ function bebop_create_buffer_item( $params ) {
 		//do we already have this content if so do not import this item
 		if($secondary == null) {
 			$content = '';
-			if( $params['content_oembed'] === true ) {
+			if($params['content_oembed']==true) {
 				$content = $originalText;
 			}
 			else {
@@ -54,7 +52,7 @@ function bebop_create_buffer_item( $params ) {
 			
 			if( ! bebop_check_existing_content_buffer( $originalText ) ) {
 				$action  = '<a href="' . bp_core_get_user_domain( $params['user_id'] ) .'" title="' . bp_core_get_username( $params['user_id'] ).'">'.bp_core_get_user_displayname( $params['user_id'] ) . '</a>';
-				$action .= ' ' . __('posted&nbsp;a', 'bebop' . $extention['name']).' ';
+				$action .= ' ' . __( 'posted&nbsp;a', 'bebop' . $extention['name'] ) . ' ';
 				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_'.$extention['name'] );
 				$action .= '</a>: ';
 				if ( bebop_tables::get_option_value( 'bebop_'. $params['extention'] . '_hide_sitewide' ) == 'on' ) {
@@ -69,10 +67,9 @@ function bebop_create_buffer_item( $params ) {
                 $clean_comment = trim( strip_tags( $content ) );
                 
 				if( ! empty( $clean_comment ) ) {
-					$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer (user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide) VALUES (%s, %s, %s, %s, %s, %s, %s, %s )',
+					$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s )',
 					$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
-					$wpdb->escape( $params['user_id'] . '_' . $params['item_id'] ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
-					) );
+					$wpdb->escape( $params['user_id'] . '_' . $params['item_id'] ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide ) ) );
 					bebop_filters::day_increase( $params['extention'], $params['user_id'] );
 				}
 				else {
@@ -135,16 +132,16 @@ function load_new_options()
     foreach( bebop_extensions::get_extension_configs() as $extension ) {
 	    if( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
            	$store[] =  '<option value="' . ucfirst( $extension['name'] ) .'">' . ucfirst( $extension['name'] ) . '</option>';
-       	}
-    }
-		
+		}
+	}
+	
 	//Ensures the All OER only shows if there are two or more OER's to choose from.
 	if( count( $store ) > 1 ) {
 		echo '<option value="all_oer">All OERs</option>';
 	}
-		
+	
 	//Outputs the options
-	foreach($store as $option) {
+	foreach( $store as $option ) {
 		echo $option;
 	}
 }
@@ -161,26 +158,26 @@ function dropdown_query_checker( $query_string ) {
 	//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
 	if( isset( $str['page'] ) ) {
 		$page_number = '&page=' . $str['page'];
-	}	
+	}
 	
 	//Checks if the all_oer has been selected or as a default on the bebop-oer page to show all_oer.
 	if( isset( $str['type'] ) ) {
 		if( $str['type'] === 'all_oer' || $bp->current_component === 'bebop-oers' && $str['type'] === NULL ) {
 			//Sets the string_build variable ready.
 			$string_build = '';
-		
+			
 			//Loops through all the different extensions and adds the active extensions to the temp variable.
 			foreach( bebop_extensions::get_extension_configs() as $extension ) {
 				if( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
 					$string_build .= $extension['name'] . ',';
 				}
 			}
-
+			
 			/*Checks to make sure the string is not empty and if it is then simply returns all_oer which results in
 			nothing being shown. */
 			if( $string_build !== '' ) {
 				//Removes the end ","
-				$string_build = substr( $string_build, 0,-1 );
+				$string_build = substr( $string_build, 0, -1 );
 				
 				//Recreates the query string with the new views.
 				$query_string = 'type=' . $string_build . '&action=' . $string_build;
@@ -200,11 +197,11 @@ function dropdown_query_checker( $query_string ) {
 		$query_string .= '&per_page=10';
 		
 	}
-	else { //This checks if the oer page was visited so it can reset the filters for the activity stream.
-		if(isset($_SESSION['previous_area'])) {
+	else {
+		//This checks if the oer page was visited so it can reset the filters for the activity stream.
+		if( isset( $_SESSION['previous_area'] ) ) {
 			session_unset( $_SESSION['previous_area'] );
-			$query_string = '';
-			 
+			$query_string = ''; 
 			/*
 			 * This ensures that the default activity stream is reset if they have left the OER page.
 			 * "This is done to stop the dropdown list and activity stream being the same as the oer 
