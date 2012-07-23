@@ -5,7 +5,7 @@ function time_since( $date ) {
 	$date  = strtotime( $date );
 	$since = time() - $date;
 	
-    $chunks = array(
+	$chunks = array(
 		array( 60 * 60 * 24 * 365, 'year' ),
 		array( 60 * 60 * 24 * 30, 'month' ),
 		array( 60 * 60 * 24 * 7, 'week' ),
@@ -13,23 +13,23 @@ function time_since( $date ) {
 		array( 60 * 60, 'hour' ),
 		array( 60, 'minute' ),
 		array( 1, 'second' ),
-    );
+	);
 	for ( $i = 0, $j = count( $chunks ); $i < $j; $i++ ) {
 		$seconds = $chunks[$i][0];
 		$name    = $chunks[$i][1];
 		if ( ( $count = floor( $since / $seconds ) ) != 0 ) {
 			break;
 		}
-    }
-    $print = ($count == 1) ? '1 '.$name : "$count {$name}s ago";
-    return $print;
+	}
+	$print = ($count == 1) ? '1 '.$name : "$count {$name}s ago";
+	return $print;
 }
 
 function bebop_create_buffer_item( $params ) {
 	global $bp, $wpdb;
 	if ( is_array( $params ) ) {
-        //load config of extention
-        $originalText = $params['content'];
+		//load config of extention
+		$originalText = $params['content'];
 		foreach ( bebop_extensions::get_extension_configs() as $extention ) {
 			if ( isset( $extention['hashtag'] ) ) {
 				$originalText = str_replace( $extention['hashtag'], '', $originalText );
@@ -38,7 +38,7 @@ function bebop_create_buffer_item( $params ) {
 		}
 		
 		//check if the secondary_id already exists
-		$secondary = $wpdb->get_row( $wpdb->prepare('SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id='" . $params['user_id'] .'_' . $params['item_id'] . "'") ) ;
+		$secondary = $wpdb->get_row( $wpdb->prepare( 'SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id='" . $params['user_id'] .'_' . $params['item_id'] . "'" ) );
 		
 		if ( empty( $secondary ) ) {
 			$content = '';
@@ -59,17 +59,18 @@ function bebop_create_buffer_item( $params ) {
 				else {
 					$oer_hide_sitewide = 0;
 				}
-                       
-                //extra check to be sure we don't have a empty activity
-                $clean_comment = '';
-                $clean_comment = trim( strip_tags( $content ) );
-                
+				
+				//extra check to be sure we don't have a empty activity
+				$clean_comment = '';
+				$clean_comment = trim( strip_tags( $content ) );
+				
 				if ( ! empty( $clean_comment ) ) {
-						$wpdb->query( $wpdb->prepare(
-						'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s )',
+					$wpdb->query( $wpdb->prepare(
+						'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s ) ',
 						$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
 						$wpdb->escape( $params['user_id'] . '_' . $params['item_id'] ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
-					));
+						)
+					);
 					bebop_filters::day_increase( $params['extention'], $params['user_id'] );
 				}
 				else {
@@ -127,11 +128,10 @@ add_action( 'bp_member_activity_filter_options', 'load_new_options' );
 function load_new_options()
 {		
 	$store = array();
-    
 	//gets only the active extension list.
-    foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-	    if ( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
-           	$store[] = '<option value="' . ucfirst( $extension['name'] ) .'">' . ucfirst( $extension['name'] ) . '</option>';
+	foreach ( bebop_extensions::get_extension_configs() as $extension ) {
+		if ( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
+			$store[] = '<option value="' . ucfirst( $extension['name'] ) .'">' . ucfirst( $extension['name'] ) . '</option>';
 		}
 	}
 	

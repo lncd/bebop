@@ -5,7 +5,7 @@ class bebop_extensions {
 	function load_extensions() {
 		$handle = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 		if ( $handle ) {
-			while ( false !== ( $file = readdir($handle) ) ) {
+			while ( false !== ( $file = readdir( $handle ) ) ) {
 				if ( $file != '.' && $file != '..' && $file != '.DS_Store' ) {
 					if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/core.php' ) ) {
 						include( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/core.php' );
@@ -51,11 +51,11 @@ class bebop_extensions {
 			}
 			$config = call_user_func( 'get_' . $extension . '_config' );
 		}
-		if ( ! isset( $_GET["settings"] ) ) {
+		if ( ! isset( $_GET['settings'] ) ) {
 			 $page = strtolower( $config['defaultpage'] );
 		}
 		else {
-			$page = strtolower( $_GET["settings"] );
+			$page = strtolower( $_GET['settings'] );
 		}
 		
 		if ( ! empty( $_GET['child'] ) ) {
@@ -66,7 +66,7 @@ class bebop_extensions {
 	
 	function user_page_loader( $extension, $page = 'settings' ) {
 		global $bp;
-		if ( $bp->displayed_user->id != $bp->loggedin_user->id && $page !='album' ) {
+		if ( $bp->displayed_user->id != $bp->loggedin_user->id && $page != 'album' ) {
 			header( 'location:' . get_site_url() );
 		}
 		add_action( 'bp_template_content', 'bebop_user_'.$page.'_screen_content' );
