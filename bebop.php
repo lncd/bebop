@@ -49,7 +49,7 @@ function bebop_init() {
 function bebop_activate() {
 	global $wpdb;
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
-	if( is_plugin_active( 'buddypress/bp-loader.php' ) ) {
+	if ( is_plugin_active( 'buddypress/bp-loader.php' ) ) {
 		//define table sql
 		$bebop_error_log = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_error_log ( 
 	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
@@ -131,7 +131,7 @@ function bebop_deactivate() {
 //This function sets up the time interval for the cron schedule.
 function bebop_seconds_cron( $schedules ) {
 	//Gets the time or sets a default if they are new.
-	if( bebop_tables::get_option_value( 'bebop_general_crontime' ) ) {
+	if ( bebop_tables::get_option_value( 'bebop_general_crontime' ) ) {
 		$time = bebop_tables::get_option_value( 'bebop_general_crontime' );
 	}
 	else {
@@ -152,7 +152,7 @@ function bebop_cron_function() {
 	bebop_tables::log_general( 'bebop_cron', 'Bebop cron import service completed.' );
 }
 
-define('BP_BEBOP_VERSION', '0.1');
+define( 'BP_BEBOP_VERSION', '0.1' );
 
 
 //hooks into activation and deactivation of the plugin.

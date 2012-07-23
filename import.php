@@ -7,11 +7,11 @@ ini_set( 'max_execution_time', 900 );
 include( ABSPATH . 'wp-load.php' );
 
 //if import a specific OER.
-if( isset($_GET['oer']) ) {
+if ( isset( $_GET['oer'] ) ) {
 	$importers[] = $_GET['oer'];
 }
 
-if( ! isset($_GET['oer']) ) {
+if ( ! isset( $_GET['oer'] ) ) {
 	$handle     = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 	$extensions = array();
     //loop extentions so we can add active extentions to the import loop
