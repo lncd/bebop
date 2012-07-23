@@ -24,13 +24,6 @@ Credits: BuddySteam - buddystream.net
 
 //initialise Bebop
 function bebop_init() {
-	
-	//init settings
-	bebop_init_settings();
-
-	//load languages
-	bebop_init_languages();
-
 	//include files from core.
 	include_once( 'core/bebop_oauth.php' );
 	include_once( 'core/bebop_tables.php' );
@@ -50,13 +43,6 @@ function bebop_init() {
 	if ( ! wp_next_scheduled( 'bebop_cron' ) ) {
     	wp_schedule_event( time(), 'secs', 'bebop_cron' );
 	}
-}
-
-function bebop_init_settings() {
-	//not currently implemented
-}
-function bebop_init_languages() {
-	//not currently implemented
 }
 
 //Code that should be fired when he plugin is activated.
@@ -108,14 +94,14 @@ function bebop_activate() {
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $bebop_error_log );
-		dbDelta( $bebop_general_log) ;   
+		dbDelta( $bebop_general_log);
 		dbDelta( $bebop_options );
 		dbDelta( $bebop_user_meta );
 		dbDelta( $bebop_activity_buffer );
 		
 		//cleanup
 		unset( $bebop_error_log );
-		unset( $bebop_general_log) ;
+		unset( $bebop_general_log);
 		unset( $bebop_options );
 		unset( $bebop_user_meta );
 		unset( $bebop_activity_buffer );
@@ -130,8 +116,6 @@ function bebop_activate() {
 }
 //remove the tables upon deactivation
 function bebop_deactivate() {
-	global $wpdb;
-	
 	//delete tables and clean up the activity data
 	bebop_tables::drop_table( 'bp_bebop_general_log' );
 	bebop_tables::drop_table( 'bp_bebop_error_log' );
@@ -146,7 +130,6 @@ function bebop_deactivate() {
 
 //This function sets up the time interval for the cron schedule.
 function bebop_seconds_cron( $schedules ) {
-	
 	//Gets the time or sets a default if they are new.
 	if(bebop_tables::get_option_value( 'bebop_general_crontime' )) {	
 		$time = bebop_tables::get_option_value( 'bebop_general_crontime' );

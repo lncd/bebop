@@ -7,11 +7,11 @@ ini_set( 'max_execution_time', 900 );
 include( ABSPATH . 'wp-load.php' );
 
 //if import a specific OER.
-if( isset( $_GET['oer'] ) ) {
+if( isset($_GET['oer']) ) {
     $importers[] = $_GET['oer'];
 }
 
-if( ! isset( $_GET['oer'] ) ) {
+if( ! isset($_GET['oer']) ) {
 	$handle = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 	$extensions = array();
     //loop extentions so we can add active extentions to the import loop
@@ -39,7 +39,7 @@ if( ! isset( $_GET['oer'] ) ) {
 }
 
 //start the importer for real 
-foreach( $importers as $importer ) {
+foreach($importers as $importer) {
 	if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $importer . '/import.php' ) ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . $importer . '_provider' ) ) {
 			include_once( WP_PLUGIN_DIR . '/bebop/extensions/' . $importer . '/import.php' );
