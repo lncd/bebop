@@ -2,7 +2,7 @@
 bebop_extensions::load_extensions();
 
 function time_since( $date ) {
-	$date  = strtotime($date);
+	$date  = strtotime( $date );
 	$since = time() - $date;
 	
     $chunks = array(
@@ -15,7 +15,7 @@ function time_since( $date ) {
 		array(1, 'second'),
     );
 	
-    for ($i = 0, $j = count($chunks); $i < $j; $i++) {
+    for ($i = 0, $j = count( $chunks ); $i < $j; $i++) {
 		$seconds = $chunks[$i][0];
 		$name    = $chunks[$i][1];
 		if ( ( $count = floor( $since / $seconds ) ) != 0 ) {
@@ -34,8 +34,8 @@ function bebop_create_buffer_item( $params ) {
         $originalText = $params['content'];
 		foreach( bebop_extensions::get_extension_configs() as $extention ) {
 			if( isset( $extention['hashtag'] ) ) {
-				$originalText = str_replace($extention['hashtag'], '', $originalText);
-				$originalText = trim($originalText);
+				$originalText = str_replace( $extention['hashtag'], '', $originalText );
+				$originalText = trim( $originalText );
 			}
 		}
 		
@@ -53,9 +53,9 @@ function bebop_create_buffer_item( $params ) {
 			}
 			
 			if( ! bebop_check_existing_content_buffer( $originalText ) ) {
-				$action  = '<a href="' . bp_core_get_user_domain($params['user_id']) .'" title="' . bp_core_get_username($params['user_id']).'">'.bp_core_get_user_displayname($params['user_id']).'</a>';
+				$action  = '<a href="' . bp_core_get_user_domain( $params['user_id'] ) .'" title="' . bp_core_get_username( $params['user_id'] ).'">'.bp_core_get_user_displayname( $params['user_id'] ) . '</a>';
 				$action .= ' ' . __('posted&nbsp;a', 'bebop' . $extention['name']).' ';
-				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__($params['type'], 'bebop_'.$extention['name']);
+				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_'.$extention['name'] );
 				$action .= '</a>: ';
 				if ( bebop_tables::get_option_value( 'bebop_'. $params['extention'] . '_hide_sitewide' ) == 'on' ) {
 					$oer_hide_sitewide = 1;
@@ -70,8 +70,8 @@ function bebop_create_buffer_item( $params ) {
                 
 				if( ! empty( $clean_comment ) ) {
 					$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer (user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide) VALUES (%s, %s, %s, %s, %s, %s, %s, %s )',
-					$wpdb->escape($params['user_id']), 'unverified', $wpdb->escape($params['extention']), $wpdb->escape($action), $wpdb->escape($content),
-					$wpdb->escape($params['user_id'] . '_' . $params['item_id']), $wpdb->escape($params['raw_date']), $wpdb->escape($oer_hide_sitewide)
+					$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
+					$wpdb->escape( $params['user_id'] . '_' . $params['item_id'] ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
 					) );
 					bebop_filters::day_increase( $params['extention'], $params['user_id'] );
 				}
@@ -97,18 +97,18 @@ add_action( 'bp_activity_deleted_activities', 'update_bebop_status' );
 function update_bebop_status( $deleted_ids ) {
 	global $wpdb;
 	foreach ( $deleted_ids as $id ) {
-		$result = $wpdb->get_row('SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE activity_stream_id = '" . $id . "'");
+		$result = $wpdb->get_row( 'SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE activity_stream_id = '" . $id . "'" );
 		if( ! empty( $result->secondary_item_id ) ) {
-			bebop_tables::update_oer_data($result->secondary_item_id, 'status', 'deleted');
-			bebop_tables::update_oer_data($result->secondary_item_id, 'activity_stream_id', '');
+			bebop_tables::update_oer_data( $result->secondary_item_id, 'status', 'deleted' );
+			bebop_tables::update_oer_data( $result->secondary_item_id, 'activity_stream_id', '' );
 		}
 	}
 }
 
 function bebop_check_existing_content_buffer( $content ) {
 	global $wpdb, $bp;
-	$content = strip_tags($content);
-	$content = trim($content);
+	$content = strip_tags( $content) ;
+	$content = trim( $content );
 	
 	if( $wpdb->get_row( 'SELECT content FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE content LIKE '%" . $content . "%'" ) ) {
 		return true;
@@ -139,7 +139,7 @@ function load_new_options()
     }
 		
 	//Ensures the All OER only shows if there are two or more OER's to choose from.
-	if( count($store) > 1 ) {
+	if( count( $store ) > 1 ) {
 		echo '<option value="all_oer">All OERs</option>';
 	}
 		
@@ -156,7 +156,7 @@ function dropdown_query_checker( $query_string ) {
 	global $bp;
 
 	//Passes the query string as an array as its easy to determine the page number then "if any".
-	parse_str($query_string,$str);
+	parse_str( $query_string,$str );
 	$page_number = '';
 	//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
 	if( isset( $str['page'] ) ) {
@@ -202,7 +202,7 @@ function dropdown_query_checker( $query_string ) {
 	}
 	else { //This checks if the oer page was visited so it can reset the filters for the activity stream.
 		if(isset($_SESSION['previous_area'])) {
-			session_unset($_SESSION['previous_area']);
+			session_unset( $_SESSION['previous_area'] );
 			$query_string = '';
 			 
 			/*
