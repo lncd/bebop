@@ -8,15 +8,15 @@ include( ABSPATH . 'wp-load.php' );
 
 //if import a specific OER.
 if( isset($_GET['oer']) ) {
-    $importers[] = $_GET['oer'];
+	$importers[] = $_GET['oer'];
 }
 
 if( ! isset($_GET['oer']) ) {
-	$handle = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
+	$handle     = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 	$extensions = array();
     //loop extentions so we can add active extentions to the import loop
     if ( $handle ) {
-    	while ( false !== ( $file = readdir($handle ) ) ) {
+    	while ( false != ( $file = readdir( $handle ) ) ) {
     		if ( $file != '.' && $file != '..' && $file != '.DS_Store' ) {
     			if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/import.php' ) ) {
     				if ( bebop_tables::get_option_value( 'bebop_' . $file . '_provider' ) == 'on' ) {
@@ -38,7 +38,7 @@ if( ! isset($_GET['oer']) ) {
 	$importers = explode( ',', $importers );
 }
 
-//start the importer for real 
+//start the importer for real
 foreach($importers as $importer) {
 	if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $importer . '/import.php' ) ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . $importer . '_provider' ) ) {

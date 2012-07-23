@@ -94,14 +94,14 @@ function bebop_activate() {
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $bebop_error_log );
-		dbDelta( $bebop_general_log);
+		dbDelta( $bebop_general_log );
 		dbDelta( $bebop_options );
 		dbDelta( $bebop_user_meta );
 		dbDelta( $bebop_activity_buffer );
 		
 		//cleanup
 		unset( $bebop_error_log );
-		unset( $bebop_general_log);
+		unset( $bebop_general_log );
 		unset( $bebop_options );
 		unset( $bebop_user_meta );
 		unset( $bebop_activity_buffer );
@@ -109,7 +109,7 @@ function bebop_activate() {
 	else {
 		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
 		include_once( 'core/bebop_tables.php' );
-		bebop_tables::log_error( 0, 'BuddyPress Error', 'BuddyPress is not active.' );
+		bebop_tables::log_error( '_', 'BuddyPress Error', 'BuddyPress is not active.' );
 		deactivate_plugins( basename(__FILE__) ); // Deactivate this plugin
 		wp_die( 'You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again.' );
 	}
@@ -131,7 +131,7 @@ function bebop_deactivate() {
 //This function sets up the time interval for the cron schedule.
 function bebop_seconds_cron( $schedules ) {
 	//Gets the time or sets a default if they are new.
-	if(bebop_tables::get_option_value( 'bebop_general_crontime' )) {	
+	if( bebop_tables::get_option_value( 'bebop_general_crontime' ) ) {
 		$time = bebop_tables::get_option_value( 'bebop_general_crontime' );
 	}
 	else {
