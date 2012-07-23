@@ -14,12 +14,12 @@ function time_since( $date ) {
 		array(60, 'minute'),
 		array(1, 'second'),
     );
-    
+	
     for ($i = 0, $j = count($chunks); $i < $j; $i++) {
-    	$seconds = $chunks[$i][0];
-    	$name    = $chunks[$i][1];
-        if ( ( $count = floor( $since / $seconds ) ) != 0 ) {
-        	break;
+		$seconds = $chunks[$i][0];
+		$name    = $chunks[$i][1];
+		if ( ( $count = floor( $since / $seconds ) ) != 0 ) {
+			break;
 		}
     }
     $print = ($count == 1) ? '1 '.$name : "$count {$name}s ago";
@@ -32,22 +32,21 @@ function bebop_create_buffer_item( $params ) {
     if( is_array( $params ) ) {
         //load config of extention
         $originalText = $params['content'];
-           
-        foreach( bebop_extensions::get_extension_configs() as $extention ) {
-        	if( isset( $extention['hashtag'] ) ) {
-        		$originalText = str_replace($extention['hashtag'], '', $originalText);
-        		$originalText = trim($originalText);
+		foreach( bebop_extensions::get_extension_configs() as $extention ) {
+			if( isset( $extention['hashtag'] ) ) {
+				$originalText = str_replace($extention['hashtag'], '', $originalText);
+				$originalText = trim($originalText);
 			}
 		}
 		
 		//check if the secondary_id already exists
 		$secondary = $wpdb->get_row( $wpdb->prepare( 'SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id='" . $params['user_id'] .'_' . $params['item_id'] . "'" ) ) ;
 
-        //do we already have this content if so do not import this item
-        if($secondary == null) {
-        	$content = '';
-        	if( $params['content_oembed'] === true ) {
-        		$content = $originalText;
+		//do we already have this content if so do not import this item
+		if($secondary == null) {
+			$content = '';
+			if( $params['content_oembed'] === true ) {
+				$content = $originalText;
 			}
 			else {
 				$content = '<div class="bebop_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';
@@ -58,8 +57,8 @@ function bebop_create_buffer_item( $params ) {
 				$action .= ' ' . __('posted&nbsp;a', 'bebop' . $extention['name']).' ';
 				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__($params['type'], 'bebop_'.$extention['name']);
 				$action .= '</a>: ';
-                if ( bebop_tables::get_option_value( 'bebop_'. $params['extention'] . '_hide_sitewide' ) == 'on' ) {
-                	$oer_hide_sitewide = 1;
+				if ( bebop_tables::get_option_value( 'bebop_'. $params['extention'] . '_hide_sitewide' ) == 'on' ) {
+					$oer_hide_sitewide = 1;
 				}
 				else {
 					$oer_hide_sitewide = 0;
