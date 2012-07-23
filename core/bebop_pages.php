@@ -37,7 +37,7 @@ function bebop_setup_user_nav() {
 		bp_core_new_subnav_item(
         	array(
 	            'name' => 'Home',
-            	'slug' => 'Home',
+            	'slug' => 'home',
             	'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
             	'parent_slug' => 'bebop-oers',
             	'screen_function' => 'bebop_user_settings',
@@ -47,8 +47,8 @@ function bebop_setup_user_nav() {
     	);
 		bp_core_new_subnav_item(
         	array(
-	            'name' => 'OER Manager',
-            	'slug' => '?action=manage_oers',
+	            'name' => 'OER Providers',
+            	'slug' => 'providers',
             	'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
             	'parent_slug' => 'bebop-oers',
             	'screen_function' => 'bebop_user_settings',
@@ -56,8 +56,20 @@ function bebop_setup_user_nav() {
             	'user_has_access' => bp_is_my_profile ()
 			)
     	);
+		bp_core_new_subnav_item(
+        	array(
+	            'name' => 'OER Manager',
+            	'slug' => 'manager',
+            	'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
+            	'parent_slug' => 'bebop-oers',
+            	'screen_function' => 'bebop_user_settings',
+            	'position' => 20,
+            	'user_has_access' => bp_is_my_profile ()
+			)
+    	);
+		
     	//loop extentions so we can add active extentions to the import loop
-    	if ($handle) {
+    	/*if ($handle) {
 	        while (false !== ($file = readdir($handle))) {
             	if ($file != "." && $file != ".." && $file != ".DS_Store") {            	
 	                if (file_exists(WP_PLUGIN_DIR . "/bebop/extensions/" . $file . "/import.php")) {
@@ -65,7 +77,7 @@ function bebop_setup_user_nav() {
 							bp_core_new_subnav_item(
 					        	array(
 						            'name' => ucfirst($file),
-					            	'slug' => '?oer=' . $file,
+					            	'slug' => 'manager/' . $file,
 					            	'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
 					            	'parent_slug' => 'bebop-oers',
 					            	'screen_function' => 'bebop_user_settings',
@@ -77,7 +89,7 @@ function bebop_setup_user_nav() {
                 	}
             	}
         	}
-    	}
+    	}*/
     }
 }
 
