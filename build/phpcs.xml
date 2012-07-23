@@ -3,6 +3,6 @@
 
 	<description>PHP_CodeSniffer configuration for Bebop</description>
 
-	<rule ref="CodeIgniter"/>
+	<rule ref="PSR"/>
 
 </ruleset>
