@@ -27,7 +27,7 @@ function time_since( $date ) {
 
 function bebop_create_buffer_item( $params ) {
 	global $bp, $wpdb;
-	if (is_array( $params )) {
+	if ( is_array( $params ) ) {
         //load config of extention
         $originalText = $params['content'];
 		foreach ( bebop_extensions::get_extension_configs() as $extention ) {
@@ -38,11 +38,11 @@ function bebop_create_buffer_item( $params ) {
 		}
 		
 		//check if the secondary_id already exists
-		$secondary = $wpdb->get_row( $wpdb->prepare( 'SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id='" . $params['user_id'] .'_' . $params['item_id'] . "'" )) ;
+		$secondary = $wpdb->get_row( $wpdb->prepare('SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id='" . $params['user_id'] .'_' . $params['item_id'] . "'") ) ;
 		
-		if( empty( $secondary ) ) {
+		if ( empty( $secondary ) ) {
 			$content = '';
-			if ( $params['content_oembed']==true ) {
+			if ( $params['content_oembed'] == true ) {
 				$content = $originalText;
 			}
 			else {
@@ -65,11 +65,11 @@ function bebop_create_buffer_item( $params ) {
                 $clean_comment = trim( strip_tags( $content ) );
                 
 				if ( ! empty( $clean_comment ) ) {
-					$wpdb->query( $wpdb->prepare(
-					'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s )',
-					$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
-					$wpdb->escape( $params['user_id'] . '_' . $params['item_id'] ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
-					) );
+						$wpdb->query( $wpdb->prepare(
+						'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s )',
+						$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
+						$wpdb->escape( $params['user_id'] . '_' . $params['item_id'] ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
+					));
 					bebop_filters::day_increase( $params['extention'], $params['user_id'] );
 				}
 				else {
@@ -104,7 +104,7 @@ function update_bebop_status( $deleted_ids ) {
 
 function bebop_check_existing_content_buffer( $content ) {
 	global $wpdb, $bp;
-	$content = strip_tags( $content) ;
+	$content = strip_tags( $content );
 	$content = trim( $content );
 	
 	if ( $wpdb->get_row( 'SELECT content FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE content LIKE '%" . $content . "%'" ) ) {
@@ -131,7 +131,7 @@ function load_new_options()
 	//gets only the active extension list.
     foreach ( bebop_extensions::get_extension_configs() as $extension ) {
 	    if ( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
-           	$store[] =  '<option value="' . ucfirst( $extension['name'] ) .'">' . ucfirst( $extension['name'] ) . '</option>';
+           	$store[] = '<option value="' . ucfirst( $extension['name'] ) .'">' . ucfirst( $extension['name'] ) . '</option>';
 		}
 	}
 	
@@ -195,7 +195,6 @@ function dropdown_query_checker( $query_string ) {
 		
 		//Sets the page number for the bebop-oers page.
 		$query_string .= '&per_page=10';
-		
 	}
 	else {
 		//This checks if the oer page was visited so it can reset the filters for the activity stream.

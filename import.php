@@ -39,7 +39,7 @@ if ( ! isset( $_GET['oer'] ) ) {
 }
 
 //start the importer for real
-foreach($importers as $importer) {
+foreach ( $importers as $importer ) {
 	if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $importer . '/import.php' ) ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . $importer . '_provider' ) ) {
 			include_once( WP_PLUGIN_DIR . '/bebop/extensions/' . $importer . '/import.php' );
