@@ -19,7 +19,7 @@ Credits: BuddySteam - buddystream.net
 /*****************************************************************************
 ** This software is released without warranty or guarantee, and as such no  **
 *  liability or responsibility can be accepted by its authors or related     *
-** organisations or institutions. YOU USE HIS SOFTWARE AT YOUR OWN RISK.    **
+** organisations or institutions. YOU USE THIS SOFTWARE AT YOUR OWN RISK.   **
 *****************************************************************************/
 
 //initialise Bebop
@@ -121,7 +121,6 @@ function bebop_activate() {
 		unset( $bebop_activity_buffer );
     }
 	else {
-
 		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
 		include_once( 'core/bebop_tables.php' );
 		bebop_tables::log_error( 0, 'BuddyPress Error', 'BuddyPress is not active.' );
@@ -149,18 +148,16 @@ function bebop_deactivate() {
 function bebop_seconds_cron( $schedules ) {
 	
 	//Gets the time or sets a default if they are new.
-	if(bebop_tables::get_option_value( 'bebop_general_crontime' ))
-	{	
+	if(bebop_tables::get_option_value( 'bebop_general_crontime' )) {	
 		$time = bebop_tables::get_option_value( 'bebop_general_crontime' );
 	}
-	else
-	{
+	else {
 		$time = 60;
-		bebop_tables::update_option( 'bebop_general_crontime', $time );			
+		bebop_tables::update_option( 'bebop_general_crontime', $time );
 	} 
 	
 	$schedules['secs'] = array(
-		'interval' =>$time,
+		'interval' => $time,
 		'display'  => __( 'Once Weekly' ),
 	); 
 	return $schedules;
@@ -168,12 +165,7 @@ function bebop_seconds_cron( $schedules ) {
 
 function bebop_cron_function() {
 	bebop_tables::log_general( 'bebop_cron', 'Bebop cron import service started.' );
-	if(require_once( 'import.php' )){
-		echo "loaded";
-	}
-	else {
-		echo 'failed to load';
-	}
+	require_once( 'import.php' );
 	bebop_tables::log_general( 'bebop_cron', 'Bebop cron import service completed.' );
 }
 
