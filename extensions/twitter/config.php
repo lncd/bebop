@@ -8,9 +8,8 @@ function get_twitter_config() {
 		'name' 			=> 'twitter',
 		'pages'			=> array( 'settings', 'filters', 'users' ),
 		'defaultpage'	=> 'settings',
-		'hashtag'		=> '#twitter'
+		'hashtag'		=> '#twitter',
 	);
 	return $config;
 }
-
 ?>

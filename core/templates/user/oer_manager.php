@@ -6,8 +6,8 @@
 if ( isset( $_POST ) ) {
 	if ( isset( $_POST['action'] ) ) {
 		//Add OER's to the activity stream.
-		if ( $_POST['action'] == 'verify')  {
-			foreach ( array_keys( $_POST ) as $oer ) { //get the array key id.
+		if ( $_POST['action'] == 'verify') {
+			foreach ( array_keys( $_POST ) as $oer ) {//get the array key id.
 				if ( $oer != 'action' ) {
 					$data = bebop_tables::fetch_individual_oer_data( $oer ); //go and fetch data from the activity buffer table.
 					if ( ! empty( $data->id ) ) {
@@ -36,34 +36,34 @@ if ( isset( $_POST ) ) {
 							else {
 								$activity->hide_sitewide = 0;
 							}
-							remove_filter('bp_activity_action_before_save', 'bp_activity_filter_kses', 1);
+							remove_filter( 'bp_activity_action_before_save', 'bp_activity_filter_kses', 1 );
 							
-							if( $activity->save() ) {
+							if ( $activity->save() ) {
 								bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'verified' );
 								bebop_tables::update_oer_data( $data->secondary_item_id, 'activity_stream_id', $activity_stream_id = $wpdb->insert_id );
 								bebop_filters::day_increase( $data->type, $data->user_id );
 							}
 							else {
-								bebop_tables::log_error( '_', 'Activity Stream', "Could not update the oer buffer status." );
+								bebop_tables::log_error( '_', 'Activity Stream', 'Could not update the oer buffer status.' );
 							}
 						}
-						else{
-							bebop_tables::log_error( '_', 'Activity Stream', "This content already exists in the activity stream." );
+						else {
+							bebop_tables::log_error( '_', 'Activity Stream', 'This content already exists in the activity stream.' );
 						}
 					}
 				}
 			}//End foreach ( array_keys($_POST) as $oe ) {
 		}//End if ( $_POST['action'] == 'verify' ) {
 		else if ( $_POST['action'] == 'delete' ) {
-			foreach ( array_keys( $_POST ) as $oer ) { //get the array key id.
-				if ($oer != 'action') {
+			foreach ( array_keys( $_POST ) as $oer ) {//get the array key id.
+				if ( $oer != 'action' ) {
 					$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
 					if ( ! empty( $data->id ) ) {
 						//delete the activity, let the filter update the tables.
-						if ( ! empty( $data->activity_stream_id) ) {
-							bp_activity_delete( array (
+						if ( ! empty( $data->activity_stream_id ) ) {
+							bp_activity_delete( array(
 								'id' => $data->activity_stream_id,
-							));
+							) );
 						}
 						else {
 							//else just update the status
@@ -83,11 +83,11 @@ if ( isset( $_POST ) ) {
 <?php
 global $bp;
 
-$unverified_oers = bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'unverified' );
-$verified_oers = bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'verified' );
-$removed_oers = bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'deleted' );
+$unverified_oers	= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'unverified' );
+$verified_oers		= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'verified' );
+$removed_oers		= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'deleted' );
 
-if (  ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( count( $removed_oers ) > 0 ) ) {
+if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( count( $removed_oers ) > 0 ) ) {
 
 	if ( count( $unverified_oers ) > 0 ) {
 		echo '<form class="bebop_user_form" method="post">';
@@ -158,9 +158,9 @@ if (  ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( 
 			
 		foreach ( $removed_oers as $removed_oer ) {
 			echo '<tr>
-				<td>' . bebop_tables::sanitise_element(ucfirst($removed_oer->type)) . '</td>' .
-				'<td>' . time_since($removed_oer->date_recorded) . '</td>' .
-				'<td>' . bebop_tables::sanitise_element($removed_oer->content) . '</td>' .
+				<td>' . bebop_tables::sanitise_element( ucfirst( $removed_oer->type ) ) . '</td>' .
+				'<td>' . time_since( $removed_oer->date_recorded ) . '</td>' .
+				'<td>' . bebop_tables::sanitise_element( $removed_oer->content ) . '</td>' .
 				"<td class='checkbox_container'><div class='checkbox'><label for='" . $removed_oer->secondary_item_id . "'></label><input type='checkbox' id='" . $removed_oer->secondary_item_id . "' name='" . $removed_oer->secondary_item_id . "'></div></td>" .
 			'</tr>';
 		}

@@ -42,7 +42,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_admin_menu.php'
 				}
 				
 				if ( $loadExtension ) {
-					if( isset( $_POST['submit'] ) ) {
+					if ( isset( $_POST['submit'] ) ) {
 						if ( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
 							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', trim( $_POST['bebop_' . $extension['name'] . '_provider'] ) );
 						}

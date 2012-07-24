@@ -1,12 +1,11 @@
 <?php if ( ( ! isset( $_GET['oer'] ) ) && ( ! isset( $_GET['action'] ) ) ) {  
-
 	//Only shows if it is the users profile.  
 	if ( bp_is_my_profile() ) {
 		echo '<h3>User Settings</h3>';
 		$activeExtensions = array();
 		//get the active extension
 		foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-			if (bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on') {
+			if ( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
 				$activeExtensions[] = $extension['name'];
 			}
 		}
