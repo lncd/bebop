@@ -10,7 +10,7 @@ function bebop_twitter_start_import() {
 		return false;
 	}
 	$importer = new bebop_twitter_import();
-	return $importer->doImport();
+	return $importer->do_import();
 }
 
 /**
@@ -19,15 +19,13 @@ function bebop_twitter_start_import() {
 
 class bebop_twitter_import {
 	//do the import
-	public function doImport() {
+	public function do_import() {
 		global $bp, $wpdb;
 		//item counter for in the logs
 		$itemCounter = 0;
 		
 		if ( bebop_tables::check_option_exists( 'bebop_twitter_consumer_key' ) ) {
-
 			$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_twitter_oauth_token' );
-
 			if ( $user_metas ) {
 				foreach ( $user_metas as $user_meta ) {
 					//check for daylimit
@@ -36,7 +34,7 @@ class bebop_twitter_import {
 					if ( ! $limitReached && bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_twitter_sync_to_activity_stream' ) ) {
 						//Handle the OAuth requests
 						$OAuth = new bebop_oauth();
-						$OAuth->setCallbackUrl('$bp->root_domain');
+						$OAuth->setCallbackUrl( '$bp->root_domain' );
 						$OAuth->setConsumerKey( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
 						$OAuth->setConsumerSecret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
 						$OAuth->setAccessToken( bebop_tables::get_user_meta_value( $user_meta->user_id,'bebop_twitter_oauth_token' ) );
@@ -45,16 +43,16 @@ class bebop_twitter_import {
 						$items = $OAuth->oAuthRequest( 'http://api.twitter.com/1/statuses/user_timeline.xml' );
 						$items = simplexml_load_string( $items );
 						
-						if ($items && !$items->error) {
+						if ( $items && !$items->error ) {
 							//update the user username
-							$username = ''.$items->status->user->screen_name[0];
+							$username = '' . $items->status->user->screen_name[0];
 							bebop_tables::update_user_meta( $user_meta->user_id, 'twitter', 'bebop_twitter_username', $username );
 							//go through tweets
 							foreach ( $items as $tweet ) {
-								$activity_info = bp_activity_get( array( 'filter' => array( 'secondary_id' => $user_meta->user_id."_".$tweet->id ),'show_hidden' => true ) );
+								$activity_info = bp_activity_get( array( 'filter' => array( 'secondary_id' => $user_meta->user_id . '_' . $tweet->id ), 'show_hidden' => true ) );
 								
 								if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content( $tweet->text ) )  && ( ! $limitReached ) ) {
-									if(bebop_create_buffer_item( array(
+									if( bebop_create_buffer_item( array(
 										'user_id'			=> $user_meta->user_id,
 										'extention'			=> 'twitter',
 										'type'				=> 'tweet',
@@ -62,7 +60,7 @@ class bebop_twitter_import {
 										'content_oembed'	=> false,			//true if you want to use oembed, false if not.
 										'item_id'			=> $tweet->id,
 										'raw_date'			=> gmdate( 'Y-m-d H:i:s', strtotime( $tweet->created_at ) ),
-										'actionlink'		=> 'http://www.twitter.com/' . $username . '/status/'.$tweet->id
+										'actionlink'		=> 'http://www.twitter.com/' . $username . '/status/'.$tweet->id,
 										)
 									)) {
 										$itemCounter++;

@@ -6,7 +6,7 @@
 if ( isset( $_POST ) ) {
 	if ( isset( $_POST['action'] ) ) {
 		//Add OER's to the activity stream.
-		if ( $_POST['action'] == 'verify') {
+		if ( $_POST['action'] == 'verify' ) {
 			foreach ( array_keys( $_POST ) as $oer ) {//get the array key id.
 				if ( $oer != 'action' ) {
 					$data = bebop_tables::fetch_individual_oer_data( $oer ); //go and fetch data from the activity buffer table.
@@ -61,9 +61,11 @@ if ( isset( $_POST ) ) {
 					if ( ! empty( $data->id ) ) {
 						//delete the activity, let the filter update the tables.
 						if ( ! empty( $data->activity_stream_id ) ) {
-							bp_activity_delete( array(
-								'id' => $data->activity_stream_id,
-							) );
+							bp_activity_delete(
+								array(
+									'id' => $data->activity_stream_id,
+								)
+							);
 						}
 						else {
 							//else just update the status
@@ -88,7 +90,6 @@ $verified_oers		= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'verifie
 $removed_oers		= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'deleted' );
 
 if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( count( $removed_oers ) > 0 ) ) {
-
 	if ( count( $unverified_oers ) > 0 ) {
 		echo '<form class="bebop_user_form" method="post">';
 		echo '<h4> Unverified OERs</h4>

@@ -15,7 +15,7 @@ if ( isset( $_POST['submit'] ) ){
 //remove the user
 if ( isset( $_GET['reset_user_id'] ) ) {
 	$user_id = trim( $_GET['reset_user_id'] );
-	bebop_tables::remove_user_from_provider( $user_id, 'twitter') ;
+	bebop_tables::remove_user_from_provider( $user_id, 'twitter' );
 	
 	echo '<div class="bebop_success_box">User has been removed.</div>';
 }
@@ -31,7 +31,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_admin_menu.php'
 		<input type='text' id='bebop_twitter_consumer_secret' name='bebop_twitter_consumer_secret' value='<?php echo bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ); ?>' size='50'>
 		
 		<label for='bebop_twitter_maximport'>Maximum amount of imports:</label>
-		<input type='text' id='bebop_twitter_maximport' name='bebop_twitter_maximport' value='<?php echo bebop_tables::get_option_value('bebop_twitter_maximport'); ?>' size='5'>
+		<input type='text' id='bebop_twitter_maximport' name='bebop_twitter_maximport' value='<?php echo bebop_tables::get_option_value( 'bebop_twitter_maximport' ); ?>' size='5'>
 	<div class='bebop_button_container'><button id='submit' name='submit'>Save Changes</button></div>
 	</fieldset>
 </form>

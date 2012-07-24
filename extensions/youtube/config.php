@@ -8,9 +8,8 @@ function get_youtube_config() {
 		'name' 			=> 'youtube',
 		'type'			=> 'youtube',
 		'pages'			=> array( 'settings', 'users' ),
-		'defaultpage'	=> 'settings'
+		'defaultpage'	=> 'settings',
 	);
 	return $config;
 }
-
 ?>
