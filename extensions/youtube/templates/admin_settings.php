@@ -1,21 +1,17 @@
-<link rel="stylesheet" href="<?php echo plugins_url() . '/bebop/core/resources/css/admin.css';?>" type="text/css">
-<link rel="shortcut icon" href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
-
-
+<link rel='stylesheet' href='<?php echo plugins_url() . '/bebop/core/resources/css/admin.css';?>' type='text/css'>
+<link rel='shortcut icon' href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
 <?php
-
-
-if ($_POST) {
-   	bebop_tables::update_option('bebop_youtube_maximport', trim(strip_tags(strtolower($_POST['bebop_youtube_maximport']))));
-   	bebop_tables::update_option('bebop_youtube_setup', true);      
-   	
-   	echo '<div class="bebop_success_box">Settings Saved.</div>';
+if ( isset( $_POST ) ) {
+	bebop_tables::update_option( 'bebop_youtube_maximport', trim( strip_tags( strtolower( $_POST['bebop_youtube_maximport'] ) ) ) );
+	bebop_tables::update_option( 'bebop_youtube_setup', true);
+	
+	echo '<div class="bebop_success_box">Settings Saved.</div>';
 }
-  //remove the user
-if( isset( $_GET['reset_user_id'] ) ) {
-	$user_id = trim($_GET['reset_user_id']);
-	bebop_tables::remove_user_from_provider($user_id, 'youtube');
+//remove the user
+if ( isset( $_GET['reset_user_id'] ) ) {
+	$user_id = trim( $_GET['reset_user_id'] );
+	bebop_tables::remove_user_from_provider( $user_id, 'youtube' );
 	
 	echo '<div class="bebop_success_box">User has been removed.</div>';
 }
@@ -32,8 +28,8 @@ include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php"
 	  
 </form>
 <?php
-$user_metas = bebop_tables::get_user_ids_from_meta_name('bebop_youtube_username');
-if(count($user_metas) > 0) {
+$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_youtube_username' );
+if ( count( $user_metas ) > 0 ) {
 	?>
 	<table class='bebop_settings_table'>
 		<tr class='nodata'>
@@ -48,15 +44,15 @@ if(count($user_metas) > 0) {
 			<td class='bold'>Options</td>
 		</tr>
 		<?php	
-	
-		foreach( $user_metas as $user ) {	
-			$this_user = get_userdata($user->user_id);
-			echo "<tr>
-				<td>" . bebop_tables::sanitise_element($user->user_id) . "</td>
-				<td>" . bebop_tables::sanitise_element($this_user->user_login) . "</td>
-				<td>" . bebop_tables::sanitise_element($this_user->user_email) . "</td>
-				<td>" . bebop_tables::sanitise_element(bebop_tables::get_user_meta_value( $user->user_id, 'bebop_youtube_username' ) ) . "</td>
-				<td><a href='?page=bebop_youtube&reset_user_id=" . bebop_tables::sanitise_element($user->user_id) . "'>Reset User</a></td>
+		
+		foreach ( $user_metas as $user ) {	
+			$this_user = get_userdata( $user->user_id) ;
+			echo '<tr>
+				<td>' . bebop_tables::sanitise_element( $user->user_id ) . '</td>
+				<td>' . bebop_tables::sanitise_element( $this_user->user_login ) . '</td>
+				<td>' . bebop_tables::sanitise_element( $this_user->user_email ) . '</td>
+				<td>' . bebop_tables::sanitise_element( bebop_tables::get_user_meta_value( $user->user_id, 'bebop_youtube_username' ) ) . "</td>
+				<td><a href='?page=bebop_youtube&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>Reset User</a></td>
 			</tr>";
 		}
 	?>

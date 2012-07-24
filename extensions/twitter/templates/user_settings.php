@@ -12,7 +12,6 @@ if ( isset( $_GET['reset'] ) ) {
 }
 
 if ( isset( $_GET['oauth_token'] ) ) {
-	
 	//Handle the oAuth requests
 	$OAuth = new bebop_oauth();
 	$OAuth->setRequestTokenUrl( 'http://api.twitter.com/oauth/request_token' );
@@ -23,7 +22,7 @@ if ( isset( $_GET['oauth_token'] ) ) {
 	$OAuth->setCallbackUrl( $bp->loggedin_user->domain . 'bebop-oers/?oer=twitter' );
 	$OAuth->setConsumerKey( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
 	$OAuth->setConsumerSecret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
-	$OAuth->setRequestToken (bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_twitter_oauth_token_temp' ) );
+	$OAuth->setRequestToken( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_twitter_oauth_token_temp' ) );
 	$OAuth->setRequestTokenSecret( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_twitter_oauth_token_secret_temp' ) );
 	
 	$accessToken = $OAuth->accessToken();
@@ -54,10 +53,8 @@ if ( ( bebop_tables::get_option_value( 'bebop_twitter_provider' ) == 'on') && ( 
 		echo '<br/><h5>Sync tweets to activity stream</h5>
 		<input type="radio" name="bebop_twitter_sync_to_activity_stream" id="bebop_twitter_sync_to_activity_stream" value="1"';  if ( $bebop_twitter_sync_to_activity_stream == 1 ) { echo 'checked'; } echo '>
 		<label for="yes">Yes</label>
-		
 		<input type="radio" name="bebop_twitter_sync_to_activity_stream" id="bebop_twitter_sync_to_activity_stream" value="0"'; if ( $bebop_twitter_sync_to_activity_stream == 0 ) { echo 'checked'; } echo '>
 		<label for="no">No</label><br><br>
-		
 		<input type="submit" class="button_auth" value="Save Settings">';
 			
 		if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_twitter_oauth_token' ) ) {

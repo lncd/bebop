@@ -7,7 +7,7 @@ if ( isset( $_POST ) ) {
 	if ( isset( $_POST['action'] ) ) {
 		//Add OER's to the activity stream.
 		if ( $_POST['action'] == 'verify' ) {
-			foreach ( array_keys( $_POST ) as $oer ) {//get the array key id.
+			foreach ( array_keys( $_POST ) as $oer ) {
 				if ( $oer != 'action' ) {
 					$data = bebop_tables::fetch_individual_oer_data( $oer ); //go and fetch data from the activity buffer table.
 					if ( ! empty( $data->id ) ) {
@@ -55,16 +55,16 @@ if ( isset( $_POST ) ) {
 			}//End foreach ( array_keys($_POST) as $oe ) {
 		}//End if ( $_POST['action'] == 'verify' ) {
 		else if ( $_POST['action'] == 'delete' ) {
-			foreach ( array_keys( $_POST ) as $oer ) {//get the array key id.
+			foreach ( array_keys( $_POST ) as $oer ) {
 				if ( $oer != 'action' ) {
 					$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
 					if ( ! empty( $data->id ) ) {
 						//delete the activity, let the filter update the tables.
 						if ( ! empty( $data->activity_stream_id ) ) {
 							bp_activity_delete(
-								array(
-									'id' => $data->activity_stream_id,
-								)
+											array(
+												'id' => $data->activity_stream_id,
+											)
 							);
 						}
 						else {
