@@ -65,10 +65,11 @@ function bebop_create_buffer_item( $params ) {
 				$clean_comment = trim( strip_tags( $content ) );
 				
 				if ( ! empty( $clean_comment ) ) {
-					$wpdb->query( $wpdb->prepare(
-							'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s ) ',
-							$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
-							$wpdb->escape( $params['user_id'] . '_' . $params['item_id'] ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
+					$wpdb->query(
+							$wpdb->prepare(
+									'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( user_id, status, type, action, content, secondary_item_id, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s ) ',
+									$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
+									$wpdb->escape( $params['user_id'] . '_' . $params['item_id'] ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
 							)
 					);
 					bebop_filters::day_increase( $params['extention'], $params['user_id'] );

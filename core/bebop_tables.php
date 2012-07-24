@@ -76,12 +76,12 @@ class bebop_tables {
 		global $wpdb;
 		
 		//only pull data form active extensions
-		$handle		= opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
+		$handle     = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 		$extensions = array();
 		//loop extentions so we can add active extentions to the import loop
 		if ( $handle ) {
 			while ( false !== ( $file = readdir( $handle ) ) ) {
-				if ( $file != '.' && $file != '..' && $file != '.DS_Store') {
+				if ( $file != '.' && $file != '..' && $file != '.DS_Store' ) {
 					if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . 'import.php' ) ) {
 						if ( bebop_tables::get_option_value( 'bebop_' . $file . '_provider' ) == 'on' ) {
 							$extensions[] = "'" . $file . "'";
@@ -90,8 +90,8 @@ class bebop_tables {
 				}
 			}
 		}
-		$names	= join( ',',$wpdb->escape( $extensions ) );
-		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN (" . stripslashes( $names ) . ") ORDER BY date_recorded DESC" );
+		$name   = join( ',',$wpdb->escape( $extensions ) );
+		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN (". stripslashes( $names ) . ') ORDER BY date_recorded DESC' );
 		return $result;
 	}
 
@@ -102,7 +102,7 @@ class bebop_tables {
 			return $result[0];
 		}
 		else {
-			bebop_tables::log_error( '_', 'Activity Stream', "could not find $secondary_item_id in the oer buffer.") ;
+			bebop_tables::log_error( '_', 'Activity Stream', "could not find $secondary_item_id in the oer buffer." );
 		}
 	}
 	
@@ -126,17 +126,17 @@ class bebop_tables {
 		global $wpdb;
 		
 		if ( $feed_id ) {
-			$wpdb->query( $wpdb->prepare( 'NSERT INTO ' . $wpdb->base_prefix . "bp_bebop_error_log (feed_id, error_type, error_message) VALUES (%s, %s, %s)", $wpdb->escape( $feed_id ), $wpdb->escape( $error_type ), $wpdb->escape( $error_message ) ) );
+			$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_error_log (feed_id, error_type, error_message) VALUES (%s, %s, %s)', $wpdb->escape( $feed_id ), $wpdb->escape( $error_type ), $wpdb->escape( $error_message ) ) );
 		}
 		else {
-			$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . "bp_bebop_error_log (feed_id, error_type, error_message) VALUES (NULL, %s, %s)", $wpdb->escape( $feed_id ), $wpdb->escape( $error_type ), $wpdb->escape( $error_message ) ) );
+			$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_error_log (feed_id, error_type, error_message) VALUES (NULL, %s, %s)', $wpdb->escape( $feed_id ), $wpdb->escape( $error_type ), $wpdb->escape( $error_message ) ) );
 		}
 	}
 	
 	function log_general( $type, $message ) { //function to log general events into the log table.
 		global $wpdb;
 
-		$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . "bp_bebop_general_log (type, message) VALUES (%s, %s)", $wpdb->escape( $type ), $wpdb->escape( $message ) ) );
+		$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_general_log (type, message) VALUES (%s, %s)', $wpdb->escape( $type ), $wpdb->escape( $message ) ) );
 	}
 	
 	/*
@@ -145,7 +145,7 @@ class bebop_tables {
 	function fetch_table_data( $table_name ) { //function to retrieve stuff from tables
 		global $wpdb;
 		
-		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . $table_name . " ORDER BY timestamp DESC" );
+		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . $table_name . ' ORDER BY timestamp DESC' );
 		return $result;
 	}
 	
@@ -174,7 +174,7 @@ class bebop_tables {
 	
 	function get_option_value( $option_name ) { //function to get an option from the options table.
 		global $wpdb;
-		$result = $wpdb->get_row( "SELECT option_value FROM " . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
+		$result = $wpdb->get_row( 'SELECT option_value FROM ' . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
 		if ( ! empty( $result->option_value ) ) {
 			return $result->option_value;
 		}
@@ -188,7 +188,7 @@ class bebop_tables {
 		
 		if ( bebop_tables::check_option_exists( $option_name ) == true ) {
 			$result = $wpdb->query( 'UPDATE ' . $wpdb->base_prefix . "bp_bebop_options SET option_value = '"  . $wpdb->escape( $option_value ) . "' WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
-			if( ! empty( $result ) ) {
+			if ( ! empty( $result ) ) {
 				return $result;
 			}
 			else {
@@ -223,10 +223,10 @@ class bebop_tables {
 		
 		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == false ) {
 			$wpdb->query(
-				$wpdb->prepare(
-							'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
-							$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
-				)
+							$wpdb->prepare(
+								'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
+								$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
+							)
 			);
 			return true;
 		}
@@ -250,7 +250,7 @@ class bebop_tables {
 	/*Special function to return list of users with a specific import type */
 	function get_user_ids_from_meta_name( $meta_name ) {//function to get user id's from the meta table
 		global $wpdb;
-		$result = $wpdb->get_results( 'SELECT user_id FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE meta_name = '" . $wpdb->escape( $meta_name)  . "'" );
+		$result = $wpdb->get_results( 'SELECT user_id FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE meta_name = '" . $wpdb->escape( $meta_name )  . "'" );
 		return $result;
 	}
 	
