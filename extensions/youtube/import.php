@@ -50,59 +50,56 @@ class bebop_youtube_import {
 						foreach ( $items as $item ) {
 							$limitReached = bebop_filters::import_limit_reached( 'youtube', $user_meta->user_id );
 						
-						// get video player URL
-						$link = $item->get_permalink();
-						
-						//get the video id from player url
-						$videoIdArray = explode( "=", $link );
-						$videoId = $videoIdArray[1];
-						$videoId = str_replace( "&feature", "", $videoId );
-						$videoId = str_replace( "&amp;feature", "", $videoId );
-						//get the thumbnail
-						// $thumbnail = "http://i.ytimg.com/vi/" . $videoId . "/0.jpg";
-						$activity_info = bp_activity_get( array( 'filter' => array( 'secondary_id' => $user_meta->user_id . "_" . $videoId ), 'show_hidden' => true, ) );
-						if ( ! $activity_info['activities'][0]->id && !$limitReached) {
-						
-						$description = "";
-						$description = $item->get_content();
-						if (strlen($description) > 400) {
-						$description = substr($description, 0, 400) . "... <a href='http://www.youtube.com/watch/?v=" . $videoId . "'>read more</a>";
+							// get video player URL
+							$link = $item->get_permalink();
+							
+							//get the video id from player url
+							$videoIdArray = explode( "=", $link );
+							$videoId = $videoIdArray[1];
+							$videoId = str_replace( "&feature", "", $videoId );
+							$videoId = str_replace( "&amp;feature", "", $videoId );
+							//get the thumbnail
+							// $thumbnail = "http://i.ytimg.com/vi/" . $videoId . "/0.jpg";
+							$activity_info = bp_activity_get( array( 'filter' => array( 'secondary_id' => $user_meta->user_id . "_" . $videoId ), 'show_hidden' => true, ) );
+							if ( ! $activity_info['activities'][0]->id && !$limitReached) {
+								$description = '';
+								$description = $item->get_content();
+								if ( strlen( $description ) > 400 ) {
+									$description = substr( $description, 0, 400 ) . "... <a href='http://www.youtube.com/watch/?v=" . $videoId . "'>read more</a>";
+								}
+								
+								//This manually puts the link and description together with a line break.
+								$content = 'http://www.youtube.com/watch?v=' . $videoId . '
+								Description: ' . $description;
+								
+								//pre convert date
+								$ts = strtotime( $item->get_date() );
+								
+								$returnCreate = bebop_create_buffer_item(
+									array(
+								        'user_id' 			=> $user_meta->user_id,
+										'extention' 		=> 'youtube',
+										'type' 				=> 'Youtube video',
+										'content' 			=> $content,
+										'content_oembed' 	=> true,		//true if you want to use oembed, false if not.
+										'item_id' 			=> $videoId,
+										'raw_date' 			=> date("Y-m-d H:i:s", $ts),
+										'actionlink'	 	=> 'http://www.youtube.com/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bebop_youtube_username'),
+									)
+								);
+								
+								if( $returnCreate ){
+									$itemCounter++;
+								}
+							}
 						}
-						
-						//This manually puts the link and description together with a line break.
-						$content = 'http://www.youtube.com/watch?v=' . $videoId . '
-						Description: ' . $description;
-						
-						//pre convert date
-						$ts = strtotime($item->get_date());
-						
-						$returnCreate = bebop_create_buffer_item(
-							array(
-						        'user_id' 			=> $user_meta->user_id,
-						'extention' 		=> 'youtube',
-						'type' 				=> 'Youtube video',
-						'content' 			=> $content,
-						'content_oembed' 	=> true,		//true if you want to use oembed, false if not.
-						'item_id' 			=> $videoId,
-						'raw_date' 			=> date("Y-m-d H:i:s", $ts),
-						'actionlink'	 	=> 'http://www.youtube.com/' . bebop_tables::get_user_meta_value($user_meta->user_id, 'bebop_youtube_username')
-						        )
-						    );
-						
-						    if($returnCreate){
-						        $itemCounter++;
-						    }
-						}
-                            }
-                        
-                    }
-                }
-            }
-        }
-
-        //add record to the log
-		bebop_tables::log_general("bebop_youtube_import", "imported ".$itemCounter." video's.");
-        //return number of items imported
-        return $itemCounter;
-    }
+					}
+				}
+			}
+		}
+		//add record to the log
+		bebop_tables::log_general( "bebop_youtube_import", "imported ".$itemCounter." video's." );
+		//return number of items imported
+		return $itemCounter;
+	}
 }
