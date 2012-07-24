@@ -10,11 +10,11 @@ if ( isset( $_POST['submit'] ) ){
 	//set the new importer queue
 	$importerQueue = array();
 	foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-		if ( is_array($extension) && isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) && $_POST['bebop_' . $extension['name'] . '_provider'] == 'on' ) {
+		if ( is_array( $extension ) && isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) && $_POST['bebop_' . $extension['name'] . '_provider'] == 'on' ) {
 			$importerQueue[] = $extension['name'];
 		}
 	}
-	bebop_tables::update_option( "bebop_importers_queue", implode( ",", $importerQueue ) );
+	bebop_tables::update_option( 'bebop_importers_queue', implode( ',', $importerQueue ) );
 	echo '<div class="bebop_success_box">Settings Saved.</div>';
 }
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_admin_menu.php' ); ?>
@@ -56,19 +56,19 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_admin_menu.php'
 						<td>' . bebop_tables::count_oers_by_extension( $extension['name'] ) . '</td>
 						<td>';
 						echo "<label for='bebop_" . $extension['name'] . "_provider'>Enabled:</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
-						if ( bebop_tables::get_option_value('bebop_' . $extension['name'] . '_provider') == 'on' ) {
+						if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 							echo 'CHECKED';
 						}
-						echo "></td>
-						<td>";
-						if ( bebop_tables::get_option_value('bebop_' . $extension['name'] . '_provider') == 'on' ) {
+						echo '></td>
+						<td>';
+						if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 							echo '<a href="?page=bebop_' . $extension['name'] . '">Admin Settings</a>';
 						}
 						else {
-							echo "enable for options";
+							echo 'enable for options';
 						}
-						echo"</td>
-					</tr>";
+						echo'</td>
+					</tr>';
 				}
 			}
 		}

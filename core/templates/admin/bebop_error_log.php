@@ -38,13 +38,13 @@ if ( isset( $_GET ) ) {
 			</tr>
 			<?php
 			foreach ( $table_row_data as $row_data ) {
-				echo "<tr>
-					<td>" . bebop_tables::sanitise_element( $row_data->id ) . "</td>" .
-					"<td>" . bebop_tables::sanitise_element( $row_data->feed_id ) . "</td>
-					<td>" . bebop_tables::sanitise_element( $row_data->timestamp ) . "</td>
-					<td>" . bebop_tables::sanitise_element( $row_data->error_type ) . "</td>
-					<td>" . bebop_tables::sanitise_element( $row_data->error_message ) . "</td>
-				</tr>";
+				echo '<tr>
+					<td>' . bebop_tables::sanitise_element( $row_data->id ) . '</td>' .
+					'<td>'. bebop_tables::sanitise_element( $row_data->feed_id ) . '</td>
+					<td>' . bebop_tables::sanitise_element( $row_data->timestamp ) . '</td>
+					<td>' . bebop_tables::sanitise_element( $row_data->error_type ) . '</td>
+					<td>' . bebop_tables::sanitise_element( $row_data->error_message ) . '</td>
+				</tr>';
 			}
 			?>
 		<!-- <End bebop_table -->
