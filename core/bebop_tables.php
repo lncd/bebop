@@ -76,21 +76,21 @@ class bebop_tables {
 		global $wpdb;
 		
 		//only pull data form active extensions
-		$handle = opendir ( WP_PLUGIN_DIR . '/bebop/extensions' );
+		$handle		= opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 		$extensions = array();
 		//loop extentions so we can add active extentions to the import loop
 		if ( $handle ) {
 			while ( false !== ( $file = readdir( $handle ) ) ) {
 				if ( $file != '.' && $file != '..' && $file != '.DS_Store') {
 					if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . 'import.php' ) ) {
-						if ( bebop_tables::get_option_value( 'bebop_' . $file . '_provider') == 'on') {
+						if ( bebop_tables::get_option_value( 'bebop_' . $file . '_provider' ) == 'on' ) {
 							$extensions[] = "'" . $file . "'";
 						}
 					}
 				}
 			}
 		}
-		$names = join( ',',$wpdb->escape( $extensions ) );
+		$names	= join( ',',$wpdb->escape( $extensions ) );
 		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN (" . stripslashes( $names ) . ") ORDER BY date_recorded DESC" );
 		return $result;
 	}
@@ -102,7 +102,7 @@ class bebop_tables {
 			return $result[0];
 		}
 		else {
-			bebop_tables::log_error( '_', 'Activity Stream', "could not find $secondary_item_id in the oer buffer.");
+			bebop_tables::log_error( '_', 'Activity Stream', "could not find $secondary_item_id in the oer buffer.") ;
 		}
 	}
 	
@@ -122,14 +122,14 @@ class bebop_tables {
 	* Tables
 	*/
 	
-	function log_error( $feed_id=null, $error_type, $error_message ) { //function to log errors into the error table.
+	function log_error( $feed_id = null, $error_type, $error_message ) { //function to log errors into the error table.
 		global $wpdb;
 		
 		if ( $feed_id ) {
 			$wpdb->query( $wpdb->prepare( 'NSERT INTO ' . $wpdb->base_prefix . "bp_bebop_error_log (feed_id, error_type, error_message) VALUES (%s, %s, %s)", $wpdb->escape( $feed_id ), $wpdb->escape( $error_type ), $wpdb->escape( $error_message ) ) );
 		}
 		else {
-			$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . "bp_bebop_error_log (feed_id, error_type, error_message) VALUES (NULL, %s, %s)", $wpdb->escape($feed_id), $wpdb->escape($error_type), $wpdb->escape($error_message) ) );
+			$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . "bp_bebop_error_log (feed_id, error_type, error_message) VALUES (NULL, %s, %s)", $wpdb->escape( $feed_id ), $wpdb->escape( $error_type ), $wpdb->escape( $error_message ) ) );
 		}
 	}
 	
@@ -163,7 +163,7 @@ class bebop_tables {
 	
 	function check_option_exists( $option_name ) { //function to chech whether an option exists in the options table.
 		global $wpdb;
-		$result = $wpdb->get_row('SELECT option_name FROM ' . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
+		$result = $wpdb->get_row( 'SELECT option_name FROM ' . $wpdb->base_prefix . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
 		if ( ! empty( $result->option_name ) ) {
 			return true;
 		}
@@ -222,10 +222,12 @@ class bebop_tables {
 		global $wpdb;
 		
 		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == false ) {
-			$wpdb->query( $wpdb->prepare(
-				'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
-				$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
-			) );
+			$wpdb->query(
+				$wpdb->prepare(
+							'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
+							$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
+				)
+			);
 			return true;
 		}
 		else {
@@ -246,13 +248,13 @@ class bebop_tables {
 		}
 	}
 	/*Special function to return list of users with a specific import type */
-	function get_user_ids_from_meta_name( $meta_name ) { //function to get user id's from the meta table
+	function get_user_ids_from_meta_name( $meta_name ) {//function to get user id's from the meta table
 		global $wpdb;
 		$result = $wpdb->get_results( 'SELECT user_id FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE meta_name = '" . $wpdb->escape( $meta_name)  . "'" );
 		return $result;
 	}
 	
-	function get_user_meta_value( $user_id, $meta_name ) { //function to get user meta from the user_meta table.
+	function get_user_meta_value( $user_id, $meta_name ) {//function to get user meta from the user_meta table.
 		global $wpdb;
 		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
 		if ( ! empty( $result->meta_value ) ) {

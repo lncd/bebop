@@ -4,8 +4,8 @@
 /**
  * User settings
  */
-if( isset( $_get['action'] ) ) {
-	if ($_GET['action'] == "logout" ) {
+if ( isset( $_get['action'] ) ) {
+	if ( $_GET['action'] == 'logout' ) {
 	}
 	else {
 		bebop_setup_user_nav();
@@ -20,53 +20,53 @@ function bebop_setup_user_nav() {
 	
 	//Shows in the profile all the time.
 	bp_core_new_nav_item(
-		array(
-			'name' => 'Open Educational Resources',
-			'slug' => 'bebop-oers',
-			'position' => 30,
-			'show_for_displayed_user' => true,
-			'screen_function' => 'bebop_user_settings',
-			'default_subnav_slug' => 'bebop_user_settings',
-		)
+					array(
+						'name' => 'Open Educational Resources',
+						'slug' => 'bebop-oers',
+						'position' => 30,
+						'show_for_displayed_user' => true,
+						'screen_function' => 'bebop_user_settings',
+						'default_subnav_slug' => 'bebop_user_settings',
+					)
 	);
 	
 	//Checks to make sure its the users profile before looping through the different extensions options.
-	if( bp_is_my_profile() ) {
-		$handle = opendir (WP_PLUGIN_DIR . '/bebop/extensions' );
+	if ( bp_is_my_profile() ) {
+		$handle     = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 		$extensions = array();
 		
 		bp_core_new_subnav_item(
-			array(
-				'name' => 'Home',
-				'slug' => 'home',
-				'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
-				'parent_slug' => 'bebop-oers',
-				'screen_function' => 'bebop_user_settings',
-				'position' => 10,
-				'user_has_access' => bp_is_my_profile (),
-			)
+						array(
+							'name' => 'Home',
+							'slug' => 'home',
+							'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
+							'parent_slug' => 'bebop-oers',
+							'screen_function' => 'bebop_user_settings',
+							'position' => 10,
+							'user_has_access' => bp_is_my_profile(),
+						)
 		);
 		bp_core_new_subnav_item(
-			array(
-				'name' => 'OER Providers',
-				'slug' => 'providers',
-				'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
-				'parent_slug' => 'bebop-oers',
-				'screen_function' => 'bebop_user_settings',
-				'position' => 20,
-				'user_has_access' => bp_is_my_profile (),
-			)
+						array(
+							'name' => 'OER Providers',
+							'slug' => 'providers',
+							'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
+							'parent_slug' => 'bebop-oers',
+							'screen_function' => 'bebop_user_settings',
+							'position' => 20,
+							'user_has_access' => bp_is_my_profile(),
+						)
 		);
 		bp_core_new_subnav_item(
-			array(
-				'name' => 'OER Manager',
-				'slug' => 'manager',
-				'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
-				'parent_slug' => 'bebop-oers',
-				'screen_function' => 'bebop_user_settings',
-				'position' => 20,
-				'user_has_access' => bp_is_my_profile (),
-			)
+						array(
+							'name' => 'OER Manager',
+							'slug' => 'manager',
+							'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
+							'parent_slug' => 'bebop-oers',
+							'screen_function' => 'bebop_user_settings',
+							'position' => 20,
+							'user_has_access' => bp_is_my_profile(),
+						)
 		);
 	}
 }
@@ -90,12 +90,12 @@ function bebop_admin_menu() {
 		return false;
 	}
 	add_menu_page(
-		__('Bebop Admin', 'bebop'), 
-		__('Bebop', 'bebop'), 
-		'manage_options',
-		'bebop_admin', 
-		'bebop_admin_pages',
-		WP_PLUGIN_URL . '/bebop/core/resources/images/bebop_icon.png'
+					__( 'Bebop Admin', 'bebop' ),
+					__( 'Bebop', 'bebop' ),
+					'manage_options',
+					'bebop_admin', 
+					'bebop_admin_pages',
+					WP_PLUGIN_URL . '/bebop/core/resources/images/bebop_icon.png'
 	);
 	add_submenu_page( 'bebop_admin', 'Admin Main', 'Admin Main', 'manage_options', 'bebop_admin', 'bebop_admin_pages' );
 	add_submenu_page( 'bebop_admin', 'General Settings', 'General Settings', 'manage_options', 'bebop_admin_settings', 'bebop_admin_pages' );
@@ -105,10 +105,9 @@ function bebop_admin_menu() {
 	
 	//provider menu
 	foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-		if ( bebop_tables::check_option_exists( "bebop_" . $extension['name'] . "_provider" ) ) {
+		if ( bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_provider' ) ) {
 			if ( ! isset( $extension['parent'] ) ) {
 				add_submenu_page( 'bebop_admin', ucfirst( $extension['displayname'] ), ucfirst( $extension['displayname'] ), 'manage_options', 'bebop_'.$extension['name'], 'bebop_'.$extension['name'] );
-				
 			}
 		}
 	}
@@ -132,8 +131,8 @@ function bebop_admin_pages() {
 		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_general_log.php';
 	}
 	else {
-		echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $_GET["page"] . '" page not found. Loaded home instead.</div>';
-		include WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin.php";
+		echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $_GET['page'] . '" page not found. Loaded home instead.</div>';
+		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_admin.php';
 	}
 }  
 //add_action('admin_menu', 'bebop_admin_menu');

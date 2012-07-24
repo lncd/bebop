@@ -11,9 +11,9 @@ class bebop_filters {
 	//This checks to see if the limit for the amount of imports has been maxed for the day.
 	public function import_limit_reached( $extension, $userId ) {
 		//different day ot no day set, set the day and the counter to 0;
-		if ( bebop_tables::get_user_meta_value($userId, 'bebop_' . $extension . '_counterdate') != date( 'dmy' ) ) {
+		if ( bebop_tables::get_user_meta_value( $userId, 'bebop_' . $extension . '_counterdate' ) != date( 'dmy' ) ) {
 			bebop_tables::update_user_meta( $userId, $extension, 'bebop_' . $extension . '_daycounter', '0' );
-			bebop_tables::update_user_meta( $userId, $extension, 'bebop_' . $extension . '_counterdate', date( 'dmy') );
+			bebop_tables::update_user_meta( $userId, $extension, 'bebop_' . $extension . '_counterdate', date( 'dmy' ) );
 		}
 		
 		//max items per day * < shud be false return*
@@ -34,12 +34,12 @@ class bebop_filters {
 		}
 		$content = strip_tags( $content );
 
-		foreach ( explode (",", $filters ) as $filterValue ) {
+		foreach ( explode( ',', $filters ) as $filterValue ) {
 			 if ( $filterValue ) {
 			 	$filterValue = trim( $filterValue );
 			 	$filterValue = str_replace( '/','',$filterValue );
 			 	
-			 	if( preg_match( '/'.$filterValue.'/', $content ) > 0 ) {
+			 	if ( preg_match( '/'.$filterValue.'/', $content ) > 0 ) {
 			 		if ( $returnOnFirst ) {
 			 			return true;
 					}
