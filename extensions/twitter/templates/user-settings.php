@@ -6,7 +6,7 @@ global $bp;
 
 //resets the user's data
 if ( isset( $_GET['reset'] ) ) {
-	if ( $_GET['reset']  == 'true' ) {	
+	if ( $_GET['reset'] == 'true' ) {	
 		bebop_tables::remove_user_from_provider( $bp->loggedin_user->id, 'twitter' );
 	}
 }
@@ -51,9 +51,13 @@ if ( ( bebop_tables::get_option_value( 'bebop_twitter_provider' ) == 'on') && ( 
 		<h3> Settings</h3>';
 		
 		echo '<br/><h5>Sync tweets to activity stream</h5>
-		<input type="radio" name="bebop_twitter_sync_to_activity_stream" id="bebop_twitter_sync_to_activity_stream" value="1"';  if ( $bebop_twitter_sync_to_activity_stream == 1 ) { echo 'checked'; } echo '>
+		<input type="radio" name="bebop_twitter_sync_to_activity_stream" id="bebop_twitter_sync_to_activity_stream" value="1"';  if ( $bebop_twitter_sync_to_activity_stream == 1 ) {
+			echo 'checked';
+		} echo '>
 		<label for="yes">Yes</label>
-		<input type="radio" name="bebop_twitter_sync_to_activity_stream" id="bebop_twitter_sync_to_activity_stream" value="0"'; if ( $bebop_twitter_sync_to_activity_stream == 0 ) { echo 'checked'; } echo '>
+		<input type="radio" name="bebop_twitter_sync_to_activity_stream" id="bebop_twitter_sync_to_activity_stream" value="0"'; if ( $bebop_twitter_sync_to_activity_stream == 0 ) {
+			echo 'checked';
+		} echo '>
 		<label for="no">No</label><br><br>
 		<input type="submit" class="button_auth" value="Save Settings">';
 			

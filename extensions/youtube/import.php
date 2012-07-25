@@ -4,8 +4,8 @@
  */
 
 function bebop_youtube_start_import() {
-    $importer = new bebop_youtube_import();
-    return $importer->do_import();
+	$importer = new bebop_youtube_import();
+	return $importer->do_import();
 }
 
 /**
@@ -61,7 +61,7 @@ class bebop_youtube_import {
 							//get the thumbnail
 							// $thumbnail = "http://i.ytimg.com/vi/" . $videoId . "/0.jpg";
 							$activity_info = bp_activity_get( array( 'filter' => array( 'secondary_id' => $user_meta->user_id . '_' . $videoId ), 'show_hidden' => true, ) );
-							if ( ! $activity_info['activities'][0]->id && !$limitReached) {
+							if ( ! $activity_info['activities'][0]->id && !$limitReached ) {
 								$description = '';
 								$description = $item->get_content();
 								if ( strlen( $description ) > 400 ) {
@@ -88,7 +88,7 @@ class bebop_youtube_import {
 												)
 								);
 								
-								if( $returnCreate ){
+								if( $returnCreate ) {
 									$itemCounter++;
 								}
 							}

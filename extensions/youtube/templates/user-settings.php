@@ -1,7 +1,7 @@
 <link rel='stylesheet' href='<?php echo plugins_url() . '/bebop/core/resources/css/user.css';?>' type='text/css'>
 <div id='bebop_user_container'>
 <?php
-if( isset( $_GET['reset'] ) ) {
+if ( isset( $_GET['reset'] ) ) {
 	//Removes the channel name.
 	bebop_tables::remove_user_meta( $bp->loggedin_user->id, 'bebop_youtube_username' );
 }

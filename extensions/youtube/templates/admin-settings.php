@@ -4,7 +4,7 @@
 <?php
 if ( isset( $_POST ) ) {
 	bebop_tables::update_option( 'bebop_youtube_maximport', trim( strip_tags( strtolower( $_POST['bebop_youtube_maximport'] ) ) ) );
-	bebop_tables::update_option( 'bebop_youtube_setup', true);
+	bebop_tables::update_option( 'bebop_youtube_setup', true );
 	
 	echo '<div class="bebop_success_box">Settings Saved.</div>';
 }
@@ -16,13 +16,13 @@ if ( isset( $_GET['reset_user_id'] ) ) {
 	echo '<div class="bebop_success_box">User has been removed.</div>';
 }
 
-include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop-admin-menu.php" ); ?>
+include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
 <form method="post" class='bebop_admin_form'>
 	<fieldset>  
 		<legend><span class='header'>Youtube Settings</span></legend>
 		<label for='bebop_youtube_maximport'>Maximum amount of imports:</label>
-		<input type="text" id="bebop_youtube_maximport" name="bebop_youtube_maximport" value="<?php echo bebop_tables::get_option_value('bebop_youtube_maximport'); ?>" size="5">
+		<input type="text" id="bebop_youtube_maximport" name="bebop_youtube_maximport" value="<?php echo bebop_tables::get_option_value( 'bebop_youtube_maximport' ); ?>" size='5'>
 		<div class='bebop_button_container'><button>Save Changes</button></div>	
 	</fieldset>
 	  
@@ -46,7 +46,7 @@ if ( count( $user_metas ) > 0 ) {
 		<?php	
 		
 		foreach ( $user_metas as $user ) {	
-			$this_user = get_userdata( $user->user_id) ;
+			$this_user = get_userdata( $user->user_id );
 			echo '<tr>
 				<td>' . bebop_tables::sanitise_element( $user->user_id ) . '</td>
 				<td>' . bebop_tables::sanitise_element( $this_user->user_login ) . '</td>

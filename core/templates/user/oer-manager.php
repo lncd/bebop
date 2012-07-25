@@ -28,7 +28,7 @@ if ( isset( $_POST ) ) {
 							$activity->action				= $data->action;
 							$activity->content				= $data->content;
 							$activity->secondary_item_id	= $data->secondary_item_id;
-							$activity->date_recorded		= $data->date_recorded;
+							$activity->date_recorded	    = $data->date_recorded;
 							
 							if ( bebop_tables::get_option_value( 'bebop_'. $data->type . '_hide_sitewide' ) == 'on' ) {
 								$activity->hide_sitewide = 1;
@@ -86,8 +86,8 @@ if ( isset( $_POST ) ) {
 global $bp;
 
 $unverified_oers	= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'unverified' );
-$verified_oers		= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'verified' );
-$removed_oers		= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'deleted' );
+$verified_oers  	= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'verified' );
+$removed_oers  		= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, 'deleted' );
 
 if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( count( $removed_oers ) > 0 ) ) {
 	if ( count( $unverified_oers ) > 0 ) {

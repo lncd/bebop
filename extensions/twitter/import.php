@@ -53,16 +53,16 @@ class bebop_twitter_import {
 								
 								if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content( $tweet->text ) )  && ( ! $limitReached ) ) {
 									if ( bebop_create_buffer_item(
-										array(
-											'user_id'			=> $user_meta->user_id,
-											'extention'			=> 'twitter',
-											'type'				=> 'tweet',
-											'content'			=> $tweet->text,
-											'content_oembed'	=> false,			//true if you want to use oembed, false if not.
-											'item_id'			=> $tweet->id,
-											'raw_date'			=> gmdate( 'Y-m-d H:i:s', strtotime( $tweet->created_at ) ),
-											'actionlink'		=> 'http://www.twitter.com/' . $username . '/status/'.$tweet->id,
-										)
+													array(
+														'user_id'			=> $user_meta->user_id,
+														'extention'			=> 'twitter',
+														'type'				=> 'tweet',
+														'content'			=> $tweet->text,
+														'content_oembed'	=> false,			//true if you want to use oembed, false if not.
+														'item_id'			=> $tweet->id,
+														'raw_date'			=> gmdate( 'Y-m-d H:i:s', strtotime( $tweet->created_at ) ),
+														'actionlink'		=> 'http://www.twitter.com/' . $username . '/status/'.$tweet->id,
+													)
 									) ) {
 										$itemCounter++;
 									}
