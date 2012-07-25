@@ -25,7 +25,7 @@ class bebop_oauth {
 	protected $accessTokenSecret;
 	protected $requestType = 'GET';
 	protected $requestUrl;
-	protected $postData = NULL;
+	protected $postData   = NULL;
 	protected $paramaters = NULL;
 	
 	/*
@@ -310,7 +310,7 @@ class bebop_oauth {
 	* 
 	*/
 	function oauth_request( $url ) {
-		if( $this->get_parameters() ) {
+		if ( $this->get_parameters() ) {
 			$parameters = $this->get_parameters();
 		}
 		else {

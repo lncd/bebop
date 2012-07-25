@@ -37,8 +37,8 @@ class bebop_twitter_import {
 						$OAuth->set_callback_url( '$bp->root_domain' );
 						$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
 						$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
-						$OAuth->set_access_token( bebop_tables::get_user_meta_value( $user_meta->user_id,'bebop_twitter_oauth_token' ) );
-						$OAuth->set-access_token_secret( bebop_tables::get_user_meta_value( $user_meta->user_id,'bebop_twitter_oauth_token_secret' ) );
+						$OAuth->set_access_token( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_twitter_oauth_token' ) );
+						$OAuth->set_access_token_secret( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_twitter_oauth_token_secret' ) );
 						
 						$items = $OAuth->oauth_request( 'http://api.twitter.com/1/statuses/user_timeline.xml' );
 						$items = simplexml_load_string( $items );

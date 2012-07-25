@@ -36,7 +36,7 @@ class bebop_oauth_token {
  	* secret = the token secret
 	*/
 	function __construct( $key, $secret ) {
-		$this->key = $key;
+		$this->key    = $key;
 		$this->secret = $secret;
 	}
 
@@ -119,7 +119,7 @@ class bebop_signature_method_HMAC_SHA1 extends bebop_signature_method {
 		$request->base_string = $base_string;
 		$key_parts = array(
 			$consumer->secret,
-			($token) ? $token->secret : ""
+			($token) ? $token->secret : '',
 		);
 	
 		$key_parts = bebop_oauth_util::urlencode_rfc3986( $key_parts );
@@ -151,7 +151,7 @@ class bebop_signature_method_PLAINTEXT extends bebop_signature_method {
 	public function build_signature( $request, $consumer, $token ) {
 		$key_parts = array(
 			$consumer->secret,
-			($token) ? $token->secret : ""
+			($token) ? $token->secret : '',
 		);
 		
 		$key_parts = bebop_oauth_util::urlencode_rfc3986( $key_parts );
@@ -233,15 +233,15 @@ class bebop_oauth_request {
 	protected $http_url;
 	// for debug purposes
 	public $base_string;
-	public static $version = '1.0';
+	public static $version    = '1.0';
 	public static $POST_INPUT = 'php://input';
 
 	function __construct( $http_method, $http_url, $parameters = NULL)  {
 		$parameters = ($parameters) ? $parameters : array();
 		$parameters = array_merge( bebop_oauth_util::parse_parameters( parse_url( $http_url, PHP_URL_QUERY ) ), $parameters );
-		$this->parameters = $parameters;
+		$this->parameters  = $parameters;
 		$this->http_method = $http_method;
-		$this->http_url = $http_url;
+		$this->http_url    = $http_url;
 	}
 	/**
 	* attempt to build up a request from what was passed to the server
@@ -250,12 +250,8 @@ class bebop_oauth_request {
 		$scheme = ( ! isset( $_SERVER['HTTPS'] ) || $_SERVER['HTTPS'] != 'on' )
 		? 'http'
 		: 'https';
-		$http_url = ( $http_url)  ? $http_url : $scheme .
-			'://' . $_SERVER['SERVER_NAME'] .
-			':' .
-			$_SERVER['SERVER_PORT'] .
-			$_SERVER['REQUEST_URI'];
-			$http_method = ($http_method) ? $http_method : $_SERVER['REQUEST_METHOD'];
+		$http_url    = ( $http_url)  ? $http_url : $scheme . '://' . $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
+		$http_method = ($http_method) ? $http_method : $_SERVER['REQUEST_METHOD'];
 			
 		// We weren't handed any parameters, so let's find the ones relevant to
 		// this request.
@@ -282,7 +278,7 @@ class bebop_oauth_request {
 		// and add those overriding any duplicates from GET or POST
 		if ( isset( $request_headers['Authorization'] ) && substr( $request_headers['Authorization'], 0, 6) == 'OAuth ' ) {
 			$header_parameters = bebop_oauth_util::split_header( $request_headers['Authorization'] );
-			$parameters = array_merge($parameters, $header_parameters);
+			$parameters        = array_merge($parameters, $header_parameters);
 		}
 	}
 	return new bebop_oauth_request( $http_method, $http_url, $parameters );
@@ -293,7 +289,7 @@ class bebop_oauth_request {
 */
 public static function from_consumer_and_token( $consumer, $token, $http_method, $http_url, $parameters = NULL ) {
 	$parameters = ($parameters) ?  $parameters : array();
-	$defaults = array(	
+	$defaults   = array(	
 					'oauth_version' => bebop_oauth_request::$version,
 					'oauth_nonce' => bebop_oauth_request::generate_nonce(),
 					'oauth_timestamp' => bebop_oauth_request::generate_timestamp(),
@@ -360,7 +356,7 @@ public static function from_consumer_and_token( $consumer, $token, $http_method,
 		$parts = array(
 			$this->get_normalized_http_method(),
 			$this->get_normalized_http_url(),
-			$this->get_signable_parameters()
+			$this->get_signable_parameters(),
 		);
 		$parts = bebop_oauth_util::urlencode_rfc3986( $parts );
 		return implode( '&', $parts );
@@ -380,9 +376,9 @@ public static function from_consumer_and_token( $consumer, $token, $http_method,
 		$parts = parse_url( $this->http_url );
 
 		$scheme = ( isset( $parts['scheme'] ) ) ? $parts['scheme'] : 'http';
-		$port = ( isset( $parts['port'] ) ) ? $parts['port'] : ( ( $scheme == 'https' ) ? '443' : '80');
-		$host = ( isset( $parts['host'] ) ) ? strtolower($parts['host']) : '';
-		$path = ( isset( $parts['path'] ) ) ? $parts['path'] : '';
+		$port   = ( isset( $parts['port'] ) ) ? $parts['port'] : ( ( $scheme == 'https' ) ? '443' : '80');
+		$host   = ( isset( $parts['host'] ) ) ? strtolower($parts['host']) : '';
+		$path   = ( isset( $parts['path'] ) ) ? $parts['path'] : '';
 
 		if ( ( $scheme == 'https' && $port != '443' ) || ( $scheme == 'http' && $port != '80' ) ) {
 			$host = "$host:$port";
@@ -414,7 +410,7 @@ public static function from_consumer_and_token( $consumer, $token, $http_method,
 	public function to_header( $realm = null ) {
 		$first = true;
 		if ( $realm ) {
-			$out = 'Authorization: OAuth realm="' . bebop_oauth_util::urlencode_rfc3986( $realm ) . '"';
+			$out   = 'Authorization: OAuth realm="' . bebop_oauth_util::urlencode_rfc3986( $realm ) . '"';
 			$first = false;
 		}
 		else {
@@ -427,8 +423,8 @@ public static function from_consumer_and_token( $consumer, $token, $http_method,
 			if ( is_array( $v ) ) {
 				throw new bebop_oauth_exception('Arrays not supported in headers');
 			}
-			$out .= ($first) ? ' ' : ',';
-			$out .= bebop_oauth_util::urlencode_rfc3986($k) . '="' . bebop_oauth_util::urlencode_rfc3986($v) . '"';
+			$out  .= ($first) ? ' ' : ',';
+			$out  .= bebop_oauth_util::urlencode_rfc3986($k) . '="' . bebop_oauth_util::urlencode_rfc3986($v) . '"';
 			$first = false;
 		}
 		return $out;
@@ -462,7 +458,7 @@ public static function from_consumer_and_token( $consumer, $token, $http_method,
 	* util function: current nonce
 	*/
 	private static function generate_nonce() {
-		$mt = microtime();
+		$mt   = microtime();
 		$rand = mt_rand();
 		return md5( $mt . $rand ); // md5s look nicer than numbers
 	}
@@ -524,7 +520,7 @@ class bebop_oauth_server {
 	public function verify_request( &$request ) {
 		$this->get_version( $request );
 		$consumer = $this->get_consumer( $request );
-		$token = $this->get_token( $request, $consumer, 'access' );
+		$token    = $this->get_token( $request, $consumer, 'access' );
 		$this->check_signature( $request, $consumer, $token );
 		return array( $consumer, $token );
 	}
@@ -541,7 +537,7 @@ class bebop_oauth_server {
 			$version = '1.0';
 		}
 		if ( $version !== $this->version ) {
-			throw new OAuthException('OAuth version ' . $version . ' not supported');
+			throw new OAuthException( 'OAuth version ' . $version . ' not supported' );
 		}
 		return $version;
 	}
@@ -587,7 +583,7 @@ class bebop_oauth_server {
 	*/
 	private function get_token( $request, $consumer, $token_type = 'access' ) {
 		$token_field = $request instanceof OAuthRequest ? $request->get_parameter('oauth_token') : NULL;
-		$token = $this->data_store->lookup_token(
+		$token        = $this->data_store->lookup_token(
 			$consumer, $token_type, $token_field
 		);
 		if ( ! $token ) {
@@ -603,12 +599,12 @@ class bebop_oauth_server {
 	private function check_signature( $request, $consumer, $token ) {
 		// this should probably be in a different method
 		$timestamp = $request instanceof bebop_oauth_request ? $request->get_parameter('oauth_timestamp') : NULL;
-		$nonce = $request instanceof bebop_oauth_request ? $request->get_parameter('oauth_nonce') : NULL;
+		$nonce     = $request instanceof bebop_oauth_request ? $request->get_parameter('oauth_nonce') : NULL;
 		$this->check_timestamp( $timestamp );
 		$this->check_nonce( $consumer, $token, $nonce, $timestamp );
 		$signature_method = $this->get_signature_method( $request );
-		$signature = $request->get_parameter('oauth_signature');
-		$valid_sig = $signature_method->check_signature(
+		$signature        = $request->get_parameter('oauth_signature');
+		$valid_sig        = $signature_method->check_signature(
 			$request,
 			$consumer,
 			$token,
@@ -744,10 +740,10 @@ class bebop_oauth_util {
 				// We have already recieved parameter(s) with this name, so add to the list
 				// of parameters with this name
 	
-				if (is_scalar($parsed_parameters[$parameter])) {
+				if ( is_scalar( $parsed_parameters[$parameter] ) ) {
 					// This is the first duplicate, so transform scalar (string) into an array
 					// so we can add the duplicates
-					$parsed_parameters[$parameter] = array($parsed_parameters[$parameter]);
+					$parsed_parameters[$parameter] = array( $parsed_parameters[$parameter] );
 				}
 				$parsed_parameters[$parameter][] = $value;
 			}
@@ -761,7 +757,7 @@ class bebop_oauth_util {
 	public static function build_http_query( $params ) {
 		if ( ! $params ) return '';
 		// Urlencode both keys and values
-		$keys = bebop_oauth_util::urlencode_rfc3986( array_keys($params ) );
+		$keys   = bebop_oauth_util::urlencode_rfc3986( array_keys($params ) );
 		$values = bebop_oauth_util::urlencode_rfc3986( array_values($params ) );
 		$params = array_combine( $keys, $values );
 
