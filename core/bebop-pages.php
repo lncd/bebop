@@ -77,7 +77,7 @@ function bebop_user_settings() {
 
 function bebop_user_settings_screen_content() {
 	global $bp;
-	include WP_PLUGIN_DIR . '/bebop/core/templates/user/bebop_user_settings.php';
+	include WP_PLUGIN_DIR . '/bebop/core/templates/user/bebop-user-settings.php';
 }
 
 /*
@@ -116,23 +116,23 @@ function bebop_admin_menu() {
 //This deals with the bebop page loaders based on the link selected.
 function bebop_admin_pages() {
 	if ( $_GET['page'] == 'bebop_admin' ) {
-		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_admin.php';
+		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin.php';
 	}
 	else if ( $_GET['page'] == 'bebop_admin_settings' ) {
-		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_admin_settings.php';
+		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-settings.php';
 	}
 	else if ( $_GET['page'] == 'bebop_oer_providers' ) {
-		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_oer_providers.php';
+		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-oer-providers.php';
 	}
 	else if ( $_GET['page'] == 'bebop_error_log' ) {
-		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_error_log.php';
+		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-error-log.php';
 	}
 	else if ( $_GET['page'] == 'bebop_general_log' ) {
-		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_general_log.php';
+		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-general-log.php';
 	}
 	else {
 		echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $_GET['page'] . '" page not found. Loaded home instead.</div>';
-		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_admin.php';
+		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin.php';
 	}
 }  
 //add_action('admin_menu', 'bebop_admin_menu');

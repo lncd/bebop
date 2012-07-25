@@ -96,7 +96,7 @@ abstract class bebop_signature_method {
 		// Avoid a timing leak with a (hopefully) time insensitive compare
 		$result = 0;
 		for ( $i = 0; $i < strlen( $signature ); $i++ ) {
-      $result |= ord( $built{$i} ) ^ ord( $signature{$i} );
+			$result |= ord( $built{$i} ) ^ ord( $signature{$i} );
 		}
 		return $result == 0;
 	}
@@ -431,7 +431,7 @@ public static function from_consumer_and_token( $consumer, $token, $http_method,
 	public function sign_request( $signature_method, $consumer, $token ) {
 		$this->set_parameter( 'oauth_signature_method', $signature_method->get_name(), false );
 		$signature = $this->build_signature( $signature_method, $consumer, $token );
-		$this->set_parameter ( 'oauth_signature', $signature, false );
+		$this->set_parameter( 'oauth_signature', $signature, false );
 	}
 
 	public function build_signature( $signature_method, $consumer, $token ) {
@@ -676,7 +676,7 @@ class bebop_oauth_util {
 			// request
 			$out = array();
 			foreach ( $headers AS $key => $value ) {
-				$key = str_replace( ' ', '-', ucwords( strtolower( str_replace('-', ' ', $key ) ) ) );
+				$key = str_replace( ' ', '-', ucwords( strtolower( str_replace( '-', ' ', $key ) ) ) );
 				$out[$key] = $value;
 			}
 		}

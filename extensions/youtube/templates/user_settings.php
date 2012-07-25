@@ -18,10 +18,10 @@ if ( isset( $_POST ) ) {
 	}
 ?>
 <form id='settings_form' action='<?php echo  $bp->loggedin_user->domain ?>bebop-oers/?oer=youtube' method='post'>
-    <h3>Youtube Settings</h3>
-   	  Youtube username<br/>
-  	  <input type='text' name='bebop_youtube_username' value='<?php echo $bebop_youtube_username; ?>' size='50' ><br/><br/>      
-   	 <input type='submit' class='button_auth' value='Save Channel'>
+	<h3>Youtube Settings</h3>
+	Youtube username<br/>
+	<input type='text' name='bebop_youtube_username' value='<?php echo $bebop_youtube_username; ?>' size='50' ><br/><br/>
+	<input type='submit' class='button_auth' value='Save Channel'>
 </form>
 <?php
 if ( ! empty( $bebop_youtube_username ) ) {

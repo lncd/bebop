@@ -224,8 +224,8 @@ class bebop_tables {
 		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == false ) {
 			$wpdb->query(
 							$wpdb->prepare(
-								'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
-								$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
+											'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
+											$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
 							)
 			);
 			return true;

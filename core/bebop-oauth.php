@@ -277,7 +277,7 @@ class bebop_oauth {
 	*
 	*/
 	public function access_token() {
-		if ( $this->get_parameters() ) {
+		if ( $this->get_parameters() ){
 			$parameters = $this->get_parameters();
 		}
 		else {

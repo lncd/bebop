@@ -16,7 +16,7 @@ if ( ! empty( $_POST ) ) {
 	echo '<div class="bebop_success_box">Settings Saved.</div>';
 }
 
-include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop_admin_menu.php' );
+include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' );
 ?>
 <div id='bebop_admin_container'>
 	<form method='post' class='bebop_admin_form'>

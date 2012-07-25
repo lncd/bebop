@@ -16,7 +16,7 @@ if ( isset( $_GET['reset_user_id'] ) ) {
 	echo '<div class="bebop_success_box">User has been removed.</div>';
 }
 
-include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop_admin_menu.php" ); ?>
+include_once( WP_PLUGIN_DIR . "/bebop/core/templates/admin/bebop-admin-menu.php" ); ?>
 <div id='bebop_admin_container'>
 <form method="post" class='bebop_admin_form'>
 	<fieldset>  
