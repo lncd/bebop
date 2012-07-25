@@ -32,11 +32,11 @@ class bebop_oauth {
 	* Setter and getter for consumerKey
 	* 
 	*/
-	public function setConsumerKey( $consumerKey ) {
+	public function set_consumer_key( $consumerKey ) {
 		$this->consumerKey = $consumerKey;
 	}
 
-	public function getConsumerKey() {
+	public function get_consumer_key() {
 		if ( ! $this->consumerKey ) {
 			//throw new Exception("ConsumerKey is not set."); 
 		}
@@ -46,11 +46,11 @@ class bebop_oauth {
 	* Setter and getter for consumerSecret
 	* 
 	*/
-	public function setConsumerSecret( $consumerSecret ) {
+	public function set_consumer_secret( $consumerSecret ) {
 		$this->consumerSecret = $consumerSecret;
 	}
 	
-	public function getConsumerSecret() {
+	public function get_consumer_secret() {
 		if ( ! $this->consumerSecret ) {
 			//throw new Exception("ConsumerSecret is not set."); 
 		}
@@ -61,33 +61,33 @@ class bebop_oauth {
 	* 
 	*/
 
-	public function setRequestTokenUrl( $requestTokenUrl ) {
+	public function set_request_token_url( $requestTokenUrl ) {
 		$this->requestTokenUrl = $requestTokenUrl;
 	}
 	
-	public function getRequestTokenUrl() {
+	public function get_request_token_url() {
 		if ( ! $this->requestTokenUrl ) {
 			throw new Exception( 'requestTokenUrl is not set.' );
 		}
 		return $this->requestTokenUrl;
 	}
 	
-	public function setAuthorizeUrl( $authorizeUrl ) {
+	public function set_authorize_url( $authorizeUrl ) {
 		$this->authorizeUrl = $authorizeUrl;
 	}
 	
-	public function getAuthorizeUrl() {
+	public function get_authorize_url() {
 		if ( ! $this->authorizeUrl ) {
 			throw new Exception( 'authorizeUrl is not set.' );
 		}
 		return $this->authorizeUrl;
 	}
 	
-	public function setAccessTokenUrl( $accessTokenUrl ) {
+	public function set_access_token_url( $accessTokenUrl ) {
         $this->accessTokenUrl = $accessTokenUrl;
 	}
 	
-	public function getAccessTokenUrl() {
+	public function get_access_token_url() {
 		if ( ! $this->accessTokenUrl ) {
 			throw new Exception( 'accessTokenUrl is not set.' );
 		}
@@ -100,7 +100,7 @@ class bebop_oauth {
 	* 
 	*/
 	
-	public function getRedirectUrl() {
+	public function get_redirect_url() {
 		return $this->getAuthorizeUrl().'?oauth_token='.urldecode( $this->getRequestToken() );
 	}
 
@@ -109,11 +109,11 @@ class bebop_oauth {
 	* 
 	*/
 	
-	public function setRequestType( $requestType ) {
+	public function set_request_type( $requestType ) {
 		$this->requestType = $requestType;
 	}
 	
-	public function getRequestType(){
+	public function get_request_type(){
 		return $this->requestType;
 	}
 
@@ -121,11 +121,11 @@ class bebop_oauth {
 	* Setter and getter for the parameters 
 	* 
 	*/
-	public function setParameters( $parameters ) {
+	public function set_parameters( $parameters ) {
 		$this->paramaters = $parameters;
 	}
 
-	public function getParameters() {
+	public function get_parameters() {
 		return $this->paramaters;
 	}
 
@@ -134,11 +134,11 @@ class bebop_oauth {
 	* 
 	*/
 	
-	public function setPostData( $postData ) {
+	public function set_post_data( $postData ) {
 		$this->postData = $postData;
 	}
 	
-	public function getPostData() {
+	public function get_post_data() {
 		if ( ! $this->postData ) {
 			throw new Exception( 'postData is not set.' ); 
 		}
@@ -148,10 +148,10 @@ class bebop_oauth {
 	* Setter and getter for callbackUrl
 	* 
 	*/
-	public function setCallbackUrl( $callbackUrl ) {
+	public function set_callback_url( $callbackUrl ) {
 		$this->callbackUrl = $callbackUrl;
 	}
-	public function getCallbackUrl() {
+	public function get_callback_url() {
 		if ( ! $this->callbackUrl ) {
 			//throw new Exception("callbackUrl is not set."); 
 		}
@@ -162,10 +162,10 @@ class bebop_oauth {
 	* Setter and getter for requestToken
 	*
 	*/
-	public function setRequestToken( $requestToken ) {
+	public function set_request_token( $requestToken ) {
 		$this->requestToken = $requestToken;
 	}
-	public function getRequestToken() {
+	public function get_request_token() {
 		if ( ! $this->requestToken ) {
 			// throw new Exception("requestToken is not set."); 
 		}
@@ -176,11 +176,11 @@ class bebop_oauth {
 	*
 	*/
 
-	public function setRequestTokenSecret( $requestTokenSecret ) {
+	public function set_request_token_secret( $requestTokenSecret ) {
 		$this->requestTokenSecret = $requestTokenSecret;
 	}
 	
-	public function getRequestTokenSecret() {
+	public function get_request_token_secret() {
 		if ( ! $this->requestTokenSecret ) {
 			// throw new Exception("requestTokenSecret is not set."); 
 		}
@@ -190,11 +190,11 @@ class bebop_oauth {
 	* Getter and setter for accessToken
 	*
 	*/
-	public function setAccessToken( $accessToken ) {
+	public function set_access_token( $accessToken ) {
 		$this->accessToken = $accessToken;
 	}
 	
-	public function getAccessToken() {
+	public function get_access_token() {
 		if ( ! $this->accessToken ) {
 			//throw new Exception('accessToken is not set.'); 
 		}
@@ -204,11 +204,11 @@ class bebop_oauth {
 	* Getter and setter for accessTokenSecret
 	*
 	*/
-	public function setAccessTokenSecret( $accessTokenSecret ) {
+	public function set_access_token_secret( $accessTokenSecret ) {
 		$this->accessTokenSecret = $accessTokenSecret;
 	}
 	
-	public function getAccessTokenSecret() {
+	public function get_access_token_secret() {
 		if ( ! $this->accessTokenSecret ) {
 			// throw new Exception("accessTokenSecret is not set."); 
 		}
@@ -220,15 +220,15 @@ class bebop_oauth {
 	* If no paramters provided it will fallback on defaults.
 	* 
 	*/
-	public function getConsumer( $consumerKey = null, $consumerSecret = null, $callbackUrl = null ) {
+	public function get_consumer( $consumerKey = null, $consumerSecret = null, $callbackUrl = null ) {
 		if ( is_null( $consumerKey ) ) {
-			$consumerKey = $this->getConsumerKey();
+			$consumerKey = $this->get_consumer_ey();
 		}
 		if ( is_null( $consumerSecret ) ) {
-			$consumerSecret = $this->getConsumerSecret();
+			$consumerSecret = $this->get_consumer_secret();
 		}
 		if ( is_null( $callbackUrl ) ) {
-			$callbackUrl = $this->getCallbackUrl();
+			$callbackUrl = $this->get_callback_url();
 		}
 		$consumer = new bebop_oauth_consumer( $consumerKey,$consumerSecret,$callbackUrl );
 		return $consumer;
@@ -240,20 +240,20 @@ class bebop_oauth {
 	* 
 	*/
 	/*modified by Dale Mckeown*/
-	public function requestToken() {
-		if ( $this->getParameters() ) {
-			$parameters = $this->getParameters();
+	public function request_token() {
+		if ( $this->get_parameters() ) {
+			$parameters = $this->get_parameters();
 		}
 		else {
 			$parameters = null;
 		}
 		
-		$consumer = $this->getConsumer();
-		$req = bebop_oauth_request::from_consumer_and_token( $consumer, NULL, 'GET', $this->getRequestTokenUrl(), $parameters );
+		$consumer = $this->get_consumer();
+		$req = bebop_oauth_request::from_consumer_and_token( $consumer, NULL, 'GET', $this->get_request_token_url(), $parameters );
 		$sig = new bebop_signature_method_HMAC_SHA1();
 		$req->sign_request( $sig, $consumer, NULL );
 		$req_url = $req->to_url();
-		$output  = $this->executeRequest( $req_url );
+		$output  = $this->execute_request( $req_url );
 		
 		/*create tokenarray from output
 		$outputArray = explode("&",$output);
@@ -276,15 +276,15 @@ class bebop_oauth {
 	* Trade the requestToken for a token that can be used until the user revokes it. (i say do it!)
 	*
 	*/
-	public function accessToken() {
-		if ( $this->getParameters() ) {
-		$parameters = $this->getParameters();
+	public function access_token() {
+		if ( $this->get_parameters() ) {
+			$parameters = $this->get_parameters();
 		}
 		else {
 			$parameters = null;
 		}
-		$consumer = $this->getConsumer();
-		$token    = $this->getConsumer( $this->getRequestToken(), $this->getRequestTokenSecret(), $this->getCallbackUrl() );
+		$consumer = $this->get_consumer();
+		$token    = $this->get_consumer( $this->get_request_token(), $this->get_request_token_secret(), $this->get_callback_url() );
 		
 		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $token, 'GET', $this->getAccessTokenUrl(), $parameters );
 		$sig = new bebop_signature_method_HMAC_SHA1();
@@ -309,26 +309,25 @@ class bebop_oauth {
 	* Make a oAuth validated request to a provider.
 	* 
 	*/
-	function oAuthRequest( $url ) {
-		if( $this->getParameters() ){
-			$parameters = $this->getParameters();
+	function oauth_request( $url ) {
+		if( $this->get_parameters() ) {
+			$parameters = $this->get_parameters();
 		}
 		else {
 			$parameters = null;
 		}
+		$consumer    = $this->get_consumer();
+		$accessToken = $this->get_consumer( $this->get_access_token(), $this->get_access_token_secret(), $this->get_callback_url() );
+		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $accessToken, $this->get_request_type(), $url, $parameters );
+		$sig = new bebop_signature_method_HMAC_SHA1();
+		$req->sign_request( $sig, $consumer, $accessToken );
 		
-		$consumer    = $this->getConsumer();
-		$accessToken = $this->getConsumer( $this->getAccessToken(), $this->getAccessTokenSecret(), $this->getCallbackUrl() );
-		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $accessToken, $this->getRequestType(), $url, $parameters );
-		$sig =  new bebop_signature_method_HMAC_SHA1();
-		$req->sign_request($sig, $consumer, $accessToken );
-		
-		if ( $this->getRequestType() == 'GET' ) {
-			return $this->executeRequest( $req->to_url() );
+		if ( $this->get_request_type() == 'GET' ) {
+			return $this->execute_request( $req->to_url() );
 		}
 		else {
-			$this->setPostData( $req->to_postdata() );
-			return $this->executeRequest( $req->get_normalized_http_url() );
+			$this->set_post_data( $req->to_postdata() );
+			return $this->execute_request( $req->get_normalized_http_url() );
 		}
 	}
 
@@ -337,7 +336,7 @@ class bebop_oauth {
 	* Uses the provider url.
 	*
 	*/
-	public function executeRequest( $url ) {
+	public function execute_request( $url ) {
 		$ci = curl_init();
 		curl_setopt( $ci, CURLOPT_CONNECTTIMEOUT, 30 );
 		curl_setopt( $ci, CURLOPT_TIMEOUT, 30 );
@@ -345,10 +344,10 @@ class bebop_oauth {
 		curl_setopt( $ci, CURLOPT_SSL_VERIFYPEER, FALSE );
 		curl_setopt( $ci, CURLOPT_HEADER, FALSE );
 
-		if ( $this->getRequestType() == 'POST' ) {
+		if ( $this->get_request_type() == 'POST' ) {
 			curl_setopt( $ci, CURLOPT_POST, TRUE );
-			if ( $this->getPostData() ) {
-				curl_setopt( $ci, CURLOPT_POSTFIELDS, $this->getPostData() );
+			if ( $this->get_post_data() ) {
+				curl_setopt( $ci, CURLOPT_POSTFIELDS, $this->get_post_data() );
 			}
 		}
 		else {
@@ -363,18 +362,18 @@ class bebop_oauth {
 		return $response;
 	}
 	
-	public function oAuthRequestPostXml( $url ) {
-		if ( $this->getParameters() ) {
-			$parameters = $this->getParameters();
+	public function oauth_request_post_xml( $url ) {
+		if ( $this->get_parameters() ) {
+			$parameters = $this->get_parameters();
 		}
 		else {
 			$parameters = null;
 		}
 		
-		$consumer    = $this->getConsumer();
-		$accessToken = $this->getConsumer( $this->getAccessToken(), $this->getAccessTokenSecret(), $this->getCallbackUrl() );
+		$consumer    = $this->get_consumer();
+		$accessToken = $this->get_consumer( $this->get_access_token(), $this->get_access_token_secret(), $this->get_callback_url() );
 		
-		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $accessToken, 'POST', $url, $this->getParameters() );
+		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $accessToken, 'POST', $url, $this->get_parameters() );
 		$sig = new bebop_signature_method_HMAC_SHA1();
 		$req->sign_request( $sig, $consumer, $accessToken );
 	

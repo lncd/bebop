@@ -14,16 +14,16 @@ if ( isset( $_GET['reset'] ) ) {
 if ( isset( $_GET['oauth_token'] ) ) {
 	//Handle the oAuth requests
 	$OAuth = new bebop_oauth();
-	$OAuth->setRequestTokenUrl( 'http://api.twitter.com/oauth/request_token' );
-	$OAuth->setAccessTokenUrl( 'http://api.twitter.com/oauth/access_token' );
-	$OAuth->setAuthorizeUrl( 'https://api.twitter.com/oauth/authorize' );
+	$OAuth->set_request_token_url( 'http://api.twitter.com/oauth/request_token' );
+	$OAuth->set_access_token_url( 'http://api.twitter.com/oauth/access_token' );
+	$OAuth->set_authorize_url( 'https://api.twitter.com/oauth/authorize' );
 	
-	$OAuth->setParameters( array( 'oauth_verifier' => $_GET['oauth_verifier'] ) );
-	$OAuth->setCallbackUrl( $bp->loggedin_user->domain . 'bebop-oers/?oer=twitter' );
-	$OAuth->setConsumerKey( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
-	$OAuth->setConsumerSecret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
-	$OAuth->setRequestToken( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_twitter_oauth_token_temp' ) );
-	$OAuth->setRequestTokenSecret( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_twitter_oauth_token_secret_temp' ) );
+	$OAuth->set_parameters( array( 'oauth_verifier' => $_GET['oauth_verifier'] ) );
+	$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/?oer=twitter' );
+	$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
+	$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
+	$OAuth->set_request_token( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_twitter_oauth_token_temp' ) );
+	$OAuth->set_request_token_secret( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_twitter_oauth_token_secret_temp' ) );
 	
 	$accessToken = $OAuth->accessToken();
 	
@@ -69,18 +69,18 @@ if ( ( bebop_tables::get_option_value( 'bebop_twitter_provider' ) == 'on') && ( 
 		
 		//oauth
 		$OAuth = new bebop_oauth();
-		$OAuth->setRequestTokenUrl( 'http://api.twitter.com/oauth/request_token' );
-		$OAuth->setAccessTokenUrl( 'http://api.twitter.com/oauth/access_token' );
-		$OAuth->setAuthorizeUrl( 'https://api.twitter.com/oauth/authorize' );
-		$OAuth->setCallbackUrl( $bp->loggedin_user->domain . 'bebop-oers/?oer=twitter' );
-		$OAuth->setConsumerKey( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
-		$OAuth->setConsumerSecret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
+		$OAuth->set_request_token_url( 'http://api.twitter.com/oauth/request_token' );
+		$OAuth->set_access_token_url( 'http://api.twitter.com/oauth/access_token' );
+		$OAuth->set_authorize_url( 'https://api.twitter.com/oauth/authorize' );
+		$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/?oer=twitter' );
+		$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
+		$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
 		
 		//get the oauth token
-		$requestToken = $OAuth->requestToken();
+		$requestToken = $OAuth->request_token();
 		
-		$OAuth->setRequestToken( $requestToken['oauth_token'] );
-		$OAuth->setRequestTokenSecret( $requestToken['oauth_token_secret'] );
+		$OAuth->set_request_token( $requestToken['oauth_token'] );
+		$OAuth->set_request_token_secret( $requestToken['oauth_token_secret'] );
 		
 		bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_oauth_token_temp','' . $requestToken['oauth_token'].'' );
 		bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_oauth_token_secret_temp','' . $requestToken['oauth_token_secret'].'' );

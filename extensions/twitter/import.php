@@ -34,13 +34,13 @@ class bebop_twitter_import {
 					if ( ! $limitReached && bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_twitter_sync_to_activity_stream' ) ) {
 						//Handle the OAuth requests
 						$OAuth = new bebop_oauth();
-						$OAuth->setCallbackUrl( '$bp->root_domain' );
-						$OAuth->setConsumerKey( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
-						$OAuth->setConsumerSecret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
-						$OAuth->setAccessToken( bebop_tables::get_user_meta_value( $user_meta->user_id,'bebop_twitter_oauth_token' ) );
-						$OAuth->setAccessTokenSecret( bebop_tables::get_user_meta_value( $user_meta->user_id,'bebop_twitter_oauth_token_secret' ) );
+						$OAuth->set_callback_url( '$bp->root_domain' );
+						$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
+						$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
+						$OAuth->set_access_token( bebop_tables::get_user_meta_value( $user_meta->user_id,'bebop_twitter_oauth_token' ) );
+						$OAuth->set-access_token_secret( bebop_tables::get_user_meta_value( $user_meta->user_id,'bebop_twitter_oauth_token_secret' ) );
 						
-						$items = $OAuth->oAuthRequest( 'http://api.twitter.com/1/statuses/user_timeline.xml' );
+						$items = $OAuth->oauth_request( 'http://api.twitter.com/1/statuses/user_timeline.xml' );
 						$items = simplexml_load_string( $items );
 						
 						if ( $items && !$items->error ) {
