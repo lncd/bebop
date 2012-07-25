@@ -25,14 +25,14 @@ Credits: BuddySteam - buddystream.net
 //initialise Bebop
 function bebop_init() {
 	//include files from core.
-	include_once( 'core/bebop_oauth.php' );
-	include_once( 'core/bebop_tables.php' );
-	include_once( 'core/bebop_filters.php' );
-	include_once( 'core/bebop_pages.php' );
-	include_once( 'core/bebop_extensions.php' );
+	include_once( 'core/bebop-oauth.php' );
+	include_once( 'core/bebop-tables.php' );
+	include_once( 'core/bebop-filters.php' );
+	include_once( 'core/bebop-pages.php' );
+	include_once( 'core/bebop-extensions.php' );
 
 	//Main content file
-	include_once( 'core/bebop_core.php' );	
+	include_once( 'core/bebop-core.php' );	
 	
 	//fire cron
 	add_action( 'bebop_cron', 'bebop_cron_function' ); 
@@ -108,7 +108,7 @@ function bebop_activate() {
     }
 	else {
 		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
-		include_once( 'core/bebop_tables.php' );
+		include_once( 'core/bebop-tables.php' );
 		bebop_tables::log_error( '_', 'BuddyPress Error', 'BuddyPress is not active.' );
 		deactivate_plugins( basename( __FILE__ ) ); // Deactivate this plugin
 		wp_die( 'You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again.' );

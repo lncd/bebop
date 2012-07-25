@@ -6,7 +6,7 @@
  * small changes.
  */
 
-include_once( 'bebop_oauth_class.php' );
+include_once( 'bebop-oauth-class.php' );
 
 /**
  * This class handles all OAuth requests for multiple networks
