@@ -61,7 +61,7 @@ class bebop_extensions {
 		if ( ! empty( $_GET['child'] ) ) {
 			$extension = $_GET['child'];
 		}
-		include WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/templates/admin_' . $page.  '.php';
+		include WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/templates/admin-' . $page.  '.php';
 	}
 	
 	function user_page_loader( $extension, $page = 'settings' ) {

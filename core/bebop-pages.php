@@ -2,8 +2,8 @@
 //File used to load pages
 
 /**
- * User settings
- */
+* User settings
+*/
 if ( isset( $_get['action'] ) ) {
 	if ( $_GET['action'] == 'logout' ) {
 	}
@@ -26,37 +26,33 @@ function bebop_setup_user_nav() {
 						'position' => 30,
 						'show_for_displayed_user' => true,
 						'screen_function' => 'bebop_user_settings',
-						'default_subnav_slug' => 'bebop_user_settings',
+						'default_subnav_slug' => 'home',
 					)
 	);
-	
-	//Checks to make sure its the users profile before looping through the different extensions options.
-	if ( bp_is_my_profile() ) {
-		$handle     = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
-		$extensions = array();
-		
+
+	bp_core_new_subnav_item(
+					array(
+						'name' => 'Home',
+						'slug' => 'home',
+						'parent_url' => bp_displayed_user_domain() . 'bebop-oers/',
+						'parent_slug' => 'bebop-oers',
+						'screen_function' => 'bebop_user_settings',
+						'position' => 10,
+					)
+	);
+	//only show if current user is the owner of the profile.
+	if( bp_is_my_profile() ) {
 		bp_core_new_subnav_item(
-						array(
-							'name' => 'Home',
-							'slug' => 'home',
-							'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
-							'parent_slug' => 'bebop-oers',
-							'screen_function' => 'bebop_user_settings',
-							'position' => 10,
-							'user_has_access' => bp_is_my_profile(),
-						)
-		);
-		bp_core_new_subnav_item(
-						array(
-							'name' => 'OER Providers',
-							'slug' => 'providers',
-							'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
-							'parent_slug' => 'bebop-oers',
-							'screen_function' => 'bebop_user_settings',
-							'position' => 20,
-							'user_has_access' => bp_is_my_profile(),
-						)
-		);
+							array(
+								'name' => 'OER Providers',
+								'slug' => 'providers',
+								'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
+								'parent_slug' => 'bebop-oers',
+								'screen_function' => 'bebop_user_settings',
+								'position' => 20,
+							)
+			);
+			
 		bp_core_new_subnav_item(
 						array(
 							'name' => 'OER Manager',
@@ -65,14 +61,13 @@ function bebop_setup_user_nav() {
 							'parent_slug' => 'bebop-oers',
 							'screen_function' => 'bebop_user_settings',
 							'position' => 20,
-							'user_has_access' => bp_is_my_profile(),
 						)
 		);
 	}
 }
 
 function bebop_user_settings() {
-	bebop_extensions::user_page_loader( 'default','settings' );
+	bebop_extensions::user_page_loader( 'default', 'settings' );
 }
 
 function bebop_user_settings_screen_content() {

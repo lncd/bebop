@@ -90,7 +90,7 @@ class bebop_tables {
 				}
 			}
 		}
-		$name   = join( ',',$wpdb->escape( $extensions ) );
+		$names  = join( ',' ,$wpdb->escape( $extensions ) );
 		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN (". stripslashes( $names ) . ') ORDER BY date_recorded DESC' );
 		return $result;
 	}

@@ -1,6 +1,9 @@
 <?php
 bebop_extensions::load_extensions();
 
+/*
+ * Works out 'time ago' from a date
+ */
 function time_since( $date ) {
 	$date  = strtotime( $date );
 	$since = time() - $date;
@@ -24,7 +27,38 @@ function time_since( $date ) {
 	$print = ($count == 1) ? '1 '.$name : "$count {$name}s ago";
 	return $print;
 }
-
+/*
+ * Gets the url of a page
+ */
+function page_url( $last_folders = null ) {
+	if ( isset( $_SERVER['HTTPS'] ) ) {
+		if(  $_SERVER['HTTPS'] == 'on' ) {
+			$page_url = 'https://';
+		}
+	}
+	else {
+		$page_url = 'http://';
+	}
+	if ( $_SERVER['SERVER_PORT'] != '80' ) {
+		$page_url .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
+	}
+	else {
+		$page_url .= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+	}
+	if ( $last_folders != null ) {
+		$exp = array_reverse( explode( '/', $page_url ) );
+		$arr = array();
+		while ( $last_folders > 0 ) {
+			$arr[] = $exp[$last_folders];
+			$last_folders--;
+		}
+		$page_url =  '/' . implode( '/', $arr) . '/';
+	}
+	return $page_url;
+}
+/*
+ * Adds an imported item to the buffer table
+ */
 function bebop_create_buffer_item( $params ) {
 	global $bp, $wpdb;
 	if ( is_array( $params ) ) {

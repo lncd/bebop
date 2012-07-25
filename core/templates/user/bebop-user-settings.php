@@ -1,25 +1,39 @@
-<?php if ( ( ! isset( $_GET['oer'] ) ) && ( ! isset( $_GET['action'] ) ) ) {  
-	//Only shows if it is the users profile.  
+<?php 
+$page = page_url( 2 );
+
+if ( $page == '/bebop-oers/manager/') {
 	if ( bp_is_my_profile() ) {
-		echo '<h3>User Settings</h3>';
-		$activeExtensions = array();
-		//get the active extension
-		foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-			if ( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
-				$activeExtensions[] = $extension['name'];
-			}
-		}
-		
-		if ( count( $activeExtensions ) == 0 ) {
-			echo 'No extensions are currently active. Please activate them in the bebop OER providers admin panel.';
+		include(WP_PLUGIN_DIR . '/bebop/core/templates/user/oer-manager.php');
+	}
+}
+else if ( $page == '/bebop-oers/providers/') {
+	if ( bp_is_my_profile() ) {
+		if ( isset( $_GET['oer'] ) ) {
+			include(WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['oer'] . '/templates/user-settings.php');
 		}
 		else {
-			echo 'Choose an OER source from the sub menu above. ';
+			echo '<h3>OER Providers</h3>';
+			$activeExtensions = array();
+			//get the active extension
+			foreach ( bebop_extensions::get_extension_configs() as $extension ) {
+				if ( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
+					$activeExtensions[] = $extension['name'];
+				}
+			}
+			
+			if ( count( $activeExtensions ) == 0 ) {
+				echo 'No extensions are currently active. Please activate them in the bebop OER providers admin panel.';
+			}
+			else {
+				echo 'Choose an OER provider from the list below.';
+			}
 		}
 	}
+}
+else {
 	$_COOKIE['bp-activity-filter'] = 'all_oer';
 	
-	echo "<script type='text/javascript' src='" . WP_CONTENT_URL . "/plugins/bebop/core/resources/js/bebop_functions.js'></script>";
+	echo '<script type="text/javascript" src="' . WP_CONTENT_URL . '/plugins/bebop/core/resources/js/bebop_functions.js"></script>';
 	?>
 	
 	<!-- This overrides the current filter in the cookie to nothing "i.e.
@@ -49,16 +63,5 @@
 	<div class='activity' role='main'>
 		<?php locate_template( array( 'activity/activity-loop.php' ), true ); ?>
 	</div><!-- .activity -->
-<?php
+	<?php
 }
-else {
-	if ( isset( $_GET['action'] ) ) {
-		if ( strtolower( $_GET['action'] ) == 'manage_oers/' ) {
-			include(WP_PLUGIN_DIR . '/bebop/core/templates/user/oer_manager.php');
-		}
-	}
-	else {
-		include(WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['oer'] . '/templates/user_settings.php');
-	}
-}
-?>
