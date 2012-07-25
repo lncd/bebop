@@ -18,15 +18,15 @@ class bebop_oauth {
 	protected $requestTokenUrl;
 	protected $authorizeUrl;
 	protected $accessTokenUrl;
-	protected $callbackUrl 		= NULL;
+	protected $callbackUrl = NULL;
 	protected $requestToken;
 	protected $requestTokenSecret;
 	protected $accessToken;
 	protected $accessTokenSecret;
-	protected $requestType 		= 'GET';
+	protected $requestType = 'GET';
 	protected $requestUrl;
-	protected $postData 		= NULL;
-	protected $paramaters 		= NULL;
+	protected $postData = NULL;
+	protected $paramaters = NULL;
 	
 	/*
 	* Setter and getter for consumerKey
@@ -67,7 +67,7 @@ class bebop_oauth {
 	
 	public function getRequestTokenUrl() {
 		if ( ! $this->requestTokenUrl ) {
-			throw new Exception('requestTokenUrl is not set.');
+			throw new Exception( 'requestTokenUrl is not set.' );
 		}
 		return $this->requestTokenUrl;
 	}
@@ -89,7 +89,7 @@ class bebop_oauth {
 	
 	public function getAccessTokenUrl() {
 		if ( ! $this->accessTokenUrl ) {
-			throw new Exception( 'accessTokenUrl is not set.');
+			throw new Exception( 'accessTokenUrl is not set.' );
 		}
 		return $this->accessTokenUrl;
 	}
@@ -249,10 +249,11 @@ class bebop_oauth {
 		}
 		
 		$consumer = $this->getConsumer();
-		$req = bebop_oauth_request::from_consumer_and_token( $consumer, NULL, "GET", $this->getRequestTokenUrl(), $parameters );
-		$req->sign_request( new bebop_signature_method_HMAC_SHA1(), $consumer, NULL );
+		$req = bebop_oauth_request::from_consumer_and_token( $consumer, NULL, 'GET', $this->getRequestTokenUrl(), $parameters );
+		$sig = new bebop_signature_method_HMAC_SHA1();
+		$req->sign_request( $sig, $consumer, NULL );
 		$req_url = $req->to_url();
-		$output = $this->executeRequest( $req_url );
+		$output  = $this->executeRequest( $req_url );
 		
 		/*create tokenarray from output
 		$outputArray = explode("&",$output);
@@ -283,10 +284,11 @@ class bebop_oauth {
 			$parameters = null;
 		}
 		$consumer = $this->getConsumer();
-		$token = $this->getConsumer( $this->getRequestToken(), $this->getRequestTokenSecret(), $this->getCallbackUrl() );
+		$token    = $this->getConsumer( $this->getRequestToken(), $this->getRequestTokenSecret(), $this->getCallbackUrl() );
 		
 		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $token, 'GET', $this->getAccessTokenUrl(), $parameters );
-		$req->sign_request( new bebop_signature_method_HMAC_SHA1(), $consumer, $token );
+		$sig = new bebop_signature_method_HMAC_SHA1();
+		$req->sign_request( $sig, $consumer, $token );
 		$req_url = $req->to_url();
 		
 		$output = $this->executeRequest( $req_url );
@@ -307,7 +309,6 @@ class bebop_oauth {
 	* Make a oAuth validated request to a provider.
 	* 
 	*/
-
 	function oAuthRequest( $url ) {
 		if( $this->getParameters() ){
 			$parameters = $this->getParameters();
@@ -319,10 +320,11 @@ class bebop_oauth {
 		$consumer    = $this->getConsumer();
 		$accessToken = $this->getConsumer( $this->getAccessToken(), $this->getAccessTokenSecret(), $this->getCallbackUrl() );
 		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $accessToken, $this->getRequestType(), $url, $parameters );
-		$req->sign_request( new bebop_signature_method_HMAC_SHA1(), $consumer, $accessToken );
+		$sig =  new bebop_signature_method_HMAC_SHA1();
+		$req->sign_request($sig, $consumer, $accessToken );
 		
 		if ( $this->getRequestType() == 'GET' ) {
-			return $this->executeRequest($req->to_url());
+			return $this->executeRequest( $req->to_url() );
 		}
 		else {
 			$this->setPostData( $req->to_postdata() );
@@ -356,13 +358,13 @@ class bebop_oauth {
 		curl_setopt( $ci, CURLOPT_URL, $url );
 		
 		$response = curl_exec( $ci );
-		curl_close ( $ci );
+		curl_close( $ci );
 		
 		return $response;
 	}
 	
 	public function oAuthRequestPostXml( $url ) {
-		if( $this->getParameters() ) {
+		if ( $this->getParameters() ) {
 			$parameters = $this->getParameters();
 		}
 		else {
@@ -373,16 +375,17 @@ class bebop_oauth {
 		$accessToken = $this->getConsumer( $this->getAccessToken(), $this->getAccessTokenSecret(), $this->getCallbackUrl() );
 		
 		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $accessToken, 'POST', $url, $this->getParameters() );
-		$req->sign_request( new bebop_signature_method_HMAC_SHA1(), $consumer, $accessToken );
+		$sig = new bebop_signature_method_HMAC_SHA1();
+		$req->sign_request( $sig, $consumer, $accessToken );
 	
 		$ci = curl_init();
 		curl_setopt( $ci, CURLOPT_CUSTOMREQUEST, 'POST' );
 		curl_setopt( $ci, CURLOPT_RETURNTRANSFER, TRUE );
 		curl_setopt( $ci, CURLOPT_SSL_VERIFYPEER, FALSE );
 		curl_setopt( $ci, CURLOPT_URL, $url );
-		curl_setopt( $ci, CURLOPT_VERBOSE, FALSE) ;
+		curl_setopt( $ci, CURLOPT_VERBOSE, FALSE );
 		
-		$header = array( $req->to_header('http://api.linkedin.com') );
+		$header   = array( $req->to_header( 'http://api.linkedin.com' ) );
 		$header[] = 'Content-Type: text/xml; charset=UTF-8';
 		
 		curl_setopt( $ci, CURLOPT_POSTFIELDS, $this->getPostData() );
