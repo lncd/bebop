@@ -88,7 +88,7 @@ class bebop_youtube_import {
 												)
 								);
 								
-								if( $returnCreate ) {
+								if ( $returnCreate ) {
 									$itemCounter++;
 								}
 							}
