@@ -22,7 +22,7 @@ if ( isset( $_GET['oauth_token'] ) ) {
 	$OAuth->set_request_token( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_twitter_oauth_token_temp' ) );
 	$OAuth->set_request_token_secret( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_twitter_oauth_token_secret_temp' ) );
 	
-	$accessToken = $OAuth->accessToken();
+	$accessToken = $OAuth->access_token();
 	
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_oauth_token', $accessToken['oauth_token'] );
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_oauth_token_secret', $accessToken['oauth_token_secret'] );
@@ -32,32 +32,32 @@ if ( isset( $_GET['oauth_token'] ) ) {
 	do_action( 'bebop_twitter_activated' );
 }
 
-if ( isset( $_POST ) ) {
+if ( isset( $_POST['bebop_twitter_active_for_user'] ) ) {
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_active_for_user', $_POST['bebop_twitter_active_for_user'] );
 	echo '<div class="bebop_message">Settings Saved</div>';
 }
 
 //put some options into variables
-$bebop_twitter_sync_to_activity_stream = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_twitter_sync_to_activity_stream' );
+$bebop_twitter_active_for_user = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_twitter_active_for_user' );
 
 if ( ( bebop_tables::get_option_value( 'bebop_twitter_provider' ) == 'on') && ( bebop_tables::check_option_exists( 'bebop_twitter_consumer_key' ) ) ) {
 	if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_twitter_oauth_token' ) ) {
 		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=twitter" method="post">
-		<h3> Settings</h3>';
+		<h3>Twitter Settings</h3>';
 		
-		echo '<br/><h5>Enable Twitter</h5>
-		<input type="radio" name="bebop_twitter_active_for_user" id="bebop_twitter_active_for_user" value="1"';  if ( $bebop_twitter_sync_to_activity_stream == 1 ) {
+		echo '<h5>Enable Twitter?</h5>
+		<input type="radio" name="bebop_twitter_active_for_user" id="bebop_twitter_active_for_user" value="1"';  if ( $bebop_twitter_active_for_user == 1 ) {
 			echo 'checked';
 		} echo '>
 		<label for="yes">Yes</label>
-		<input type="radio" name="bebop_twitter_sync_to_activity_stream" id="bebop_twitter_sync_to_activity_stream" value="0"'; if ( $bebop_twitter_sync_to_activity_stream == 0 ) {
+		<input type="radio" name="bebop_twitter_active_for_user" id="bebop_twitter_active_for_user" value="0"'; if ( $bebop_twitter_active_for_user == 0 ) {
 			echo 'checked';
 		} echo '>
-		<label for="no">No</label><br><br>
-		<input type="submit" class="standard_button" value="Save Settings">';
+		<label for="no">No</label><br>
+		<div class="button_container"><input type="submit" class="standard_button" value="Save Settings"></div>';
 			
 		if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_twitter_oauth_token' ) ) {
-			echo '<br><a class="standard_button" href="?provider=twitter&reset=true">Remove Authorisation</a>';
+			echo '<div class="button_container"><a class="standard_button" href="?provider=twitter&reset=true">Remove Authorisation</a></div>';
 		}
 		echo '</form>';
 	}
@@ -85,9 +85,9 @@ if ( ( bebop_tables::get_option_value( 'bebop_twitter_provider' ) == 'on') && ( 
 		bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_oauth_token_secret_temp','' . $requestToken['oauth_token_secret'].'' );
 		
 		//get the redirect url for the user
-		$redirectUrl = $OAuth->getRedirectUrl();
+		$redirectUrl = $OAuth->get_redirect_url();
 		if ( $redirectUrl ) {
-			echo '<br><a href="' . $redirectUrl . '" class="standard_button">Start Authorisation</a>';
+			echo '<div class="button_container"><a class="standard_button" href="' . $redirectUrl . '" class="standard_button">Start Authorisation</a></div>';
 		}
 		else {
 			echo 'authentication is all broken :(';

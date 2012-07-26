@@ -101,7 +101,7 @@ class bebop_oauth {
 	*/
 	
 	public function get_redirect_url() {
-		return $this->getAuthorizeUrl().'?oauth_token='.urldecode( $this->getRequestToken() );
+		return $this->get_authorize_url().'?oauth_token='.urldecode( $this->get_request_token() );
 	}
 
 	/*
@@ -222,7 +222,7 @@ class bebop_oauth {
 	*/
 	public function get_consumer( $consumerKey = null, $consumerSecret = null, $callbackUrl = null ) {
 		if ( is_null( $consumerKey ) ) {
-			$consumerKey = $this->get_consumer_ey();
+			$consumerKey = $this->get_consumer_key();
 		}
 		if ( is_null( $consumerSecret ) ) {
 			$consumerSecret = $this->get_consumer_secret();
@@ -286,12 +286,12 @@ class bebop_oauth {
 		$consumer = $this->get_consumer();
 		$token    = $this->get_consumer( $this->get_request_token(), $this->get_request_token_secret(), $this->get_callback_url() );
 		
-		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $token, 'GET', $this->getAccessTokenUrl(), $parameters );
+		$req = bebop_oauth_request::from_consumer_and_token( $consumer, $token, 'GET', $this->get_access_token_url(), $parameters );
 		$sig = new bebop_signature_method_HMAC_SHA1();
 		$req->sign_request( $sig, $consumer, $token );
 		$req_url = $req->to_url();
 		
-		$output = $this->executeRequest( $req_url );
+		$output = $this->execute_request( $req_url );
 		
 		//create tokenarray from output
 		$outputArray = explode( '&',$output );

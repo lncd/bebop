@@ -30,8 +30,11 @@ else if ( $page == '/bebop-oers/providers/') {
 				echo '<p>Choose an OER provider from the list below.</p>';
 				
 				foreach ( $activeExtensions as $extension ) {
-					echo '<a class="provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a>';
+					echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
 				}
+				echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
+				echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
+				echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
 			}
 		}
 	}

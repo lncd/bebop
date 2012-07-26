@@ -13,11 +13,17 @@
 	padding:0px;
 	margin:0;
 }
+.button_container {
+	display:inline-block;
+	margin:10px 15px 0 0;
+	padding:3px 0;
+}
 .standard_button {
+	float:left;
 	display:inline-block;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	font-size:15px;
-	margin:10px auto 0px auto;
+	margin:10px auto 10px auto;
 	padding:10px;
 	text-align:center;
 	background-image:linear-gradient(bottom, #FFD492 50%, #FFFACD 50%);
@@ -32,13 +38,7 @@
 	color:#000000;
 }
 .provider_button {
-	display:inline-block;
-	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
-	font-size:15px;
-	margin:10px 15px 0px 15px;
-	padding:10px;
-	text-align:center;
-	min-width:100px;
+	min-width:117px;
 	background-image:linear-gradient(bottom, #007FFF 50%, #1E90FF 50%);
 	background-image:-o-linear-gradient(bottom, #007FFF 50%, #1E90FF 50%);
 	background-image:-moz-linear-gradient(bottom, #007FFF 50%, #1E90FF 50%);
@@ -46,11 +46,8 @@
 	background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #007FFF), color-stop(0.5, #1E90FF));
 	background-image:-ms-linear-gradient(bottom, #007FFF 50%, #1E90FF 50%);
 	border:1px solid #1E90FF;
-	border-radius:4px;
-	text-decoration:none;
 	color:#FFFFFF !important;
 }
-
 .standard_button:hover, .provider_button:hover {
 	background-image:linear-gradient(bottom, #FFD492 50%, #FFFACD 50%);
 	background-image:-o-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
@@ -61,11 +58,11 @@
 	color:#000000 !important;
 	border:1px solid #FFFACD !important;
 }
-.standard_button:active {
-	margin-top:17px;
-	margin-bottom:3px;
-}
 
+.button_container:active {
+	padding-top:6px;
+	padding-bottom:0px;
+}
 .bebop_user_form {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	width:100%;

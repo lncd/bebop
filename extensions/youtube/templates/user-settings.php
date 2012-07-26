@@ -5,7 +5,7 @@ if ( isset( $_GET['reset'] ) ) {
 }
 
 
-if ( isset( $_POST ) ) {
+if ( isset( $_POST['bebop_youtube_username'] ) ) {
 	//Updates the channel name.
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'youtube', 'bebop_youtube_username', $_POST['bebop_youtube_username'] );
 }
@@ -17,12 +17,12 @@ if ( isset( $_POST ) ) {
 ?>
 <form id='settings_form' action='<?php echo  $bp->loggedin_user->domain ?>bebop-oers/providers/?provider=youtube' method='post'>
 	<h3>Youtube Settings</h3>
-	Youtube username<br/>
-	<input type='text' name='bebop_youtube_username' value='<?php echo $bebop_youtube_username; ?>' size='50' ><br/><br/>
-	<input type='submit' class='standard_button' value='Save Channel'>
+	<label for='bebop_youtube_username'>Youtube Username:</label>
+	<input type='text' name='bebop_youtube_username' value='<?php echo $bebop_youtube_username; ?>' size='50' ><br>
+	<div class='button_container'><input type='submit' class='standard_button' value='Save Channel'></div>
+	<?php
+	if ( ! empty( $bebop_youtube_username ) ) {
+		echo '<div class="button_container"><a class="standard_button" href="?provider=youtube&reset=true">Remove Channel</a></div>';
+	}
+	?>
 </form>
-<?php
-if ( ! empty( $bebop_youtube_username ) ) {
-	echo '<br><a class="standard_button provider_button" href="?oer=youtube&reset=true">Remove Channel</a>';
-}
-?>
