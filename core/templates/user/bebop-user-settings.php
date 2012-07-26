@@ -24,13 +24,13 @@ else if ( $page == '/bebop-oers/providers/') {
 			}
 			
 			if ( count( $activeExtensions ) == 0 ) {
-				echo 'No extensions are currently active. Please activate them in the bebop OER providers admin panel.';
+				echo '<p>No extensions are currently active. Please activate them in the bebop OER providers admin panel.</p>';
 			}
 			else {
-				echo 'Choose an OER provider from the list below.';
+				echo '<p>Choose an OER provider from the list below.</p>';
 				
 				foreach ( $activeExtensions as $extension ) {
-					echo '<a class="user_extension_link" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a>';
+					echo '<a class="provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a>';
 				}
 			}
 		}

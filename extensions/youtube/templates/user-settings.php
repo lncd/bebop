@@ -15,7 +15,7 @@ if ( isset( $_POST ) ) {
 		do_action( 'bebop_youtube_activated' );
 	}
 ?>
-<form id='settings_form' action='<?php echo  $bp->loggedin_user->domain ?>bebop-oers/?provider=youtube' method='post'>
+<form id='settings_form' action='<?php echo  $bp->loggedin_user->domain ?>bebop-oers/providers/?provider=youtube' method='post'>
 	<h3>Youtube Settings</h3>
 	Youtube username<br/>
 	<input type='text' name='bebop_youtube_username' value='<?php echo $bebop_youtube_username; ?>' size='50' ><br/><br/>
@@ -23,6 +23,6 @@ if ( isset( $_POST ) ) {
 </form>
 <?php
 if ( ! empty( $bebop_youtube_username ) ) {
-	echo '<br><a class="standard_button" href="?oer=youtube&reset=true">Remove Channel</a>';
+	echo '<br><a class="standard_button provider_button" href="?oer=youtube&reset=true">Remove Channel</a>';
 }
 ?>
