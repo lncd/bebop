@@ -26,16 +26,14 @@ if ( isset( $_GET['oauth_token'] ) ) {
 	
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_oauth_token', $accessToken['oauth_token'] );
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_oauth_token_secret', $accessToken['oauth_token_secret'] );
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_sync_to_activity_stream', 1 );
+	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_active_for_user', 1 );
 	
 	//for other plugins
 	do_action( 'bebop_twitter_activated' );
 }
 
 if ( isset( $_POST ) ) {
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_sync_to_activity_stream', $_POST['bebop_twitter_sync_to_activity_stream'] );
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_filtergood', $_POST['bebop_twitter_filtergood'] );
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_filterbad', $_POST['bebop_twitter_filterbad'] );
+	bebop_tables::update_user_meta( $bp->loggedin_user->id, 'twitter', 'bebop_twitter_active_for_user', $_POST['bebop_twitter_active_for_user'] );
 	echo '<div class="bebop_message">Settings Saved</div>';
 }
 
@@ -47,8 +45,8 @@ if ( ( bebop_tables::get_option_value( 'bebop_twitter_provider' ) == 'on') && ( 
 		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=twitter" method="post">
 		<h3> Settings</h3>';
 		
-		echo '<br/><h5>Sync tweets to activity stream</h5>
-		<input type="radio" name="bebop_twitter_sync_to_activity_stream" id="bebop_twitter_sync_to_activity_stream" value="1"';  if ( $bebop_twitter_sync_to_activity_stream == 1 ) {
+		echo '<br/><h5>Enable Twitter</h5>
+		<input type="radio" name="bebop_twitter_active_for_user" id="bebop_twitter_active_for_user" value="1"';  if ( $bebop_twitter_sync_to_activity_stream == 1 ) {
 			echo 'checked';
 		} echo '>
 		<label for="yes">Yes</label>
