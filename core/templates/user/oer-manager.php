@@ -1,6 +1,3 @@
-<link rel='stylesheet' href="<?php echo plugins_url() . '/bebop/core/resources/css/user.css';?>" type='text/css'>
-<div id='bebop_user_container'>
-
 <?php
 
 if ( isset( $_POST ) ) {
@@ -79,7 +76,6 @@ if ( isset( $_POST ) ) {
 }
 
 ?>
-
 <h3> OER Manager</h3>
 <p>Here you can manage your OER's. Change the filter to switch between approved content, removed content, and unverified content.</p>
 <?php
@@ -176,5 +172,4 @@ if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( c
 else {
 	echo '<p>Unfortunately, we could not find any OERs to manage.</p>';
 }
-echo '</div>';
 ?>

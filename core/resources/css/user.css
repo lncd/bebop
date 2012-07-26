@@ -13,7 +13,7 @@
 	padding:0px;
 	margin:0;
 }
-.button_auth {
+.standard_button {
 	display:inline-block;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	font-size:15px;
@@ -31,10 +31,10 @@
 	text-decoration:none;
 	color:#000000;
 }
-.button_auth:hover {
+.standard_button:hover {
 	color:#000000;
 }
-.button_auth:active {
+.standard_button:active {
 	margin-top:13px;
 	margin-bottom:7px;
 }

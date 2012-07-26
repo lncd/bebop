@@ -1,3 +1,5 @@
+<link rel='stylesheet' href="<?php echo plugins_url() . '/bebop/core/resources/css/user.css';?>" type='text/css'>
+<div id='bebop_user_container'>
 <?php 
 $page = page_url( 2 );
 
@@ -8,8 +10,8 @@ if ( $page == '/bebop-oers/manager/') {
 }
 else if ( $page == '/bebop-oers/providers/') {
 	if ( bp_is_my_profile() ) {
-		if ( isset( $_GET['oer'] ) ) {
-			include(WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['oer'] . '/templates/user-settings.php');
+		if ( isset( $_GET['provider'] ) ) {
+			include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );
 		}
 		else {
 			echo '<h3>OER Providers</h3>';
@@ -26,11 +28,16 @@ else if ( $page == '/bebop-oers/providers/') {
 			}
 			else {
 				echo 'Choose an OER provider from the list below.';
+				
+				foreach ( $activeExtensions as $extension ) {
+					echo '<a class="user_extension_link" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a>';
+				}
 			}
 		}
 	}
 }
 else {
+	echo '<h3>Home</h3>';
 	$_COOKIE['bp-activity-filter'] = 'all_oer';
 	
 	echo '<script type="text/javascript" src="' . WP_CONTENT_URL . '/plugins/bebop/core/resources/js/bebop_functions.js"></script>';
@@ -65,3 +72,5 @@ else {
 	</div><!-- .activity -->
 	<?php
 }
+?>
+</div> <!-- End bebop_user_container -->
