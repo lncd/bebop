@@ -45,7 +45,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_twitter_provider' ) == 'on') && ( 
 		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=twitter" method="post">
 		<h3>Twitter Settings</h3>';
 		
-		echo '<h5>Enable Twitter?</h5>
+		echo '<h5>Enable Twitter import?</h5>
 		<input type="radio" name="bebop_twitter_active_for_user" id="bebop_twitter_active_for_user" value="1"';  if ( $bebop_twitter_active_for_user == 1 ) {
 			echo 'checked';
 		} echo '>

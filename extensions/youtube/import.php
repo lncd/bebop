@@ -25,7 +25,7 @@ class bebop_youtube_import {
 
 		if ( $user_metas ) {
 			foreach ( $user_metas as $user_meta ) {
-				if ( bebop_tables::check_user_meta_exists( $user_meta->user_id, 'bebop_youtube_username' ) ) {
+				if ( bebop_tables::check_user_meta_exists( $user_meta->user_id, 'bebop_youtube_username' )  && bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_twitter_active_for_user' ) ) {
 					//get these urls for import
 					$importUrls = 'http://gdata.youtube.com/feeds/api/users/' . bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_youtube_username' ) . '/uploads';
 					$items = null;
@@ -64,8 +64,8 @@ class bebop_youtube_import {
 							if ( ! $activity_info['activities'][0]->id && !$limitReached ) {
 								$description = '';
 								$description = $item->get_content();
-								if ( strlen( $description ) > 400 ) {
-									$description = substr( $description, 0, 400 ) . "... <a href='http://www.youtube.com/watch/?v=" . $videoId . "'>read more</a>";
+								if ( strlen( $description ) > 200 ) {
+									$description = substr( $description, 0, 200 ) . "... <a href='http://www.youtube.com/watch/?v=" . $videoId . "'>read more</a>";
 								}
 								
 								//This manually puts the link and description together with a line break.

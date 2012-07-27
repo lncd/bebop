@@ -2,7 +2,7 @@
 <link rel='shortcut icon' href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
 <?php
-if ( isset( $_POST ) ) {
+if ( isset( $_POST['bebop_youtube_maximport'] ) ) {
 	bebop_tables::update_option( 'bebop_youtube_maximport', trim( strip_tags( strtolower( $_POST['bebop_youtube_maximport'] ) ) ) );
 	bebop_tables::update_option( 'bebop_youtube_setup', true );
 	
