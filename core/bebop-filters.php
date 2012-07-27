@@ -3,9 +3,13 @@
 class bebop_filters {
 	//This grabs the day counter for that specific extension and increases it by one.	
 	public function day_increase( $extension, $userId ) {
-		$database_count = bebop_tables::get_user_meta_value( $userId, 'bebop_' . $extension . '_daycounter' );
-		$new_count = $database_count + 1;
-		bebop_tables::update_user_meta( $userId, $extension, 'bebop_' . $extension . '_daycounter', $new_count );
+		$user_count = bebop_tables::get_user_meta_value( $userId, 'bebop_' . $extension . '_daycounter' );
+		if( bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' ) > $user_count ) {
+			$new_count = $user_count + 1;
+			bebop_tables::update_user_meta( $userId, $extension, 'bebop_' . $extension . '_daycounter', $new_count );
+			return true;
+		}
+		return false;
 	}
 	
 	//This checks to see if the limit for the amount of imports has been maxed for the day.
@@ -16,7 +20,7 @@ class bebop_filters {
 			bebop_tables::update_user_meta( $userId, $extension, 'bebop_' . $extension . '_counterdate', date( 'dmy' ) );
 		}
 		
-		//max items per day * < shud be false return*
+		//max items per day * < should return false*
 		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' ) ) {			
 			if ( bebop_tables::get_user_meta_value( $userId, 'bebop_' . $extension . '_daycounter' ) < bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' ) ) {
 				return false;
