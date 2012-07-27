@@ -1,5 +1,18 @@
+<script type="text/javascript">
+$be = jQuery.noConflict();
+$be(document).ready( function() {
+// Select all
+	$be("A[href='#select_all']").click( function() {
+		$be("INPUT[type='checkbox']", $be(this).attr('rel')).attr('checked', true);
+		return false;
+	});
+	$be("A[href='#select_none']").click( function() {
+		$be("INPUT[type='checkbox']", $be(this).attr('rel')).attr('checked', false);
+		return false;
+	});
+});
+</script>
 <?php
-
 if ( isset( $_POST['action'] ) ) {
 	//Add OER's to the activity stream.
 	if ( $_POST['action'] == 'verify' ) {
@@ -96,7 +109,7 @@ $removed_oers  		= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extens
 
 if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( count( $removed_oers ) > 0 ) ) {
 	if ( count( $unverified_oers ) > 0 ) {
-		echo '<form class="bebop_user_form" method="post">';
+		echo '<form id="unverified_oers" class="bebop_user_form" method="post">';
 		echo '<h4> Unverified OERs</h4>
 		<table class="bebop_user_table width_90">
 			<tr>
@@ -115,6 +128,8 @@ if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( c
 			'</tr>';
 		}
 		echo '</table>';
+		echo '<a rel="#unverified_oers" href="#select_all">Select All</a> ';
+		echo '<a rel="#unverified_oers" href="#select_none">Select None</a>';
 		echo "
 			<h4>Action</h4>
 			<label class='alt' for='verify'>Verify:</label><input type='radio' name='action' id='verify' value='verify'><br>
@@ -124,7 +139,7 @@ if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( c
 		</form>";
 	}
 	if ( count( $verified_oers ) > 0 ) {
-		echo '<form class="bebop_user_form" method="post">';
+		echo '<form id="verified_oers" class="bebop_user_form" method="post">';
 		echo '<h4> Verified OERs</h4>
 		<table class="bebop_user_table width_90">
 			<tr>
@@ -143,15 +158,16 @@ if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( c
 			'</tr>';
 		}
 		echo '</table>';
+		echo '<a rel="#verified_oers" href="#select_all">Select All</a> ';
+		echo '<a rel="#verified_oers" href="#select_none">Select None</a>';
 		echo '
 			<h4>Action</h4>
 			<label class="alt" for="delete">Delete:</label><input type="radio" name="action" id="delete" value="delete"><br>
-			
 			<input type="submit" class="button_auth" value="Submit">
 		</form>';
 	}
 	if ( count( $removed_oers ) > 0 ) {
-		echo '<form class="bebop_user_form" method="post">';
+		echo '<form id="removed_oers" class="bebop_user_form" method="post">';
 		echo 
 		'<h4> Removed OERs</h4>
 		<table class="bebop_user_table width_90">
@@ -171,6 +187,8 @@ if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( c
 			'</tr>';
 		}
 		echo '</table>';
+		echo '<a rel="#removed_oers" href="#select_all">Select All</a> ';
+		echo '<a rel="#removed_oers" href="#select_none">Select None</a>';
 		echo '
 			<h4>Action</h4>
 			<label class="alt" for="reset">Reset:</label><input type="radio" name="action" id="reset" value="reset"><br>
