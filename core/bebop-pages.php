@@ -41,17 +41,17 @@ function bebop_setup_user_nav() {
 					)
 	);
 	//only show if current user is the owner of the profile.
-	if( bp_is_my_profile() ) {
+	if ( bp_is_my_profile() ) {
 		bp_core_new_subnav_item(
-							array(
+								array(
 								'name' => 'OER Providers',
 								'slug' => 'providers',
 								'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
 								'parent_slug' => 'bebop-oers',
 								'screen_function' => 'bebop_user_settings',
 								'position' => 20,
-							)
-			);
+								)
+		);
 			
 		bp_core_new_subnav_item(
 						array(

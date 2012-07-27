@@ -28,7 +28,7 @@ class bebop_twitter_import {
 			if ( $user_metas ) {
 				foreach ( $user_metas as $user_meta ) {
 					//Ensure the user is currently wanting to import items.
-					if( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_twitter_active_for_user' ) == 1 ) {
+					if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_twitter_active_for_user' ) == 1 ) {
 						//check for daylimit
 						if ( ! bebop_filters::import_limit_reached( 'twitter', $user_meta->user_id ) ) {
 							bebop_tables::log_general( 'bebop_twitter_import', 'argh' );

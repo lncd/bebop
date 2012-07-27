@@ -32,7 +32,7 @@ function time_since( $date ) {
  */
 function page_url( $last_folders = null ) {
 	if ( isset( $_SERVER['HTTPS'] ) ) {
-		if(  $_SERVER['HTTPS'] == 'on' ) {
+		if (  $_SERVER['HTTPS'] == 'on' ) {
 			$page_url = 'https://';
 		}
 	}
@@ -52,7 +52,7 @@ function page_url( $last_folders = null ) {
 			$arr[] = $exp[$last_folders];
 			$last_folders--;
 		}
-		$page_url =  '/' . implode( '/', $arr) . '/';
+		$page_url = '/' . implode( '/', $arr ) . '/';
 	}
 	return $page_url;
 }

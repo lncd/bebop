@@ -43,7 +43,7 @@ class bebop_extensions {
 				if ( $file != '.' && $file != '..' && $file != '.DS_Store' ) {
 					if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/import.php' ) ) {
 						if ( bebop_tables::get_option_value( 'bebop_' . $file . '_provider' ) == 'on' ) {
-							if( $addslashes == true ) {
+							if ( $addslashes == true ) {
 								$extensions[] = "'" . $file . "'";
 							}
 							else {

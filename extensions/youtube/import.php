@@ -50,7 +50,6 @@ class bebop_youtube_import {
 					if ( $items ) {
 						foreach ( $items as $item ) {
 							if ( ! bebop_filters::import_limit_reached( 'youtube', $user_meta->user_id ) ) {
-						
 								// get video player URL
 								$link = $item->get_permalink();
 								

@@ -3,12 +3,12 @@
 <?php 
 $page = page_url( 2 );
 
-if ( $page == '/bebop-oers/manager/') {
+if ( $page == '/bebop-oers/manager/' ) {
 	if ( bp_is_my_profile() ) {
 		include(WP_PLUGIN_DIR . '/bebop/core/templates/user/oer-manager.php');
 	}
 }
-else if ( $page == '/bebop-oers/providers/') {
+else if ( $page == '/bebop-oers/providers/' ) {
 	if ( bp_is_my_profile() ) {
 		if ( isset( $_GET['provider'] ) ) {
 			include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );

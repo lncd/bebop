@@ -4,7 +4,7 @@ class bebop_filters {
 	//This grabs the day counter for that specific extension and increases it by one.	
 	public function day_increase( $extension, $userId ) {
 		$user_count = bebop_tables::get_user_meta_value( $userId, 'bebop_' . $extension . '_daycounter' );
-		if( bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' ) > $user_count ) {
+		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' ) > $user_count ) {
 			$new_count = $user_count + 1;
 			bebop_tables::update_user_meta( $userId, $extension, 'bebop_' . $extension . '_daycounter', $new_count );
 			return true;

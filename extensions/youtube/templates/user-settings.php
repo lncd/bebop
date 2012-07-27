@@ -19,7 +19,7 @@ $bebop_youtube_active_for_user = bebop_tables::get_user_meta_value( $bp->loggedi
 
 echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=youtube" method="post">
 <h3>Youtube Settings</h3>';
-if( ! empty( $bebop_youtube_username ) ) {
+if ( ! empty( $bebop_youtube_username ) ) {
 	echo '<h5>Enable Youtube import?</h5>
 	<input type="radio" name="bebop_youtube_active_for_user" id="bebop_youtube_active_for_user" value="1"';  if ( $bebop_youtube_active_for_user == 1 ) {
 		echo 'checked';
