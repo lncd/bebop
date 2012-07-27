@@ -15,26 +15,17 @@ else if ( $page == '/bebop-oers/providers/') {
 		}
 		else {
 			echo '<h3>OER Providers</h3>';
-			$activeExtensions = array();
-			//get the active extension
-			foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-				if ( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
-					$activeExtensions[] = $extension['name'];
-				}
-			}
+			$active_extensions = bebop_extensions::get_active_extension_names();
 			
-			if ( count( $activeExtensions ) == 0 ) {
+			if ( count( $active_extensions ) == 0 ) {
 				echo '<p>No extensions are currently active. Please activate them in the bebop OER providers admin panel.</p>';
 			}
 			else {
 				echo '<p>Choose an OER provider from the list below.</p>';
 				
-				foreach ( $activeExtensions as $extension ) {
+				foreach ( $active_extensions as $extension ) {
 					echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
 				}
-				echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
-				echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
-				echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
 			}
 		}
 	}

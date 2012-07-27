@@ -23,8 +23,10 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 	<table class='bebop_table'>
 		<tr class='nodata'>
 			<th>Extension Name</th>
-			<th># of Users</th>
-			<th># of OER's</th>
+			<th>Users</th>
+			<th colspan=>Unverified OERs</th>
+			<th colspan=>Verified OERs</th>
+			<th colspan=>Deleted OERs</th>
 			<th colspan='2'>Options</th>
 		</tr>
 		
@@ -53,7 +55,9 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 					echo '<tr>
 						<td>' . ucfirst( $extension['name'] ) . '</td>
 						<td>' . bebop_tables::count_users_using_extension( $extension['name'] ) . '</td>
-						<td>' . bebop_tables::count_oers_by_extension( $extension['name'] ) . '</td>
+						<td>' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</td>
+						<td>' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</td>
+						<td>' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</td>
 						<td>';
 						echo "<label for='bebop_" . $extension['name'] . "_provider'>Enabled:</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
 						if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {

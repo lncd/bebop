@@ -33,6 +33,29 @@ class bebop_extensions {
 		}
 		return $config;
 	}
+	function get_active_extension_names( $addslashes = false ) {
+		//only pull data form active extensions
+		$handle     = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
+		$extensions = array();
+		//loop extentions so we can add active extentions to the import loop
+		if ( $handle ) {
+			while ( false !== ( $file = readdir( $handle ) ) ) {
+				if ( $file != '.' && $file != '..' && $file != '.DS_Store' ) {
+					if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/import.php' ) ) {
+						if ( bebop_tables::get_option_value( 'bebop_' . $file . '_provider' ) == 'on' ) {
+							if( $addslashes == true ) {
+								$extensions[] = "'" . $file . "'";
+							}
+							else {
+								$extensions[] = $file;
+							}
+						}
+					}
+				}
+			}
+		}
+		return $extensions; 
+	}
 	
 	function extension_exist( $extensions ) {
 		if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extensions ) . '/core.php' ) ) {

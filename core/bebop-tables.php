@@ -24,10 +24,10 @@ class bebop_tables {
 		return $count;
 	}
 	
-	function count_oers_by_extension( $extension ) {
-		global $wpdb, $bp;
+	function count_oers_by_extension( $extension, $status ) {
+		global $wpdb;
 
-		$count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin' AND type = '" . $wpdb->escape( $extension ) . "'" ) );
+		$count = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE type = '" . $wpdb->escape( $extension ) . "' AND status = '" . $wpdb->escape( $status ) . "'" ) );
 		return $count;
 	}
 	
@@ -72,26 +72,10 @@ class bebop_tables {
 	 * Plugins
 	 */
 	 
-	 function fetch_oer_data( $user_id, $status ) { //function to retrieve oer data from the cache
+	 function fetch_oer_data( $user_id, $extensions, $status ) { //function to retrieve oer data from the cache
 		global $wpdb;
 		
-		//only pull data form active extensions
-		$handle     = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
-		$extensions = array();
-		//loop extentions so we can add active extentions to the import loop
-		if ( $handle ) {
-			while ( false !== ( $file = readdir( $handle ) ) ) {
-				if ( $file != '.' && $file != '..' && $file != '.DS_Store' ) {
-					if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . 'import.php' ) ) {
-						if ( bebop_tables::get_option_value( 'bebop_' . $file . '_provider' ) == 'on' ) {
-							$extensions[] = "'" . $file . "'";
-						}
-					}
-				}
-			}
-		}
-		$names  = join( ',' ,$wpdb->escape( $extensions ) );
-		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN (". stripslashes( $names ) . ') ORDER BY date_recorded DESC' );
+		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN ( ". stripslashes( $extensions ) . ') ORDER BY date_recorded DESC' );
 		return $result;
 	}
 

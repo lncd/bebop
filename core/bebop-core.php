@@ -160,13 +160,13 @@ add_action( 'bp_activity_filter_options', 'load_new_options' );
 add_action( 'bp_member_activity_filter_options', 'load_new_options' );
 
 //This function loads additional filter options for the extensions.
-function load_new_options()
-{		
+function load_new_options() {		
 	$store = array();
 	//gets only the active extension list.
-	foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-		if ( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
-			$store[] = '<option value="' . ucfirst( $extension['name'] ) .'">' . ucfirst( $extension['name'] ) . '</option>';
+	$active_extensions = bebop_extensions::get_active_extension_names();
+	foreach ( $active_extensions as $extension ) {
+		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
+			$store[] = '<option value="' . ucfirst( $extension ) .'">' . ucfirst( $extension ) . '</option>';
 		}
 	}
 	
@@ -202,9 +202,10 @@ function dropdown_query_checker( $query_string ) {
 			$string_build = '';
 			
 			//Loops through all the different extensions and adds the active extensions to the temp variable.
-			foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-				if ( bebop_tables::get_option_value( 'bebop_'.$extension['name'].'_provider' ) == 'on' ) {
-					$string_build .= $extension['name'] . ',';
+			$active_extensions = bebop_extensions::get_active_extension_names();
+			foreach ( $active_extensions as $extension ) {
+				if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
+					$string_build .= $extension . ',';
 				}
 			}
 			
