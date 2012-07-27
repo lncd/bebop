@@ -60,7 +60,8 @@ class bebop_tables {
 		global $wpdb, $bp;
 		
 		if ( ( $wpdb->get_results( 'DELETE FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type = '" . $wpdb->escape( $provider ) . "'" ) ) || 
-		( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin' AND type ='" . $wpdb->escape( $provider ) . "'" ) ) ) {
+		( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin' AND type ='" . $wpdb->escape( $provider ) . "'" ) ) ||
+		( $wpdb->get_results( 'DELETE FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE  user_id = '" . $wpdb->escape( $user_id ) . "' AND type ='" . $wpdb->escape( $provider ) . "'" ) ) ) {
 			return true;
 		}
 		else {
