@@ -22,7 +22,7 @@ function bebop_setup_user_nav() {
 	bp_core_new_nav_item(
 					array(
 						'name' => 'Open Educational Resources',
-						'slug' => 'bebop-oers',
+						'slug' => 'bebop-oers/home',
 						'position' => 30,
 						'show_for_displayed_user' => true,
 						'screen_function' => 'bebop_user_settings',
