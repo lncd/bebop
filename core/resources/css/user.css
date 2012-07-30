@@ -9,13 +9,13 @@
 #bebop_user_container a, #bebop_user_container a:hover {
 	color:#000000;
 }
-#bebop_user_container  h4 {
+#bebop_user_container h3, #bebop_user_container h4 {
 	padding:0px;
 	margin:0;
 }
 .button_container {
 	display:inline-block;
-	margin:10px 15px 0 0;
+	margin:0px 15px 0 0;
 	padding:3px 0;
 }
 .standard_button {
@@ -23,7 +23,7 @@
 	display:inline-block;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	font-size:15px;
-	margin:10px auto 10px auto;
+	margin:0px auto 10px auto;
 	padding:10px;
 	text-align:center;
 	background-image:linear-gradient(bottom, #FFD492 50%, #FFFACD 50%);
@@ -93,23 +93,29 @@
 .bebop_user_form input[type=radio] {
 	margin:2px auto;
 }
-.width_90 {
-	width:90% !important;
-}
 .bebop_user_table {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	width:100%;
 	font-size:12px;
 	margin:0 auto;
 	padding:0;
-	border:0px solid #000;
+}
+.bebop_user_table tr.nodata:hover {
+	background:inherit;
+}
+.bebop_user_table tr:hover {
+	background:#eeeeee;
 }
 .bebop_user_table th {
 	font-size:16px;
 	text-align:center;
 }
 .bebop_user_table td {
-padding:0;
+	padding:0;
+	text-align:center;
+}
+.bebop_user_table td.content {
+	text-align:left;
 }
 .checkbox_container {
 	display:block;
@@ -120,4 +126,15 @@ padding:0;
 	height:14px;
 	width:100%;
 	margin-top:3px;
+}
+.clear_both {
+	clear:both;
+}
+.min_width_100 {
+	min-width:100px;
+}
+.button_right {
+	float:right;
+	margin-right:0;
+	margin-left:15px;
 }

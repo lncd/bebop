@@ -3,33 +3,30 @@
 <?php 
 $page = page_url( 2 );
 
-if ( $page == '/bebop-oers/manager/' ) {
-	if ( bp_is_my_profile() ) {
+if ( bp_is_my_profile() ) {
+	if ( $page == '/bebop-oers/manager/' ) {
 		include(WP_PLUGIN_DIR . '/bebop/core/templates/user/oer-manager.php');
 	}
-}
-else if ( $page == '/bebop-oers/providers/' ) {
-	if ( bp_is_my_profile() ) {
+	else if ( $page == '/bebop-oers/providers/' ) {
+		echo '<h3>OER Providers</h3>';
+		$active_extensions = bebop_extensions::get_active_extension_names();
+		foreach ( $active_extensions as $extension ) {
+			echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
+		}
 		if ( isset( $_GET['provider'] ) ) {
 			include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );
 		}
 		else {
-			echo '<h3>OER Providers</h3>';
-			$active_extensions = bebop_extensions::get_active_extension_names();
-			
 			if ( count( $active_extensions ) == 0 ) {
 				echo '<p>No extensions are currently active. Please activate them in the bebop OER providers admin panel.</p>';
 			}
 			else {
 				echo '<p>Choose an OER provider from the list below.</p>';
-				
-				foreach ( $active_extensions as $extension ) {
-					echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
-				}
 			}
 		}
 	}
 }
+
 else {
 	echo '<h3>Home</h3>';
 	$_COOKIE['bp-activity-filter'] = 'all_oer';
