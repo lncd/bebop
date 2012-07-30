@@ -97,106 +97,74 @@ if ( isset( $_POST['action'] ) ) {
 ?>
 <h3> OER Manager</h3>
 <p>Here you can manage your OER's. Change the filter to switch between approved content, removed content, and unverified content.</p>
+<div class="button_container"><a class="standard_button" href="?type=unverified">Unverified</a></div>
+<div class="button_container"><a class="standard_button" href="?type=verified">Verified</a></div>
+<div class="button_container"><a class="standard_button" href="?type=deleted">Deleted</a></div>
 <?php
 global $wpdb, $bp;
-
-$active_extensions = bebop_extensions::get_active_extension_names( $addslashes = true );
-$extension_names   = join( ',' ,$wpdb->escape( $active_extensions ) );
-
-$unverified_oers	= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extension_names, 'unverified' );
-$verified_oers  	= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extension_names, 'verified' );
-$removed_oers  		= bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extension_names, 'deleted' );
-
-if ( ( count( $unverified_oers ) > 0 ) || ( count( $verified_oers ) > 0 ) || ( count( $removed_oers ) > 0 ) ) {
-	if ( count( $unverified_oers ) > 0 ) {
-		echo '<form id="unverified_oers" class="bebop_user_form" method="post">';
-		echo '<h4> Unverified OERs</h4>
-		<table class="bebop_user_table width_90">
-			<tr>
-				<th>Type</th>
-				<th>Published</th>
-				<th>Content</th>
-				<th>Select</th>
-			</tr>';
-			
-		foreach ( $unverified_oers as $unverified_oer ) {
-			echo '<tr>
-				<td><label for="' . $unverified_oer->secondary_item_id . '">' . bebop_tables::sanitise_element( ucfirst( $unverified_oer->type ) ) . '</label></td>' .
-				'<td><label for="' . $unverified_oer->secondary_item_id . '">' . time_since( $unverified_oer->date_recorded ) . '</label></td>' .
-				'<td><label for="' . $unverified_oer->secondary_item_id . '">' . bebop_tables::sanitise_element( $unverified_oer->content ) . '</label></td>' .
-				"<td class='checkbox_container'><label for='" . $unverified_oer->secondary_item_id . "'><div class='checkbox'><input type='checkbox' id='" . $unverified_oer->secondary_item_id . "' name='" . $unverified_oer->secondary_item_id . "'></div></label></td>" .
-			'</tr>';
-		}
-		echo '</table>';
-		echo '<a rel="#unverified_oers" href="#select_all">Select All</a> ';
-		echo '<a rel="#unverified_oers" href="#select_none">Select None</a>';
-		echo "
-			<h4>Action</h4>
-			<label class='alt' for='verify'>Verify:</label><input type='radio' name='action' id='verify' value='verify'><br>
-			<label class='alt' for='delete'>Delete:</label><input type='radio' name='action' id='delete' value='delete'><br>
-			
-			<input type='submit' class='button_auth' value='Submit'>
-		</form>";
+if ( isset( $_GET['type'] ) ) {
+	$active_extensions = bebop_extensions::get_active_extension_names( $addslashes = true );
+	$extension_names   = join( ',' ,$wpdb->escape( $active_extensions ) );
+	if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
+		$type = 'unverified';	
 	}
-	if ( count( $verified_oers ) > 0 ) {
-		echo '<form id="verified_oers" class="bebop_user_form" method="post">';
-		echo '<h4> Verified OERs</h4>
-		<table class="bebop_user_table width_90">
-			<tr>
-				<th>Type</th>
-				<th>Published</th>
-				<th>Content</th>
-				<th>Select</th>
-			</tr>';
-			
-		foreach ( $verified_oers as $verified_oer ) {
-			echo '<tr>
-				<td><label for="' . $verified_oer->secondary_item_id . '">' . bebop_tables::sanitise_element( ucfirst( $verified_oer->type ) ) . '</label></td>' .
-				'<td><label for="' . $verified_oer->secondary_item_id . '">' . time_since( $verified_oer->date_recorded ) . '</label></td>' .
-				'<td><label for="' . $verified_oer->secondary_item_id . '">' . bebop_tables::sanitise_element( $verified_oer->content ) . '</label></td>' .
-				"<td class='checkbox_container'><label for='" . $verified_oer->secondary_item_id . "'><div class='checkbox'><input type='checkbox' id='" . $verified_oer->secondary_item_id . "' name='" . $verified_oer->secondary_item_id . "'></div></label></td>" .
-			'</tr>';
-		}
-		echo '</table>';
-		echo '<a rel="#verified_oers" href="#select_all">Select All</a> ';
-		echo '<a rel="#verified_oers" href="#select_none">Select None</a>';
-		echo '
-			<h4>Action</h4>
-			<label class="alt" for="delete">Delete:</label><input type="radio" name="action" id="delete" value="delete"><br>
-			<input type="submit" class="button_auth" value="Submit">
-		</form>';
+	else if ( strtolower( strip_tags( $_GET['type'] == 'verified' ) ) ) {
+		$type = 'verified';	
 	}
-	if ( count( $removed_oers ) > 0 ) {
-		echo '<form id="removed_oers" class="bebop_user_form" method="post">';
-		echo 
-		'<h4> Removed OERs</h4>
-		<table class="bebop_user_table width_90">
-			<tr>
-				<th>Type</th>
-				<th>Published</th>
-				<th>Content</th>
-				<th>Select</th>
-			</tr>';
-			
-		foreach ( $removed_oers as $removed_oer ) {
-			echo '<tr>
-				<td><label for="' . $removed_oer->secondary_item_id . '">' . bebop_tables::sanitise_element( ucfirst( $removed_oer->type ) ) . '</label></td>' .
-				'<td><label for="' . $removed_oer->secondary_item_id . '">' . time_since( $removed_oer->date_recorded ) . '</label></td>' .
-				'<td><label for="' . $removed_oer->secondary_item_id . '">' . bebop_tables::sanitise_element( $removed_oer->content ) . '</label></td>' .
-				"<td class='checkbox_container'><label for='" . $removed_oer->secondary_item_id . "'><div class='checkbox'><input type='checkbox' id='" . $removed_oer->secondary_item_id . "' name='" . $removed_oer->secondary_item_id . "'></div></label></td>" .
-			'</tr>';
-		}
-		echo '</table>';
-		echo '<a rel="#removed_oers" href="#select_all">Select All</a> ';
-		echo '<a rel="#removed_oers" href="#select_none">Select None</a>';
-		echo '
-			<h4>Action</h4>
-			<label class="alt" for="reset">Reset:</label><input type="radio" name="action" id="reset" value="reset"><br>
-			<input class="alt" type="submit" class="button_auth" value="Submit">
-		</form>';
+	else if ( strtolower( strip_tags( $_GET['type'] == 'deleted' ) ) ) {
+		$type = 'deleted';	
 	}
-}
-else {
-	echo '<p>Unfortunately, we could not find any OERs to manage.</p>';
+	if ( ! empty( $type ) ) {
+		$oers = bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extension_names, $type );
+		
+		if ( count( $oers ) > 0 ) {
+			echo '<form id="oer_table" class="bebop_user_form" method="post">';
+			echo '<h4>' . ucfirst( $type ) . ' OERs</h4>
+			<table class="bebop_user_table width_90">
+				<tr>
+					<th>Type</th>
+					<th>Published</th>
+					<th>Content</th>
+					<th>Select</th>
+				</tr>';
+				
+			foreach ( $oers as $oer ) {
+				echo '<tr>
+					<td><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( ucfirst( $oer->type ) ) . '</label></td>' .
+					'<td><label for="' . $oer->secondary_item_id . '">' . time_since( $oer->date_recorded ) . '</label></td>' .
+					'<td><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( $oer->content ) . '</label></td>' .
+					"<td class='checkbox_container'><label for='" . $oer->secondary_item_id . "'><div class='checkbox'><input type='checkbox' id='" . $oer->secondary_item_id . "' name='" . $oer->secondary_item_id . "'></div></label></td>" .
+				'</tr>';
+			}
+			echo '</table>';
+			echo '<a rel="#oer_table" href="#select_all">Select All</a> ';
+			echo '<a rel="#oer_table" href="#select_none">Select None</a>';
+			
+			echo '<h4>Action</h4>';
+			$verify_oer_option = "<label class='alt' for='verify'>Verify:</label><input type='radio' name='action' id='verify' value='verify'><br>";
+			$delete_oer_option = "<label class='alt' for='delete'>Delete:</label><input type='radio' name='action' id='delete' value='delete'><br>";
+			$reset_oer_option = "<label class='alt' for='reset'>Reset:</label><input type='radio' name='action' id='reset' value='reset'><br>";
+			
+			if ( $type == 'unverified' ) {
+				echo $verify_oer_option . $delete_oer_option;
+			}
+			else if ( $type == 'verified' ) {
+				echo $delete_oer_option;
+			}
+			else if ( $type == 'deleted' ) {
+				echo $reset_oer_option;
+			}
+				
+			echo '<input type="submit" class"button_auth" value="Submit">
+			</form>';
+		}
+		else {
+			echo '<p>Unfortunately, we could not find any ' . $type . ' oers for you to manage.</p>';
+		}
+	}//End if ( ! empty( $type ) ) {
+	else {
+		echo '<p>Invalid OER type.</p>';
+	}
+	
 }
 ?>
