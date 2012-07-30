@@ -53,11 +53,11 @@ if ( isset( $_POST['action'] ) ) {
 							bebop_filters::day_increase( $data->type, $data->user_id );
 						}
 						else {
-							bebop_tables::log_error( '_', 'Activity Stream', 'Could not update the oer buffer status.' );
+							bebop_tables::log_error( 'Activity Stream', 'Could not update the oer buffer status.' );
 						}
 					}
 					else {
-						bebop_tables::log_error( '_', 'Activity Stream', 'This content already exists in the activity stream.' );
+						bebop_tables::log_error( 'Activity Stream', 'This content already exists in the activity stream.' );
 					}
 				}
 			}
@@ -132,7 +132,7 @@ if ( isset( $_GET['type'] ) ) {
 				echo '<tr>
 					<td><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( ucfirst( $oer->type ) ) . '</label></td>' .
 					'<td><label for="' . $oer->secondary_item_id . '">' . time_since( $oer->date_recorded ) . '</label></td>' .
-					'<td><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( $oer->content ) . '</label></td>' .
+					'<td class="content"><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( $oer->content ) . '</label></td>' .
 					"<td class='checkbox_container'><label for='" . $oer->secondary_item_id . "'><div class='checkbox'><input type='checkbox' id='" . $oer->secondary_item_id . "' name='" . $oer->secondary_item_id . "'></div></label></td>" .
 				'</tr>';
 			}

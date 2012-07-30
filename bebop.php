@@ -52,45 +52,44 @@ function bebop_activate() {
 	if ( is_plugin_active( 'buddypress/bp-loader.php' ) ) {
 		//define table sql
 		$bebop_error_log = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_error_log ( 
-	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
-	    	feed_id int(10) NOT NULL,
-	    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-	    	error_type varchar(40) NOT NULL,
-	    	error_message varchar(255) NOT NULL
-	    );';
-	    $bebop_general_log = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_general_log ( 
-	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
-	    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-	    	type varchar(40) NOT NULL,
-	    	message varchar(255) NOT NULL
+			id int(10) NOT NULL auto_increment PRIMARY KEY, 
+			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+			error_type varchar(40) NOT NULL,
+			error_message varchar(255) NOT NULL
+		);';
+		$bebop_general_log = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_general_log ( 
+			id int(10) NOT NULL auto_increment PRIMARY KEY,
+			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
+			type varchar(40) NOT NULL,
+			message varchar(255) NOT NULL
 	    );';
 	
 		$bebop_options = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_options ( 
-	    	timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-	    	option_name varchar(100) NOT NULL PRIMARY KEY,
-	    	option_value longtext NOT NULL
-	    );';  
+			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,	
+			option_name varchar(100) NOT NULL PRIMARY KEY,
+			option_value longtext NOT NULL
+		);';
 		
 		$bebop_user_meta = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_user_meta ( 
-	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
-	    	user_id int(10) NOT NULL,
-	    	meta_type varchar(255) NOT NULL,
-	    	meta_name varchar(255) NOT NULL,
-	    	meta_value longtext NOT NULL
-	    );';   
-	    
-	    $bebop_activity_buffer = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( 
-	    	id int(10) NOT NULL auto_increment PRIMARY KEY,
-	    	user_id int(10) NOT NULL,
-	    	status varchar(75) NOT NULL,
-	    	type varchar(255) NOT NULL,
-	    	action text NOT NULL,
-	    	content longtext NOT NULL,
-	    	activity_stream_id int(20),
-	    	secondary_item_id varchar(75),
-	    	date_recorded datetime,
-	    	hide_sitewide tinyint(1)
-	    );'; 
+			id int(10) NOT NULL auto_increment PRIMARY KEY,
+			user_id int(10) NOT NULL,
+			meta_type varchar(255) NOT NULL,
+			meta_name varchar(255) NOT NULL,
+			meta_value longtext NOT NULL
+		);';
+		
+		$bebop_activity_buffer = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( 
+			id int(10) NOT NULL auto_increment PRIMARY KEY,
+			ser_id int(10) NOT NULL,
+			status varchar(75) NOT NULL,
+			type varchar(255) NOT NULL,
+			action text NOT NULL,
+			content longtext NOT NULL,
+			activity_stream_id int(20),
+			secondary_item_id varchar(75),
+			date_recorded datetime,
+			hide_sitewide tinyint(1)
+		);'; 
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 		dbDelta( $bebop_error_log );
@@ -105,11 +104,11 @@ function bebop_activate() {
 		unset( $bebop_options );
 		unset( $bebop_user_meta );
 		unset( $bebop_activity_buffer );
-    }
+	}
 	else {
 		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
 		include_once( 'core/bebop-tables.php' );
-		bebop_tables::log_error( '_', 'BuddyPress Error', 'BuddyPress is not active.' );
+		bebop_tables::log_error( 'BuddyPress Error', 'BuddyPress is not active.' );
 		deactivate_plugins( basename( __FILE__ ) ); // Deactivate this plugin
 		wp_die( 'You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again.' );
 	}

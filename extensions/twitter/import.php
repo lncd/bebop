@@ -6,7 +6,7 @@
 function bebop_twitter_start_import() {
 	if ( ! bebop_tables::check_option_exists( 'bebop_twitter_consumer_key' ) ){
 		//add record to the log
-		bebop_tables::log_error( 1, 'Twitter', 'No oAuth token' );
+		bebop_tables::log_error( 'Twitter', 'No oAuth token' );
 		return false;
 	}
 	$importer = new bebop_twitter_import();

@@ -109,7 +109,7 @@ function bebop_create_buffer_item( $params ) {
 					bebop_filters::day_increase( $params['extention'], $params['user_id'] );
 				}
 				else {
-					bebop_tables::log_error( '_', 'import error', 'could not import.' );
+					bebop_tables::log_error( 'import error', 'could not import.' );
 				}
 			}
 			else {

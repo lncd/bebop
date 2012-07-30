@@ -44,7 +44,7 @@ class bebop_youtube_import {
 						$items = $feed->get_items();
 					}
 					else {
-						bebop_tables::log_error( '_' ,'bebop_youtube_import', 'feed error: ' . $feed->error );
+						bebop_tables::log_error( 'bebop_youtube_import', 'feed error: ' . $feed->error );
 					}
 					
 					if ( $items ) {

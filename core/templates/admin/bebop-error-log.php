@@ -31,7 +31,6 @@ if ( isset( $_GET ) ) {
 		<table class='bebop_table'>
 			<tr class='nodata'>
 				<th>Error ID</th>
-				<th>Feed ID</th>
 				<th>Timestamp</th>
 				<th>Error Type</th>
 				<th>Error Message</th>
@@ -39,8 +38,7 @@ if ( isset( $_GET ) ) {
 			<?php
 			foreach ( $table_row_data as $row_data ) {
 				echo '<tr>
-					<td>' . bebop_tables::sanitise_element( $row_data->id ) . '</td>' .
-					'<td>'. bebop_tables::sanitise_element( $row_data->feed_id ) . '</td>
+					<td>' . bebop_tables::sanitise_element( $row_data->id ) . '</td>
 					<td>' . bebop_tables::sanitise_element( $row_data->timestamp ) . '</td>
 					<td>' . bebop_tables::sanitise_element( $row_data->error_type ) . '</td>
 					<td>' . bebop_tables::sanitise_element( $row_data->error_message ) . '</td>

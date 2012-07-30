@@ -9,7 +9,7 @@ class bebop_tables {
 		
 		if ( $wpdb->get_results( 'TRUNCATE TABLE ' . $wpdb->base_prefix . $table_name ) ) {
 			//if we get results, something has gone wrong...
-			bebop_tables::log_error(  '_', 'Table Truncate error', 'Could not empty the $table_name table.' );
+			bebop_tables::log_error( 'Table Truncate error', 'Could not empty the $table_name table.' );
 			return false;
 		}
 		else {
@@ -87,7 +87,7 @@ class bebop_tables {
 			return $result[0];
 		}
 		else {
-			bebop_tables::log_error( '_', 'Activity Stream', "could not find $secondary_item_id in the oer buffer." );
+			bebop_tables::log_error( 'Activity Stream', "could not find $secondary_item_id in the oer buffer." );
 		}
 	}
 	
@@ -107,7 +107,7 @@ class bebop_tables {
 	* Tables
 	*/
 	
-	function log_error( $feed_id = null, $error_type, $error_message ) { //function to log errors into the error table.
+	function log_error( $error_type, $error_message ) { //function to log errors into the error table.
 		global $wpdb;
 		
 		if ( $feed_id ) {
@@ -141,7 +141,7 @@ class bebop_tables {
 			return true;
 		}
 		else {
-			bebop_tables::log_error( '_', 'bebop_option_error', "option: '" . $option_name . "' already exists." );
+			bebop_tables::log_error( 'bebop_option_error', "option: '" . $option_name . "' already exists." );
 			return false;
 		}
 	}
@@ -194,7 +194,7 @@ class bebop_tables {
 			return true;
 		}
 		else {
-			bebop_tables::log_error( '_', 'bebop_option_error', "option: '" . $option_name . "' does not exist." );
+			bebop_tables::log_error( 'bebop_option_error', "option: '" . $option_name . "' does not exist." );
 			return false;
 		}
 	}
@@ -216,7 +216,7 @@ class bebop_tables {
 			return true;
 		}
 		else {
-			bebop_tables::log_error( '_', 'bebop_user_meta_error', "meta: '" . $meta_name . "' already exists for user " . $user_id . 'in type ' . $meta_type );
+			bebop_tables::log_error( 'bebop_user_meta_error', "meta: '" . $meta_name . "' already exists for user " . $user_id . 'in type ' . $meta_type );
 			return false;
 		}
 	}
