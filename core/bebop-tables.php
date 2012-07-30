@@ -73,10 +73,17 @@ class bebop_tables {
 	 * Plugins
 	 */
 	 
-	 function fetch_oer_data( $user_id, $extensions, $status ) { //function to retrieve oer data from the cache
+	 function fetch_oer_data( $user_id, $extensions, $status ) { //function to retrieve oer data from the oer manager table.
 		global $wpdb;
 		
 		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN ( ". stripslashes( $extensions ) . ') ORDER BY date_recorded DESC' );
+		return $result;
+	}
+	 
+	 function admin_fetch_oer_data( $status ) { //function to retrieve all oer data by status in the oer manager table.
+		global $wpdb;
+		
+		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_recorded DESC");
 		return $result;
 	}
 
