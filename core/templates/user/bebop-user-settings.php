@@ -25,7 +25,7 @@ if ( bp_is_my_profile() ) {
 			}
 		}
 	}
-}
+} 
 
 if ( $page == '/bebop-oers/home/' ) {
 	echo '<h3>Home</h3>';
