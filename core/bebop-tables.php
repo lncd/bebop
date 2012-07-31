@@ -80,10 +80,15 @@ class bebop_tables {
 		return $result;
 	}
 	 
-	 function admin_fetch_oer_data( $status ) { //function to retrieve all oer data by status in the oer manager table.
+	 function admin_fetch_oer_data( $status, $limit = null ) { //function to retrieve all oer data by status in the oer manager table.
 		global $wpdb;
 		
-		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_recorded DESC");
+		if ( $limit != null ) {
+			$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_recorded DESC LIMIT $limit");
+		}
+		else {
+			$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_recorded DESC");
+		}
 		return $result;
 	}
 

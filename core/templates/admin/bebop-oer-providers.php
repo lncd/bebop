@@ -19,6 +19,15 @@ if ( isset( $_POST['submit'] ) ){
 }
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
+	
+	<div class='postbox center_margin margin-bottom_22px'>
+		<h3>OER Providers</h3>
+		<div class="inside">
+			Here you can manage installed OER extensions. To enable an extension, click the "enabled" checkbox and click "Save Changes". The "Admin Settings" link can now be clicked to 
+			change any configuration settings the extension might require, such as API keys and import limits.
+		</div>
+	</div>
+	
 	<form method='post' class='bebop_admin_form no_border'>
 	<table class='bebop_table'>
 		<tr class='nodata'>
@@ -55,9 +64,9 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 					echo '<tr>
 						<td>' . ucfirst( $extension['name'] ) . '</td>
 						<td>' . bebop_tables::count_users_using_extension( $extension['name'] ) . '</td>
-						<td>' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</td>
-						<td>' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</td>
-						<td>' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</td>
+						<td><a href="?page=bebop_oers&type=unverified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</a></td>
+						<td><a href="?page=bebop_oers&type=verified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</a></td>
+						<td><a href="?page=bebop_oers&type=deleted">' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</a></td>
 						<td>';
 						echo "<label for='bebop_" . $extension['name'] . "_provider'>Enabled:</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
 						if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {

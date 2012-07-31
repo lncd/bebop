@@ -4,9 +4,9 @@
 <?php include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
 	<div class='bebop_admin_box'>
-		<img class='bebop_logo' src="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_logo.png';?>"><br>
+		<img class='bebop_logo' src="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_logo.png';?>">
 		<p>Welcome to the OER plugin for BuddyPress. Developed by <a href='http://www.lncd.lincoln.ac.uk'>LNCD @ the University of Lincoln</a>.</p>
-		<p>Bebop was designed for academic institutions who want to bring Open Educational Resources from content providers and place them onto staff BuddyPress Profiles. This plugin aids the discovery of OER's  in the BuddyPress environment.</p>
+		<p>Bebop was designed for academic institutions who want to incorporate Open Educational Resources into BuddyPress Profiles. This plugin aids the discovery of OERs  in the BuddyPress environment.</p>
 		<div class="clear"></div>
 	</div>
 	
@@ -25,21 +25,50 @@ Proin id mi iaculis ipsum varius laoreet. Class aptent taciti sociosqu ad litora
 Sed feugiat tincidunt lacus, non tincidunt nulla egestas non. Sed nec justo ut dolor elementum laoreet. Nullam sit amet lorem sem. Pellentesque a justo euismod nibh elementum aliquam. Vestibulum blandit commodo orci, in viverra nunc vehicula eu. Nullam eget leo elit. Nullam semper malesuada libero nec rutrum. Vestibulum id erat ut arcu aliquet ultrices eu sed est. Ut tortor quam, vehicula sit amet porta quis, pellentesque a nisi. Mauris consectetur luctus ante. Donec feugiat, sapien a ullamcorper tincidunt, nibh tortor aliquet elit, a pretium risus mi at eros. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.   
 			</div>
 		</div>
-		
-		<div class='postbox'>
-			<h3>Container</h3>
-			<div class='inside'>
-				Container
+
+		<div class="postbox">
+			<h3>Support</h3>
+			<div class="inside">
+				Support Description
 			</div>
 		</div>
 	<!-- End postbox-container -->
 	</div>
 	
 	<div class="postbox-container">
-		<div class="postbox">
-			<h3>Support</h3>
-			<div class="inside">
-				Support Description
+		<div class='postbox'>
+			<h3><a href="?page=bebop_oers&type=verified">Recent OERs</a></h3>
+			<div class='inside'>
+				<?php
+				$oers = bebop_tables::admin_fetch_oer_data( 'verified', 20 );
+				
+				if ( count( $oers ) > 0 ) {
+					
+					echo '<table class="postbox_table">
+						<tr class="nodata">
+							<th>Username</th>
+							<th>OER Type</th>
+							<th>Imported</th>
+							<th>Published</th>
+							<th>Content</th>
+						</tr>';
+					
+					foreach ( $oers as $oer ) {
+						echo '<tr>
+							<td>' . bp_core_get_username( $oer->user_id ) . '</td>' .
+							'<td>' . bebop_tables::sanitise_element( ucfirst( $oer->type ) ) . '</td>' .
+							'<td>' . time_since( $oer->date_imported ) . '</td>' .
+							'<td>' . time_since( $oer->date_recorded ) . '</td>' .
+							'<td class="content">' . bebop_tables::sanitise_element( $oer->content ) . '</td>' .
+						'</tr>';
+					}
+					echo '</table>';
+				}
+				else {
+					echo '<p>No ' . $type . ' oers exist in the oer manager.</p>';
+				}
+				?>
+				
 			</div>
 		</div>
 	</div>

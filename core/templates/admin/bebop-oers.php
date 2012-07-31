@@ -3,6 +3,13 @@
 
 <?php include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
+	
+	<div class='postbox center_margin margin-bottom_22px'>
+		<h3>OERs</h3>
+		<div class="inside">
+			Shows all of the OERs currently in the database, broken down by their status.
+		</div>
+	</div>
 	<?php 
 	if ( isset( $_GET['type'] ) ) {
 		if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
@@ -23,9 +30,9 @@
 		$message = 'These OERs are currently being displayed their owner\'s activity streams.';
 	}
 	
-	echo '<div class="button_container"><a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&type=unverified">Unverified OERs</a></div>';
-	echo '<div class="button_container"><a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&type=verified">Verified OERs</a></div>';
-	echo '<div class="button_container"><a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&type=deleted">Deleted OERs</a></div>';
+	echo '<div class="button_container"><a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_oers&type=unverified">Unverified OERs</a></div>';
+	echo '<div class="button_container"><a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_oers&type=verified">Verified OERs</a></div>';
+	echo '<div class="button_container"><a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_oers&type=deleted">Deleted OERs</a></div>';
 	
 	$oers = bebop_tables::admin_fetch_oer_data( $type );
 	
@@ -57,6 +64,7 @@
 				'<td class="content">' . bebop_tables::sanitise_element( $oer->content ) . '</td>' .
 			'</tr>';
 		}
+		echo '</table>';
 	}
 	else {
 		echo '<h4>' . ucfirst( $type ) . ' OERs</h4>';

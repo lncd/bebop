@@ -15,7 +15,7 @@ if ( isset( $_GET ) ) {
 }
 ?>
 <div id='bebop_admin_container'>
-	<div class='postbox full_width center_margin margin-bottom_22px'>
+	<div class='postbox center_margin margin-bottom_22px'>
 		<h3>Bebop Log</h3>
 		<div class="inside">
 			When stuff happens, it is logged here. 

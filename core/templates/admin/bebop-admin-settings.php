@@ -18,14 +18,20 @@ if ( ! empty( $_POST['bebop_general_crontime'] ) ) {
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' );
 ?>
 <div id='bebop_admin_container'>
+	<div class='postbox center_margin margin-bottom_22px'>
+		<h3>Bebop Settings</h3>
+		<div class="inside">
+			General settings can be modified here.
+		</div>
+	</div>
 	<form class='bebop_admin_form' method='post'>
-		<fieldset>  
-			<legend><span class='header'>General Settings</span></legend>
+		<fieldset>
+			<span class='header'>Bebop Settings</span>
 			<label for='bebop_general_crontime'>Cron time (in seconds):</label>
 			<input type='text' id='bebop_general_crontime' name='bebop_general_crontime' value="<?php echo bebop_tables::get_option_value( 'bebop_general_crontime' ); ?>" size='5'>
 			<div class="clear"></div>
-			<div class='button_container form_button_container'><button>Save Changes</button></div>	
 		</fieldset>
+		<div class='button_container'><button>Save Changes</button></div>	
 	</form>
 	<div class="clear"></div>
 </div>
