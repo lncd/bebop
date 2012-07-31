@@ -8,7 +8,7 @@
 	<a id='bebop_oer_providers' href='?page=bebop_oer_providers' <?php if ( $_GET['page'] == 'bebop_oer_providers' ) {
 		echo 'class="activetab"';
 	}?>>OER Providers</a>
-	<a id='bebop_oer_s' href='?page=bebop_oers' <?php if ( $_GET['page'] == 'bebop_oers' ) {
+	<a id='bebop_oers' href='?page=bebop_oers' <?php if ( $_GET['page'] == 'bebop_oers' ) {
 		echo 'class="activetab"';
 	}?>>OERs</a>
 	<a id='bebop_error_log' href='?page=bebop_error_log' <?php if ( $_GET['page'] == 'bebop_error_log' ) {

@@ -88,7 +88,7 @@
 }
 
 .full_width {
-	width:97%;
+	width:100%;
 }
 .center_margin {
 	margin-left:auto;
@@ -145,7 +145,7 @@
 .bebop_table, .bebop_settings_table {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
     background-color:#ffffff;
-    width:97%;
+    width:100%;
     border:1px solid #cecece;
     border-radius:7px;
     border-spacing:0;
@@ -226,32 +226,54 @@
 	padding:5px;
 	margin:5px 0;
 }
-.bebop_button_container {
-	text-align:center;
-}
-.bebop_admin_form button, .options_button {
+.button_container {
 	display:inline-block;
+	margin:0px 15px 0 0;
+	padding:3px 0;
+}
+.form_button_container {
+	display:block;
+	text-align:center;
+	margin: 0 auto;
+}
+
+.bebop_admin_form button, .options_button {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	font-size:15px;
-	margin:10px 15px 10px auto;
+	margin:0px auto;
 	padding:10px;
 	text-align:center;
-	background-image:linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-    background-image:-o-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-    background-image:-moz-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-    background-image:-webkit-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-    background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #FBEC5D), color-stop(0.5, #FFFACD));
-    background-image:-ms-linear-gradient(bottom, #FBEC5D 30%, #FFFACD 70%); 
-	border:1px solid #FBEC5D;
+	background-image:linear-gradient(bottom, #FFD492 50%, #FFFACD 50%);
+	background-image:-o-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+	background-image:-moz-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+	background-image:-webkit-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
+	background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #FBEC5D), color-stop(0.5, #FFFACD));
+	background-image:-ms-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%); 
 	border-radius:4px;
+	text-decoration:none;
+	color:#000000;
+	border:none;
 }
-.bebop_admin_form button:active, .options_button:active {
-	margin-top:11px;
-	margin-bottom:9px;
+.options_button {
+	float:left;
+	display:inline-block;
+}
+.bebop_admin_form button:hover, .options_button:hover {
+	background-image:linear-gradient(bottom, #000000 50%, #444444 50%);
+	background-image:-o-linear-gradient(bottom, #000000 50%, #444444 50%);
+	background-image:-moz-linear-gradient(bottom, #000000 50%, #444444 50%);
+	background-image:-webkit-linear-gradient(bottom, #000000 50%, #444444 50%);
+	background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #000000), color-stop(0.5, #444444));
+	background-image:-ms-linear-gradient(bottom, #000000 50%, #444444 50%); 
+	color:#FFFFFF !important;
+}
+.button_container:active {
+	padding-top:4px;
+	padding-bottom:2px;
 }
 .no_border {
 	border:0px;
 }
 .standard_class {
-	width:100%; margin:0 auto 22px auto;
+	margin:0 auto 22px auto;
 }

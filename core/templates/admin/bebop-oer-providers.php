@@ -78,8 +78,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		}
 		?>
 		</table>
-	<div style='width:97%; margin:0 auto 22px auto;'><button id='submit' name='submit'>Save Changes</button></div>
-	 </form>
-	 
+		<div class='button_container'><button>Save Changes</button></div>
+	</form>
 <!-- End bebop_admin_container -->
 </div>

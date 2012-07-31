@@ -23,19 +23,15 @@
 		$message = 'These OERs are currently being displayed their owner\'s activity streams.';
 	}
 	
-	echo '<div class="standard_class">';
-	echo '<a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&type=unverified">Unverified OERs</a>';
-	echo '<a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&type=verified">Verified OERs</a>';
-	echo '<a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&type=deleted">Deleted OERs</a>';
-	echo '</div>';
+	echo '<div class="button_container"><a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&type=unverified">Unverified OERs</a></div>';
+	echo '<div class="button_container"><a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&type=verified">Verified OERs</a></div>';
+	echo '<div class="button_container"><a class="options_button" href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&type=deleted">Deleted OERs</a></div>';
 	
 	$oers = bebop_tables::admin_fetch_oer_data( $type );
 	
 	if ( count( $oers ) > 0 ) {
-		echo '<div class="standard_class">';
 		echo '<h4>' . ucfirst( $type ) . ' OERs</h4>';
 		echo $message;
-		echo '</div>';
 		
 		echo '<table class="bebop_table">
 			<tr class="nodata">
@@ -63,10 +59,8 @@
 		}
 	}
 	else {
-		echo '<div class="standard_class">';
 		echo '<h4>' . ucfirst( $type ) . ' OERs</h4>';
 		echo '<p>No ' . $type . ' oers exist in the oer manager.</p>';
-		echo '</div>';
 	}
 		
 	?>

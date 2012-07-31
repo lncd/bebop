@@ -25,7 +25,7 @@ if ( isset( $_GET ) ) {
 	$table_row_data = bebop_tables::fetch_table_data( 'bp_bebop_error_log' );
 	if ( count( $table_row_data ) > 0 ) {
 		?>
-		<div class='standard_class'><a class='options_button' href="<?php echo $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ); ?>&clear_table=true">Flush table data</a></div>
+		<div class='button_container'><a class='options_button' href="<?php echo $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ); ?>&clear_table=true">Flush table data</a></div>
 		<div class='clear'></div>
 		
 		<table class='bebop_table'>
@@ -50,7 +50,7 @@ if ( isset( $_GET ) ) {
 		<?php
 	}
 	else {
-		echo "<div class='standard_class'>No data found in the error table.</div>";
+		echo "No data found in the error table.";
 	}
 	?>
 <!-- End bebop_admin_container -->
