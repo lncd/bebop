@@ -159,9 +159,13 @@
 	background:#eeeeee;
 }
 .bebop_table td, .bebop_table th, .bebop_settings_table td, .bebop_settings_table th {
-    padding:8px;
-    text-align:center;
-    margin:0px;
+	padding:8px;
+	text-align:center;
+	margin:0px;
+}
+.bebop_table td.content {
+	text-align:left;
+
 }
 .bold {
 	font-weight:bold;
@@ -242,8 +246,8 @@
 	border-radius:4px;
 }
 .bebop_admin_form button:active, .options_button:active {
-	margin-top:13px;
-	margin-bottom:7px;
+	margin-top:11px;
+	margin-bottom:9px;
 }
 .no_border {
 	border:0px;

@@ -4,7 +4,6 @@
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	border:0px solid #00FF00;
 	margin:0 auto;
-	border:0px solid #000000;
 }
 #bebop_user_container a, #bebop_user_container a:hover {
 	color:#000000;
@@ -58,11 +57,11 @@
 	color:#000000 !important;
 	border:1px solid #FFFACD !important;
 }
-
 .button_container:active {
-	padding-top:6px;
-	padding-bottom:0px;
+	padding-top:4px;
+	padding-bottom:2px;
 }
+
 .bebop_user_form {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	width:100%;

@@ -117,12 +117,7 @@ class bebop_tables {
 	function log_error( $error_type, $error_message ) { //function to log errors into the error table.
 		global $wpdb;
 		
-		if ( $feed_id ) {
-			$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_error_log (feed_id, error_type, error_message) VALUES (%s, %s, %s)', $wpdb->escape( $feed_id ), $wpdb->escape( $error_type ), $wpdb->escape( $error_message ) ) );
-		}
-		else {
-			$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_error_log (feed_id, error_type, error_message) VALUES (NULL, %s, %s)', $wpdb->escape( $feed_id ), $wpdb->escape( $error_type ), $wpdb->escape( $error_message ) ) );
-		}
+		$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_error_log( error_type, error_message ) VALUES ( %s, %s )', $wpdb->escape( $error_type ), $wpdb->escape( $error_message ) ) );
 	}
 	
 	function log_general( $type, $message ) { //function to log general events into the log table.

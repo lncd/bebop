@@ -7,43 +7,55 @@
 	if ( isset( $_GET['type'] ) ) {
 		if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
 			$type = 'unverified';
+			$message = 'unverified';
 		}
 		else if ( strtolower( strip_tags( $_GET['type'] == 'verified' ) ) ) {
 			$type = 'verified';
+			$message = 'verified';
 		}
 		else if ( strtolower( strip_tags( $_GET['type'] == 'deleted' ) ) ) {
 			$type = 'deleted';
+			$message = 'deleted';
 		}
 	}
 	else {
 		$type = 'verified';
+		$message = 'verified';
 	}
 	
 	$oers = bebop_tables::admin_fetch_oer_data( $type );
 	
 	if ( count( $oers ) > 0 ) {
-		echo '<h4>' . ucfirst( $type ) . ' OERs</h4>
-		<table class="bebop_table">
+		echo '<h4>' . ucfirst( $type ) . ' OERs</h4>';
+		echo $message;
+		
+		echo '<table class="bebop_table">
 			<tr class="nodata">
-				<th>User</th>
+				<th>Buffer ID</th>
+				<th>Secondary ID</th>
+				<th>Activity Stream ID</th>
+				<th>Username</th>
 				<th>OER Type</th>
-				<th>Published</th>
 				<th>Imported</th>
+				<th>Published</th>
 				<th>Content</th>
 			</tr>';
 		
 		foreach ( $oers as $oer ) {
 			echo '<tr>
-				<td>' . bp_core_get_username( $oer->user_id ) . '</td>' .
+				<td>' . $oer->id . '</td>' .
+				'<td>' . $oer->secondary_item_id . '</td>' .
+				'<td>' . $oer->activity_stream_id . '</td>' .
+				'<td>' . bp_core_get_username( $oer->user_id ) . '</td>' .
 				'<td>' . bebop_tables::sanitise_element( ucfirst( $oer->type ) ) . '</td>' .
-				'<td>' . time_since( $oer->date_recorded ) . '</td>' .
 				'<td>' . time_since( $oer->date_imported ) . '</td>' .
+				'<td>' . time_since( $oer->date_recorded ) . '</td>' .
 				'<td class="content">' . bebop_tables::sanitise_element( $oer->content ) . '</td>' .
 			'</tr>';
 		}
 	}
 	else {
-		echo '<p>Unfortunately, we could not find any ' . $type . ' oers for you to manage.</p>';
+		echo '<p>No ' . $type . ' oers exist in the oer manager.</p>';
 	}
 		
 	?>

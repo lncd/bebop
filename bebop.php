@@ -1,8 +1,8 @@
 <?php
 //STOP CACHING THE PAGE!
 session_start();
-//header( 'Cache-Control: no-cache, must-revalidate' ); // HTTP/1.1
-//header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' ); // Date in the past
+header( 'Cache-Control: no-cache, must-revalidate' ); // HTTP/1.1
+header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' ); // Date in the past
 /*
 Plugin Name: Bebop
 Plugin URI: http://bebop.blogs.lincoln.ac.uk/
@@ -80,13 +80,14 @@ function bebop_activate() {
 		
 		$bebop_activity_buffer = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( 
 			id int(10) NOT NULL auto_increment PRIMARY KEY,
-			ser_id int(10) NOT NULL,
+			user_id int(10) NOT NULL,
 			status varchar(75) NOT NULL,
 			type varchar(255) NOT NULL,
 			action text NOT NULL,
 			content longtext NOT NULL,
 			activity_stream_id int(20),
 			secondary_item_id varchar(75),
+			date_imported datetime,
 			date_recorded datetime,
 			hide_sitewide tinyint(1)
 		);'; 

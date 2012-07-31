@@ -31,10 +31,9 @@ class bebop_twitter_import {
 					if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_twitter_active_for_user' ) == 1 ) {
 						//check for daylimit
 						if ( ! bebop_filters::import_limit_reached( 'twitter', $user_meta->user_id ) ) {
-							bebop_tables::log_general( 'bebop_twitter_import', 'argh' );
 							//Handle the OAuth requests
 							$OAuth = new bebop_oauth();
-							$OAuth->set_callback_url( '$bp->root_domain' );
+							$OAuth->set_callback_url( $bp->root_domain );
 							$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_twitter_consumer_key' ) );
 							$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_twitter_consumer_secret' ) );
 							$OAuth->set_access_token( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_twitter_oauth_token' ) );
@@ -52,7 +51,7 @@ class bebop_twitter_import {
 									if ( ! bebop_filters::import_limit_reached( 'twitter', $user_meta->user_id ) ) {
 										$activity_info = bp_activity_get( array( 'filter' => array( 'secondary_id' => $user_meta->user_id . '_' . $tweet->id ), 'show_hidden' => true ) );
 										
-										if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content( $tweet->text ) )  && ( ! $limitReached ) ) {
+										if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content( $tweet->text ) ) ) {
 											if ( bebop_create_buffer_item(
 															array(
 																'user_id'			=> $user_meta->user_id,
