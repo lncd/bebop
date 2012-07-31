@@ -1,7 +1,7 @@
 /* Bebop admin style sheet */
 #bebop_admin_container {
 	min-height:400px;
-	width:100%;
+	width:97%;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	border:0px solid #00FF00;
 	margin:91px auto 0 auto;
@@ -233,7 +233,7 @@
 	display:inline-block;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	font-size:15px;
-	margin:10px auto 10px auto;
+	margin:10px 15px 10px auto;
 	padding:10px;
 	text-align:center;
 	background-image:linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
@@ -253,5 +253,5 @@
 	border:0px;
 }
 .standard_class {
-	width:97%; margin:0 auto 22px auto;
+	width:100%; margin:0 auto 22px auto;
 }
