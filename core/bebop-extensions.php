@@ -73,18 +73,23 @@ class bebop_extensions {
 				require( WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/config.php' );
 			}
 			$config = call_user_func( 'get_' . $extension . '_config' );
-		}
-		if ( ! isset( $_GET['settings'] ) ) {
+			
+			if ( ! isset( $_GET['settings'] ) ) {
 			 $page = strtolower( $config['defaultpage'] );
+			}
+			else {
+				$page = strtolower( $_GET['settings'] );
+			}
+			
+			if ( ! empty( $_GET['child'] ) ) {
+				$extension = $_GET['child'];
+			}
+			include WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/templates/admin-settings.php';
 		}
 		else {
-			$page = strtolower( $_GET['settings'] );
+			echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $extension . '" is not a valid extension.</div>';
+			include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' );
 		}
-		
-		if ( ! empty( $_GET['child'] ) ) {
-			$extension = $_GET['child'];
-		}
-		include WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/templates/admin-' . $page.  '.php';
 	}
 	
 	function user_page_loader( $extension, $page = 'settings' ) {

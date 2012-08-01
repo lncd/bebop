@@ -31,7 +31,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			<input type='text' id='bebop_general_crontime' name='bebop_general_crontime' value="<?php echo bebop_tables::get_option_value( 'bebop_general_crontime' ); ?>" size='5'>
 			<div class="clear"></div>
 		</fieldset>
-		<div class='button_container'><button>Save Changes</button></div>	
+		<div class='button_container'><buttonid='submit' name='submit'>Save Changes</button></div>	
 	</form>
 	<div class="clear"></div>
 </div>

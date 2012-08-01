@@ -99,14 +99,6 @@ function bebop_admin_menu() {
 	add_submenu_page( 'bebop_admin', 'Error Log', 'Error Log', 'manage_options', 'bebop_error_log', 'bebop_admin_pages' );
 	add_submenu_page( 'bebop_admin', 'General Log', 'General Log', 'manage_options', 'bebop_general_log', 'bebop_admin_pages' );
 	
-	//provider menu
-	foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-		if ( bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_provider' ) ) {
-			if ( ! isset( $extension['parent'] ) ) {
-				add_submenu_page( 'bebop_admin', ucfirst( $extension['displayname'] ), ucfirst( $extension['displayname'] ), 'manage_options', 'bebop_'.$extension['name'], 'bebop_'.$extension['name'] );
-			}
-		}
-	}
 }
 
 //This deals with the bebop page loaders based on the link selected.
