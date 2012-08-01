@@ -78,7 +78,7 @@ function bebop_activate() {
 			meta_value longtext NOT NULL
 		);';
 		
-		$bebop_activity_buffer = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_oer_buffer ( 
+		$bebop_oer_manager = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_oer_manager ( 
 			id int(10) NOT NULL auto_increment PRIMARY KEY,
 			user_id int(10) NOT NULL,
 			status varchar(75) NOT NULL,
@@ -97,14 +97,14 @@ function bebop_activate() {
 		dbDelta( $bebop_general_log );
 		dbDelta( $bebop_options );
 		dbDelta( $bebop_user_meta );
-		dbDelta( $bebop_activity_buffer );
+		dbDelta( $bebop_oer_manager );
 		
 		//cleanup
 		unset( $bebop_error_log );
 		unset( $bebop_general_log );
 		unset( $bebop_options );
 		unset( $bebop_user_meta );
-		unset( $bebop_activity_buffer );
+		unset( $bebop_oer_manager );
 	}
 	else {
 		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
@@ -121,8 +121,8 @@ function bebop_deactivate() {
 	bebop_tables::drop_table( 'bp_bebop_error_log' );
 	bebop_tables::drop_table( 'bp_bebop_options' );
 	bebop_tables::drop_table( 'bp_bebop_user_meta' );
-	bebop_tables::drop_table( 'bp_bebop_oer_buffer' );
-	bebop_tables::remove_activity_data();
+	bebop_tables::drop_table( 'bp_bebop_oer_manager' );
+	bebop_tables::remove_activity_stream_data();
 	
 	//delete the cron 
 	wp_clear_scheduled_hook( 'bebop_cron' );	

@@ -27,7 +27,7 @@ class bebop_tables {
 	function count_oers_by_extension( $extension, $status ) {
 		global $wpdb;
 
-		$count = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE type = '" . $wpdb->escape( $extension ) . "' AND status = '" . $wpdb->escape( $status ) . "'" ) );
+		$count = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . $wpdb->base_prefix . "bp_bebop_oer_manager WHERE type = '" . $wpdb->escape( $extension ) . "' AND status = '" . $wpdb->escape( $status ) . "'" ) );
 		return $count;
 	}
 	
@@ -44,10 +44,10 @@ class bebop_tables {
 	}
 	
 	//function to remove activity data imported by the plugin. - Part of the uninstall process.
-	function remove_activity_data() {
+	function remove_activity_stream_data() {
 		global $wpdb, $bp;
 		
-		if ( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin'" ) ) {
+		if ( $wpdb->get_results( 'DELETE FROM ' . $bp->activity->table_name ." WHERE component = 'bebop_oer_plugin'" ) ) {
 			return true;
 		}
 		else {
@@ -60,8 +60,8 @@ class bebop_tables {
 		global $wpdb, $bp;
 		
 		if ( ( $wpdb->get_results( 'DELETE FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type = '" . $wpdb->escape( $provider ) . "'" ) ) || 
-		( $wpdb->get_results( "DELETE FROM {$bp->activity->table_name} WHERE component = 'bebop_oer_plugin' AND type ='" . $wpdb->escape( $provider ) . "'" ) ) ||
-		( $wpdb->get_results( 'DELETE FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE  user_id = '" . $wpdb->escape( $user_id ) . "' AND type ='" . $wpdb->escape( $provider ) . "'" ) ) ) {
+		( $wpdb->get_results( 'DELETE FROM ' . $bp->activity->table_name . " WHERE component = 'bebop_oer_plugin' AND type ='" . $wpdb->escape( $provider ) . "'" ) ) ||
+		( $wpdb->get_results( 'DELETE FROM ' . $wpdb->base_prefix . "bp_bebop_oer_manager WHERE  user_id = '" . $wpdb->escape( $user_id ) . "' AND type ='" . $wpdb->escape( $provider ) . "'" ) ) ) {
 			return true;
 		}
 		else {
@@ -76,7 +76,7 @@ class bebop_tables {
 	 function fetch_oer_data( $user_id, $extensions, $status ) { //function to retrieve oer data from the oer manager table.
 		global $wpdb;
 		
-		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN ( ". stripslashes( $extensions ) . ') ORDER BY date_recorded DESC' );
+		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN ( ". stripslashes( $extensions ) . ') ORDER BY date_recorded DESC' );
 		return $result;
 	}
 	 
@@ -84,29 +84,29 @@ class bebop_tables {
 		global $wpdb;
 		
 		if ( $limit != null ) {
-			$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_recorded DESC LIMIT $limit");
+			$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_manager WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_recorded DESC LIMIT $limit");
 		}
 		else {
-			$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_recorded DESC");
+			$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_manager WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_recorded DESC");
 		}
 		return $result;
 	}
 
 	function fetch_individual_oer_data( $secondary_item_id ) {
 		global $wpdb;
-		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_buffer WHERE secondary_item_id = '" . $wpdb->escape( $secondary_item_id ) . "'" );
+		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . "bp_bebop_oer_manager WHERE secondary_item_id = '" . $wpdb->escape( $secondary_item_id ) . "'" );
 		if ( ! empty( $result[0]->secondary_item_id ) ) {
 			return $result[0];
 		}
 		else {
-			bebop_tables::log_error( 'Activity Stream', "could not find $secondary_item_id in the oer buffer." );
+			bebop_tables::log_error( 'Activity Stream', "could not find " . $secondary_item_id . " in the oer manager." );
 		}
 	}
 	
 	function update_oer_data( $secondary_item_id, $column, $value ) {
 		global $wpdb;
 		
-		$result = $wpdb->query( 'UPDATE ' . $wpdb->base_prefix . "bp_bebop_oer_buffer SET $column = '"  . $wpdb->escape( $value ) . "' WHERE secondary_item_id = '" . $wpdb->escape( $secondary_item_id ) . "' LIMIT 1" );
+		$result = $wpdb->query( 'UPDATE ' . $wpdb->base_prefix . 'bp_bebop_oer_manager SET ' . $column . " = '"  . $wpdb->escape( $value ) . "' WHERE secondary_item_id = '" . $wpdb->escape( $secondary_item_id ) . "' LIMIT 1" );
 		if ( ! empty( $result ) ) {
 			return $result;
 		}
