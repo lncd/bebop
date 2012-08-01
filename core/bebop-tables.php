@@ -137,7 +137,7 @@ class bebop_tables {
 	function fetch_table_data( $table_name ) { //function to retrieve stuff from tables
 		global $wpdb;
 		
-		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . $table_name . ' ORDER BY timestamp DESC' );
+		$result = $wpdb->get_results( 'SELECT * FROM ' . $wpdb->base_prefix . $table_name . ' ORDER BY id DESC' );
 		return $result;
 	}
 	

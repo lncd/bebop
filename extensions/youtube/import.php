@@ -13,16 +13,16 @@ function bebop_youtube_start_import() {
  */
 
 class bebop_youtube_import {
-
+	
 	public function do_import() {
 		global $bp, $wpdb;
-
+		
 		require_once (ABSPATH . WPINC . '/class-feed.php');
-
+		
 		$itemCounter = 0;
-
+		
 		$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_youtube_username' );
-
+		
 		if ( $user_metas ) {
 			foreach ( $user_metas as $user_meta ) {
 				//Ensure the user is wanting to import items.
@@ -98,9 +98,7 @@ class bebop_youtube_import {
 				}
 			}
 		}
-		//add record to the log
-		bebop_tables::log_general( 'bebop_youtube_import', 'imported ' . $itemCounter." video's." );
-		//return number of items imported
-		return $itemCounter;
+		//return the result
+		return $itemCounter . ' youtube video\'s';
 	}
 }
