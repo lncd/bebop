@@ -33,6 +33,17 @@ class bebop_extensions {
 		}
 		return $config;
 	}
+	function get_extension_config_by_name( $extension ) {
+		if ( bebop_extensions::extension_exist( $extension ) ) {
+			
+			require( WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/config.php' );
+			$config[] = call_user_func( 'get_' . $extension . '_config' );
+			return $config;
+		}
+		else {
+			return false;
+		}
+	}
 	function get_active_extension_names( $addslashes = false ) {
 		//only pull data form active extensions
 		$handle     = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );

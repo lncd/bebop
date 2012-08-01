@@ -1,4 +1,13 @@
 <?php
+/*
+ * Gets the extension config by the name provided in the URL. The extension must exists if this page is loaded.
+ */
+if( $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) ) ) {
+	var_dump( $extension );
+}
+else {
+	echo 'nice try...';
+}
 global $bp;
 
 //resets the user's data
