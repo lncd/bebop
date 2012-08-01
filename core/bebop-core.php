@@ -64,12 +64,6 @@ function bebop_create_buffer_item( $params ) {
 	if ( is_array( $params ) ) {
 		//load config of extention
 		$originalText = $params['content'];
-		foreach ( bebop_extensions::get_extension_configs() as $extention ) {
-			if ( isset( $extention['hashtag'] ) ) {
-				$originalText = str_replace( $extention['hashtag'], '', $originalText );
-				$originalText = trim( $originalText );
-			}
-		}
 		
 		//check if the secondary_id already exists
 		$secondary = $wpdb->get_row( $wpdb->prepare( 'SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_manager WHERE secondary_item_id='" . $params['user_id'] .'_' . $params['item_id'] . "'" ) );
@@ -111,11 +105,11 @@ function bebop_create_buffer_item( $params ) {
 						bebop_filters::day_increase( $params['extention'], $params['user_id'] );
 					}
 					else {
-						bebop_tables::log_error( 'Twitter', 'Import query error' );
+						bebop_tables::log_error( 'Importer', 'Import query error' );
 					}
 				}
 				else {
-					bebop_tables::log_error( 'Twitter', 'Could not import, content already exists.' );
+					bebop_tables::log_error( 'Importer', 'Could not import, content already exists.' );
 					return false;
 				}
 			}
