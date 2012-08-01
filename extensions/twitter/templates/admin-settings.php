@@ -5,6 +5,7 @@
  * You do not need to modify this page, unless you wish to add additional customisable parameters	*
  * for the extension. Removing/changing any of the pre defined functions will cause import errors,	*
  * and possible other unexpected or unwanted behaviour.												*
+ * For information on bebop_tables:: functions, please see bebop/core/bebop-tables.php				*
  * **************************************************************************************************
  */
 

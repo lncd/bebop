@@ -10,7 +10,10 @@ if ( bp_is_my_profile() ) {
 	else if ( $page == '/bebop-oers/providers/' ) {
 		echo '<h3>OER Providers</h3>';
 		if ( isset( $_GET['provider'] ) ) {
-			if( ! bebop_extensions::extension_exist( $_GET['provider'] ) ) {
+			if ( bebop_extensions::extension_exist( $_GET['provider'] ) ) {
+				include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );
+			}
+			else {
 				echo 'The extension \'' .  $_GET['provider'] . '\' doesn\'t exist. Silly you!';
 			}
 			

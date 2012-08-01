@@ -37,8 +37,7 @@ class bebop_extensions {
 		if ( bebop_extensions::extension_exist( $extension ) ) {
 			
 			require( WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/config.php' );
-			$config[] = call_user_func( 'get_' . $extension . '_config' );
-			return $config;
+			return call_user_func( 'get_' . $extension . '_config' );
 		}
 		else {
 			return false;

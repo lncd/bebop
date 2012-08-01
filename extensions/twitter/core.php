@@ -1,11 +1,7 @@
 <?php 
 
-
-
 add_filter( 'bp_get_activity_content','bebop_twitter_photos',5 );
 add_filter( 'bp_get_activity_content_body','bebop_twitter_photos',5 );
-
-
 
 function bebop_twitter_photos( $text ) {
 	if ( bp_get_activity_type() == 'twitter' ) {
@@ -16,13 +12,4 @@ function bebop_twitter_photos( $text ) {
 	return $text;
 }
 
-/**
- * 
- * Page loader functions 
- *
- */
-
-//called from  menu item creation on bebop_page_loader.php
-function bebop_twitter() {
-	bebop_extensions::page_loader( 'twitter' );
-}
+?>
