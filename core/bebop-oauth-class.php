@@ -385,6 +385,7 @@ public static function from_consumer_and_token( $consumer, $token, $http_method,
 	* builds a url usable for a GET request
 	*/
 	public function to_url() {
+		bebop_tables::log_error( 'Importer', 'to_url' );
 		$post_data = $this->to_postdata();
 		$out = $this->get_normalized_http_url();
 		if ( $post_data ) {
