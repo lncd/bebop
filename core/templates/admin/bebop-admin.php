@@ -65,7 +65,7 @@ Sed feugiat tincidunt lacus, non tincidunt nulla egestas non. Sed nec justo ut d
 					echo '</table>';
 				}
 				else {
-					echo '<p>No ' . $type . ' oers exist in the oer manager.</p>';
+					echo '<p>No verified oers exist in the oer manager.</p>';
 				}
 				?>
 				

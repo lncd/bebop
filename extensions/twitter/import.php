@@ -4,6 +4,7 @@
  * Please see the section below on how to do this.
  */
 
+//replace 'twitter' with the 'name' of your extension, as defined in your config.php file.
 function bebop_twitter_import( $extension ) {
 	global $bp, $wpdb;
 	if ( empty( $extension ) ) {
@@ -41,27 +42,26 @@ function bebop_twitter_import( $extension ) {
 						
 						/* 
 						 * ******************************************************************************************************************
-						 * We can get as far as loading the items, but you will need to adjust the values of 'bebop_create_buffer_item'		*
-						 * to match the values from the extension's API.																	*
-						 * This is because each API return data under different ways, and the simplest way to get around this is to have 	*
-						 * the user modify the values. 																						*
+						 * We can get as far as loading the items, but you will need to adjust the values of the variables below to match 	*
+						 * the values from the extension's API.																				*
+						 * This is because each API return data under different parameter names, and the simplest way to get around this is *
+						 * to quickly match the values. To find out what values you should be using, consult the provider's documentation.	*
+						 * You can also contact us if you get stuck - details are in the 'support' section of the admin homepage.			*
 						 * ******************************************************************************************************************
 						 * 
 						 * Values you will need to check and update are:
-						 * 		$errors 						- Must point to the error boolean value (true/false)
-						 * 		$username						- Must point the the value holding the username of the person.
-						 *.		$item_id						- Should be the ID of the item returned through the data API.
-						 * 		$item_content					- The actual content of the imported item.
-						 * 		$item_published					- The time the item was published.
-						 * 		$action_link					- This is where the link will point to - i.e. where the user can click to get more info.
+						 * 		$errors 				- Must point to the error boolean value (true/false)
+						 * 		$username				- Must point to the value holding the username of the person.
+						 *.		$item_id				- Must be the ID of the item returned through the data API.
+						 * 		$item_content			- The actual content of the imported item.
+						 * 		$item_published			- The time the item was published.
+						 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
 						 */
 						
 						
-						
-						//Edit the following two variables to point to where the relevant content is being stored:
+						//Edit the following two variables to point to where the relevant content is being stored in the API:
 						$errors		 = $items->error;
 						$username	 = '' . $items->status->user->screen_name[0];
-						
 						
 						
 						if ( $items && ! $errors ) {
@@ -108,5 +108,5 @@ function bebop_twitter_import( $extension ) {
 		}
 	}
 	//return the result
-	return $itemCounter . ' tweets';
+	return $itemCounter . ' ' . $this_extension['content_type'] . 's';
 }
