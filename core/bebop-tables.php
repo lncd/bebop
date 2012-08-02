@@ -287,7 +287,12 @@ class bebop_tables {
 		}
 	}
 	
-	function sanitise_element( $data ) {
-		return stripslashes( strip_tags( $data ) );
+	function sanitise_element( $data, $allow_tags = null ) {
+		if(	$allow_tags == true ) {
+			return stripslashes( $data );
+		}
+		else {
+			return stripslashes( strip_tags( $data ) );
+		}
 	}
 } 

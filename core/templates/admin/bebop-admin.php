@@ -59,7 +59,7 @@ Sed feugiat tincidunt lacus, non tincidunt nulla egestas non. Sed nec justo ut d
 							'<td>' . bebop_tables::sanitise_element( ucfirst( $oer->type ) ) . '</td>' .
 							'<td>' . time_since( $oer->date_imported ) . '</td>' .
 							'<td>' . time_since( $oer->date_recorded ) . '</td>' .
-							'<td class="content">' . bebop_tables::sanitise_element( $oer->content ) . '</td>' .
+							'<td class="content">' . bebop_tables::sanitise_element( $oer->content, $allow_tags = true ) . '</td>' .
 						'</tr>';
 					}
 					echo '</table>';

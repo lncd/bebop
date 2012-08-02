@@ -6,9 +6,9 @@
 
 //replace 'twitter' with the 'name' of your extension, as defined in your config.php file.
 function bebop_twitter_import( $extension ) {
-	global $bp, $wpdb;
+	global $wpdb, $bp;
 	if ( empty( $extension ) ) {
-		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty..' );
+		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty.' );
 		return false;
 	}
 	else if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension . '_consumer_key' ) ){
@@ -37,7 +37,7 @@ function bebop_twitter_import( $extension ) {
 						$OAuth->set_access_token( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_oauth_token' ) );
 						$OAuth->set_access_token_secret( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_oauth_token_secret' ) );
 						
-						$items = $OAuth->oauth_request( $this_extension['data_api'] );
+						$items = $OAuth->oauth_request( $this_extension['data_feed'] );
 						$items = simplexml_load_string( $items );
 						
 						/* 
@@ -67,40 +67,36 @@ function bebop_twitter_import( $extension ) {
 						if ( $items && ! $errors ) {
 							bebop_tables::update_user_meta( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_username', $username );
 							foreach ( $items as $item ) {
-								
-								
-								
-								//Edit the following three variables to point to where the relevant content is being stored:
-								$item_id			= $item->id;
-								$item_content		= $item->text;
-								$item_published		= $item->created_at;
-								$action_link 		= 'http://www.twitter.com/' . $username . '/status/' . $item_id;
-								//Stop editing - you should be all done.
-								
-								
-								
-								
 								if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
-									$activity_info = bp_activity_get( array( 'filter' => array( 'secondary_id' => $user_meta->user_id . '_' . $item_id ), 'show_hidden' => true ) );
-									
-									if ( ( empty( $activity_info['activities'][0] ) ) && ( ! bp_activity_check_exists_by_content( $item_content ) ) ) {
-										if ( bebop_create_buffer_item(
-														array(
-															'user_id'			=> $user_meta->user_id,
-															'extention'			=> $this_extension['name'],
-															'type'				=> $this_extension['content_type'],
-															'content'			=> $item_content,
-															'content_oembed'	=> $this_extension['content_oembed'],
-															'item_id'			=> $item_id,
-															'raw_date'			=> gmdate( 'Y-m-d H:i:s', strtotime( $item_published ) ),
-															'actionlink'		=> $action_link,
-														)
-										) ) {
-											$itemCounter++;
-										}
+								
+								
+									//Edit the following three variables to point to where the relevant content is being stored:
+									$item_id			= $item->id;
+									$item_content		= $item->text;
+									$item_published		= $item->created_at;
+									$action_link 		= str_replace( 'bebop_replace_username', $username , $extension['action_link'] ) . $item_id;
+									//Stop editing - you should be all done.
+								
+								
+									if ( bebop_create_buffer_item(
+													array(
+														'user_id'			=> $user_meta->user_id,
+														'extention'			=> $this_extension['name'],
+														'type'				=> $this_extension['content_type'],
+														'content'			=> $item_content,
+														'content_oembed'	=> $this_extension['content_oembed'],
+														'item_id'			=> $item_id,
+														'raw_date'			=> gmdate( 'Y-m-d H:i:s', strtotime( $item_published ) ),
+														'actionlink'		=> $action_link,
+													)
+									) ) {
+										$itemCounter++;
 									}
 								}
 							}
+						}
+						else {
+							bebop_tables::log_error( 'Importer - ' . ucfirst( $this_extension['name'] ), 'feed error: ' . $errors );
 						}
 					}
 				}

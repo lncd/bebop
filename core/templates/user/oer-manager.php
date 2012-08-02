@@ -105,6 +105,7 @@ global $wpdb, $bp;
 if ( isset( $_GET['type'] ) ) {
 	$active_extensions = bebop_extensions::get_active_extension_names( $addslashes = true );
 	$extension_names   = join( ',' ,$wpdb->escape( $active_extensions ) );
+	
 	if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
 		$type = 'unverified';
 	}
@@ -134,7 +135,7 @@ if ( isset( $_GET['type'] ) ) {
 					'<td><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( ucfirst( $oer->type ) ) . '</label></td>' .
 					'<td><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( time_since( $oer->date_imported ) ) . '</label></td>' .
 					'<td><label for="' . $oer->secondary_item_id . '">' . time_since( $oer->date_recorded ) . '</label></td>' .
-					'<td class="content"><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( $oer->content ) . '</label></td>' .
+					'<td class="content"><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( $oer->content, $allow_tags = true ) . '</label></td>' .
 					"<td class='checkbox_container'><label for='" . $oer->secondary_item_id . "'><div class='checkbox'><input type='checkbox' id='" . $oer->secondary_item_id . "' name='" . $oer->secondary_item_id . "'></div></label></td>" .
 				'</tr>';
 			}
