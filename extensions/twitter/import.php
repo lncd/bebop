@@ -68,16 +68,16 @@ function bebop_twitter_import( $extension ) {
 							bebop_tables::update_user_meta( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_username', $username );
 							foreach ( $items as $item ) {
 								if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
-								
-								
+									
+									
 									//Edit the following three variables to point to where the relevant content is being stored:
 									$item_id			= $item->id;
 									$item_content		= $item->text;
 									$item_published		= $item->created_at;
 									$action_link 		= str_replace( 'bebop_replace_username', $username , $extension['action_link'] ) . $item_id;
 									//Stop editing - you should be all done.
-								
-								
+									
+									
 									if ( bebop_create_buffer_item(
 													array(
 														'user_id'			=> $user_meta->user_id,

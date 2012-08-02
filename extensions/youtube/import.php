@@ -47,8 +47,8 @@ function bebop_youtube_import( $extension ) {
 				 * 
 				 * Values you will need to check and update are:
 				 * 		$errors 				- Must point to the error boolean value (true/false)
-				 *.		$item_id				- Must be the ID of the item returned through the data API.
-				 * 		$item_content			- The actual content of the imported item.
+				 *.		$link and /or $item_id	- Must be the ID of the item returned through the data API.
+				 * 		$description			- The actual content of the imported item.
 				 * 		$item_published			- The time the item was published.
 				 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
 				 */

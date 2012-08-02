@@ -13,7 +13,7 @@ function get_youtube_config() {
 		'sanitise_url'		=> array ( '&feature', '&amp;feature' ),		//remove unwanted/unneeded paremeters from a feed.
 		'content_type'	 	=> 'youtube video',
 		'content_oembed'	=> true,
-		'action_link' 		=> 'http://www.youtube.com/watch/?v="',
+		'action_link' 		=> 'http://www.youtube.com/watch?v=',
 	);
 	return $config;
 }
