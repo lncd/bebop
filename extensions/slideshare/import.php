@@ -4,7 +4,7 @@
  * Please see the section below on how to do this.
  */
 
-//replace 'twitter' with the 'name' of your extension, as defined in your config.php file.
+//replace 'slideshare' with the 'name' of your extension, as defined in your config.php file.
 function bebop_slideshare_import( $extension ) {
 	global $wpdb, $bp;
 	if ( empty( $extension ) ) {
@@ -25,21 +25,24 @@ function bebop_slideshare_import( $extension ) {
 				//check for daylimit
 				if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
 						
-					//we are not using oauth for slideshare - so just send the request
-					
-					//paramaters required for the request - these are custom for slideshare
-					$parameters = array( 
-								'api_key' 		=> 'x1j88vyh',
-								'ts' 			=> time(),
-								'hash'			=> sha1( 'R34Xxw2L'. time()),
-								'username_for'	=> bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_username' ),
+					//we are not using oauth for slideshare - so just build the api request and send it using our bebop-data class.
+					//If you are using a service that uses oAuth, then use the oAuth class.
+					$data_request = new bebop_data();
+					//paramaters required for the request - these are custom for slideshare - edit these to match the paremeters required by the API.
+					$data_request->set_parameters( 
+								array( 
+											'api_key' 		=> 'x1j88vyh',
+											'ts' 			=> time(),
+											'hash'			=> sha1( 'R34Xxw2L'. time()),
+											'username_for'	=> bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_username' ),
+								)
 					);
+					$query = $data_request->build_query( $this_extension['data_feed'] );
+					$data = $data_request->execute_request( $query );
 					
-					$query = $this_extension['data_feed'] . '?' . http_build_query( $parameters );
-					bebop_tables::log_error( 'Importer', $query );
-					$items = file_get_contents( $query );
-					bebop_tables::log_error( 'Importer', $items );
-					$items = simplexml_load_string( $items );
+					bebop_tables::log_error( 'Importer', $data );
+					
+					$items = simplexml_load_string( $data );
 					//bebop_tables::log_error( 'Importer', serialize( $items ) );
 					
 					/* 

@@ -4,7 +4,9 @@
  */
 set_time_limit( 1000 );
 ini_set( 'max_execution_time', 1000 );
+
 include( ABSPATH . 'wp-load.php' );
+include_once( 'core/bebop-data.php' );
 
 //if import a specific OER.
 if ( isset( $_GET['provider'] ) ) {

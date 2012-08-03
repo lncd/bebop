@@ -358,7 +358,6 @@ class bebop_oauth {
 		
 		$response = curl_exec( $ci );
 		curl_close( $ci );
-		bebop_tables::log_error( 'Importer', $response );
 		return $response;
 	}
 	
