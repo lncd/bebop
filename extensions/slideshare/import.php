@@ -40,10 +40,7 @@ function bebop_slideshare_import( $extension ) {
 					$query = $data_request->build_query( $this_extension['data_feed'] );
 					$data = $data_request->execute_request( $query );
 					
-					bebop_tables::log_error( 'Importer', $data );
-					
-					$items = simplexml_load_string( $data );
-					//bebop_tables::log_error( 'Importer', serialize( $items ) );
+					$data = simplexml_load_string( $data );
 					
 					/* 
 					 * ******************************************************************************************************************
@@ -55,16 +52,18 @@ function bebop_slideshare_import( $extension ) {
 					 * ******************************************************************************************************************
 					 * 
 					 * Values you will need to check and update are:
-					 * 		$errors 				- Must point to the error boolean value (true/false)
-					 *.		$item_id				- Must be the ID of the item returned through the data API.
+					 * 		$errors 				- Must point to the error value
+					 * 		$item_id				- Must be the ID of the item returned through the data API.
 					 * 		$item_content			- The actual content of the imported item.
 					 * 		$item_published			- The time the item was published.
 					 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
 					 */
 					
 					
-					//Edit the following two variables to point to where the relevant content is being stored in the API:
-					$errors		 = $items->error;
+					//Edit the following variable to point to where the relevant content is being stored in the API:
+					
+					$errors = $data->Message;
+					$items 	= $data->Slideshow;
 					
 					if ( $items && ! $errors ) {
 						foreach ( $items as $item ) {
@@ -72,12 +71,26 @@ function bebop_slideshare_import( $extension ) {
 								
 								
 								//Edit the following three variables to point to where the relevant content is being stored:
-								$item_id			= $item->id;
-								$item_content		= $item->text;
-								$item_published		= $item->created_at;
-								$action_link 		= str_replace( 'bebop_replace_username', $username , $extension['action_link'] ) . $item_id;
-								//Stop editing - you should be all done.
+								$item_id			= $item->ID;
+								$action_link		= $item->URL;
+								$description		= $item->Description;
 								
+								if( ! empty( $description) ) {
+									//crop the content if it is too long
+									if ( strlen( $description ) > 500 ) {
+										$description = substr( $description, 0, 500 ) . " <a href='" . $action_link . "'>read more</a>";
+									}
+									
+									//This manually puts the link and description together with a line break, which is needed for oembed.
+									$item_content = $action_link . '
+									' . $description;
+								}
+								else {
+									$item_content = $action_link;
+								}
+								
+								$item_published = $item->Created;
+								//Stop editing - you should be all done.
 								
 								if ( bebop_create_buffer_item(
 												array(

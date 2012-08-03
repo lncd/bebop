@@ -1,6 +1,5 @@
 <?php
 bebop_extensions::load_extensions();
-
 /*
  * Works out 'time ago' from a date
  */
