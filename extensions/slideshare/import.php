@@ -20,6 +20,9 @@ function bebop_slideshare_import( $extension ) {
 	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $this_extension['name'] . '_username' );
 	if ( $user_metas ) {
 		foreach ( $user_metas as $user_meta ) {
+			$errors = null;
+			$items 	= null;
+			
 			//Ensure the user is currently wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
 				//check for daylimit
@@ -31,15 +34,14 @@ function bebop_slideshare_import( $extension ) {
 					//paramaters required for the request - these are custom for slideshare - edit these to match the paremeters required by the API.
 					$data_request->set_parameters( 
 								array( 
-											'api_key' 		=> 'x1j88vyh',
+											'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
 											'ts' 			=> time(),
-											'hash'			=> sha1( 'R34Xxw2L'. time()),
+											'hash'			=> sha1( bebop_tables::get_option_value( 'bebop_' . $this_extension ['name']. '_consumer_secret' ) . time() ),
 											'username_for'	=> bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_username' ),
 								)
 					);
 					$query = $data_request->build_query( $this_extension['data_feed'] );
 					$data = $data_request->execute_request( $query );
-					
 					$data = simplexml_load_string( $data );
 					
 					/* 
@@ -53,27 +55,30 @@ function bebop_slideshare_import( $extension ) {
 					 * 
 					 * Values you will need to check and update are:
 					 * 		$errors 				- Must point to the error value
+					 * 		$items					- Must point to the items that will be imported into the plugin.
 					 * 		$item_id				- Must be the ID of the item returned through the data API.
 					 * 		$item_content			- The actual content of the imported item.
 					 * 		$item_published			- The time the item was published.
 					 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
 					 */
 					
-					
 					//Edit the following variable to point to where the relevant content is being stored in the API:
-					
 					$errors = $data->Message;
-					$items 	= $data->Slideshow;
 					
-					if ( $items && ! $errors ) {
+					if ( ! $errors ) {
+						//Edit the following variable to point to where the relevant content is being stored in the API:
+						$items 	= $data->Slideshow;
+						
 						foreach ( $items as $item ) {
 							if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
-								
 								
 								//Edit the following three variables to point to where the relevant content is being stored:
 								$item_id			= $item->ID;
 								$action_link		= $item->URL;
 								$description		= $item->Description;
+								
+								$item_published = $item->Created;
+								//Stop editing - you should be all done.
 								
 								if( ! empty( $description) ) {
 									//crop the content if it is too long
@@ -89,8 +94,6 @@ function bebop_slideshare_import( $extension ) {
 									$item_content = $action_link;
 								}
 								
-								$item_published = $item->Created;
-								//Stop editing - you should be all done.
 								
 								if ( bebop_create_buffer_item(
 												array(

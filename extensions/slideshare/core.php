@@ -8,7 +8,6 @@
 function add_oembed_slideshare() {
 	wp_oembed_add_provider( 'http://www.slideshare.net/*', 'http://www.slideshare.net/api/oembed/2' );
 }
-//hook into bp_init as well as our custom oer tab.
-add_action( 'bp_init','add_oembed_slideshare' );
-add_action( 'bp_ajax_querystring','add_oembed_slideshare' );
+//hook into the activity loop to add our function above.
+add_action( 'bp_before_activity_loop','add_oembed_slideshare' );
 ?>

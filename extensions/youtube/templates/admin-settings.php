@@ -63,7 +63,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 				<td class='bold'>User ID</td>
 				<td class='bold'>Username</td>
 				<td class='bold'>User email</td>
-				<td class='bold'><?php echo ucfirst( $extension ); ?> Channel</td>
+				<td class='bold'><?php echo ucfirst( $extension ); ?> Name</td>
 				<td class='bold'>Options</td>
 			</tr>
 			<?php	

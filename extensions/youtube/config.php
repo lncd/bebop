@@ -4,10 +4,9 @@
 
 function get_youtube_config() {
 	$config = array(
-		'displayname'		=> 'youtube',
 		'name' 				=> 'youtube',
 		'type'				=> 'youtube',
-		'pages'				=> array( 'settings', 'users' ),
+		'pages'				=> array( 'settings',  ),
 		'defaultpage'		=> 'settings',
 		'data_feed' 		=> 'http://gdata.youtube.com/feeds/api/users/bebop_replace_username/uploads',
 		'sanitise_url'		=> array ( '&feature', '&amp;feature' ),		//remove unwanted/unneeded paremeters from a feed.

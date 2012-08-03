@@ -25,9 +25,12 @@ function bebop_twitter_import( $extension ) {
 		$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $this_extension['name'] . '_oauth_token' );
 		if ( $user_metas ) {
 			foreach ( $user_metas as $user_meta ) {
+				$errors = null;
+				$items 	= null;
+				
 				//Ensure the user is currently wanting to import items.
 				if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
-					//check for daylimit
+					//Check the user has not gone past their import limot for the day.
 					if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
 						//Handle the OAuth requests
 						$OAuth = new bebop_oauth();
@@ -74,7 +77,7 @@ function bebop_twitter_import( $extension ) {
 									$item_id			= $item->id;
 									$item_content		= $item->text;
 									$item_published		= $item->created_at;
-									$action_link 		= str_replace( 'bebop_replace_username', $username , $extension['action_link'] ) . $item_id;
+									$action_link 		= str_replace( 'bebop_replace_username', $username, $extension['action_link'] ) . $item_id;
 									//Stop editing - you should be all done.
 									
 									
