@@ -46,11 +46,12 @@ function bebop_flickr_import( $extension ) {
 					
 					$data_request = new bebop_data();
 					
+					//send a request to see if we have a username or a user_id.
 					$data_request->set_parameters( 
 								array( 
 											'method'		=> 'flickr.people.getPublicPhotos',
 											'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
-											'user_id'		=> urldecode($data->user['id']),
+											'user_id'		=> urldecode( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_username' ) ),
 											'extras'		=> 'date_upload,url_m,url_t,description',
 								)
 					);
@@ -58,9 +59,10 @@ function bebop_flickr_import( $extension ) {
 					$data = $data_request->execute_request( $query );
 					$data = simplexml_load_string( $data );
 					
-					if ( empty ( $data->user['id'] ) ) {
+					//the previous request failed. we have a username not a user_id.
+					if ( empty ( $data->photos ) ) {
 					
-						//first we need to validate the username.
+						//Go and get the user_id
 						$data_request->set_parameters( 
 									array( 
 												'method'		=> 'flickr.urls.lookupuser',
@@ -68,26 +70,23 @@ function bebop_flickr_import( $extension ) {
 												'url' 			=> 'http://www.flickr.com/photos/' . bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_username' ),
 									)
 						);
+						$query = $data_request->build_query( $this_extension['data_feed'] );
+						$data = $data_request->execute_request( $query );
+						$data = simplexml_load_string( $data );
+
+						//retry the request
+						$data_request->set_parameters( 
+									array( 
+												'method'		=> 'flickr.people.getPublicPhotos',
+												'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
+												'user_id'		=> urldecode($data->user['id']),
+												'extras'		=> 'date_upload,url_m,url_t,description',
+									)
+						);
+						$query = $data_request->build_query( $this_extension['data_feed'] );
+						$data = $data_request->execute_request( $query );
+						$data = simplexml_load_string( $data );
 					}
-					
-					$query = $data_request->build_query( $this_extension['data_feed'] );
-					$data = $data_request->execute_request( $query );
-					$data = simplexml_load_string( $data );
-					
-					$data_request->set_parameters( 
-								array( 
-											'method'		=> 'flickr.people.getPublicPhotos',
-											'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
-											'user_id'		=> urldecode($data->user['id']),
-											'extras'		=> 'date_upload,url_m,url_t,description',
-								)
-					);
-					$query = $data_request->build_query( $this_extension['data_feed'] );
-					$data = $data_request->execute_request( $query );
-					$data = simplexml_load_string( $data );
-					
-					bebop_tables::log_error( 'Importer - ' . ucfirst( $this_extension['name'] ), $query );
-					bebop_tables::log_error( 'Importer - ' . ucfirst( $this_extension['name'] ), serialize($data) );
 					
 					/* 
 					 * ******************************************************************************************************************
@@ -108,13 +107,11 @@ function bebop_flickr_import( $extension ) {
 					 */
 					
 					
-						
 					//Edit the following variable to point to where the relevant content is being stored in the :
 					$items 	= $data->photos->photo;
 					
 					foreach ( $items as $item ) {
 						if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
-							bebop_tables::log_error( 'Importer', serialize($item) );
 							//Edit the following variables to point to where the relevant content is being stored:
 							$item_id			= $item['id'];
 							$action_link		= $this_extension['action_link'] . $item['owner'] . '/' . $item_id;
@@ -136,7 +133,6 @@ function bebop_flickr_import( $extension ) {
 							else {
 								$item_content = $action_link;
 							}
-							
 							
 							if ( bebop_create_buffer_item(
 											array(

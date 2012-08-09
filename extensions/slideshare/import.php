@@ -91,7 +91,7 @@ function bebop_slideshare_import( $extension ) {
 								$item_id			= $item->ID;
 								$action_link		= $item->URL;
 								$description		= $item->Description;
-								$item_published = $item->Created;
+								$item_published = gmdate( 'Y-m-d H:i:s', strtotime( $item->Created ) );
 								//Stop editing - you should be all done.
 								
 								//Only for content which has a description.
@@ -118,7 +118,7 @@ function bebop_slideshare_import( $extension ) {
 													'content'			=> $item_content,
 													'content_oembed'	=> $this_extension['content_oembed'],
 													'item_id'			=> $item_id,
-													'raw_date'			=> gmdate( 'Y-m-d H:i:s', strtotime( $item_published ) ),
+													'raw_date'			=> $item_published,
 													'actionlink'		=> $action_link,
 												)
 								) ) {

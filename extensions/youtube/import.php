@@ -89,7 +89,7 @@ function bebop_youtube_import( $extension ) {
 									$item_id = $id_array[1];
 									
 									$description = $item->get_content();
-									$item_published = strtotime( $item->get_date() );
+									$item_published = date( 'Y-m-d H:i:s', strtotime( $item->get_date() ) );
 									$action_link = $this_extension['action_link'] . $item_id;
 									
 									//cleanup the link if needed
@@ -123,7 +123,7 @@ function bebop_youtube_import( $extension ) {
 														'content' 			=> $item_content,
 														'content_oembed' 	=> $this_extension['content_oembed'],
 														'item_id' 			=> $item_id,
-														'raw_date' 			=> date( 'Y-m-d H:i:s', $item_published ),
+														'raw_date' 			=> $item_published,
 														'actionlink'	 	=> $action_link,
 													)
 									);

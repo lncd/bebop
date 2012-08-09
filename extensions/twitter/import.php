@@ -86,7 +86,7 @@ function bebop_twitter_import( $extension ) {
 									//Edit the following three variables to point to where the relevant content is being stored:
 									$item_id			= $item->id;
 									$item_content		= $item->text;
-									$item_published		= $item->created_at;
+									$item_published		= gmdate( 'Y-m-d H:i:s', strtotime( $item->created_at ) );
 									$action_link 		= str_replace( 'bebop_replace_username', $username, $this_extension['action_link'] ) . $item_id;
 									//Stop editing - you should be all done.
 									
@@ -99,7 +99,7 @@ function bebop_twitter_import( $extension ) {
 														'content'			=> $item_content,
 														'content_oembed'	=> $this_extension['content_oembed'],
 														'item_id'			=> $item_id,
-														'raw_date'			=> gmdate( 'Y-m-d H:i:s', strtotime( $item_published ) ),
+														'raw_date'			=> $item_published,
 														'actionlink'		=> $action_link,
 													)
 									) ) {
