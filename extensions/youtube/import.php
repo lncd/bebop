@@ -23,7 +23,7 @@ function bebop_youtube_import( $extension ) {
 		foreach ( $user_metas as $user_meta ) {
 			$errors = null;
 			$items 	= null;
-				
+			
 			//Ensure the user is wanting to import items.
 			if ( bebop_tables::check_user_meta_exists( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_username' )  && bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
 				//Check the user has not gone past their import limot for the day.

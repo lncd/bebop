@@ -94,6 +94,7 @@ function bebop_slideshare_import( $extension ) {
 								$item_published = $item->Created;
 								//Stop editing - you should be all done.
 								
+								//Only for content which has a description.
 								if( ! empty( $description) ) {
 									//crops the content if it is too long
 									if ( strlen( $description ) > 500 ) {
