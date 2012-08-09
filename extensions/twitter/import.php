@@ -11,7 +11,7 @@ function bebop_twitter_import( $extension ) {
 		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty.' );
 		return false;
 	}
-	else if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension . '_consumer_key' ) ){
+	else if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension . '_consumer_key' ) ) {
 		bebop_tables::log_error( 'Importer', 'No consumer key was found for ' . $extension );
 		return false;
 	}
@@ -21,53 +21,63 @@ function bebop_twitter_import( $extension ) {
 	
 	//item counter for in the logs
 	$itemCounter = 0;
-	if ( bebop_tables::check_option_exists( 'bebop_' . $this_extension['name'] . '_consumer_key' ) ) {
-		$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $this_extension['name'] . '_oauth_token' );
-		if ( $user_metas ) {
-			foreach ( $user_metas as $user_meta ) {
-				$errors = null;
-				$items 	= null;
-				
-				//Ensure the user is currently wanting to import items.
-				if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
-					//Check the user has not gone past their import limot for the day.
-					if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
-						//Handle the OAuth requests
-						$OAuth = new bebop_oauth();
-						$OAuth->set_callback_url( $bp->root_domain );
-						$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ) );
-						$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $this_extension ['name']. '_consumer_secret' ) );
-						$OAuth->set_access_token( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_oauth_token' ) );
-						$OAuth->set_access_token_secret( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_oauth_token_secret' ) );
-						
-						$items = $OAuth->oauth_request( $this_extension['data_feed'] );
-						$items = simplexml_load_string( $items );
-						
-						/* 
-						 * ******************************************************************************************************************
-						 * We can get as far as loading the items, but you will need to adjust the values of the variables below to match 	*
-						 * the values from the extension's API.																				*
-						 * This is because each API return data under different parameter names, and the simplest way to get around this is *
-						 * to quickly match the values. To find out what values you should be using, consult the provider's documentation.	*
-						 * You can also contact us if you get stuck - details are in the 'support' section of the admin homepage.			*
-						 * ******************************************************************************************************************
-						 * 
-						 * Values you will need to check and update are:
-						 * 		$errors 				- Must point to the error boolean value (true/false)
-						 * 		$username				- Must point to the value holding the username of the person.
-						 *.		$item_id				- Must be the ID of the item returned through the data API.
-						 * 		$item_content			- The actual content of the imported item.
-						 * 		$item_published			- The time the item was published.
-						 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
-						 */
-						
-						
-						//Edit the following two variables to point to where the relevant content is being stored in the API:
-						$errors		 = $items->error;
-						$username	 = '' . $items->status->user->screen_name[0];
-						
-						
-						if ( $items && ! $errors ) {
+	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $this_extension['name'] . '_oauth_token' );
+	if ( $user_metas ) {
+		foreach ( $user_metas as $user_meta ) {
+			$errors = null;
+			$items 	= null;
+			
+			//Ensure the user is currently wanting to import items.
+			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
+				//Check the user has not gone past their import limot for the day.
+				if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
+					
+					/* 
+					 * ******************************************************************************************************************
+					 * Depending on the data source, you will need to switch how the data is retrieved. If the feed is RSS, use the 	*
+					 * SimplePie method, as shown in the youtube extension. If the feed is oAuth API based, use the oAuth implementation*
+					 * as shown in thr twitter extension. If the feed is an API without oAuth authentication, use SlideShare			*
+					 * ******************************************************************************************************************
+					 */
+					
+					//Twitter uses oAuth - so let the pre-built oAuth class handle the data request.
+					
+					//Handle the OAuth requests
+					$OAuth = new bebop_oauth();
+					$OAuth->set_callback_url( $bp->root_domain );
+					$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ) );
+					$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $this_extension ['name']. '_consumer_secret' ) );
+					$OAuth->set_access_token( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_oauth_token' ) );
+					$OAuth->set_access_token_secret( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_oauth_token_secret' ) );
+					
+					$items = $OAuth->oauth_request( $this_extension['data_feed'] );
+					$items = simplexml_load_string( $items );
+					
+					/* 
+					 * ******************************************************************************************************************
+					 * We can get as far as loading the items, but you will need to adjust the values of the variables below to match 	*
+					 * the values from the extension's API.																				*
+					 * This is because each API return data under different parameter names, and the simplest way to get around this is *
+					 * to quickly match the values. To find out what values you should be using, consult the provider's documentation.	*
+					 * You can also contact us if you get stuck - details are in the 'support' section of the admin homepage.			*
+					 * ******************************************************************************************************************
+					 * 
+					 * Values you will need to check and update are:
+					 * 		$errors 				- Must point to the error boolean value (true/false)
+					 * 		$username				- Must point to the value holding the username of the person.
+					 *.		$item_id				- Must be the ID of the item returned through the data API.
+					 * 		$item_content			- The actual content of the imported item.
+					 * 		$item_published			- The time the item was published.
+					 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
+					 */
+					
+					
+					//Edit the following two variables to point to where the relevant content is being stored in the API:
+					$errors		 = $items->error;
+					$username	 = '' . $items->status->user->screen_name[0];
+					
+					if ( ! $errors ) {
+						if ( $items ) {
 							bebop_tables::update_user_meta( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_username', $username );
 							foreach ( $items as $item ) {
 								if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
@@ -77,7 +87,7 @@ function bebop_twitter_import( $extension ) {
 									$item_id			= $item->id;
 									$item_content		= $item->text;
 									$item_published		= $item->created_at;
-									$action_link 		= str_replace( 'bebop_replace_username', $username, $extension['action_link'] ) . $item_id;
+									$action_link 		= str_replace( 'bebop_replace_username', $username, $this_extension['action_link'] ) . $item_id;
 									//Stop editing - you should be all done.
 									
 									
@@ -98,9 +108,9 @@ function bebop_twitter_import( $extension ) {
 								}
 							}
 						}
-						else {
-							bebop_tables::log_error( 'Importer - ' . ucfirst( $this_extension['name'] ), 'feed error: ' . $errors );
-						}
+					}
+					else {
+						bebop_tables::log_error( 'Importer - ' . ucfirst( $this_extension['name'] ), 'feed error: ' . $errors );
 					}
 				}
 			}

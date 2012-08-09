@@ -29,8 +29,20 @@ function bebop_youtube_import( $extension ) {
 				//Check the user has not gone past their import limot for the day.
 				if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
 					
-					//get these urls for import
+					/* 
+					 * ******************************************************************************************************************
+					 * Depending on the data source, you will need to switch how the data is retrieved. If the feed is RSS, use the 	*
+					 * SimplePie method, as shown in the youtube extension. If the feed is oAuth API based, use the oAuth implementation*
+					 * as shown in thr twitter extension. If the feed is an API without oAuth authentication, use SlideShare			*
+					 * ******************************************************************************************************************
+					 */
+					
+					//Youtube is RSS based - so use SimplePie to gather the data
+					
+					//Replace 'bebop_replace_username' with the username of the user.
 					$importUrls = str_replace( 'bebop_replace_username', bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_username' ), $this_extension['data_feed']);
+					
+					//Configure the feed
 					$feed = new SimplePie();
 					$feed->set_feed_url( $importUrls );
 					$feed->set_cache_class( 'WP_Feed_Cache' );
@@ -44,45 +56,49 @@ function bebop_youtube_import( $extension ) {
 					/* 
 					 * ******************************************************************************************************************
 					 * We can get as far as loading the items, but you will need to adjust the values of the variables below to match 	*
-					 * the values from the extension's API.																				*
-					 * This is because each API return data under different parameter names, and the simplest way to get around this is *
+					 * the values from the extension's feed.																			*
+					 * This is because each feed return data under different parameter names, and the simplest way to get around this is*
 					 * to quickly match the values. To find out what values you should be using, consult the provider's documentation.	*
 					 * You can also contact us if you get stuck - details are in the 'support' section of the admin homepage.			*
 					 * ******************************************************************************************************************
 					 * 
 					 * Values you will need to check and update are:
 					 * 		$errors 				- Must point to the error boolean value (true/false)
-					 *.		$link and /or $item_id	- Must be the ID of the item returned through the data API.
+					 *.		$link and /or $item_id	- Must be the ID of the item returned through the data feed.
 					 * 		$description			- The actual content of the imported item.
 					 * 		$item_published			- The time the item was published.
 					 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
 					 */
 					 
 					 
-					//Edit the following variables to point to where the relevant content is being stored in the API:
+					//Edit the following variables to point to where the relevant content is being stored in the feed:
 					$errors	 = $feed->error;
 					
 					if ( ! $errors ) {
+						
+						//Edit the following variable to point to where the relevant content is being stored in the feed:
 						$items = $feed->get_items();
+						
 						if ( $items ) {
 							foreach ( $items as $item ) {
 								if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
 										
-									//variables which may require changing.
+									//Edit the following variables to point to where the relevant content is being stored:
 									$link = $item->get_permalink();
 									$id_array = explode( '=', $link );
 									$item_id = $id_array[1];
+									
 									$description = $item->get_content();
 									$item_published = strtotime( $item->get_date() );
 									$action_link = $this_extension['action_link'] . $item_id;
 									
-									//cleanup the link
+									//cleanup the link if needed
 									foreach ( $this_extension['sanitise_url'] as $clean ) {
 										$item_id = str_replace( $clean, '', $item_id );
 									}
+									//Stop editing - you should be all done.
 									
-									//should not have to edit below this line.
-									
+									//Only for content which has a description.
 									if ( ! empty( $description ) ) {
 										//crop the content if it is too long
 										if ( strlen( $description ) > 500 ) {
