@@ -21,7 +21,6 @@ $extension = strtolower( $extension );
  */
 if ( isset( $_POST['submit'] ) ) {
 	bebop_tables::update_option( 'bebop_' . $extension . '_consumer_key', trim( $_POST['bebop_' . $extension . '_consumer_key'] ) );
-	bebop_tables::update_option( 'bebop_' . $extension . '_consumer_secret', trim( $_POST['bebop_' . $extension . '_consumer_secret'] ) );
 	bebop_tables::update_option( 'bebop_' . $extension . '_maximport', trim( $_POST['bebop_' . $extension . '_maximport'] ) );
 
 	echo '<div class="bebop_success_box">Settings Saved.</div>';
@@ -50,9 +49,6 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			<span class='header'><?php echo ucfirst( $extension ); ?> Settings</span>
 			<label for='bebop_<?php echo $extension; ?>_consumer_key'><?php echo ucfirst( $extension ); ?> API Token:</label>
 			<input type='text' id='bebop_<?php echo $extension; ?>_consumer_key' name='bebop_<?php echo $extension; ?>_consumer_key' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension . '_consumer_key' ); ?>' size='50'>
-			
-			<label for='bebop_<?php echo $extension; ?>_consumer_secret'><?php echo ucfirst( $extension ); ?> API Secret:</label>
-			<input type='text' id='bebop_<?php echo $extension; ?>_consumer_secret' name='bebop_<?php echo $extension; ?>_consumer_secret' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension . '_consumer_secret' ); ?>' size='50'>
 			
 			<label for='bebop_<?php echo $extension; ?>_maximport'>Imports per day (blank = unlimited):</label>
 			<input type='text' id='bebop_<?php echo $extension; ?>_maximport' name='bebop_<?php echo $extension; ?>_maximport' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' ); ?>' size='5'>
