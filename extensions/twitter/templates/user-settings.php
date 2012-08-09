@@ -114,5 +114,5 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 	}
 }// if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on') && ( bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_consumer_key' ) ) ) {
 else {
-	echo ucfirst( $extension['name'] ) . 'has not yet been configured. Please contact the blog admin to make sure ' . ucfirst( $extension['name'] ) . ' is enables as an OER provider.';
+	echo ucfirst( $extension['name'] ) . ' has not yet been configured. Please contact the blog admin to make sure ' . ucfirst( $extension['name'] ) . ' is configured properly.';
 }
