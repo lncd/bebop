@@ -78,7 +78,7 @@ else {
 								echo 'CHECKED';
 							}
 							echo '></td>
-							<td><a href="?page=bebop_oer_providers&provider=' . $extension['name'] . '">Settings</a></td>
+							<td><a href="?page=bebop_oer_providers&provider=' . strtolower( $extension['name'] ) . '">Settings</a></td>
 						</tr>';
 					}
 				}
