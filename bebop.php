@@ -55,13 +55,13 @@ function bebop_activate() {
 			id int(10) NOT NULL auto_increment PRIMARY KEY, 
 			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 			error_type varchar(40) NOT NULL,
-			error_message varchar(255) NOT NULL
+			error_message text NOT NULL
 		);';
 		$bebop_general_log = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_general_log ( 
 			id int(10) NOT NULL auto_increment PRIMARY KEY,
 			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 			type varchar(40) NOT NULL,
-			message varchar(255) NOT NULL
+			message text NOT NULL
 	    );';
 	
 		$bebop_options = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_options ( 
