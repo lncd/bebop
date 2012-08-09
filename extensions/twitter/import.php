@@ -90,6 +90,12 @@ function bebop_twitter_import( $extension ) {
 									$action_link 		= str_replace( 'bebop_replace_username', $username, $this_extension['action_link'] ) . $item_id;
 									//Stop editing - you should be all done.
 									
+									//check if the secondary_id already exists
+									$secondary = bebop_tables::fetch_individual_oer_data( $user_meta->user_id .'_' . $item_id );
+									//if the id is found, we have the item in the database and all following items (feeds return most recent items first). Move onto the next user..
+									if ( ! empty( $secondary->secondary_item_id ) ) {
+										break;
+									}
 									
 									if ( bebop_create_buffer_item(
 													array(

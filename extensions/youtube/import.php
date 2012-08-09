@@ -98,6 +98,13 @@ function bebop_youtube_import( $extension ) {
 									}
 									//Stop editing - you should be all done.
 									
+									//check if the secondary_id already exists
+									$secondary = bebop_tables::fetch_individual_oer_data( $user_meta->user_id .'_' . $item_id );
+									//if the id is found, we have the item in the database and all following items (feeds return most recent items first). Move onto the next user..
+									if ( ! empty( $secondary->secondary_item_id ) ) {
+										break;
+									}
+									
 									//Only for content which has a description.
 									if ( ! empty( $description ) ) {
 										//crop the content if it is too long
@@ -113,8 +120,6 @@ function bebop_youtube_import( $extension ) {
 										$item_content = $this_extension['action_link'] . $item_id;
 									}
 									
-									
-									//should not have to edit anything else.
 									$returnCreate = bebop_create_buffer_item(
 													array(
 														'user_id' 			=> $user_meta->user_id,

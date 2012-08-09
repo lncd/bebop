@@ -94,6 +94,13 @@ function bebop_slideshare_import( $extension ) {
 								$item_published = gmdate( 'Y-m-d H:i:s', strtotime( $item->Created ) );
 								//Stop editing - you should be all done.
 								
+								//check if the secondary_id already exists
+								$secondary = bebop_tables::fetch_individual_oer_data( $user_meta->user_id .'_' . $item_id );
+								//if the id is found, we have the item in the database and all following items (feeds return most recent items first). Move onto the next user..
+								if ( ! empty( $secondary->secondary_item_id ) ) {
+									break;
+								}
+								
 								//Only for content which has a description.
 								if( ! empty( $description) ) {
 									//crops the content if it is too long
