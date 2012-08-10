@@ -149,7 +149,7 @@ function bebop_cron_function() {
 	require_once( 'import.php' );
 }
 
-define( 'BP_BEBOP_VERSION', '0.1' );
+define( 'BP_BEBOP_VERSION', '1.0' );
 
 
 //hooks into activation and deactivation of the plugin.
