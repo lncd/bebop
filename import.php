@@ -31,7 +31,7 @@ if ( ! empty( $importers[0] ) ) {
 	$return_array = array();
 	foreach ( $importers as $extension ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
-			if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/import.php' ) ) {
+			if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php' ) ) {
 			
 				include_once( WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/import.php' );
 				if ( function_exists( 'bebop_' . strtolower( $extension ) . '_import' ) ) {
