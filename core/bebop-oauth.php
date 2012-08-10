@@ -262,7 +262,6 @@ class bebop_oauth {
 		
 		//parse he $_GET array into an 'real' array
 		parse_str( $output, $sanitised_array );
-		var_dump( $output );
 		$token = array( 'oauth_token' => $sanitised_array['oauth_token'], 'oauth_token_secret' => $sanitised_array['oauth_token_secret'] );
 		if ( ! $sanitised_array['oauth_token'] ) {
 			echo '<hr><pre>'.$output.'</pre><hr>';
