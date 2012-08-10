@@ -1,11 +1,13 @@
 === Bebop ===
 Contributors: Dale Mckeown
 Tags: WordPress, BuddyPress, OER, Open Educational Resources, Rapid Innovation, JISC, LNCD.
-Tested on: WordPress 3.2.2, BuddyPress 1.5.5
+Tested on: WordPress 3.4.1, BuddyPress 1.6
 
 
 == Licence ==
 TBA
+
+
 
 == Description ==
 Bebop is the name of a rapid innovation project funded by the Joint Information Systems Committee (JISC). The project involved the utilisation of OER's from 3rd party providers such as JORUM and slideshare.
@@ -16,10 +18,8 @@ Requirements.
 == Installation ==
 1. Upload this plugin to your '/wp-content/plugins/' directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Setup the "bebop" plugin in the admin sidebar.
-
-== Screenshots ==
-TBA
+3. Configure extensions in the 'OER Provider' menu.
 
 == Changelog ==
-TBA
+
+v1.0 - Initial release.

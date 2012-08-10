@@ -16,11 +16,11 @@ Credits: BuddySteam - buddystream.net
 // This plugin is intended for use on BuddyPress only.
 // http://buddypress.org/
 
-/*****************************************************************************
-** This software is released without warranty or guarantee, and as such no  **
-*  liability or responsibility can be accepted by its authors or related     *
-** organisations or institutions. YOU USE THIS SOFTWARE AT YOUR OWN RISK.   **
-*****************************************************************************/
+/****************************************************************************
+// This program is distributed in the hope that it will be useful, but		*
+// WITHOUT ANY WARRANTY; without even the implied warranty of				*
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.						*
+****************************************************************************/
 
 //initialise Bebop
 function bebop_init() {
