@@ -4,7 +4,7 @@
 
 function get_flickr_config() {
 	$config = array(
-		'name' 					=> 'Flickr',
+		'name' 					=> 'flickr',
 		'pages'					=> array( 'settings', ),
 		'defaultpage'			=> 'settings',
 		'data_feed' 			=> 'http://api.flickr.com/services/rest/',

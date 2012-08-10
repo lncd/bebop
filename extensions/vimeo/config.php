@@ -4,7 +4,7 @@
 
 function get_vimeo_config() {
 	$config = array(
-		'name' 					=> 'Vimeo',
+		'name' 					=> 'vimeo',
 		'pages'					=> array( 'settings', ),
 		'defaultpage'			=> 'settings',
 		'data_feed' 			=> 'http://vimeo.com/api/v2/',
