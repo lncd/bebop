@@ -48,6 +48,7 @@ if ( ! empty( $importers[0] ) ) {
 		}
 	}
 	
+	
 	$log_results = implode( ', ', $return_array );
 	bebop_tables::log_general( 'Importer', 'Importer service completed. Imported ' . $log_results . '.' );
 }
