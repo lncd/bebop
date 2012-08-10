@@ -80,13 +80,8 @@ function bebop_create_buffer_item( $params ) {
 				$action .= ' ' . __( 'posted&nbsp;a', 'bebop' . $extention['name'] ) . ' ';
 				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_'.$extention['name'] );
 				$action .= '</a>: ';
-				if ( bebop_tables::get_option_value( 'bebop_'. $params['extention'] . '_hide_sitewide' ) == 'on' ) {
-					$oer_hide_sitewide = 1;
-				}
-				else {
-					$oer_hide_sitewide = 0;
-				}
 				
+				$oer_hide_sitewide = 0;
 				$date_imported = gmdate( 'Y-m-d H:i:s', time() );
 				
 				//extra check to be sure we don't have a empty activity
