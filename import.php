@@ -30,13 +30,13 @@ if ( ! empty( $importers[0] ) ) {
 	bebop_tables::log_general( 'Importer', 'Importer service started.' ); 
 	$return_array = array();
 	foreach ( $importers as $extension ) {
-		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
+		if ( bebop_tables::get_option_value( 'bebop_' . strtolower( $extension ) . '_provider' ) == 'on' ) {
 			if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php' ) ) {
 			
 				include_once( WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php' );
 				if ( function_exists( 'bebop_' . strtolower( $extension ) . '_import' ) ) {
 					//call the import function, and pass in the extension name.
-					$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', $extension );
+					$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', strtolower( $extension ) );
 				}
 				else {
 					bebop_tables::log_error( 'Importer', 'The function: bebop_' . strtolower( $extension ) . '_import does not exist.' );
@@ -51,4 +51,3 @@ if ( ! empty( $importers[0] ) ) {
 	
 	$log_results = implode( ', ', $return_array );
 	bebop_tables::log_general( 'Importer', 'Importer service completed. Imported ' . $log_results . '.' );
-}
