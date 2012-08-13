@@ -6,7 +6,6 @@
 
 //replace 'youtube' with the 'name' of your extension, as defined in your config.php file.
 function bebop_generic_rss_import( $extension ) {
-	bebop_tables::log_error( 'Import', 'called' );
 	global $wpdb, $bp;
 	if ( empty( $extension ) ) {
 		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty.' );
@@ -84,18 +83,14 @@ function bebop_generic_rss_import( $extension ) {
 							if ( $items ) {
 								foreach ( $items as $item ) {
 									if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
-										bebop_tables::log_error( 'Import', 'FFS' );
+										
 										//Edit the following variables to point to where the relevant content is being stored:
 										$description	= $item->get_content();
 										$item_published = date( 'Y-m-d H:i:s', strtotime( $item->get_date() ) );
 										$action_link	= $item->get_permalink();
-										if( ! empty(  $item->get_id() ) ) {
-											$item_id = $item->get_id();
-										}
-										if( strpos( $item_id, 'http' ) > -1 ) {
-											$id_array = array_reverse( explode( '/', $action_link ) ); 
-											$item_id = $id_array[1];
-										}
+										
+										$id_array = array_reverse( explode( '/', $action_link ) ); 
+										$item_id = $id_array[1];
 										
 										//Stop editing - you should be all done.
 										
