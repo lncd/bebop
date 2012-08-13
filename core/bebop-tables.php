@@ -207,24 +207,6 @@ class bebop_tables {
 	* User Meta
 	*/
 	
-	function add_user_meta( $user_id, $meta_type, $meta_name, $meta_value ) { //function to add user meta to the user_meta table.
-		global $wpdb;
-		
-		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == false ) {
-			$wpdb->query(
-							$wpdb->prepare(
-											'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
-											$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
-							)
-			);
-			return true;
-		}
-		else {
-			bebop_tables::log_error( 'bebop_user_meta_error', "meta: '" . $meta_name . "' already exists for user " . $user_id . 'in type ' . $meta_type );
-			return false;
-		}
-	}
-	
 	function check_user_meta_exists( $user_id, $meta_name ) { //function to check if user meta name exists in the user_meta table.
 		global $wpdb;
 		$result = $wpdb->get_row( 'SELECT meta_name FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
@@ -243,6 +225,17 @@ class bebop_tables {
 		return $result;
 	}
 	
+	function get_user_ids_from_meta_type( $meta_type ) {//function to get user id's from the meta table
+		global $wpdb;
+		$results = $wpdb->get_results( 'SELECT user_id FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE meta_type= '" . $wpdb->escape( $meta_type )  . "'" );
+		$return = array();
+		foreach ( $results as $result ) {
+			if ( ! in_array( $result, $return ) ) {
+				$return[] = $result;
+			}
+		}
+		return $return;
+	}
 	function get_user_meta_value( $user_id, $meta_name ) {//function to get user meta from the user_meta table.
 		global $wpdb;
 		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
@@ -250,6 +243,24 @@ class bebop_tables {
 			return $result->meta_value;
 		}
 		else {
+			return false;
+		}
+	}
+	
+	function add_user_meta( $user_id, $meta_type, $meta_name, $meta_value ) { //function to add user meta to the user_meta table.
+		global $wpdb;
+		
+		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == false ) {
+			$wpdb->query(
+							$wpdb->prepare(
+											'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
+											$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
+							)
+			);
+			return true;
+		}
+		else {
+			bebop_tables::log_error( 'bebop_user_meta_error', "meta: '" . $meta_name . "' already exists for user " . $user_id . 'in type ' . $meta_type );
 			return false;
 		}
 	}
@@ -282,6 +293,12 @@ class bebop_tables {
 		else {
 			return false;
 		}
+	}
+	
+	function get_user_generic_feeds( $user_id ) {
+		global $wpdb;
+		$result = $wpdb->get_results( 'SELECT meta_name, meta_value FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE meta_type = 'generic_rss' AND user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name != 'bebop_generic_rss_active_for_user'" );
+		return $result;
 	}
 	
 	function sanitise_element( $data, $allow_tags = null ) {

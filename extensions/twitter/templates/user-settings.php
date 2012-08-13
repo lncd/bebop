@@ -19,7 +19,7 @@ $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['
 /*
  * update section - if you add more parameters, don't forget to update them here.
  */
-if ( isset( $_POST['submit'] ) ) {
+if ( ! empty( $_POST['submit'] ) ) {
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
 	echo '<div class="bebop_message">Settings Saved</div>';
 }

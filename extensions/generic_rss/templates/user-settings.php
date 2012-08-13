@@ -19,12 +19,10 @@ $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['
 /*
  * update section - if you add more parameters, don't forget to update them here.
  */
-if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
+if ( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) ) {
 	//Updates the channel name.
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $_POST['bebop_' . $extension['name'] . '_username'] );
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
+	bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], $_POST['bebop_' . $extension['name'] . '_newfeedname'], $_POST['bebop_' . $extension['name'] . '_newfeedurl'] );
 	
-	do_action( 'bebop_' . $extension['name'] . '_activated' );
 }
 if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
@@ -35,38 +33,48 @@ if ( isset( $_GET['reset'] ) ) {
 	bebop_tables::remove_user_meta( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );
 }
 
-//put some options into variables
-$username = 'bebop_' . $extension['name'] . '_username';																//the username
-$$username = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );	//the username value
-
 $active = 'bebop_' . $extension['name'] . '_active_for_user';																//the active boolean name
 $$active = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_active_for_user' );	//the value of the boolean
 
 if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 	echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] . '" method="post">
 	<h3>' . ucfirst( $extension['name'] ) . ' Settings</h3>';
-	if ( ! empty( $$username ) ) {
-		echo '<h5>Enable ' . ucfirst( $extension['name'] ) . ' import?</h5>
-		<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$active == 1 ) {
-			echo 'checked';
-		} echo '>
-		<label for="yes">Yes</label>
-		<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="0"'; if ( $$active == 0 ) {
-			echo 'checked';
-		} echo '>
-		<label for="no">No</label><br>';
-	}
+	echo '<h5>Enable ' . ucfirst( $extension['name'] ) . ' import?</h5>
+	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$active == 1 ) {
+		echo 'checked';
+	} echo '>
+	<label for="yes">Yes</label>
+	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="0"'; if ( $$active == 0 ) {
+		echo 'checked';
+	} echo '>
+	<label for="no">No</label><br>';
 	
-	echo '<label for="bebop_' . $extension['name'] . '_username">' . ucfirst( $extension['name'] ) . ' Username:</label>
-	<input type="text" name="bebop_' . $extension['name'] . '_username" value="' . $$username .'" size="50"><br>
+	echo '<label for="bebop_' . $extension['name'] . '_newfeedname">New Feed Name:</label>
+	<input type="text" name="bebop_' . $extension['name'] . '_newfeedname" size="50"><br>
 	
-	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings"></div>';
-	if ( ! empty( $$username ) ) {
-		echo '<div class="button_container"><a class="standard_button" href="?provider=' . $extension['name'] . '&reset=true">Remove Channel</a></div>';
+	<label for="bebop_' . $extension['name'] . '_newfeedurl">New Feed URL:</label>
+	<input type="text" name="bebop_' . $extension['name'] . '_newfeedurl" size="75"><br>
+	
+	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings"></div>
+	</form>';
+	//table of user feeds
+	$user_feeds = bebop_tables::get_user_generic_feeds( $bp->loggedin_user->id );
+	if ( count( $user_feeds ) > 0 ) {
+		echo '<h3>Your generic feeds</h3>';
+		echo '<table class="bebop_user_table">
+				<tr class="nodata">
+					<th>Feed Name</th>
+					<th>Feed URL</th>
+					<th>Options</th>
+				</tr>';
+		foreach ( $user_feeds as $user_feed ) {
+			echo '<tr>
+				<td>' . bebop_tables::sanitise_element( $user_feed->meta_name ) . '</td>
+				<td>' . bebop_tables::sanitise_element( $user_feed->meta_value ) . '</td>
+				<td>Option name </td>
+			</tr>';
+		}
+		echo '</table>';
 	}
-	echo '</form>';
-}
-else {
-	echo ucfirst( $extension['name'] ) . ' has not yet been configured. Please contact the blog admin to make sure ' . ucfirst( $extension['name'] ) . ' is configured properly.';
 }
 ?>

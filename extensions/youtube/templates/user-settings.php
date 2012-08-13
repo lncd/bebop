@@ -19,7 +19,7 @@ $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['
 /*
  * update section - if you add more parameters, don't forget to update them here.
  */
-if ( isset( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
+if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
 	//Updates the channel name.
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $_POST['bebop_' . $extension['name'] . '_username'] );
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
