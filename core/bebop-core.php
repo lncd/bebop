@@ -65,7 +65,7 @@ function bebop_create_buffer_item( $params ) {
 		$originalText = $params['content'];
 		
 		//check if the secondary_id already exists
-		$secondary = $wpdb->get_row( $wpdb->prepare( 'SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_manager WHERE secondary_item_id='" . $params['user_id'] .'_' . $params['item_id'] . "'" ) );
+		$secondary = $wpdb->get_row( $wpdb->prepare( 'SELECT secondary_item_id FROM ' . $wpdb->base_prefix . "bp_bebop_oer_manager WHERE secondary_item_id='" . $params['item_id'] . "'" ) );
 		
 		if ( empty( $secondary ) ) {
 			$content = '';
@@ -93,7 +93,7 @@ function bebop_create_buffer_item( $params ) {
 									$wpdb->prepare(
 													'INSERT INTO ' . $wpdb->base_prefix . 'bp_bebop_oer_manager ( user_id, status, type, action, content, secondary_item_id, date_imported, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s ) ',
 													$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
-													$wpdb->escape( $params['user_id'] . '_' . $params['item_id'] ), $wpdb->escape( $date_imported ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
+													$wpdb->escape( $params['item_id'] ), $wpdb->escape( $date_imported ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
 									)
 					) ) {
 						bebop_filters::day_increase( $params['extention'], $params['user_id'] );

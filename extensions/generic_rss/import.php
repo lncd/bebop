@@ -90,12 +90,18 @@ function bebop_generic_rss_import( $extension ) {
 										$action_link	= $item->get_permalink();
 										
 										$id_array = array_reverse( explode( '/', $action_link ) ); 
-										$item_id = $id_array[1];
-										
+										$id = $id_array[1];
 										//Stop editing - you should be all done.
 										
+										if ( is_numeric( $item_id ) ) {
+											$item_id = $user_meta->user_id .'_' . $id . strtotime( $item->get_date() );
+										}
+										else {
+											$item_id = $user_meta->user_id .'_' . strtotime( $item->get_date() );
+										}
+										
 										//check if the secondary_id already exists
-										$secondary = bebop_tables::fetch_individual_oer_data( $user_meta->user_id .'_' . $item_id );
+										$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
 										//if the id is found, we have the item in the database and all following items (feeds return most recent items first). Move onto the next user..
 										if ( ! empty( $secondary->secondary_item_id ) ) {
 											break;
