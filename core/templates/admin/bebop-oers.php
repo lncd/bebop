@@ -59,8 +59,8 @@
 				'<td>' . $oer->activity_stream_id . '</td>' .
 				'<td>' . bp_core_get_username( $oer->user_id ) . '</td>' .
 				'<td>' . bebop_tables::sanitise_element( ucfirst( $oer->type ) ) . '</td>' .
-				'<td>' . time_since( $oer->date_imported ) . '</td>' .
-				'<td>' . time_since( $oer->date_recorded ) . '</td>' .
+				'<td>' . bp_core_time_since( $oer->date_imported ) . '</td>' .
+				'<td>' . bp_core_time_since( $oer->date_recorded ) . '</td>' .
 				'<td class="content">' . bebop_tables::sanitise_element( $oer->content ) . '</td>' .
 			'</tr>';
 		}

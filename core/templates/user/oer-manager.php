@@ -133,8 +133,8 @@ if ( isset( $_GET['type'] ) ) {
 			foreach ( $oers as $oer ) {
 				echo '<tr>' .
 					'<td><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( ucfirst( $oer->type ) ) . '</label></td>' .
-					'<td><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( time_since( $oer->date_imported ) ) . '</label></td>' .
-					'<td><label for="' . $oer->secondary_item_id . '">' . time_since( $oer->date_recorded ) . '</label></td>' .
+					'<td><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( bp_core_time_since( $oer->date_imported ) ) . '</label></td>' .
+					'<td><label for="' . $oer->secondary_item_id . '">' . bp_core_time_since( $oer->date_recorded ) . '</label></td>' .
 					'<td class="content"><label for="' . $oer->secondary_item_id . '">' . bebop_tables::sanitise_element( $oer->content, $allow_tags = true ) . '</label></td>' .
 					"<td class='checkbox_container'><label for='" . $oer->secondary_item_id . "'><div class='checkbox'><input type='checkbox' id='" . $oer->secondary_item_id . "' name='" . $oer->secondary_item_id . "'></div></label></td>" .
 				'</tr>';
