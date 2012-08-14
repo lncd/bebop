@@ -22,7 +22,8 @@ function bebop_generic_rss_import( $extension ) {
 			//Ensure the user is wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
 				$user_feeds = bebop_tables::get_user_generic_feeds(  $user_meta->user_id );
-				foreach ($user_feeds as $user_feed ) {					$errors = null;
+				foreach ($user_feeds as $user_feed ) {
+					$errors = null;
 					$items 	= null;
 					
 					$feed_name = $user_feed->meta_name;
@@ -63,7 +64,7 @@ function bebop_generic_rss_import( $extension ) {
 						 * 
 						 * Values you will need to check and update are:
 						 * 		$errors 				- Must point to the error boolean value (true/false)
-						 *.		$link and /or $item_id	- Must be the ID of the item returned through the data feed.
+						 *.		$link and /or $id		- Must be the ID of the item returned through the data feed.
 						 * 		$description			- The actual content of the imported item.
 						 * 		$item_published			- The time the item was published.
 						 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
@@ -92,12 +93,9 @@ function bebop_generic_rss_import( $extension ) {
 										$id = $id_array[1];
 										//Stop editing - you should be all done.
 										
-										if ( is_numeric( $id ) ) {
-											$item_id = $user_meta->user_id . $id . strtotime( $item->get_date() );
-										}
-										else {
-											$item_id = $user_meta->user_id . strtotime( $item->get_date() );
-										}
+										
+										//generate an $item_id
+										$item_id = bebop_generate_secondary_id( $user_meta->user_id, $id, $item_published );
 										
 										//check if the secondary_id already exists
 										$secondary = bebop_tables::fetch_individual_oer_data( $item_id );

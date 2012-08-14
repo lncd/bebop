@@ -86,20 +86,23 @@ function bebop_youtube_import( $extension ) {
 									//Edit the following variables to point to where the relevant content is being stored:
 									$link = $item->get_permalink();
 									$id_array = explode( '=', $link );
-									$item_id = $id_array[1];
+									$id = $id_array[1];
 									
 									$description = $item->get_content();
 									$item_published = date( 'Y-m-d H:i:s', strtotime( $item->get_date() ) );
-									$action_link = $this_extension['action_link'] . $item_id;
-									
+									$action_link = $this_extension['action_link'] . $id;
 									//cleanup the link if needed
 									foreach ( $this_extension['sanitise_url'] as $clean ) {
-										$item_id = str_replace( $clean, '', $item_id );
+										$id = str_replace( $clean, '', $id );
 									}
 									//Stop editing - you should be all done.
 									
+									
+									//generate an $item_id
+									$item_id = bebop_generate_secondary_id( $user_meta->user_id, $id, $item_published );
+									
 									//check if the secondary_id already exists
-									$secondary = bebop_tables::fetch_individual_oer_data( $user_meta->user_id .'_' . $item_id );
+									$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
 									//if the id is found, we have the item in the database and all following items (feeds return most recent items first). Move onto the next user..
 									if ( ! empty( $secondary->secondary_item_id ) ) {
 										break;
@@ -113,11 +116,11 @@ function bebop_youtube_import( $extension ) {
 										}
 										
 										//This manually puts the link and description together with a line break, which is needed for oembed.
-										$item_content = $this_extension['action_link'] . $item_id . '
+										$item_content = $action_link . '
 										' . $description;
 									}
 									else {
-										$item_content = $this_extension['action_link'] . $item_id;
+										$item_content = $action_link;
 									}
 									
 									$returnCreate = bebop_create_buffer_item(

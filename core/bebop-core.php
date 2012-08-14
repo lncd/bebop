@@ -1,6 +1,17 @@
 <?php
 bebop_extensions::load_extensions();
-
+/*
+ * Generate an id for the imported item
+ */
+ 
+function bebop_generate_secondary_id( $user_id, $id, $timestamp = null ) {
+	if ( is_numeric( $id ) ) {
+		$item_id = $user_id . $id . strtotime( $timestamp );
+	}
+	else {
+		$item_id = $user_id . strtotime( $timestamp );
+	}
+}
 /*
  * Gets the url of a page
  */

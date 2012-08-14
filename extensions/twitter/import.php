@@ -65,7 +65,7 @@ function bebop_twitter_import( $extension ) {
 					 * Values you will need to check and update are:
 					 * 		$errors 				- Must point to the error boolean value (true/false)
 					 * 		$username				- Must point to the value holding the username of the person.
-					 *.		$item_id				- Must be the ID of the item returned through the data API.
+					 *.		$id						- Must be the ID of the item returned through the data API.
 					 * 		$item_content			- The actual content of the imported item.
 					 * 		$item_published			- The time the item was published.
 					 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
@@ -84,14 +84,18 @@ function bebop_twitter_import( $extension ) {
 									
 									
 									//Edit the following three variables to point to where the relevant content is being stored:
-									$item_id			= $item->id;
+									$id					= $item->id;
 									$item_content		= $item->text;
 									$item_published		= gmdate( 'Y-m-d H:i:s', strtotime( $item->created_at ) );
-									$action_link 		= str_replace( 'bebop_replace_username', $username, $this_extension['action_link'] ) . $item_id;
+									$action_link 		= str_replace( 'bebop_replace_username', $username, $this_extension['action_link'] ) . $id;
 									//Stop editing - you should be all done.
 									
+									
+									//generate an $item_id
+									$item_id = bebop_generate_secondary_id( $user_meta->user_id, $id, $item_published );
+									
 									//check if the secondary_id already exists
-									$secondary = bebop_tables::fetch_individual_oer_data( $user_meta->user_id .'_' . $item_id );
+									$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
 									//if the id is found, we have the item in the database and all following items (feeds return most recent items first). Move onto the next user..
 									if ( ! empty( $secondary->secondary_item_id ) ) {
 										break;
