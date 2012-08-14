@@ -36,13 +36,8 @@ function page_url( $last_folders = null ) {
 function bebop_create_buffer_item( $params ) {
 	global $bp, $wpdb;
 	if ( is_array( $params ) ) {
-		//load config of extention
-		$originalText = $params['content'];
-		
-		//check if the secondary_id already exists
-		$secondary = $wpdb->get_row( $wpdb->prepare( 'SELECT secondary_item_id FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE secondary_item_id='" . $params['item_id'] . "'" ) );
-		
-		if ( empty( $secondary ) ) {
+		if ( ! bp_has_activities( 'secondary_id=' . $params['item_id'] ) ) {
+			$originalText = $params['content'];
 			$content = '';
 			if ( $params['content_oembed'] == true ) {
 				$content = $originalText;
@@ -87,6 +82,7 @@ function bebop_create_buffer_item( $params ) {
 			}
 		}
 		else {
+			bebop_tables::log_error('activity ' . $params['item_id'] . ' already exists', serialize($secondary));
 			return false;
 		}
 	}

@@ -22,9 +22,7 @@ function bebop_generic_rss_import( $extension ) {
 			//Ensure the user is wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
 				$user_feeds = bebop_tables::get_user_generic_feeds(  $user_meta->user_id );
-				foreach ($user_feeds as $user_feed ) {
-					bebop_tables::log_error('user feeds', serialize($user_feed));
-					$errors = null;
+				foreach ($user_feeds as $user_feed ) {					$errors = null;
 					$items 	= null;
 					
 					$feed_name = $user_feed->meta_name;
