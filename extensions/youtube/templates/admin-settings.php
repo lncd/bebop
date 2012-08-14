@@ -51,7 +51,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		<div class='bebop_button_container'><button id='submit' name='submit'>Save Changes</button></div>	
 	</form>
 	<?php
-	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $extension['name'] . '_username' );
+	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $extension['name'] . '_active_for_user' );
 	if ( count( $user_metas ) > 0 ) {
 		?>
 		<table class='bebop_settings_table'>

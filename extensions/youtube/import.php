@@ -144,7 +144,7 @@ function bebop_youtube_import( $extension ) {
 						}
 					}
 					else {
-						bebop_tables::log_error( 'Importer - ' . ucfirst( $this_extension['name'] ), 'feed error: ' . $errors );
+						bebop_tables::log_error( 'Importer - ' . $this_extension['display_name'] , 'feed error: ' . $errors );
 					}
 				}
 			}

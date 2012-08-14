@@ -51,7 +51,9 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		<div class='bebop_button_container'><button id='submit' name='submit'>Save Changes</button></div>	
 	</form>
 	<?php
-	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $extension['name'] . '_username' );
+	
+	//slightly different for this count because we have many feeds and no usernames.
+	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $extension['name'] . '_active_for_user' );
 	if ( count( $user_metas ) > 0 ) {
 		?>
 		<table class='bebop_settings_table'>
@@ -63,7 +65,6 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 				<td class='bold'>User ID</td>
 				<td class='bold'>Username</td>
 				<td class='bold'>User email</td>
-				<td class='bold'><?php echo $extension['display_name']; ?> Name</td>
 				<td class='bold'>Options</td>
 			</tr>
 			<?php	
@@ -75,9 +76,8 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 				echo '<tr>
 					<td>' . bebop_tables::sanitise_element( $user->user_id ) . '</td>
 					<td>' . bebop_tables::sanitise_element( $this_user->user_login ) . '</td>
-					<td>' . bebop_tables::sanitise_element( $this_user->user_email ) . '</td>
-					<td>' . bebop_tables::sanitise_element( bebop_tables::get_user_meta_value( $user->user_id, 'bebop_' . $extension['name'] . '_username' ) ) . "</td>
-					<td><a href='?page=bebop_oer_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>Reset User</a></td>
+					<td>' . bebop_tables::sanitise_element( $this_user->user_email ) . '</td>' .
+					"<td><a href='?page=bebop_oer_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>Reset User</a></td>
 				</tr>";
 			}
 		?>
