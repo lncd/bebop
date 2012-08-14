@@ -17,10 +17,10 @@ class bebop_tables {
 		}
 	}
 	
-	function count_users_using_extension( $extension ) {
+	function count_users_using_extension( $extension, $status ) {
 		global $wpdb;
 		
-		$count = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE meta_name = 'bebop_" . $wpdb->escape( $extension ) . "_username'" ) );
+		$count = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE meta_name = 'bebop_" . $wpdb->escape( $extension ) . "_active_for_user' AND meta_value='" . $wpdb->escape( $status ) . "'" ) );
 		return $count;
 	}
 	

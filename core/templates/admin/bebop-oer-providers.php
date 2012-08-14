@@ -37,7 +37,8 @@ else {
 		<table class='bebop_table'>
 			<tr class='nodata'>
 				<th>Extension Name</th>
-				<th>Users</th>
+				<th>Active Users</th>
+				<th>Inactive Users</th>
 				<th colspan=>Unverified OERs</th>
 				<th colspan=>Verified OERs</th>
 				<th colspan=>Deleted OERs</th>
@@ -68,7 +69,8 @@ else {
 						}
 						echo '<tr>
 							<td>' . $extension['display_name'] . '</td>
-							<td>' . bebop_tables::count_users_using_extension( $extension['name'] ) . '</td>
+							<td>' . bebop_tables::count_users_using_extension( $extension['name'], '1' ) . '</td>
+							<td>' . bebop_tables::count_users_using_extension( $extension['name'], '0' ) . '</td>
 							<td><a href="?page=bebop_oers&type=unverified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</a></td>
 							<td><a href="?page=bebop_oers&type=verified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</a></td>
 							<td><a href="?page=bebop_oers&type=deleted">' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</a></td>
