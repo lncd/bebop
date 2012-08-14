@@ -13,13 +13,13 @@
  * i.e. if you extension name is 'my_extension', the value of $extension will be 'my_extension'.
  *  Make sure the extension name is in lower case.
  */
-$extension = strtolower( $extension );
+$extension = bebop_extensions::get_extension_config_by_name( strtolower( $extension ) );
 
 /*
  * update section - if you add more parameters, don't forget to update them here.
  */
 if ( isset( $_POST['submit'] ) ) {
-	bebop_tables::update_option( 'bebop_' . $extension . '_maximport', trim( strip_tags( strtolower( $_POST['bebop_' . $extension . '_maximport'] ) ) ) );
+	bebop_tables::update_option( 'bebop_' . $extension['name'] . '_maximport', trim( strip_tags( strtolower( $_POST['bebop_' . $extension['name'] . '_maximport'] ) ) ) );
 
 	echo '<div class="bebop_success_box">Settings Saved.</div>';
 }
@@ -29,7 +29,7 @@ if ( isset( $_POST['submit'] ) ) {
  */
 if ( isset( $_GET['reset_user_id'] ) ) {
 	$user_id = trim( $_GET['reset_user_id'] );
-	bebop_tables::remove_user_from_provider( $user_id, $extension );
+	bebop_tables::remove_user_from_provider( $user_id, $extension['name'] );
 	
 	echo '<div class="bebop_success_box">User has been removed.</div>';
 }
@@ -37,33 +37,33 @@ if ( isset( $_GET['reset_user_id'] ) ) {
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
 	<div class='postbox center_margin margin-bottom_22px'>
-		<h3><?php echo ucfirst( $extension ); ?> Settings</h3>
+		<h3><?php echo $extension['display_name']; ?> Settings</h3>
 		<div class="inside">
-			Settings required for <?php echo ucfirst( $extension ); ?> syncronisation.
+			Settings required for <?php echo $extension['display_name']; ?> syncronisation.
 		</div>
 	</div>
 	<form class='bebop_admin_form' method='post'>
 		<fieldset>  
-			<span class='header'><?php echo ucfirst( $extension ); ?> Settings</span>
-			<label for='bebop_<?php echo $extension; ?>_maximport'>Imports per day (blank = unlimited):</label>
-			<input type='text' id='bebop_<?php echo $extension; ?>_maximport' name='bebop_<?php echo $extension; ?>_maximport' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' ); ?>' size='5'>
+			<span class='header'><?php echo $extension['display_name']; ?> Settings</span>
+			<label for='bebop_<?php echo $extension['name']; ?>_maximport'>Imports per day (blank = unlimited):</label>
+			<input type='text' id='bebop_<?php echo $extension['name']; ?>_maximport' name='bebop_<?php echo $extension['name']; ?>_maximport' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_maximport' ); ?>' size='5'>
 		</fieldset>
 		<div class='bebop_button_container'><button id='submit' name='submit'>Save Changes</button></div>	
 	</form>
 	<?php
-	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $extension . '_username' );
+	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $extension['name'] . '_username' );
 	if ( count( $user_metas ) > 0 ) {
 		?>
 		<table class='bebop_settings_table'>
 			<tr class='nodata'>
-				<th colspan='5'><?php echo ucfirst( $extension ); ?> Users</th>
+				<th colspan='5'><?php echo $extension['display_name']; ?> Users</th>
 			</tr>
 			
 			<tr class='nodata'>
 				<td class='bold'>User ID</td>
 				<td class='bold'>Username</td>
 				<td class='bold'>User email</td>
-				<td class='bold'><?php echo ucfirst( $extension ); ?> Name</td>
+				<td class='bold'><?php echo $extension['display_name']; ?> Name</td>
 				<td class='bold'>Options</td>
 			</tr>
 			<?php	
@@ -76,8 +76,8 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 					<td>' . bebop_tables::sanitise_element( $user->user_id ) . '</td>
 					<td>' . bebop_tables::sanitise_element( $this_user->user_login ) . '</td>
 					<td>' . bebop_tables::sanitise_element( $this_user->user_email ) . '</td>
-					<td>' . bebop_tables::sanitise_element( bebop_tables::get_user_meta_value( $user->user_id, 'bebop_' . $extension . '_username' ) ) . "</td>
-					<td><a href='?page=bebop_oer_providers&provider=" . $extension . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>Reset User</a></td>
+					<td>' . bebop_tables::sanitise_element( bebop_tables::get_user_meta_value( $user->user_id, 'bebop_' . $extension['name'] . '_username' ) ) . "</td>
+					<td><a href='?page=bebop_oer_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>Reset User</a></td>
 				</tr>";
 			}
 		?>
@@ -86,7 +86,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		<?php
 	}
 	else {
-		echo 'No users found for the ' . ucfirst( $extension ) . ' extension.';
+		echo 'No users found for the ' . $extension['display_name'] . ' extension.';
 	}
 	?>
 <!-- End bebop_admin_container -->

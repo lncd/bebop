@@ -35,8 +35,9 @@ class bebop_extensions {
 	}
 	function get_extension_config_by_name( $extension ) {
 		if ( bebop_extensions::extension_exist( $extension ) ) {
-			
-			require( WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/config.php' );
+			if ( ! function_exists( 'get_' . $extension . '_config' ) ) {
+				require( WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/config.php' );
+			}
 			return call_user_func( 'get_' . $extension . '_config' );
 		}
 		else {

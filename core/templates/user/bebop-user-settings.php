@@ -25,8 +25,10 @@ if ( bp_is_my_profile() ) {
 			}
 			else {
 				echo '<p>Choose an OER provider from the list below.</p>';
+				
 				foreach ( $active_extensions as $extension ) {
-					echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension .'">' . ucfirst( $extension ) . '</a></div>';
+					$extension = bebop_extensions::get_extension_config_by_name( strtolower($extension ) );
+					echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension['name'] .'">' . $extension['display_name'] . '</a></div>';
 				}
 			}
 		}

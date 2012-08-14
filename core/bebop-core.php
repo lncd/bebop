@@ -11,6 +11,7 @@ function bebop_generate_secondary_id( $user_id, $id, $timestamp = null ) {
 	else {
 		$item_id = $user_id . strtotime( $timestamp );
 	}
+	return $item_id;
 }
 /*
  * Gets the url of a page

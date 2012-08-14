@@ -67,7 +67,7 @@ else {
 							}
 						}
 						echo '<tr>
-							<td>' . ucfirst( $extension['name'] ) . '</td>
+							<td>' . $extension['display_name'] . '</td>
 							<td>' . bebop_tables::count_users_using_extension( $extension['name'] ) . '</td>
 							<td><a href="?page=bebop_oers&type=unverified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</a></td>
 							<td><a href="?page=bebop_oers&type=verified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</a></td>

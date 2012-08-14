@@ -5,6 +5,7 @@
 function get_youtube_config() {
 	$config = array(
 		'name' 				=> 'youtube',
+		'display_name'		=> 'YouTube',
 		'type'				=> 'youtube',
 		'pages'				=> array( 'settings',  ),
 		'defaultpage'		=> 'settings',

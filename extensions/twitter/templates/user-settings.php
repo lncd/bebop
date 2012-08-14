@@ -62,9 +62,9 @@ $$variable_name = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'be
 if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on') && ( bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_consumer_key' ) ) ) {
 	if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token' ) ) {
 		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] . '" method="post">
-		<h3>' . ucfirst( $extension['name'] ) . ' Settings</h3>';
+		<h3>' . $extension['display_name'] . ' Settings</h3>';
 		
-		echo '<h5>Enable ' . ucfirst( $extension['name'] ) . ' import?</h5>
+		echo '<h5>Enable ' . $extension['display_name'] . ' import?</h5>
 		<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$variable_name == 1 ) {
 			echo 'checked';
 		} echo '>
@@ -82,8 +82,8 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 	}
 	else {
 		echo '<h3> setup</h3>
-		You may setup ' . ucfirst( $extension['name'] ) . ' intergration over here.
-		Before you can begin using ' . ucfirst( $extension['name'] ) . ' with this site you must authorise on ' . ucfirst( $extension['name'] ) . ' by clicking the link below.';
+		You may setup ' . $extension['display_name'] . ' intergration over here.
+		Before you can begin using ' . $extension['display_name'] . ' with this site you must authorise on ' . $extension['display_name'] . ' by clicking the link below.';
 		
 		//oauth
 		$OAuth = new bebop_oauth();
@@ -114,5 +114,5 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 	}
 }// if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on') && ( bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_consumer_key' ) ) ) {
 else {
-	echo ucfirst( $extension['name'] ) . ' has not yet been configured. Please contact the blog admin to make sure ' . ucfirst( $extension['name'] ) . ' is configured properly.';
+	echo $extension['display_name'] . ' has not yet been configured. Please contact the blog admin to make sure ' . $extension['display_name'] . ' is configured properly.';
 }

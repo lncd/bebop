@@ -5,6 +5,7 @@
 function get_twitter_config() {
 	$config = array(
 		'name' 					=> 'twitter',
+		'display_name'			=> 'Twitter',
 		'pages'					=> array( 'settings', ),
 		'defaultpage'			=> 'settings',
 		'request_token_url' 	=> 'http://api.twitter.com/oauth/request_token',

@@ -43,9 +43,9 @@ $active = 'bebop_' . $extension['name'] . '_active_for_user';																//t
 $$active = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_active_for_user' );	//the value of the boolean
 
 echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] . '" method="post">
-<h3>' . ucfirst( $extension['name'] ) . ' Settings</h3>';
+<h3>' . $extension['display_name'] . ' Settings</h3>';
 if ( ! empty( $$username ) ) {
-	echo '<h5>Enable ' . ucfirst( $extension['name'] ) . ' import?</h5>
+	echo '<h5>Enable ' . $extension['display_name'] . ' import?</h5>
 	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$active == 1 ) {
 		echo 'checked';
 	} echo '>
@@ -56,7 +56,7 @@ if ( ! empty( $$username ) ) {
 	<label for="no">No</label><br>';
 }
 
-echo '<label for="bebop_' . $extension['name'] . '_username">' . ucfirst( $extension['name'] ) . ' Username:</label>
+echo '<label for="bebop_' . $extension['name'] . '_username">' . $extension['display_name'] . ' Username:</label>
 <input type="text" name="bebop_' . $extension['name'] . '_username" value="' . $$username .'" size="50"><br>
 
 <div class="button_container"><input type="submit" class="standard_button" value="Save Settings"></div>';

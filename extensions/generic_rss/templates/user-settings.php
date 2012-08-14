@@ -55,8 +55,8 @@ $$active = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' .
 
 if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 	echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] . '" method="post">
-	<h3>' . ucfirst( $extension['name'] ) . ' Settings</h3>';
-	echo '<h5>Enable ' . ucfirst( $extension['name'] ) . ' import?</h5>
+	<h3>' . $extension['display_name'] . ' Settings</h3>';
+	echo '<h5>Enable ' . $extension['display_name'] . ' import?</h5>
 	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$active == 1 ) {
 		echo 'checked';
 	} echo '>
