@@ -297,7 +297,7 @@ class bebop_tables {
 	
 	function get_user_generic_feeds( $user_id ) {
 		global $wpdb;
-		$result = $wpdb->get_results( 'SELECT meta_name, meta_value FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE meta_type = 'generic_rss' AND user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name != 'bebop_generic_rss_active_for_user'" );
+		$result = $wpdb->get_results( 'SELECT meta_name, meta_value FROM ' . $wpdb->base_prefix . "bp_bebop_user_meta WHERE meta_type = 'generic_rss' AND user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_value LIKE '%http://%'" );
 		return $result;
 	}
 	

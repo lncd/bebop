@@ -23,7 +23,7 @@ function bebop_generic_rss_import( $extension ) {
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
 				$user_feeds = bebop_tables::get_user_generic_feeds(  $user_meta->user_id );
 				foreach ($user_feeds as $user_feed ) {
-					
+					bebop_tables::log_error('user feeds', serialize($user_feed));
 					$errors = null;
 					$items 	= null;
 					
@@ -85,19 +85,20 @@ function bebop_generic_rss_import( $extension ) {
 									if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
 										
 										//Edit the following variables to point to where the relevant content is being stored:
-										$description	= $item->get_content();
+										//$description	= $item->get_content();
 										$item_published = date( 'Y-m-d H:i:s', strtotime( $item->get_date() ) );
+										$title			= $item->get_title();
 										$action_link	= $item->get_permalink();
 										
 										$id_array = array_reverse( explode( '/', $action_link ) ); 
 										$id = $id_array[1];
 										//Stop editing - you should be all done.
 										
-										if ( is_numeric( $item_id ) ) {
-											$item_id = $user_meta->user_id .'_' . $id . strtotime( $item->get_date() );
+										if ( is_numeric( $id ) ) {
+											$item_id = $user_meta->user_id . $id . strtotime( $item->get_date() );
 										}
 										else {
-											$item_id = $user_meta->user_id .'_' . strtotime( $item->get_date() );
+											$item_id = $user_meta->user_id . strtotime( $item->get_date() );
 										}
 										
 										//check if the secondary_id already exists
@@ -107,20 +108,8 @@ function bebop_generic_rss_import( $extension ) {
 											break;
 										}
 										
-										//Only for content which has a description.
-										if ( ! empty( $description ) ) {
-											//crop the content if it is too long
-											if ( strlen( $description ) > 500 ) {
-												$description = substr( $description, 0, 500 ) . " <a href='" . $action_link . "'>read more</a>";
-											}
-											
-											//This manually puts the link and description together with a line break, which is needed for oembed.
-											$item_content = $action_link . '
-											' . $description;
-										}
-										else {
-											$item_content = $action_link;
-										}
+										$item_content = $title . '
+										' . $action_link;
 										
 										$returnCreate = bebop_create_buffer_item(
 														array(

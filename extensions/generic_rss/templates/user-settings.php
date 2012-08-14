@@ -19,9 +19,18 @@ $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['
 /*
  * update section - if you add more parameters, don't forget to update them here.
  */
-if ( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) ) {
+if ( ( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) ) && 
+	( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedurl'] ) ) ) {
 	//Updates the channel name.
-	bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], $_POST['bebop_' . $extension['name'] . '_newfeedname'], $_POST['bebop_' . $extension['name'] . '_newfeedurl'] );
+	
+	$found_http = strpos($_POST['bebop_' . $extension['name'] . '_newfeedurl'], '//');
+	if ( ! $found_http ) {
+		$insert_url = 'http://' . $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
+	}
+	else {
+		$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
+	}
+	bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], $_POST['bebop_' . $extension['name'] . '_newfeedname'], $insert_url );
 	
 }
 if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {

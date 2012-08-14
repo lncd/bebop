@@ -8,6 +8,7 @@ function get_generic_rss_config() {
 		'type'				=> 'generic_rss',
 		'pages'				=> array( 'settings',  ),
 		'defaultpage'		=> 'settings',
+		'content_type' 			=> 'link from RSS',
 	);
 	return $config;
 }
