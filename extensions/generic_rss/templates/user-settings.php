@@ -23,7 +23,7 @@ if ( ( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) ) &&
 	( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedurl'] ) ) ) {
 	//Updates the channel name.
 	
-	$found_http = strpos($_POST['bebop_' . $extension['name'] . '_newfeedurl'], '//');
+	$found_http = strpos( $_POST['bebop_' . $extension['name'] . '_newfeedurl'], '://' );
 	if ( ! $found_http ) {
 		$insert_url = 'http://' . $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
 	}
@@ -31,15 +31,23 @@ if ( ( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) ) &&
 		$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
 	}
 	bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], $_POST['bebop_' . $extension['name'] . '_newfeedname'], $insert_url );
-	
+	echo 'feed saved';
 }
 if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
 	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
+	echo 'settings saved';
 }
 
-//resets the user's data
-if ( isset( $_GET['reset'] ) ) {
-	bebop_tables::remove_user_meta( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );
+//delete a user's feed
+if ( isset( $_GET['delete_feed'] ) ) {
+	$check_feed = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, $_GET['delete_feed'] );
+	if ( ! empty( $check_feed ) ) {
+		$check_http = strpos( $check_feed, '://' );
+		if ( $check_http ) {
+			bebop_tables::remove_user_meta( $bp->loggedin_user->id, $_GET['delete_feed'] );
+			echo 'feed deleted';
+		}
+	}
 }
 
 $active = 'bebop_' . $extension['name'] . '_active_for_user';																//the active boolean name
@@ -80,7 +88,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 			echo '<tr>
 				<td>' . bebop_tables::sanitise_element( $user_feed->meta_name ) . '</td>
 				<td>' . bebop_tables::sanitise_element( $user_feed->meta_value ) . '</td>
-				<td>Option name </td>
+				<td><a href="?provider=' . $extension['name'] . '&delete_feed=' . $user_feed->meta_name . '">Delete Feed</a></td>
 			</tr>';
 		}
 		echo '</table>';

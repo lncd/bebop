@@ -51,26 +51,26 @@ function bebop_activate() {
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
 	if ( is_plugin_active( 'buddypress/bp-loader.php' ) ) {
 		//define table sql
-		$bebop_error_log = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_error_log ( 
+		$bebop_error_log = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_error_log ( 
 			id int(10) NOT NULL auto_increment PRIMARY KEY, 
 			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 			error_type varchar(40) NOT NULL,
 			error_message text NOT NULL
 		);';
-		$bebop_general_log = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_general_log ( 
+		$bebop_general_log = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_general_log ( 
 			id int(10) NOT NULL auto_increment PRIMARY KEY,
 			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 			type varchar(40) NOT NULL,
 			message text NOT NULL
 	    );';
 	
-		$bebop_options = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_options ( 
+		$bebop_options = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_options ( 
 			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,	
 			option_name varchar(100) NOT NULL PRIMARY KEY,
 			option_value longtext NOT NULL
 		);';
 		
-		$bebop_user_meta = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_user_meta ( 
+		$bebop_user_meta = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta ( 
 			id int(10) NOT NULL auto_increment PRIMARY KEY,
 			user_id int(10) NOT NULL,
 			meta_type varchar(255) NOT NULL,
@@ -78,7 +78,7 @@ function bebop_activate() {
 			meta_value longtext NOT NULL
 		);';
 		
-		$bebop_oer_manager = 'CREATE TABLE IF NOT EXISTS ' . $wpdb->base_prefix . 'bp_bebop_oer_manager ( 
+		$bebop_oer_manager = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager ( 
 			id int(10) NOT NULL auto_increment PRIMARY KEY,
 			user_id int(10) NOT NULL,
 			status varchar(75) NOT NULL,
