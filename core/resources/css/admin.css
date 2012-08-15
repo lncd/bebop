@@ -213,6 +213,9 @@
 	margin:0 auto 22px auto;
 	border-spacing:0;
 }
+.bebop_admin_form fieldset p {
+	padding: 0 10px;
+}
 .bebop_admin_form span.header {
 	display:block;
 	padding:5px 10px;

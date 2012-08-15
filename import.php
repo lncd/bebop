@@ -2,8 +2,8 @@
 /**
  * Importer for bebop
  */
-set_time_limit( 1000 );
-ini_set( 'max_execution_time', 1000 );
+set_time_limit( 10000 );
+ini_set( 'max_execution_time', 10000 );
 
 //load the WordPress loader
 $currentPpath = getcwd();
