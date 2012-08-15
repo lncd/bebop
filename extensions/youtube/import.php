@@ -49,7 +49,7 @@ function bebop_youtube_import( $extension ) {
 					$feed->set_file_class( 'WP_SimplePie_File' );
 					$feed->enable_cache( false );
 					$feed->set_cache_duration( 0 );
-					do_action_ref_array( 'wp_feed_options', array( $feed, $importUrl ) );
+					do_action_ref_array( 'wp_feed_options', array( $feed, $importUrls ) );
 					$feed->init();
 					$feed->handle_content_type();
 					

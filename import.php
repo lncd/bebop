@@ -5,8 +5,24 @@
 set_time_limit( 1000 );
 ini_set( 'max_execution_time', 1000 );
 
-include( ABSPATH . 'wp-load.php' );
+//load the WordPress loader
+$currentPpath = getcwd();
+$seekingRoot  = pathinfo($currentPpath);
+$incPath      = str_replace('wp-content/plugins','',$seekingRoot['dirname']);
+
+ini_set('include_path', $incPath);
+include_once('wp-load.php');
+
+//include files from core.
 include_once( 'core/bebop-data.php' );
+include_once( 'core/bebop-oauth.php' );
+include_once( 'core/bebop-tables.php' );
+include_once( 'core/bebop-filters.php' );
+include_once( 'core/bebop-pages.php' );
+include_once( 'core/bebop-extensions.php' );
+
+//Main content file
+include_once( 'core/bebop-core.php' );
 
 //if import a specific OER.
 if ( isset( $_GET['provider'] ) ) {

@@ -26,8 +26,13 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 	<form class='bebop_admin_form' method='post'>
 		<fieldset>
 			<span class='header'>Bebop Settings</span>
-			<label for='bebop_general_crontime'>Cron time (in seconds):</label>
-			<input type='text' id='bebop_general_crontime' name='bebop_general_crontime' value="<?php echo bebop_tables::get_option_value( 'bebop_general_crontime' ); ?>" size='5'>
+			<p>The WordPress cron runs the import script for the given timeframe. The default is set to 5 minutes. (300 seconds). The only issue with the WordPress cron is that it can only be activated when a page is accessed. So, if no-one was to visit the site for 24 hours,
+			the importers might miss some content items. You should therefore use the WordPress cron if you cannot use a traditional cron.</p>
+			<label for='bebop_general_crontime'>WordPress Cron time (in seconds):</label>
+			<input type='text' id='bebop_general_crontime' name='bebop_general_crontime' value='<?php echo bebop_tables::get_option_value( 'bebop_general_crontime' ); ?>' size='10'><br>
+			
+			<label for='traditional_cron'>Traditional Cron:</label>
+			<input type='text' id='traditional_cron' value="wget <?php echo plugins_url() . '/bebop/import.php -O /dev/null -q'?>" size='50'>
 			<div class="clear"></div>
 		</fieldset>
 		<div class='button_container'><button id='submit' name='submit'>Save Changes</button></div>	

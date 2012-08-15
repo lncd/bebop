@@ -24,7 +24,7 @@ Credits: BuddySteam - buddystream.net
 
 //initialise Bebop
 function bebop_init() {
-	//include files from core.
+	//include files from core. (also edit in import.php)
 	include_once( 'core/bebop-oauth.php' );
 	include_once( 'core/bebop-tables.php' );
 	include_once( 'core/bebop-filters.php' );
@@ -32,7 +32,7 @@ function bebop_init() {
 	include_once( 'core/bebop-extensions.php' );
 
 	//Main content file
-	include_once( 'core/bebop-core.php' );	
+	include_once( 'core/bebop-core.php' );
 	
 	//fire cron
 	add_action( 'bebop_cron', 'bebop_cron_function' ); 
@@ -134,7 +134,7 @@ function bebop_seconds_cron( $schedules ) {
 		$time = bebop_tables::get_option_value( 'bebop_general_crontime' );
 	}
 	else {
-		$time = 60;
+		$time = 300;
 		bebop_tables::update_option( 'bebop_general_crontime', $time );
 	} 
 	

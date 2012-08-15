@@ -113,7 +113,7 @@ function bebop_flickr_import( $extension ) {
 						if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
 							//Edit the following variables to point to where the relevant content is being stored:
 							$id					= $item['id'];
-							$action_link		= $this_extension['action_link'] . $item['owner'] . '/' . $item_id;
+							$action_link		= $this_extension['action_link'] . $item['owner'] . '/' . $id;
 							$description		= $item['description'];
 							$item_published		= gmdate( 'Y-m-d H:i:s' , (INT)$item['dateupload']);
 							//Stop editing - you should be all done.
