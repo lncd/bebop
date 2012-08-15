@@ -128,3 +128,10 @@ function bebop_admin_pages() {
 }  
 //add_action('admin_menu', 'bebop_admin_menu');
 add_action( 'network_admin_menu', 'bebop_admin_menu' );
+
+function bebop_admin_stylesheets() {
+	wp_register_style( 'bebop-admin-styles', plugins_url() . '/bebop/core/resources/css/admin.css' );
+	wp_enqueue_style( 'bebop-admin-styles' );
+}
+
+add_action( 'wp_enqueue_scripts', 'bebop_admin_stylesheets' );

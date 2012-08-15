@@ -1,4 +1,3 @@
-<link rel='stylesheet' href="<?php echo plugins_url() . '/bebop/core/resources/css/admin.css';?>" type='text/css'>
 <link rel='shortcut icon' href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
 <?php
@@ -44,7 +43,6 @@ else {
 				<th colspan=>Deleted OERs</th>
 				<th colspan='2'>Options</th>
 			</tr>
-			
 			<?php
 			//loop throught extensions directory and get all extensions
 			foreach ( bebop_extensions::get_extension_configs() as $extension ) {
@@ -69,8 +67,8 @@ else {
 						}
 						echo '<tr>
 							<td>' . $extension['display_name'] . '</td>
-							<td>' . bebop_tables::count_users_using_extension( $extension['name'], '1' ) . '</td>
-							<td>' . bebop_tables::count_users_using_extension( $extension['name'], '0' ) . '</td>
+							<td>' . bebop_tables::count_users_using_extension( $extension['name'], 1 ) . '</td>
+							<td>' . bebop_tables::count_users_using_extension( $extension['name'], 0 ) . '</td>
 							<td><a href="?page=bebop_oers&type=unverified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</a></td>
 							<td><a href="?page=bebop_oers&type=verified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</a></td>
 							<td><a href="?page=bebop_oers&type=deleted">' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</a></td>

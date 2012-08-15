@@ -1,8 +1,7 @@
-<link rel='stylesheet' href="<?php echo plugins_url() . '/bebop/core/resources/css/user.css';?>" type='text/css'>
 <div id='bebop_user_container'>
+	
 <?php 
 $page = page_url( 2 );
-
 if ( bp_is_my_profile() ) {
 	if ( $page == '/bebop-oers/manager/' ) {
 		include(WP_PLUGIN_DIR . '/bebop/core/templates/user/oer-manager.php');

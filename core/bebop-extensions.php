@@ -95,7 +95,7 @@ class bebop_extensions {
 			if ( ! empty( $_GET['child'] ) ) {
 				$extension = $_GET['child'];
 			}
-			include WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/templates/admin-settings.php';
+			include WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/templates/bebop-admin-settings.php';
 		}
 		else {
 			echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $extension . '" is not a valid extension.</div>';
@@ -108,6 +108,7 @@ class bebop_extensions {
 		if ( $bp->displayed_user->id != $bp->loggedin_user->id && $page != 'album' ) {
 			header( 'location:' . get_site_url() );
 		}
+		add_action( 'wp_enqueue_scripts', 'bebop_user_stylesheets' );
 		add_action( 'bp_template_content', 'bebop_user_'.$page.'_screen_content' );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}

@@ -1,5 +1,6 @@
 <?php
 bebop_extensions::load_extensions();
+
 /*
  * Generate an id for the imported item
  */
@@ -13,6 +14,13 @@ function bebop_generate_secondary_id( $user_id, $id, $timestamp = null ) {
 	}
 	return $item_id;
 }
+//User styles.
+function bebop_user_stylesheets() {
+	wp_register_style( 'bebop-user-styles', plugins_url() . '/bebop/core/resources/css/user.css' );
+	wp_enqueue_style( 'bebop-user-styles' );
+}
+//Admin styles.
+
 /*
  * Gets the url of a page
  */
