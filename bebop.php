@@ -151,7 +151,6 @@ function bebop_cron_function() {
 
 define( 'BP_BEBOP_VERSION', '1.0' );
 
-
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
 register_deactivation_hook( __FILE__, 'bebop_deactivate' );
