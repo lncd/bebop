@@ -2,6 +2,75 @@
 bebop_extensions::load_extensions();
 
 /*
+ * Lotsa Feeds
+ */
+add_filter( 'bplf_which_feed', 'bebop_which_feed' );
+add_filter( 'bplf_feed_url', 'bebop_feed_url' );
+add_filter( 'bplf_feed_name', 'bebop_feed_name' );
+add_filter( 'bplf_activity_args', 'bebop_activity_args' );
+
+function bebop_which_feed() {
+	global $bp, $wp_query;
+	if ( bp_is_activity_component() && bp_displayed_user_id() ) {
+		switch ( bp_current_action() ) {
+			case 'all_oers' :
+				if ( ! defined( 'BEBOP_DISABLE_ALL_OER_FEED' ) ) {
+					$this_bp_feed = 'all_oers';
+				}
+				break;
+			default :
+				$this_bp_feed = null;
+				break;
+		}
+	}
+	//var_dump($this_bp_feed);
+	return $this_bp_feed;
+}
+
+function bebop_feed_url() {
+	global $bp, $this_bp_feed;
+	switch ( $this_bp_feed ) {
+			case 'all_oers' :
+				$url = bp_displayed_user_domain() . bp_get_activity_slug() . '/all_oers/feed';
+				break;
+			default :
+				$this_bp_feed = null;
+				break;
+	}
+	//var_dump($url);
+	return $url;
+}
+
+function bebop_feed_name() {
+	global $bp, $this_bp_feed;
+	switch ( $this_bp_feed ) {
+			case 'all_oers' :
+				$name = 'All OER Feed for ' . bp_get_displayed_user_fullname();
+				break;
+			default :
+				$this_bp_feed = null;
+				break;
+	}
+	//var_dump($name);
+	return $name;
+}
+
+function bebop_activity_args() {
+	global $bp, $this_bp_feed;
+	switch ( $this_bp_feed ) {
+			case 'all_oers' :
+				$args = 'all_oers=' . bp_displayed_user_id() . '&max=50&display_comments=stream';
+				break;
+			default :
+				$this_bp_feed = null;
+				break;
+	}
+	//var_dump($args);
+	return $args;
+}
+
+
+/*
  * Generate an id for the imported item
  */
  
