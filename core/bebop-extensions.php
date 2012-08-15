@@ -95,7 +95,7 @@ class bebop_extensions {
 			if ( ! empty( $_GET['child'] ) ) {
 				$extension = $_GET['child'];
 			}
-			include WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/templates/bebop-admin-settings.php';
+			include WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/templates/admin-settings.php';
 		}
 		else {
 			echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $extension . '" is not a valid extension.</div>';
