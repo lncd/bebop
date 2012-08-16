@@ -12,6 +12,26 @@ if ( isset( $_GET ) ) {
 		}
 	}
 }
+
+//Replace 'bebop_replace_username' with the username of the user.
+					$importUrls = 'http://localhost/members/admin/activity/all_oers/feed/';
+					
+					require_once (ABSPATH . WPINC . '/class-feed.php');
+					//Configure the feed
+					$feed = new SimplePie();
+					$feed->set_feed_url( $importUrls );
+					$feed->set_cache_class( 'WP_Feed_Cache' );
+					$feed->set_file_class( 'WP_SimplePie_File' );
+					$feed->enable_cache( false );
+					$feed->set_cache_duration( 0 );
+					do_action_ref_array( 'wp_feed_options', array( $feed, $importUrls ) );
+					$feed->init();
+					$feed->handle_content_type();
+					
+					$items = $feed->get_items();
+					var_dump($items);
+					//bebop_tables::log_error( 'test' , $items );
+
 ?>
 <div id='bebop_admin_container'>
 	<div class='postbox full_width center_margin margin-bottom_22px'>
