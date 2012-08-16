@@ -10,20 +10,22 @@ add_filter( 'bplf_feed_name', 'bebop_feed_name' );
 add_filter( 'bplf_activity_args', 'bebop_activity_args' );
 
 function bebop_which_feed() {
-	global $bp, $wp_query;
+	global $bp, $wp_query, $this_bp_feed;
 	if ( bp_is_activity_component() && bp_displayed_user_id() ) {
-		switch ( bp_current_action() ) {
-			case 'all_oers' :
-				if ( ! defined( 'BEBOP_DISABLE_ALL_OER_FEED' ) ) {
-					$this_bp_feed = 'all_oers';
+		$active_extensions = bebop_extensions::get_active_extension_names();
+		$active_extensions[] = 'all_oers';
+		var_dump($active_extensions);
+		foreach ( $active_extensions as $extension ) {
+			if ( bp_current_action() == $extension ) {
+				if ( ! defined( 'BEBOP_DISABLE_' . strtoupper($extension) . '_FEED' ) ) { //change this to extension setting in db, have option to enable/disable in admin options.
+					$this_bp_feed = $extension;
 				}
-				break;
-			default :
-				$this_bp_feed = null;
-				break;
+			}
 		}
 	}
-	//var_dump($this_bp_feed);
+	if ( empty( $this_bp_feed ) ) {
+		$this_bp_feed = 'error';
+	}
 	return $this_bp_feed;
 }
 
@@ -37,7 +39,7 @@ function bebop_feed_url() {
 				$this_bp_feed = null;
 				break;
 	}
-	//var_dump($url);
+	var_dump($url);
 	return $url;
 }
 
@@ -51,7 +53,7 @@ function bebop_feed_name() {
 				$this_bp_feed = null;
 				break;
 	}
-	//var_dump($name);
+	var_dump($name);
 	return $name;
 }
 
@@ -65,7 +67,7 @@ function bebop_activity_args() {
 				$this_bp_feed = null;
 				break;
 	}
-	//var_dump($args);
+	var_dump($args);
 	return $args;
 }
 
