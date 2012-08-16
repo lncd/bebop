@@ -59,7 +59,7 @@ if ( isset( $_GET['reset_user_id'] ) ) {
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
 	<div class='postbox center_margin margin-bottom_22px'>
-		<h3><?php echo $extension['display_name']; ?> Import Settings</h3>
+		<h3><?php echo $extension['display_name']; ?> Settings</h3>
 		<div class="inside">
 			<p>Settings for the <?php echo $extension['display_name']; ?> extension.</p>
 			<p>To pull OER content from some providers, the importer settings need to be configured correctly for some extensions. or example, 'API Tokens', and 'API secrets' may be required for API based sources, but not for RSS based sources.</p>
@@ -69,7 +69,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 	</div>
 	<form class='bebop_admin_form' method='post'>
 		<fieldset>
-			<span class='header'><?php echo $extension['display_name']; ?> Settings</span>
+			<span class='header'><?php echo $extension['display_name']; ?> Import Settings</span>
 			
 			<label for='bebop_<?php echo $extension['name']; ?>_maximport'>Imports per day (blank = unlimited):</label>
 			<input type='text' id='bebop_<?php echo $extension['name']; ?>_maximport' name='bebop_<?php echo $extension['name']; ?>_maximport' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_maximport' ); ?>' size='5'>

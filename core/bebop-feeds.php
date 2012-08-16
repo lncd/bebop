@@ -11,8 +11,11 @@ function bebop_feeds() {
 		$active_extensions[] = 'all_oers';
 		foreach ( $active_extensions as $extension ) {
 			if ( bp_current_action() == $extension ) {
-				if ( bebop_tables::check_option_exists( 'bebop_' . $extension . '_rss_feed' ) ) {
-					if ( ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' )  || ( $extension = 'all_oers' ) ) {
+				 if ( $extension = 'all_oers' ) {
+				 	$this_bp_feed = $extension;
+				 }
+				 else if ( bebop_tables::check_option_exists( 'bebop_' . $extension . '_rss_feed' ) ) {
+					if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {
 						$this_bp_feed = $extension;
 					}
 				}
@@ -26,7 +29,7 @@ function bebop_feeds() {
 	$wp_query->is_404 = false;
 	status_header( 200 );
 
-	include_once( 'bebop-feed-template.php' );
+	include_once( 'templates/user/bebop-feed-template.php' );
 	die();
 }
 
@@ -43,14 +46,27 @@ function bebop_get_feed_url() {
 	}
 }
 
-function bebop_feed_name() {
-	echo bebop_get_feed_name();
+function bebop_feed_type() {
+	echo bebop_get_feed_type();
 }
-function bebop_get_feed_name() {
+function bebop_get_feed_type() {
 	global $this_bp_feed;
 	if ( ! empty( $this_bp_feed ) ) {
 		$feed = str_replace( '_', ' ', $this_bp_feed );
-		return ucwords( $feed ) . ' Feed for ' . bp_get_displayed_user_fullname();
+		return ucwords( $feed );
+	}
+	else {
+		return false;
+	}
+}
+
+function bebop_feed_description() {
+	echo bebop_get_feed_description();
+}
+function bebop_get_feed_description() {
+	global $this_bp_feed;
+	if ( ! empty( $this_bp_feed ) ) {
+		return bebop_feed_type() . ' Feed for ' . bp_get_displayed_user_fullname();
 	}
 	else {
 		return false;
@@ -97,8 +113,10 @@ function bebop_get_activity_args() {
 					}
 				}
 			}
-			$query_feeds = implode( ',', $import_feeds );
-			return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&max=' . $limit . '&display_comments=stream';
+			if ( ! empty( $import_feeds ) ) {
+				$query_feeds = implode( ',', $import_feeds );
+				return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&max=' . $limit . '&display_comments=stream';
+			}
 		}
 		return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $this_bp_feed . '&max=' .$limit . '&display_comments=stream';
 	}

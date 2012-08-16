@@ -21,10 +21,11 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 >
 
 <channel>
-	<title><?php echo bp_site_name() ?> | <?php bebop_feed_name(); ?></title>
+	<title><?php echo bp_site_name() ?> | <?php bebop_feed_type(); ?></title>
+	<type><?php bebop_feed_type() ?></type>
 	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 	<link><?php bebop_feed_url() ?></link>
-	<description><?php bebop_feed_name() ?></description>
+	<description><?php bebop_feed_description() ?></description>
 	<pubDate><?php echo mysql2date('D, d M Y H:i:s O', bp_activity_get_last_updated(), false); ?></pubDate>
 	<generator>http://buddypress.org/?v=<?php echo BP_VERSION ?></generator>
 	<language><?php echo get_option('rss_language'); ?></language>
@@ -34,30 +35,25 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 	
 	if ( bp_has_activities( bebop_get_activity_args() ) ) {
 		while ( bp_activities() ) : bp_the_activity();
-		?>
-			<item>
-				<guid><?php bp_activity_thread_permalink() ?></guid>
-				<title><![CDATA[<?php bp_activity_feed_item_title() ?>]]></title>
-				<link><?php echo bp_activity_thread_permalink() ?></link>
-				<pubDate><?php echo mysql2date('D, d M Y H:i:s O', bp_get_activity_feed_item_date(), false); ?></pubDate>
-				<description>
-					<![CDATA[
-					<?php bp_activity_feed_item_description();
-					
-					if ( bp_activity_can_comment() ) { ?>
-						<p><?php printf( __( 'Comments: %s', 'buddypress' ), bp_activity_get_comment_count() ); ?></p>
-					<?php 
-					}
-					if ( 'activity_comment' == bp_get_activity_action_name() ) { ?>
-						<br /><strong><?php _e( 'In reply to', 'buddypress' ) ?></strong> -
-						<?php bp_activity_parent_content(); ?>
-					<?php 
-					}
-					?>
-					]]>
-				</description>
-				<?php do_action('bp_activity_personal_feed_item'); ?>
-			</item>
+		?><item>
+			<dbid><?php echo bp_get_activity_id(); ?></dbid>
+			<guid><?php echo bp_activity_thread_permalink(); ?></guid>
+			<type><?php echo bp_get_activity_action_name(); ?></type>
+			<title><![CDATA[<?php bp_activity_feed_item_title() ?>]]></title>
+			<link><?php echo bp_activity_thread_permalink() ?></link>
+			<pubDate><?php echo mysql2date('D, d M Y H:i:s O', bp_get_activity_feed_item_date(), false); ?></pubDate>
+			<description><![CDATA[<?php bp_activity_feed_item_description();
+			if ( bp_activity_can_comment() ) { ?>
+				<p><?php printf( __( 'Comments: %s', 'buddypress' ), bp_activity_get_comment_count() ); ?></p>
+				<?php 
+				}
+				if ( 'activity_comment' == bp_get_activity_action_name() ) { ?>
+				<br /><strong><?php _e( 'In reply to', 'buddypress' ) ?></strong> - 
+				<?php bp_activity_parent_content();
+				}
+			?>]]></description>
+			<?php do_action('bp_activity_personal_feed_item'); ?>
+		</item>
 		<?php
 		endwhile;
 	}
