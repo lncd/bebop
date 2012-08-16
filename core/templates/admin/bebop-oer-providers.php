@@ -60,6 +60,9 @@ else {
 						if ( isset( $_POST['submit'] ) ) {
 							if ( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
 								bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', trim( $_POST['bebop_' . $extension['name'] . '_provider'] ) );
+								if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_rss_feed' ) ) {
+									bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', 'on' );
+								}
 							}
 							else {
 								bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', '' );

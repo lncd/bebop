@@ -20,11 +20,36 @@ $extension = bebop_extensions::get_extension_config_by_name( strtolower( $extens
  * update section - if you add more parameters, don't forget to update them here.
  */
 if ( isset( $_POST['submit'] ) ) {
-	bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_key', trim( $_POST['bebop_' . $extension['name'] . '_consumer_key'] ) );
-	bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_secret', trim( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) );
-	bebop_tables::update_option( 'bebop_' . $extension['name'] . '_maximport', trim( $_POST['bebop_' . $extension['name'] . '_maximport'] ) );
+	$success = true;
+	if ( isset( $_POST['bebop_' . $extension['name'] . '_consumer_key'] ) ) {
+		bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_key', trim( $_POST['bebop_' . $extension['name'] . '_consumer_key'] ) );
+	}
+	if ( isset( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) ) {
+		bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_secret', trim( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) );
+	}
+	if ( isset( $_POST['bebop_' . $extension['name'] . '_maximport'] ) ) {
+		bebop_tables::update_option( 'bebop_' . $extension['name'] . '_maximport', trim( $_POST['bebop_' . $extension['name'] . '_maximport'] ) );
+	}
+	
+	/*rss stuff, dont touch */
+	if ( isset( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) ) {
+		if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
+			bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', trim( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) );
+		}
+		else {
+			$success = 'RSS feeds cannot be modified while the extension is not enabled.';
+		}
+	}
+	else {
+		bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', '' );
+	}
 
-	echo '<div class="bebop_success_box">Settings Saved.</div>';
+	if ( $success == true ) {
+		echo '<div class="bebop_success_box">Settings Saved.</div>';
+	}
+	else {
+		echo '<div class="bebop_error_box">' . ucfirst( $success ) . '</div>';
+	}
 }
 
 /*
@@ -40,9 +65,12 @@ if ( isset( $_GET['reset_user_id'] ) ) {
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
 	<div class='postbox center_margin margin-bottom_22px'>
-		<h3><?php echo $extension['display_name']; ?> Settings</h3>
+		<h3><?php echo $extension['display_name']; ?> Import Settings</h3>
 		<div class="inside">
-			Settings required for <?php echo $extension['display_name']; ?> syncronisation.
+			<p>Settings for the <?php echo $extension['display_name']; ?> extension.</p>
+			<p>To pull OER content from some providers, the importer settings need to be configured correctly for some extensions. or example, 'API Tokens', and 'API secrets' may be required for API based sources, but not for RSS based sources.</p>
+			<p>By default, RSS feeds are available for each extension in bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the 'enabled' option of the RSS feed settings below. Please note
+				that RSS feeds will only be available when the extension is active.</p>
 		</div>
 	</div>
 	<form class='bebop_admin_form' method='post'>
@@ -57,6 +85,23 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			<label for='bebop_<?php echo $extension['name']; ?>_maximport'>Imports per day (blank = unlimited):</label>
 			<input type='text' id='bebop_<?php echo $extension['name']; ?>_maximport' name='bebop_<?php echo $extension['name']; ?>_maximport' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_maximport' ); ?>' size='5'>
 		</fieldset>
+		
+		<fieldset>
+			<span class='header'><?php echo $extension['display_name']; ?> RSS Settings</span>
+			<?php
+			if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
+				echo "<label for='bebop_" . $extension['name'] . "_rss_feed'>RSS Enabled:</label><input id='bebop_" .$extension['name'] . "_rss_feed' name='bebop_".$extension['name'] . "_rss_feed' type='checkbox'";
+				if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_rss_feed' ) == 'on' ) {
+					echo 'CHECKED';
+				}
+				echo '>';
+			}
+			else {
+				echo '<p>RSS feeds cannot be enabled because ' . $extension['display_name'] . ' is not an active extension.</p>';
+			}
+			?>
+		</fieldset>
+		
 		<div class='button_container'><button id='submit' name='submit'>Save Changes</button></div>
 	</form>
 	<?php

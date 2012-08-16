@@ -11,8 +11,10 @@ function bebop_feeds() {
 		$active_extensions[] = 'all_oers';
 		foreach ( $active_extensions as $extension ) {
 			if ( bp_current_action() == $extension ) {
-				if ( ! defined( 'BEBOP_DISABLE_' . strtoupper($extension) . '_FEED' ) ) { //change this to extension setting in db, have option to enable/disable in admin options.
-					$this_bp_feed = $extension;
+				if ( bebop_tables::check_option_exists( 'bebop_' . $extension . '_rss_feed' ) ) {
+					if ( ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' )  || ( $extension = 'all_oers' ) ) {
+						$this_bp_feed = $extension;
+					}
 				}
 			}
 		}
@@ -20,11 +22,6 @@ function bebop_feeds() {
 	if ( empty( $this_bp_feed ) ) {
 		return false;
 	}
-	//var_dump( $this_bp_feed );
-	
-	//bebop_feed_url();
-	//bebop_get_feed_url();
-	//bebop_activity_args();
 
 	$wp_query->is_404 = false;
 	status_header( 200 );
@@ -64,12 +61,46 @@ function bebop_activity_args() {
 	echo bebop_get_activity_args();
 }
 function bebop_get_activity_args() {
-	global $this_bp_feed;
-	if ( ! empty( $this_bp_feed ) ) {
-		if( $this_bp_feed == 'all_oers' ) {
-			return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&max=50&display_comments=stream';
+	global $bp, $this_bp_feed;
+	
+	//get the count limit
+	$action_variables = bp_action_variables();
+	$standard_limit = 25;
+	$max_limit = 250;
+	
+	if ( $action_variables[0] == 'feed' ) {
+		if ( isset( $action_variables[1]) ) {
+			if ( is_numeric( $action_variables[1] ) ) {
+				if ( $action_variables[1] <= $max_limit ) {
+					$limit = $action_variables[1];
+				}
+				else {
+					$limit = $max_limit;
+				}
+			}
 		}
-		return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $this_bp_feed . '&max=50&display_comments=stream';
+	}
+	if( ! isset( $limit ) ) {
+		$limit = $standard_limit;
+	}
+	
+	
+	if ( ! empty( $this_bp_feed ) ) {
+		if ( $this_bp_feed == 'all_oers' ) {
+			//only want to import active feeds
+			$import_feeds = array();
+			$active_extensions = bebop_extensions::get_active_extension_names();
+			foreach ( $active_extensions as $extension ) {
+				if ( bebop_tables::check_option_exists( 'bebop_' . $extension . '_rss_feed' ) ) {
+					if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) { 
+						$import_feeds[] = $extension;
+					}
+				}
+			}
+			$query_feeds = implode( ',', $import_feeds );
+			return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&max=' . $limit . '&display_comments=stream';
+		}
+		return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $this_bp_feed . '&max=' .$limit . '&display_comments=stream';
 	}
 	else {
 		return false;
