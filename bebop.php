@@ -30,6 +30,7 @@ function bebop_init() {
 	include_once( 'core/bebop-filters.php' );
 	include_once( 'core/bebop-pages.php' );
 	include_once( 'core/bebop-extensions.php' );
+	include_once( 'core/bebop-feeds.php' );
 
 	//Main content file
 	include_once( 'core/bebop-core.php' );
