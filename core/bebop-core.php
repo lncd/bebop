@@ -1,7 +1,6 @@
 <?php
 bebop_extensions::load_extensions();
 
-
 /*
  * Function to sort out oer manager stuff
  */
@@ -108,7 +107,7 @@ function bebop_manage_oers() {
 			else {
 				bp_core_add_message( "We couldn't do that for you. Please try again.", 'error' );
 			}
-			bp_core_redirect( $bp->loggedin_user->domain  .'/bebop-oers/manager/' );
+			bp_core_redirect( $bp->loggedin_user->domain  .'/' . bebop_current_component() . '/' . bebop_current_action() . '/' );
 		}
 	}
 	add_action( 'wp_enqueue_scripts', 'bebop_oer_js' ); //enqueue  selectall/none script
