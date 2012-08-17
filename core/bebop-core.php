@@ -4,6 +4,9 @@ bebop_extensions::load_extensions();
 /*
  * Function to sort out oer manager stuff
  */
+function bebop_admin_extension_update_settings() {
+	
+}
 function bebop_manage_oers() {
 	if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('manager' ) ) {
 		if ( isset( $_POST['action'] ) ) {

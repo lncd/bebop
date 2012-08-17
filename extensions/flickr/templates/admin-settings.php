@@ -16,7 +16,7 @@
  */
 $extension = bebop_extensions::get_extension_config_by_name( strtolower( $extension ) );
 /*
- * update section - if you add more parameters, don't forget to update them here.
+ * update section - if you add more parameters, don't forget to update them here too.
  */
 global $bp;
 if ( isset( $_POST['submit'] ) ) {
@@ -41,12 +41,11 @@ if ( isset( $_POST['submit'] ) ) {
 	}
 
 	if ( $success == true ) {
-		bp_core_add_message( 'Settings Saved.' );
+		echo '<div class="bebop_success_box">Settings Saved.</div>';
 	}
 	else {
-		bp_core_add_message( ucfirst( $success ), 'error' );
+		echo '<div class="bebop_error_box">' . ucfirst( $success ) . '</div>';
 	}
-	bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 }
 
 /*
