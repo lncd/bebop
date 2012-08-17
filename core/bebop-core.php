@@ -102,7 +102,6 @@ function bebop_manage_oers() {
 					$message = 'Resource reset.';
 				}
 			}
-
 			if ( $success ) {
 				bp_core_add_message( $message );
 			}
@@ -115,6 +114,34 @@ function bebop_manage_oers() {
 }
 //Adds a hook which detects and updates the oer status.
 add_action( 'bp_actions', 'bebop_manage_oers' );
+/*
+ * Returns status from get array
+ */
+function bebop_get_oer_type() {
+	global $bp, $wpdb;
+	if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('manager' ) ) {
+		if ( isset( $_GET['type'] ) ) {
+			if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
+				return 'unverified';
+			}
+			else if ( strtolower( strip_tags( $_GET['type'] == 'verified' ) ) ) {
+				return 'verified';
+			}
+			else if ( strtolower( strip_tags( $_GET['type'] == 'deleted' ) ) ) {
+				return 'deleted';
+			}
+		}
+	}
+}
+function bebop_get_oers( $type ) {
+	global $bp, $wpdb;
+	$active_extensions = bebop_extensions::get_active_extension_names( $addslashes = true );
+	$extension_names   = join( ',' ,$wpdb->escape( $active_extensions ) );
+	return bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extension_names, $type );
+}
+
+
+
 
 /*
  * Generic function to generate secondary_item_id's
