@@ -115,7 +115,7 @@ function bebop_get_activity_args() {
 			}
 			if ( ! empty( $import_feeds ) ) {
 				$query_feeds = implode( ',', $import_feeds );
-				return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&max=' . $limit . '&display_comments=stream';
+				return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&max=' . $limit . '&display_comments=stream&';
 			}
 		}
 		return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $this_bp_feed . '&max=' .$limit . '&display_comments=stream';

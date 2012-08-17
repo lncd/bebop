@@ -1,10 +1,124 @@
 <?php
 bebop_extensions::load_extensions();
 
+
 /*
- * Generate an id for the imported item
+ * Function to sort out oer manager stuff
  */
- 
+function bebop_manage_oers() {
+	if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('manager' ) ) {
+		if ( isset( $_POST['action'] ) ) {
+			global $bp;
+			$oer_count  = 0;
+			$success = false;
+			//Add OER's to the activity stream.
+			if ( $_POST['action'] == 'verify' ) {
+				foreach ( array_keys( $_POST ) as $oer ) {
+					if ( $oer != 'action' ) {
+						$data = bebop_tables::fetch_individual_oer_data( $oer ); //go and fetch data from the activity buffer table.
+						if ( ! empty( $data->secondary_item_id ) ) {
+							global $wpdb;
+							if ( ! bp_has_activities( 'secondary_id=' . $data->secondary_item_id ) ) {
+								$new_activity_item = array (
+									'user_id'			=> $data->user_id,
+									'component'			=> 'bebop_oer_plugin',
+									'type'				=> $data->type,
+									'action'			=> $data->action,
+									'content'			=> $data->content,
+									'secondary_item_id'	=> $data->secondary_item_id,
+									'date_recorded'		=> $data->date_recorded,
+									'hide_sitewide'		=> $data->hide_sitewide,
+								);
+								if ( bp_activity_add( $new_activity_item ) ) {
+									bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'verified' );
+									bebop_tables::update_oer_data( $data->secondary_item_id, 'activity_stream_id', $activity_stream_id = $wpdb->insert_id );
+									bebop_filters::day_increase( $data->type, $data->user_id );
+									$oer_count++;
+								}
+								else {
+									bebop_tables::log_error( 'Activity Stream', 'Could not update the oer buffer status.' );
+								}
+							}
+							else {
+								bebop_tables::log_error( 'Activity Stream', 'This content already exists in the activity stream.' );
+							}
+						}
+					}
+				}//End foreach ( array_keys($_POST) as $oer ) {
+				if ( $oer_count > 1 ) {
+					$success = true;
+					$message = 'Resources verified.';
+				}
+				else {
+					$success = true;
+					$message = 'Resource verified.';
+				}
+			}//End if ( $_POST['action'] == 'verify' ) {
+			else if ( $_POST['action'] == 'delete' ) {
+				foreach ( array_keys( $_POST ) as $oer ) {
+					if ( $oer != 'action' ) {
+						$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
+						if ( ! empty( $data->id ) ) {
+							//delete the activity, let the filter update the tables.
+							if ( ! empty( $data->activity_stream_id ) ) {
+								bp_activity_delete(
+												array(
+													'id' => $data->activity_stream_id,
+												)
+								);
+								$oer_count++;
+							}
+							else {
+								//else just update the status
+								bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'deleted' );
+								$oer_count++;
+							}
+						}
+					}
+				} //End foreach ( array_keys( $_POST ) as $oer ) {
+				if ( $oer_count > 1 ) {
+					$success = true;
+					$message = 'Resources deleted.';
+				}
+				else {
+					$success = true;
+					$message = 'Resource deleted.';
+				}
+			}
+			else if ( $_POST['action'] == 'reset' ) {
+				foreach ( array_keys( $_POST ) as $oer ) {
+					if ( $oer != 'action' ) {
+						$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
+						bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'unverified' );
+						$oer_count++;
+					}
+				}
+				if ( $oer_count > 1 ) {
+					$success = true;
+					$message = 'Resources reset.';
+				}
+				else {
+					$success = true;
+					$message = 'Resource reset.';
+				}
+			}
+
+			if ( $success ) {
+				bp_core_add_message( $message );
+			}
+			else {
+				bp_core_add_message( "We couldn't do that for you. Please try again.", 'error' );
+			}
+			bp_core_redirect( $bp->loggedin_user->domain  .'/bebop-oers/manager/' );
+		}
+	}
+}
+//Adds a hook which detects and updates the oer status.
+add_action( 'bp_actions', 'bebop_manage_oers' );
+
+/*
+ * Generic function to generate secondary_item_id's
+ */
 function bebop_generate_secondary_id( $user_id, $id, $timestamp = null ) {
 	if ( is_numeric( $id ) ) {
 		$item_id = $user_id . $id . strtotime( $timestamp );
@@ -137,13 +251,8 @@ function bebop_check_existing_content_buffer( $content ) {
 	}
 }
 
-//Hook functions.
 
-//This is a hook into the activity filter options.
-add_action( 'bp_activity_filter_options', 'load_new_options' );
 
-//This is a hook into the member activity filter options.
-add_action( 'bp_member_activity_filter_options', 'load_new_options' );
 
 //This function loads additional filter options for the extensions.
 function load_new_options() {		
@@ -238,6 +347,12 @@ function dropdown_query_checker( $query_string ) {
 	//Returns the query string.
 	return $query_string;
 }
+
+//This is a hook into the activity filter options.
+add_action( 'bp_activity_filter_options', 'load_new_options' );
+
+//This is a hook into the member activity filter options.
+add_action( 'bp_member_activity_filter_options', 'load_new_options' );
 	
 //This adds a hook before the loading of the activity data to adjust if all_oer is selected.
 add_action( 'bp_before_activity_loop', 'load_new_options2' );

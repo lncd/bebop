@@ -36,12 +36,12 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 	if ( bp_has_activities( bebop_get_activity_args() ) ) {
 		while ( bp_activities() ) : bp_the_activity();
 		?><item>
-			<dbid><?php echo bp_get_activity_id(); ?></dbid>
+			<dbid><?php echo bp_activity_id(); ?></dbid>
 			<guid><?php echo bp_activity_thread_permalink(); ?></guid>
-			<type><?php echo bp_get_activity_action_name(); ?></type>
+			<type><?php echo bp_activity_action_name(); ?></type>
 			<title><![CDATA[<?php bp_activity_feed_item_title() ?>]]></title>
 			<link><?php echo bp_activity_thread_permalink() ?></link>
-			<pubDate><?php echo mysql2date('D, d M Y H:i:s O', bp_get_activity_feed_item_date(), false); ?></pubDate>
+			<pubDate><?php echo mysql2date('D, d M Y H:i:s O', bp_activity_feed_item_date(), false); ?></pubDate>
 			<description><![CDATA[<?php bp_activity_feed_item_description();
 			if ( bp_activity_can_comment() ) { ?>
 				<p><?php printf( __( 'Comments: %s', 'buddypress' ), bp_activity_get_comment_count() ); ?></p>
