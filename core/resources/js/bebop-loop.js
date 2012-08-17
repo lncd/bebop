@@ -4,7 +4,6 @@
 
 
 function bebop_activity_cookie_modify(scope,filter) {
-	
 	/* Save the type and filter to a session cookie */
 	jq.cookie( 'bp-activity-scope', scope, {path: '/'} );
 	jq.cookie( 'bp-activity-filter', filter, {path: '/'} );

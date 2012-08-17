@@ -1,10 +1,8 @@
-<?php add_action( 'wp_enqueue_scripts', 'bebop_oer_js' ); ?>
 <h3> OER Manager</h3>
 <p>Here you can manage your OER's. Change the filter to switch between approved content, removed content, and unverified content.</p>
 <div class="button_container"><a class="standard_button min_width_100" href="?type=unverified">Unverified</a></div>
 <div class="button_container"><a class="standard_button min_width_100" href="?type=verified">Verified</a></div>
 <div class="button_container"><a class="standard_button min_width_100" href="?type=deleted">Deleted</a></div>
-
 <?php
 $type = bebop_get_oer_type();
 if ( ! empty( $type ) ) {

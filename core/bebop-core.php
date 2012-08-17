@@ -111,6 +111,7 @@ function bebop_manage_oers() {
 			bp_core_redirect( $bp->loggedin_user->domain  .'/bebop-oers/manager/' );
 		}
 	}
+	add_action( 'wp_enqueue_scripts', 'bebop_oer_js' ); //enqueue  selectall/none script
 }
 //Adds a hook which detects and updates the oer status.
 add_action( 'bp_actions', 'bebop_manage_oers' );
@@ -162,11 +163,11 @@ function bebop_user_stylesheets() {
 }
 //Javascript
 function bebop_oer_js() {
-	wp_register_script( 'bebop-oer-js', plugins_url() . 'bebop/core/resources/js/bebop_oers.js' );
+	wp_register_script( 'bebop-oer-js', plugins_url() . '/bebop/core/resources/js/bebop-oers.js' );
 	wp_enqueue_script( 'bebop-oer-js' );
 }
 function bebop_loop_js() {
-	wp_register_script( 'bebop-loop-js', plugins_url() . 'bebop/core/resources/js/bebop_loop.js' );
+	wp_register_script( 'bebop-loop-js', plugins_url() . '/bebop/core/resources/js/bebop-loop.js' );
 	wp_enqueue_script( 'bebop-loop-js' );
 }
 
