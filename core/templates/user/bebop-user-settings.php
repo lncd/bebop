@@ -37,8 +37,7 @@ if ( bp_is_my_profile() ) {
 if ( $page == '/bebop-oers/home/' ) {
 	echo '<h3>Home</h3>';
 	$_COOKIE['bp-activity-filter'] = 'all_oer';
-	
-	echo '<script type="text/javascript" src="' . WP_CONTENT_URL . '/plugins/bebop/core/resources/js/bebop_functions.js"></script>';
+	add_action( 'wp_enqueue_scripts', 'bebop_loop_js' );
 	?>
 	
 	<!-- This overrides the current filter in the cookie to nothing "i.e.
