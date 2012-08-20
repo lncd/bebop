@@ -387,7 +387,6 @@ function bebop_get_oers( $type ) {
 	global $bp, $wpdb;
 	$active_extensions = bebop_extensions::get_active_extension_names( $addslashes = true );
 	$extension_names   = join( ',' ,$wpdb->escape( $active_extensions ) );
-	var_dump($extension_names);
 	return bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extension_names, $type );
 }
 
