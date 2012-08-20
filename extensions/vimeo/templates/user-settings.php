@@ -16,25 +16,6 @@ global $bp;
  */
 $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 
-/*
- * update section - if you add more parameters, don't forget to update them here.
- */
-if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
-	//Updates the channel name.
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $_POST['bebop_' . $extension['name'] . '_username'] );
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
-	
-	do_action( 'bebop_' . $extension['name'] . '_activated' );
-}
-if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
-}
-
-//resets the user's data
-if ( isset( $_GET['reset'] ) ) {
-	bebop_tables::remove_user_meta( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );
-}
-
 //put some options into variables
 $username = 'bebop_' . $extension['name'] . '_username';																//the username
 $$username = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );	//the username value
@@ -60,7 +41,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	echo '<label for="bebop_' . $extension['name'] . '_username">' . $extension['display_name'] . ' Username:</label>
 	<input type="text" name="bebop_' . $extension['name'] . '_username" value="' . $$username .'" size="50"><br>
 	
-	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings"></div>';
+	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings" name="submit"></div>';
 	if ( ! empty( $$username ) ) {
 		echo '<div class="button_container"><a class="standard_button" href="?provider=' . $extension['name'] . '&reset=true">Remove Channel</a></div>';
 	}

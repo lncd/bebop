@@ -16,40 +16,6 @@ global $bp;
  */
 $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 
-/*
- * update section - if you add more parameters, don't forget to update them here.
- */
-if ( ( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) ) && 
-	( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedurl'] ) ) ) {
-	//Updates the channel name.
-	
-	$found_http = strpos( $_POST['bebop_' . $extension['name'] . '_newfeedurl'], '://' );
-	if ( ! $found_http ) {
-		$insert_url = 'http://' . $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
-	}
-	else {
-		$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
-	}
-	bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], $_POST['bebop_' . $extension['name'] . '_newfeedname'], $insert_url );
-	echo 'feed saved';
-}
-if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
-	echo 'settings saved';
-}
-
-//delete a user's feed
-if ( isset( $_GET['delete_feed'] ) ) {
-	$check_feed = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, $_GET['delete_feed'] );
-	if ( ! empty( $check_feed ) ) {
-		$check_http = strpos( $check_feed, '://' );
-		if ( $check_http ) {
-			bebop_tables::remove_user_meta( $bp->loggedin_user->id, $_GET['delete_feed'] );
-			echo 'feed deleted';
-		}
-	}
-}
-
 $active = 'bebop_' . $extension['name'] . '_active_for_user';																//the active boolean name
 $$active = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_active_for_user' );	//the value of the boolean
 
@@ -72,7 +38,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	<label for="bebop_' . $extension['name'] . '_newfeedurl">New Feed URL:</label>
 	<input type="text" name="bebop_' . $extension['name'] . '_newfeedurl" size="75"><br>
 	
-	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings"></div>
+	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings" name="submit"></div>
 	</form>';
 	//table of user feeds
 	$user_feeds = bebop_tables::get_user_generic_feeds( $bp->loggedin_user->id );

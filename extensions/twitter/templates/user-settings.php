@@ -16,45 +16,6 @@ global $bp;
  */
 $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 
-/*
- * update section - if you add more parameters, don't forget to update them here.
- */
-if ( ! empty( $_POST['submit'] ) ) {
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
-	echo '<div class="bebop_message">Settings Saved</div>';
-}
-
-//resets the user's data
-if ( isset( $_GET['reset'] ) ) {
-	if ( $_GET['reset'] == 'true' ) {	
-		bebop_tables::remove_user_from_provider( $bp->loggedin_user->id, $extension['name'] );
-	}
-}
-
-if ( isset( $_GET['oauth_token'] ) ) {
-	//Handle the oAuth requests
-	$OAuth = new bebop_oauth();
-	$OAuth->set_request_token_url( $extension['request_token_url'] );
-	$OAuth->set_access_token_url( $extension['access_token_url'] );
-	$OAuth->set_authorize_url( $extension['authorize_url'] );
-	
-	$OAuth->set_parameters( array( 'oauth_verifier' => $_GET['oauth_verifier'] ) );
-	$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] );
-	$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ) );
-	$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ) );
-	$OAuth->set_request_token( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_temp' ) );
-	$OAuth->set_request_token_secret( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_secret_temp' ) );
-	
-	$accessToken = $OAuth->access_token();
-	
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token', $accessToken['oauth_token'] );
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token_secret', $accessToken['oauth_token_secret'] );
-	bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
-	
-	//for other plugins
-	do_action( 'bebop_' . $extension['name'] . '_activated' );
-}
-
 //put some options into variables
 $variable_name = 'bebop_' . $extension['name'] . '_active_for_user';																//the name of the variable
 $$variable_name = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_active_for_user' );	//the value of the variable
@@ -73,7 +34,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 			echo 'checked';
 		} echo '>
 		<label for="no">No</label><br>
-		<div class="button_container"><input type="submit" name="submit" class="standard_button" value="Save Settings"></div>';
+		<div class="button_container"><input type="submit" name="submit" class="standard_button" value="Save Settings" name="submit"></div>';
 			
 		if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token' ) ) {
 			echo '<div class="button_container"><a class="standard_button" href="?provider=' . $extension['name'] . '&reset=true">Remove Authorisation</a></div>';
