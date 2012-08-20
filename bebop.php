@@ -24,17 +24,16 @@ Credits: BuddySteam - buddystream.net
 
 //initialise Bebop
 function bebop_init() {
+	
 	//include files from core. (also edit in import.php)
 	include_once( 'core/bebop-oauth.php' );
 	include_once( 'core/bebop-tables.php' );
 	include_once( 'core/bebop-filters.php' );
-	include_once( 'core/bebop-pages.php' );
 	include_once( 'core/bebop-extensions.php' );
 	include_once( 'core/bebop-feeds.php' );
-
-	//Main content file
 	include_once( 'core/bebop-core.php' );
-	
+	include_once( 'core/bebop-pages.php' );
+
 	//fire cron
 	add_action( 'bebop_cron', 'bebop_cron_function' ); 
 	

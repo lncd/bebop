@@ -7,7 +7,6 @@ if ( bp_is_my_profile() ) {
 		include(WP_PLUGIN_DIR . '/bebop/core/templates/user/oer-manager.php');
 	}
 	else if ( $page == '/bebop-oers/providers/' ) {
-		echo '<h3>OER Providers</h3>';
 		if ( isset( $_GET['provider'] ) ) {
 			if ( bebop_extensions::extension_exist( $_GET['provider'] ) ) {
 				include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );
@@ -35,7 +34,6 @@ if ( bp_is_my_profile() ) {
 } 
 
 if ( $page == '/bebop-oers/home/' ) {
-	echo '<h3>Home</h3>';
 	$_COOKIE['bp-activity-filter'] = 'all_oer';
 	add_action( 'wp_enqueue_scripts', 'bebop_loop_js' );
 	?>

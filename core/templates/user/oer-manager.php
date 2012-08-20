@@ -1,4 +1,3 @@
-<h3> OER Manager</h3>
 <p>Here you can manage your OER's. Change the filter to switch between approved content, removed content, and unverified content.</p>
 <div class="button_container"><a class="standard_button min_width_100" href="?type=unverified">Unverified</a></div>
 <div class="button_container"><a class="standard_button min_width_100" href="?type=verified">Verified</a></div>

@@ -64,6 +64,21 @@ function bebop_setup_user_nav() {
 						)
 		);
 	}
+	$page = page_url( 2 );
+	if ( $page == '/bebop-oers/home/' ) {
+		
+		echo "<div class='item-list-tabs no-ajax' id='subnav' role='navigation'>
+				<ul class='clearfix'>
+					<li id='activity-filter-select' class='last'>
+						<label for='activity-filter-by'>Show:</label> 
+						<select id='activity-filter-by'>
+							<!-- This adds the hook from the main bebop file to add the extension filter -->
+							<?php do_action( 'bp_activity_filter_options' ); ?>
+						</select>
+					</li>
+				</ul>	
+			</div>";
+	}
 }
 
 function bebop_user_settings() {

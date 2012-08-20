@@ -391,8 +391,6 @@ function bebop_get_oers( $type ) {
 }
 
 
-
-
 /*
  * Generic function to generate secondary_item_id's
  */
