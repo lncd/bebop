@@ -1,15 +1,73 @@
 <?php
 bebop_extensions::load_extensions();
 
+
+global $pagenow;
+if ( ($pagenow == 'admin.php') && ( is_admin() ) ) {
+	add_action( 'admin_init', 'bebop_general_admin_update_settings' );		//general settings.
+	add_action( 'admin_init', 'bebop_oer_providers_update_active' );		//active providers.
+	add_action( 'admin_init', 'bebop_extension_admin_update_settings' );	//extension settings.
+	add_action( 'all_admin_notices', 'bebop_admin_notice' );				//Notices
+}
+/*
+ * Function to update the general admin settings.
+ */
+function bebop_general_admin_update_settings() {
+	if ( ! empty( $_GET['page']) ) {
+		$current_page = $_GET['page'];
+		if ( $current_page == 'bebop_admin_settings' ) {
+			if ( ! empty( $_POST['bebop_general_crontime'] ) ) {
+				$crontime = bebop_tables::update_option( 'bebop_general_crontime', trim( strip_tags( strtolower( $_POST['bebop_general_crontime'] ) ) ) );
+				wp_clear_scheduled_hook( 'bebop_cron' ); //Stops the cron
+				if( $crontime > 0 ) {	//if cron time is > 0, reschedule the cron. If zero, do nto reschedule
+					wp_schedule_event( time(), 'secs', 'bebop_cron' );//Re-activate with new time.
+				}
+				$_SESSION['bebop_admin_notice'] = true;
+				wp_safe_redirect( wp_get_referer() );
+				exit();
+			}
+		}
+	}
+}
+/*
+ * Function to update extension activation
+ */
+function bebop_oer_providers_update_active() {
+	if ( ! empty( $_GET['page']) ) {
+		$current_page = $_GET['page'];
+		if ( $current_page == 'bebop_oer_providers' ) {
+			if ( isset( $_POST['submit'] ) ){
+				//reset the importer queue
+				bebop_tables::update_option( 'bebop_importers_queue', '' );
+				
+				//set the new importer queue
+				$importerQueue = array();
+				foreach ( bebop_extensions::get_extension_configs() as $extension ) {
+					if ( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
+						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', trim( $_POST['bebop_' . $extension['name'] . '_provider'] ) );
+						if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_rss_feed' ) ) {
+							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', 'on' );
+						}
+					}
+					else {
+						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', '' );
+					}
+					
+					if ( is_array( $extension ) && isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) && $_POST['bebop_' . $extension['name'] . '_provider'] == 'on' ) {
+						$importerQueue[] = $extension['name'];
+					}
+				}
+				bebop_tables::update_option( 'bebop_importers_queue', implode( ',', $importerQueue ) );
+				$_SESSION['bebop_admin_notice'] = true;
+				wp_safe_redirect( wp_get_referer() );
+				exit();
+			}
+		}
+	}
+}
 /*
  * Function to sort out admin oer provider settings
  */
-global $pagenow;
-if ( ($pagenow == 'admin.php') && ( is_admin() ) ) {
-	add_action( 'admin_init', 'bebop_extension_admin_update_settings' );	//extension settings.
-	add_action( 'admin_init', 'bebop_general_admin_update_settings' );		//general settings.
-	add_action( 'all_admin_notices', 'bebop_admin_notice' );				//Notices
-}
 function bebop_extension_admin_update_settings() {
 	if ( ! empty( $_GET['page']) ) {
 		$current_page = $_GET['page'];
@@ -61,26 +119,7 @@ function bebop_extension_admin_update_settings() {
 		}//End if ( ! empty( $_GET['provider'] ) ) {
 	}//End if ( ! empty( $_GET['page']) ) {
 }
-/*
- * Function to update the general admin settings.
- */
-function bebop_general_admin_update_settings() {
-	if ( ! empty( $_GET['page']) ) {
-		$current_page = $_GET['page'];
-		if ( $current_page == 'bebop_admin_settings' ) {
-			if ( ! empty( $_POST['bebop_general_crontime'] ) ) {
-				$crontime = bebop_tables::update_option( 'bebop_general_crontime', trim( strip_tags( strtolower( $_POST['bebop_general_crontime'] ) ) ) );
-				wp_clear_scheduled_hook( 'bebop_cron' ); //Stops the cron
-				if( $crontime > 0 ) {	//if cron time is > 0, reschedule the cron. If zero, do nto reschedule
-					wp_schedule_event( time(), 'secs', 'bebop_cron' );//Re-activate with new time.
-				}
-				$_SESSION['bebop_admin_notice'] = true;
-				wp_safe_redirect( wp_get_referer() );
-				exit();
-			}
-		}
-	}
-}
+
 /*
  * function to show bebop admin notices
  */

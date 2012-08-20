@@ -6,21 +6,6 @@ if ( isset( $_GET['provider'] ) ) {
 	bebop_extensions::page_loader( $_GET['provider'] );
 }
 else {
-	global $bp;
-	if ( isset( $_POST['submit'] ) ){
-		//reset the importer queue
-		bebop_tables::update_option( 'bebop_importers_queue', '' );
-		
-		//set the new importer queue
-		$importerQueue = array();
-		foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-			if ( is_array( $extension ) && isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) && $_POST['bebop_' . $extension['name'] . '_provider'] == 'on' ) {
-				$importerQueue[] = $extension['name'];
-			}
-		}
-		bebop_tables::update_option( 'bebop_importers_queue', implode( ',', $importerQueue ) );
-		echo '<div class="bebop_success_box">Settings Saved.</div>';
-	}
 	include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 	<div id='bebop_admin_container'>
 		
@@ -46,45 +31,21 @@ else {
 			<?php
 			//loop throught extensions directory and get all extensions
 			foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-				if ( is_array( $extension ) ) {
-					//does it need a parent if so does parent exists
-					$loadExtension = true;
-					
-					if ( isset( $extension['parent'] ) ) {
-						if ( ! bebop_extensions::extension_exist( $extension['parent'] ) ) {
-							$loadExtension = false;
-						}
-					}
-					
-					if ( $loadExtension ) {
-						if ( isset( $_POST['submit'] ) ) {
-							if ( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
-								bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', trim( $_POST['bebop_' . $extension['name'] . '_provider'] ) );
-								if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_rss_feed' ) ) {
-									bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', 'on' );
-								}
-							}
-							else {
-								bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', '' );
-							}
-						}
 						echo '<tr>
-							<td>' . $extension['display_name'] . '</td>
-							<td>' . bebop_tables::count_users_using_extension( $extension['name'], 1 ) . '</td>
-							<td>' . bebop_tables::count_users_using_extension( $extension['name'], 0 ) . '</td>
-							<td><a href="?page=bebop_oers&type=unverified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</a></td>
-							<td><a href="?page=bebop_oers&type=verified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</a></td>
-							<td><a href="?page=bebop_oers&type=deleted">' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</a></td>
-							<td>';
-							echo "<label for='bebop_" . $extension['name'] . "_provider'>Enabled:</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
-							if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
-								echo 'CHECKED';
-							}
-							echo '></td>
-							<td><a href="?page=bebop_oer_providers&provider=' . strtolower( $extension['name'] ) . '">Settings</a></td>
-						</tr>';
+					<td>' . $extension['display_name'] . '</td>
+					<td>' . bebop_tables::count_users_using_extension( $extension['name'], 1 ) . '</td>
+					<td>' . bebop_tables::count_users_using_extension( $extension['name'], 0 ) . '</td>
+					<td><a href="?page=bebop_oers&type=unverified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</a></td>
+					<td><a href="?page=bebop_oers&type=verified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</a></td>
+					<td><a href="?page=bebop_oers&type=deleted">' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</a></td>
+					<td>';
+					echo "<label for='bebop_" . $extension['name'] . "_provider'>Enabled:</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
+					if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
+						echo 'CHECKED';
 					}
-				}
+					echo '></td>
+					<td><a href="?page=bebop_oer_providers&provider=' . strtolower( $extension['name'] ) . '">Settings</a></td>
+				</tr>';
 			}
 			?>
 			</table>
