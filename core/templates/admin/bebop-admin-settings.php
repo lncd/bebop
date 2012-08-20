@@ -1,17 +1,5 @@
 <link rel='shortcut icon' href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
-<?php
-
-if ( ! empty( $_POST['bebop_general_crontime'] ) ) {
-	
-	$crontime = bebop_tables::update_option( 'bebop_general_crontime', trim( strip_tags( strtolower( $_POST['bebop_general_crontime'] ) ) ) );
-	wp_clear_scheduled_hook( 'bebop_cron' ); //Stops the cron
-	if( $crontime > 0 ) {	//if cron time is > 0, reschedule the cron. If zero, do nto reschedule
-		wp_schedule_event( time(), 'secs', 'bebop_cron' );//Re-activate with new time.
-	}
-	echo '<div class="bebop_success_box">Settings Saved.</div>'; //Display that changes have been made.
-}
-include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' );
-?>
+<?php include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
 	<div class='postbox center_margin margin-bottom_22px'>
 		<h3>Bebop Settings</h3>

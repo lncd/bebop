@@ -6,11 +6,11 @@ bebop_extensions::load_extensions();
  */
 global $pagenow;
 if ( ($pagenow == 'admin.php') && ( is_admin() ) ) {
-	add_action( 'admin_init', 'bebop_extension_admin_update_settings' );
-	add_action( 'all_admin_notices', 'bebop_admin_notice' );
+	add_action( 'admin_init', 'bebop_extension_admin_update_settings' );	//extension settings.
+	add_action( 'admin_init', 'bebop_general_admin_update_settings' );		//general settings.
+	add_action( 'all_admin_notices', 'bebop_admin_notice' );				//Notices
 }
 function bebop_extension_admin_update_settings() {
-	global $bp;
 	if ( ! empty( $_GET['page']) ) {
 		$current_page = $_GET['page'];
 		if ( ! empty( $_GET['provider'] ) ) {
@@ -61,6 +61,29 @@ function bebop_extension_admin_update_settings() {
 		}//End if ( ! empty( $_GET['provider'] ) ) {
 	}//End if ( ! empty( $_GET['page']) ) {
 }
+/*
+ * Function to update the general admin settings.
+ */
+function bebop_general_admin_update_settings() {
+	if ( ! empty( $_GET['page']) ) {
+		$current_page = $_GET['page'];
+		if ( $current_page == 'bebop_admin_settings' ) {
+			if ( ! empty( $_POST['bebop_general_crontime'] ) ) {
+				$crontime = bebop_tables::update_option( 'bebop_general_crontime', trim( strip_tags( strtolower( $_POST['bebop_general_crontime'] ) ) ) );
+				wp_clear_scheduled_hook( 'bebop_cron' ); //Stops the cron
+				if( $crontime > 0 ) {	//if cron time is > 0, reschedule the cron. If zero, do nto reschedule
+					wp_schedule_event( time(), 'secs', 'bebop_cron' );//Re-activate with new time.
+				}
+				$_SESSION['bebop_admin_notice'] = true;
+				wp_safe_redirect( wp_get_referer() );
+				exit();
+			}
+		}
+	}
+}
+/*
+ * function to show bebop admin notices
+ */
 function bebop_admin_notice() {
 	if ( isset( $_SESSION['bebop_admin_notice'] ) ) {
 		$success = $_SESSION['bebop_admin_notice'];
