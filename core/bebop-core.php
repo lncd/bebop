@@ -7,7 +7,31 @@ if ( ($pagenow == 'admin.php') && ( is_admin() ) ) {
 	add_action( 'admin_init', 'bebop_general_admin_update_settings' );		//general settings.
 	add_action( 'admin_init', 'bebop_oer_providers_update_active' );		//active providers.
 	add_action( 'admin_init', 'bebop_extension_admin_update_settings' );	//extension settings.
+	add_action( 'admin_init', 'admin_flush_table' );						//tables.
 	add_action( 'all_admin_notices', 'bebop_admin_notice' );				//Notices
+}
+/*
+ * function to remove data from a database
+ */
+function admin_flush_table() {
+	if ( ! empty( $_GET['page']) ) {
+		$current_page = $_GET['page'];
+		if ( ( $current_page == 'bebop_error_log' ) || ( $current_page == 'bebop_general_log' ) ) {
+			if ( isset( $_GET ) ) {
+				if ( isset( $_GET['clear_table'] ) ) {
+					if ( $table_row_data = bebop_tables::flush_table_data( 'bp_' . $current_page ) ) {
+						$_SESSION['bebop_admin_notice'] = true;
+						
+					}
+					else {
+						$_SESSION['bebop_admin_notice'] ='Error clearing table data.';
+					}
+					wp_safe_redirect( $_SERVER['PHP_SELF'] . '?page=' . $current_page );
+					exit();
+				}
+			}
+		}
+	}
 }
 /*
  * Function to update the general admin settings.

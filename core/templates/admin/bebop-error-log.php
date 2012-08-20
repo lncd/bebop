@@ -1,18 +1,6 @@
 <link rel='shortcut icon' href="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_icon.png';?>">
 
-<?php include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' );
-
-if ( isset( $_GET ) ) {
-	if ( isset( $_GET['clear_table'] ) ) {
-		if ( $table_row_data = bebop_tables::flush_table_data( 'bp_bebop_error_log' ) ) {
-			echo '<div class="bebop_success_box">Table data cleared.</div>';
-		}
-		else {
-			echo '<div class="bebop_error_box">Error clearing table data.</div>';
-		}
-	}
-}
-?>
+<?php include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
 	<div class='postbox full_width center_margin margin-bottom_22px'>
 		<h3>Bebop Errors</h3>
