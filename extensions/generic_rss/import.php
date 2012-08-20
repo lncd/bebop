@@ -21,7 +21,7 @@ function bebop_generic_rss_import( $extension ) {
 		foreach ( $user_metas as $user_meta ) {
 			//Ensure the user is wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
-				$user_feeds = bebop_tables::get_user_generic_feeds(  $user_meta->user_id );
+				$user_feeds = bebop_tables::get_user_generic_feeds( $user_meta->user_id );
 				foreach ($user_feeds as $user_feed ) {
 					$errors = null;
 					$items 	= null;
@@ -29,7 +29,7 @@ function bebop_generic_rss_import( $extension ) {
 					$feed_name = $user_feed->meta_name;
 					$feed_url = $user_feed->meta_value;
 					
-					$import_name = str_replace(' ', '_', $feed_name);
+					$import_name = str_replace( ' ', '_', $feed_name );
 					//Check the user has not gone past their import limit for the day.
 					if ( ! bebop_filters::import_limit_reached( $this_extension['name'] . '_' . $import_name, $user_meta->user_id ) ) {
 						
@@ -64,7 +64,7 @@ function bebop_generic_rss_import( $extension ) {
 						 * 
 						 * Values you will need to check and update are:
 						 * 		$errors 				- Must point to the error boolean value (true/false)
-						 *.		$link and /or $id		- Must be the ID of the item returned through the data feed.
+						 * 		$id						- Must be the ID of the item returned through the data feed.
 						 * 		$description			- The actual content of the imported item.
 						 * 		$item_published			- The time the item was published.
 						 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
@@ -78,7 +78,6 @@ function bebop_generic_rss_import( $extension ) {
 							
 							//Edit the following variable to point to where the relevant content is being stored in the feed:
 							$items = $feed->get_items();
-							//bebop_tables::log_error('Importer - ' . $this_extension['name'], serialize($items));
 							if ( $items ) {
 								foreach ( $items as $item ) {
 									if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {

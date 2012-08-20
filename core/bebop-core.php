@@ -11,7 +11,7 @@ if ( ($pagenow == 'admin.php') && ( is_admin() ) ) {
 	add_action( 'admin_init', 'bebop_general_admin_update_settings' );		//general settings.
 	add_action( 'admin_init', 'bebop_oer_providers_update_active' );		//active providers.
 	add_action( 'admin_init', 'bebop_extension_admin_update_settings' );	//extension settings.
-	add_action( 'admin_init', 'bebop_admin_flush_table' );						//tables.
+	add_action( 'admin_init', 'bebop_admin_flush_table' );					//tables.
 	add_action( 'all_admin_notices', 'bebop_admin_notice' );				//Notices
 }
 /*
@@ -289,7 +289,7 @@ function bebop_manage_provider() {
 			if ( isset( $_POST['submit'] ) ) {
 				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
 					//Updates the channel name.
-					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $_POST['bebop_' . $extension['name'] . '_username'] );
+					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', strip_tags( $_POST['bebop_' . $extension['name'] . '_username'] ) );
 					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
 				}
 				if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
@@ -308,7 +308,7 @@ function bebop_manage_provider() {
 					else {
 						$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
 					}
-					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], $_POST['bebop_' . $extension['name'] . '_newfeedname'], $insert_url );
+					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ), strip_tags( $insert_url ) );
 				}
 				bp_core_add_message( 'Settings for ' . $extension['display_name'] . ' have been saved.' );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
@@ -363,7 +363,6 @@ function bebop_manage_provider() {
 		}//End if ( isset( $_GET['provider'] ) ) {
 	}//End if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('providers' ) ) {
 }
-
 
 /*
  * Returns status from get array

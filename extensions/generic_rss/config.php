@@ -7,7 +7,7 @@ function get_generic_rss_config() {
 		'name' 				=> 'generic_rss',
 		'display_name'		=> 'Generic RSS',
 		'type'				=> 'generic_rss',
-		'pages'				=> array( 'settings',  ),
+		'pages'				=> array( 'settings', ),
 		'defaultpage'		=> 'settings',
 		'content_type' 			=> 'RSS link',
 	);
