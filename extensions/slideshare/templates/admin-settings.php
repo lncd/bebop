@@ -16,51 +16,6 @@
  */
 $extension = bebop_extensions::get_extension_config_by_name( strtolower( $extension ) );
 
-/*
- * update section - if you add more parameters, don't forget to update them here.
- */
-if ( isset( $_POST['submit'] ) ) {
-	$success = true;
-	if ( isset( $_POST['bebop_' . $extension['name'] . '_consumer_key'] ) ) {
-		bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_key', trim( $_POST['bebop_' . $extension['name'] . '_consumer_key'] ) );
-	}
-	if ( isset( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) ) {
-		bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_secret', trim( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) );
-	}
-	if ( isset( $_POST['bebop_' . $extension['name'] . '_maximport'] ) ) {
-		bebop_tables::update_option( 'bebop_' . $extension['name'] . '_maximport', trim( $_POST['bebop_' . $extension['name'] . '_maximport'] ) );
-	}
-	
-	/*rss stuff, dont touch */
-	if ( isset( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) ) {
-		if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
-			bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', trim( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) );
-		}
-		else {
-			$success = 'RSS feeds cannot be modified while the extension is not enabled.';
-		}
-	}
-	else {
-		bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', '' );
-	}
-
-	if ( $success == true ) {
-		echo '<div class="bebop_success_box">Settings Saved.</div>';
-	}
-	else {
-		echo '<div class="bebop_error_box">' . ucfirst( $success ) . '</div>';
-	}
-}
-
-/*
- * Mechanics to remove a user from your extension is already provided - you do not need to modify this.
- */
-if ( isset( $_GET['reset_user_id'] ) ) {
-	$user_id = trim( $_GET['reset_user_id'] );
-	bebop_tables::remove_user_from_provider( $user_id, $extension['name'] );
-	
-	echo '<div class="bebop_success_box">User has been removed.</div>';
-}
 //Include the admin menu.
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
