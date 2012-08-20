@@ -49,6 +49,7 @@ if ( $page == '/bebop-oers/home/' ) {
 		and modified due to lack of pratical hooks. Taken from bp_activity_request(scope, filter).*/ ?>
 		bebop_activity_cookie_modify( scope,filter );
 	</script>
+	
 	<!-- This section creates the drop-down menu with its classes hooked into buddypress -->
 	<div class='item-list-tabs no-ajax' id='subnav' role='navigation'>
 		<ul class='clearfix'>
