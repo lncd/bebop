@@ -1,7 +1,7 @@
 <?php
 /*
  * IMPORTANT - PLEASE READ **************************************************************************
- * All the mechanics to control this plugin are automatically generated from the extension name.	*
+ * All the mechanics to control this plugin are automatically generated from the extension name		*
  * You do not need to modify this page, unless you wish to add additional customisable parameters	*
  * for the extension. Removing/changing any of the pre defined functions will cause import errors,	*
  * and possible other unexpected or unwanted behaviour.												*

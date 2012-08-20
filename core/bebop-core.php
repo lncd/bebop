@@ -284,11 +284,9 @@ add_action( 'bp_actions', 'bebop_manage_provider' );
 function bebop_manage_provider() {
 	if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('providers' ) ) {
 		if ( isset( $_GET['provider'] ) ) {
-			$extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
+		global $bp;
+		$extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 			if ( isset( $_POST['submit'] ) ) {
-				global $bp;
-				$success = false;
-				$message = 'Resources deleted.';
 				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
 					//Updates the channel name.
 					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $_POST['bebop_' . $extension['name'] . '_username'] );
@@ -296,28 +294,6 @@ function bebop_manage_provider() {
 				}
 				if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
 					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
-				}
-				
-				//Oauth stuff
-				if ( isset( $_GET['oauth_token'] ) ) {
-					//Handle the oAuth requests
-					$OAuth = new bebop_oauth();
-					$OAuth->set_request_token_url( $extension['request_token_url'] );
-					$OAuth->set_access_token_url( $extension['access_token_url'] );
-					$OAuth->set_authorize_url( $extension['authorize_url'] );
-					
-					$OAuth->set_parameters( array( 'oauth_verifier' => $_GET['oauth_verifier'] ) );
-					$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] );
-					$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ) );
-					$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ) );
-					$OAuth->set_request_token( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_temp' ) );
-					$OAuth->set_request_token_secret( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_secret_temp' ) );
-					
-					$accessToken = $OAuth->access_token();
-					
-					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token', $accessToken['oauth_token'] );
-					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token_secret', $accessToken['oauth_token_secret'] );
-					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
 				}
 				
 				//RSS stuff
@@ -333,27 +309,57 @@ function bebop_manage_provider() {
 						$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
 					}
 					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], $_POST['bebop_' . $extension['name'] . '_newfeedname'], $insert_url );
-					echo 'feed saved';
-				}
-				//delete a user's feed
-				if ( isset( $_GET['delete_feed'] ) ) {
-					$check_feed = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, $_GET['delete_feed'] );
-					if ( ! empty( $check_feed ) ) {
-						$check_http = strpos( $check_feed, '://' );
-						if ( $check_http ) {
-							bebop_tables::remove_user_meta( $bp->loggedin_user->id, $_GET['delete_feed'] );
-							echo 'feed deleted';
-						}
-					}
-				}
-				
-				//resets the user's data
-				if ( isset( $_GET['reset'] ) ) {
-					bebop_tables::remove_user_meta( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );
 				}
 				bp_core_add_message( 'Settings for ' . $extension['display_name'] . ' have been saved.' );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}//End if ( isset( $_POST['submit'] ) ) {
+			
+			//Oauth stuff
+			if ( isset( $_GET['oauth_token'] ) ) {
+				//Handle the oAuth requests
+				$OAuth = new bebop_oauth();
+				$OAuth->set_request_token_url( $extension['request_token_url'] );
+				$OAuth->set_access_token_url( $extension['access_token_url'] );
+				$OAuth->set_authorize_url( $extension['authorize_url'] );
+				
+				$OAuth->set_parameters( array( 'oauth_verifier' => $_GET['oauth_verifier'] ) );
+				$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] );
+				$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ) );
+				$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ) );
+				$OAuth->set_request_token( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_temp' ) );
+				$OAuth->set_request_token_secret( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_secret_temp' ) );
+				
+				$accessToken = $OAuth->access_token();
+				
+				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token', $accessToken['oauth_token'] );
+				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token_secret', $accessToken['oauth_token_secret'] );
+				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
+				
+				bp_core_add_message( 'You have authenticated ' . $extension['display_name'] . ' syncronisation' );
+				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+			}
+			
+			//delete a user's feed
+			if ( isset( $_GET['delete_feed'] ) ) {
+				$check_feed = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, $_GET['delete_feed'] );
+				if ( ! empty( $check_feed ) ) {
+					$check_http = strpos( $check_feed, '://' );
+					if ( $check_http ) {
+						bebop_tables::remove_user_meta( $bp->loggedin_user->id, $_GET['delete_feed'] );
+						bp_core_add_message( $extension['display_name'] . ' feed deleted.' );
+						bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+					}
+				}
+			}
+			
+			//resets the user's data
+			if ( isset( $_GET['reset'] ) ) {
+				if ( $_GET['reset'] == 'true' ) {	
+					bebop_tables::remove_user_from_provider( $bp->loggedin_user->id, $extension['name'] );
+					bp_core_add_message( 'Your ' . $extension['display_name'] . ' has been reset.' );
+					bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+				}
+			}
 		}//End if ( isset( $_GET['provider'] ) ) {
 	}//End if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('providers' ) ) {
 }
