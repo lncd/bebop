@@ -41,31 +41,33 @@ function bebop_oer_providers_update_active() {
 	if ( ! empty( $_GET['page']) ) {
 		$current_page = $_GET['page'];
 		if ( $current_page == 'bebop_oer_providers' ) {
-			if ( isset( $_POST['submit'] ) ){
-				//reset the importer queue
-				bebop_tables::update_option( 'bebop_importers_queue', '' );
-				
-				//set the new importer queue
-				$importerQueue = array();
-				foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-					if ( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
-						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', trim( $_POST['bebop_' . $extension['name'] . '_provider'] ) );
-						if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_rss_feed' ) ) {
-							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', 'on' );
+			if ( empty( $_GET['provider'] ) ) {
+				if ( isset( $_POST['submit'] ) ){
+					//reset the importer queue
+					bebop_tables::update_option( 'bebop_importers_queue', '' );
+					
+					//set the new importer queue
+					$importerQueue = array();
+					foreach ( bebop_extensions::get_extension_configs() as $extension ) {
+						if ( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
+							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', trim( $_POST['bebop_' . $extension['name'] . '_provider'] ) );
+							if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_rss_feed' ) ) {
+								bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', 'on' );
+							}
+						}
+						else {
+							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', '' );
+						}
+						
+						if ( is_array( $extension ) && isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) && $_POST['bebop_' . $extension['name'] . '_provider'] == 'on' ) {
+							$importerQueue[] = $extension['name'];
 						}
 					}
-					else {
-						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', '' );
-					}
-					
-					if ( is_array( $extension ) && isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) && $_POST['bebop_' . $extension['name'] . '_provider'] == 'on' ) {
-						$importerQueue[] = $extension['name'];
-					}
+					bebop_tables::update_option( 'bebop_importers_queue', implode( ',', $importerQueue ) );
+					$_SESSION['bebop_admin_notice'] = true;
+					wp_safe_redirect( wp_get_referer() );
+					exit();
 				}
-				bebop_tables::update_option( 'bebop_importers_queue', implode( ',', $importerQueue ) );
-				$_SESSION['bebop_admin_notice'] = true;
-				wp_safe_redirect( wp_get_referer() );
-				exit();
 			}
 		}
 	}
