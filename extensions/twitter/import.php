@@ -104,7 +104,7 @@ function bebop_twitter_import( $extension ) {
 									if ( bebop_create_buffer_item(
 													array(
 														'user_id'			=> $user_meta->user_id,
-														'extention'			=> $this_extension['display_name'],
+														'extention'			=> $this_extension['name'],
 														'type'				=> $this_extension['content_type'],
 														'content'			=> $item_content,
 														'content_oembed'	=> $this_extension['content_oembed'],
