@@ -41,7 +41,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings" name="submit"></div>
 	</form>';
 	//table of user feeds
-	$user_feeds = bebop_tables::get_user_generic_feeds( $bp->loggedin_user->id );
+	$user_feeds = bebop_tables::get_user_feeds( $bp->loggedin_user->id, $extension['name'] );
 	if ( count( $user_feeds ) > 0 ) {
 		echo '<h3>Your generic feeds</h3>';
 		echo '<table class="bebop_user_table">

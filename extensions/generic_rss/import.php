@@ -21,7 +21,7 @@ function bebop_generic_rss_import( $extension ) {
 		foreach ( $user_metas as $user_meta ) {
 			//Ensure the user is wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
-				$user_feeds = bebop_tables::get_user_generic_feeds( $user_meta->user_id );
+				$user_feeds = bebop_tables::get_user_feeds( $user_meta->user_id , $this_extension['name']);
 				foreach ($user_feeds as $user_feed ) {
 					$errors = null;
 					$items 	= null;

@@ -59,9 +59,9 @@ class bebop_tables {
 	function remove_user_from_provider( $user_id, $provider ) {
 		global $wpdb, $bp;
 		
-		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type = '" . $wpdb->escape( $provider ) . "'" ) ) || 
-		( $wpdb->get_results( 'DELETE FROM ' . $bp->activity->table_name . " WHERE component = 'bebop_oer_plugin' AND type ='" . $wpdb->escape( $provider ) . "'" ) ) ||
-		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE  user_id = '" . $wpdb->escape( $user_id ) . "' AND type ='" . $wpdb->escape( $provider ) . "'" ) ) ) {
+		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) || 
+		( $wpdb->get_results( 'DELETE FROM ' . $bp->activity->table_name . " WHERE component = 'bebop_oer_plugin' AND type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) ||
+		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE  user_id = '" . $wpdb->escape( $user_id ) . "' AND type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) ) {
 			return true;
 		}
 		else {
@@ -247,21 +247,31 @@ class bebop_tables {
 		}
 	}
 	
-	function add_user_meta( $user_id, $meta_type, $meta_name, $meta_value ) { //function to add user meta to the user_meta table.
+	function add_user_meta( $user_id, $meta_type, $meta_name, $meta_value, $allow_multiple = false ) { //function to add user meta to the user_meta table. - allow_multiple skips existence checks and inserts.
 		global $wpdb;
-		
-		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == false ) {
-			$wpdb->query(
-							$wpdb->prepare(
-											'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
-											$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
-							)
-			);
-			return true;
+		if ( $allow_multiple == false ) {
+			if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == false ) {
+				$wpdb->query(
+								$wpdb->prepare(
+												'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
+												$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
+								)
+				);
+				return true;
+			}
+			else {
+				bebop_tables::log_error( 'bebop_user_meta_error', "meta: '" . $meta_name . "' already exists for user " . $user_id . 'in type ' . $meta_type );
+				return false;
+			}
 		}
 		else {
-			bebop_tables::log_error( 'bebop_user_meta_error', "meta: '" . $meta_name . "' already exists for user " . $user_id . 'in type ' . $meta_type );
-			return false;
+			$wpdb->query(
+								$wpdb->prepare(
+												'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
+												$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
+								)
+					);
+			return true;
 		}
 	}
 	
@@ -295,10 +305,26 @@ class bebop_tables {
 		}
 	}
 	
-	function get_user_generic_feeds( $user_id ) {
+	function get_user_feeds( $user_id, $provider ) {
 		global $wpdb;
-		$result = $wpdb->get_results( 'SELECT meta_name, meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE meta_type = 'generic_rss' AND user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_value LIKE '%http://%'" );
-		return $result;
+		$results = $wpdb->get_results( 'SELECT meta_name, meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE meta_type LIKE '%" . $wpdb->escape( $provider ) . "%' AND user_id = '" . $wpdb->escape( $user_id ) . "'" );
+		//filter out meta we do not want.
+		$blacklist = array( 'active', 'counter' );
+		$return = array();
+		
+		foreach ( $results as $result ) {
+			foreach ( $blacklist as $value ) {
+				$found = false;
+				if ( ! stristr( $result->meta_name, $value ) === false ) {
+					$found = true;
+					break;
+				}
+			}
+			if ( $found == false ) {
+				$return[] = $result;
+			}
+		}
+	return $return;
 	}
 	
 	function sanitise_element( $data, $allow_tags = null ) {

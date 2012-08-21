@@ -288,9 +288,8 @@ function bebop_manage_provider() {
 		$extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 			if ( isset( $_POST['submit'] ) ) {
 				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
-					//Updates the channel name.
-					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', strip_tags( $_POST['bebop_' . $extension['name'] . '_username'] ) );
-					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
+					//add a username
+					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', strip_tags( $_POST['bebop_' . $extension['name'] . '_username'] ), true );
 				}
 				if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
 					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
@@ -308,7 +307,7 @@ function bebop_manage_provider() {
 					else {
 						$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
 					}
-					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ), strip_tags( $insert_url ) );
+					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'], strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ), strip_tags( $insert_url ) );
 				}
 				bp_core_add_message( 'Settings for ' . $extension['display_name'] . ' have been saved.' );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
