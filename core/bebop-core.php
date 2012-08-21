@@ -288,7 +288,6 @@ function bebop_manage_provider() {
 		$extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 			if ( isset( $_POST['submit'] ) ) {
 				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
-					//add a username
 					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', strip_tags( $_POST['bebop_' . $extension['name'] . '_username'] ), true );
 				}
 				if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
@@ -352,12 +351,11 @@ function bebop_manage_provider() {
 			}
 			
 			//resets the user's data
-			if ( isset( $_GET['reset'] ) ) {
-				if ( $_GET['reset'] == 'true' ) {	
-					bebop_tables::remove_user_from_provider( $bp->loggedin_user->id, $extension['name'] );
-					bp_core_add_message( 'Your ' . $extension['display_name'] . ' has been reset.' );
-					bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
-				}
+			if ( isset( $_GET['remove_username'] ) ) {
+				$username = $_GET['remove_username'];
+				bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $username );
+				bp_core_add_message( $username . ' has been removed from your ' . $extension['display_name'] . ' feed.' );
+			bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}
 		}//End if ( isset( $_GET['provider'] ) ) {
 	}//End if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('providers' ) ) {

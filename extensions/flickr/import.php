@@ -36,7 +36,7 @@ function bebop_flickr_import( $extension ) {
 					
 					$username = $user_feed->meta_value;
 					
-					$import_name = str_replace( ' ', '_', $feed_name );
+					$import_name = str_replace( ' ', '_', $username );
 					//Check the user has not gone past their import limit for the day.
 					if ( ! bebop_filters::import_limit_reached( $this_extension['name'] . '_' . $import_name, $user_meta->user_id ) ) {
 						
@@ -118,7 +118,7 @@ function bebop_flickr_import( $extension ) {
 						$items 	= $data->photos->photo;
 						
 						foreach ( $items as $item ) {
-							if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
+							if ( ! bebop_filters::import_limit_reached( $this_extension['name'] . '_' . $import_name, $user_meta->user_id ) ) {
 								//Edit the following variables to point to where the relevant content is being stored:
 								$id					= $item['id'];
 								$action_link		= $this_extension['action_link'] . $item['owner'] . '/' . $id;

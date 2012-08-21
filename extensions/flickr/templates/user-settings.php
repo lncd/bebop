@@ -54,7 +54,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		foreach ( $user_feeds as $user_feed ) {
 			echo '<tr>
 				<td>' . bebop_tables::sanitise_element( $user_feed->meta_value ) . '</td>
-				<td><a href="?provider=' . $extension['name'] . '&delete_feed=' . $user_feed->meta_name . '">Delete Feed</a></td>
+				<td><a href="?provider=' . $extension['name'] . '&remove_username=' . $user_feed->meta_value . '">Delete Feed</a></td>
 			</tr>';
 		}
 		echo '</table>';
