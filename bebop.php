@@ -6,8 +6,8 @@ header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' ); // Date in the past
 /*
 Plugin Name: Bebop
 Plugin URI: http://bebop.blogs.lincoln.ac.uk/
-Description: Bebop is the name of a rapid innovation project funded by the Joint Information Systems Committee (JISC). The project involves the utilisation of OER's from 3rd party providers such as JORUM and slideshare.
-Version: 0.1
+Description: Bebop is the name of a rapid innovation project funded by the Joint Information Systems Committee (JISC) and developed by the University of Lincoln. The project involved the utilisation of OER's from 3rd party providers such as YouTube, Vimeo, SlideShare and Flickr.
+Version: 1.0
 Authors: Dale Mckeown, David Whitehead
 Author URI: http://phone.online.lincoln.ac.uk/dmckeown, http://phone.online.lincoln.ac.uk/dwhitehead
 License: TBA
