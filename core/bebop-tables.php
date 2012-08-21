@@ -70,8 +70,8 @@ class bebop_tables {
 	}
 	function remove_username_from_provider( $user_id, $provider, $username ) {
 		global $wpdb, $bp;
-		
-		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name LIKE '%" . $wpdb->escape( 'bebop_' .$provider . '_' . $username ) . "%'" ) ) || 
+		$like_search = $provider . '_' . $username;
+		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type =  '" . $wpdb->escape( $like_search ) . "'" ) ) || 
 		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_value = '" . $wpdb->escape( $username ) . "'" ) ) ) {
 			return true;
 		}

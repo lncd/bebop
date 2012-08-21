@@ -36,9 +36,9 @@ function bebop_flickr_import( $extension ) {
 					
 					$username = $user_feed->meta_value;
 					
-					$import_name = str_replace( ' ', '_', $username );
+					$import_username = str_replace( ' ', '_', $username );
 					//Check the user has not gone past their import limit for the day.
-					if ( ! bebop_filters::import_limit_reached( $this_extension['name'] . '_' . $import_name, $user_meta->user_id ) ) {
+					if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
 						
 						/* 
 						 * ******************************************************************************************************************
@@ -118,7 +118,7 @@ function bebop_flickr_import( $extension ) {
 						$items 	= $data->photos->photo;
 						
 						foreach ( $items as $item ) {
-							if ( ! bebop_filters::import_limit_reached( $this_extension['name'] . '_' . $import_name, $user_meta->user_id ) ) {
+							if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
 								//Edit the following variables to point to where the relevant content is being stored:
 								$id					= $item['id'];
 								$action_link		= $this_extension['action_link'] . $item['owner'] . '/' . $id;
@@ -157,6 +157,7 @@ function bebop_flickr_import( $extension ) {
 													'user_id'			=> $user_meta->user_id,
 													'extention'			=> $this_extension['name'],
 													'type'				=> $this_extension['content_type'],
+													'username'			=> $import_username,							//required for day counter increases.
 													'content'			=> $item_content,
 													'content_oembed'	=> $this_extension['content_oembed'],
 													'item_id'			=> $item_id,
@@ -168,7 +169,7 @@ function bebop_flickr_import( $extension ) {
 								}
 							}
 						}
-					}//End if if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
+					}//End if ( ! bebop_filters::import_limit_reached( $this_extension['name'] . '_' . $import_username, $user_meta->user_id ) ) {
 				}//End foreach ($user_feeds as $user_feed ) {
 			}
 		}

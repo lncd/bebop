@@ -475,12 +475,12 @@ function bebop_create_buffer_item( $params ) {
 				if ( ! empty( $clean_comment ) ) {
 					if ( $wpdb->query(
 									$wpdb->prepare(
-													'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager ( user_id, status, type, action, content, secondary_item_id, date_imported, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s ) ',
+													'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager ( user_id, status, type, action, content, secondary_item_id, date_imported, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s )',
 													$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
 													$wpdb->escape( $params['item_id'] ), $wpdb->escape( $date_imported ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
 									)
 					) ) {
-						bebop_filters::day_increase( $params['extention'], $params['user_id'] );
+						bebop_filters::day_increase( $params['extention'], $params['user_id'], $params['username'] );
 					}
 					else {
 						bebop_tables::log_error( 'Importer', 'Import query error' );
@@ -530,9 +530,6 @@ function bebop_check_existing_content_buffer( $content ) {
 		return false;
 	}
 }
-
-
-
 
 //This function loads additional filter options for the extensions.
 function load_new_options() {		
