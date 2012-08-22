@@ -71,7 +71,6 @@ function bebop_twitter_import( $extension ) {
 					 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
 					 */
 					
-					
 					//Edit the following two variables to point to where the relevant content is being stored in the API:
 					$errors		 = $items->error;
 					$username	 = '' . $items->status->user->screen_name[0];

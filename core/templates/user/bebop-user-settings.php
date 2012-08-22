@@ -12,7 +12,7 @@ if ( bp_is_my_profile() ) {
 				include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );
 			}
 			else {
-				echo 'The extension \'' .  $_GET['provider'] . '\' doesn\'t exist. Silly you!';
+				echo 'The extension \'' .  $_GET['provider'] . '\' doesn\'t exist.';
 			}
 			
 		}
@@ -22,7 +22,8 @@ if ( bp_is_my_profile() ) {
 				echo '<p>No extensions are currently active. Please activate them in the bebop OER providers admin panel.</p>';
 			}
 			else {
-				echo '<p>Choose an OER provider from the list below.</p>';
+				echo '<p>Bebop allows you to add content from external accounts to your profile. This means you can pull in content from sites such as YouTube, Vimeo, Flickr and others. This content is then added you your activity stream, once you have verified it in the OER manager.</p>
+				<p>To add an account, click on the relevant button below. You will then be guided through the setup process.</p>';
 				
 				foreach ( $active_extensions as $extension ) {
 					$extension = bebop_extensions::get_extension_config_by_name( strtolower($extension ) );
