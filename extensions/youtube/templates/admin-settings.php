@@ -65,7 +65,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 				<td class='bold'>User ID</td>
 				<td class='bold'>Username</td>
 				<td class='bold'>User email</td>
-				<td class='bold'><?php echo $extension['display_name']; ?> Name</td>
+				<td class='bold'><?php echo $extension['display_name']; ?> Name(s)</td>
 				<td class='bold'>Options</td>
 			</tr>
 			<?php	
@@ -74,11 +74,17 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			 */
 			foreach ( $user_metas as $user ) {	
 				$this_user = get_userdata( $user->user_id );
+				$user_feeds = bebop_tables::get_user_feeds( $user->user_id , $extension['name'] );
+				$feed_array = array();
+				foreach ( $user_feeds as $user_feed ) {
+					$feed_array[] = $user_feed->meta_value;
+				}
+				$user_feeds = implode( ',', $feed_array );
 				echo '<tr>
 					<td>' . bebop_tables::sanitise_element( $user->user_id ) . '</td>
 					<td>' . bebop_tables::sanitise_element( $this_user->user_login ) . '</td>
 					<td>' . bebop_tables::sanitise_element( $this_user->user_email ) . '</td>
-					<td>' . bebop_tables::sanitise_element( bebop_tables::get_user_meta_value( $user->user_id, 'bebop_' . $extension['name'] . '_username' ) ) . "</td>
+					<td>' . bebop_tables::sanitise_element( $user_feeds ) . "</td>
 					<td><a href='?page=bebop_oer_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>Reset User</a></td>
 				</tr>";
 			}

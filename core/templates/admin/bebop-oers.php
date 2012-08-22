@@ -17,7 +17,7 @@
 		}
 		else if ( strtolower( strip_tags( $_GET['type'] == 'verified' ) ) ) {
 			$type = 'verified';
-			$message = 'These OERs are currently being displayed their owner\'s activity streams.';
+			$message = 'These OERs are currently being displayed in their owner\'s activity streams.';
 		}
 		else if ( strtolower( strip_tags( $_GET['type'] == 'deleted' ) ) ) {
 			$type = 'deleted';
