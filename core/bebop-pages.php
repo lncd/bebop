@@ -44,8 +44,8 @@ function bebop_setup_user_nav() {
 	if ( bp_is_my_profile() ) {
 		bp_core_new_subnav_item(
 								array(
-								'name' => 'OER Providers',
-								'slug' => 'providers',
+								'name' => 'OER Accounts',
+								'slug' => 'accounts',
 								'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
 								'parent_slug' => 'bebop-oers',
 								'screen_function' => 'bebop_user_settings',

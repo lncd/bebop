@@ -22,7 +22,7 @@ $$variable_name = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'be
 
 if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on') && ( bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_consumer_key' ) ) ) {
 	if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token' ) ) {
-		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] . '" method="post">
+		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/accounts/?provider=' . $extension['name'] . '" method="post">
 		<h3>' . $extension['display_name'] . ' Settings</h3>';
 		
 		echo '<h5>Enable ' . $extension['display_name'] . ' import?</h5>
@@ -51,7 +51,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		$OAuth->set_request_token_url( $extension['request_token_url'] );
 		$OAuth->set_access_token_url( $extension['access_token_url'] );
 		$OAuth->set_authorize_url( $extension['authorize_url'] );
-		$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] );
+		$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/accounts/?provider=' . $extension['name'] );
 		$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ) );
 		$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ) );
 		

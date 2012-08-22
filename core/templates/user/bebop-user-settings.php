@@ -6,7 +6,7 @@ if ( bp_is_my_profile() ) {
 	if ( $page == '/bebop-oers/manager/' ) {
 		include(WP_PLUGIN_DIR . '/bebop/core/templates/user/oer-manager.php');
 	}
-	else if ( $page == '/bebop-oers/providers/' ) {
+	else if ( $page == '/bebop-oers/accounts/' ) {
 		if ( isset( $_GET['provider'] ) ) {
 			if ( bebop_extensions::extension_exist( $_GET['provider'] ) ) {
 				include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );

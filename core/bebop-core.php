@@ -281,7 +281,7 @@ function bebop_manage_oers() {
  */
 add_action( 'bp_actions', 'bebop_manage_provider' );
 function bebop_manage_provider() {
-	if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('providers' ) ) {
+	if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('accounts' ) ) {
 		if ( isset( $_GET['provider'] ) ) {
 		global $bp;
 		$extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
@@ -333,7 +333,7 @@ function bebop_manage_provider() {
 				$OAuth->set_authorize_url( $extension['authorize_url'] );
 				
 				$OAuth->set_parameters( array( 'oauth_verifier' => $_GET['oauth_verifier'] ) );
-				$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] );
+				$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/accounts/?provider=' . $extension['name'] );
 				$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ) );
 				$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ) );
 				$OAuth->set_request_token( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_temp' ) );
@@ -345,7 +345,7 @@ function bebop_manage_provider() {
 				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token_secret', $accessToken['oauth_token_secret'] );
 				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
 				
-				bp_core_add_message( 'You have authenticated ' . $extension['display_name'] . ' syncronisation' );
+				bp_core_add_message( 'You have successfully authenticated your ' . $extension['display_name'] . ' account.' );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}
 			
@@ -371,7 +371,7 @@ function bebop_manage_provider() {
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}
 		}//End if ( isset( $_GET['provider'] ) ) {
-	}//End if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('providers' ) ) {
+	}//End if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('accounts' ) ) {
 }
 
 /*
