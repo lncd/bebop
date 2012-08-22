@@ -112,11 +112,6 @@ function bebop_slideshare_import( $extension ) {
 									
 									//Only for content which has a description.
 									if( ! empty( $description) ) {
-										//crops the content if it is too long
-										if ( strlen( $description ) > 500 ) {
-											$description = substr( $description, 0, 500 ) . " <a href='" . $action_link . "'>read more</a>";
-										}
-										
 										//This manually puts the link and description together with a line break, which is needed for oembed.
 										$item_content = $action_link . '
 										' . $description;

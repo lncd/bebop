@@ -113,12 +113,6 @@ function bebop_youtube_import( $extension ) {
 										
 										//Only for content which has a description.
 										if ( ! empty( $description ) ) {
-											//crop the content if it is too long
-											if ( strlen( $description ) > 500 ) {
-												$description = substr( $description, 0, 500 ) . " <a href='" . $this_extension['action_link'] . $item_id . "'>read more</a>";
-											}
-											
-											//This manually puts the link and description together with a line break, which is needed for oembed.
 											$item_content = $action_link . '
 											' . $description;
 										}
