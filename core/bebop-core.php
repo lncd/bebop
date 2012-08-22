@@ -287,11 +287,19 @@ function bebop_manage_provider() {
 		global $bp;
 		$extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 			if ( isset( $_POST['submit'] ) ) {
-				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
-					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', strip_tags( $_POST['bebop_' . $extension['name'] . '_username'] ), true );
-				}
 				if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
 					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
+					bp_core_add_message( 'Settings for ' . $extension['display_name'] . ' have been saved.' );
+				}
+				
+				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
+					$new_name = strip_tags( $_POST['bebop_' . $extension['name'] . '_username'] );
+					if ( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $new_name, $check_meta_value = true ) ) {
+						bp_core_add_message( $new_name . ' has been added to the ' . $extension['display_name'] . ' feed.' );
+					}
+					else {
+						bp_core_add_message( $new_name . ' already exists in the ' . $extension['display_name'] . ' feed; you cannot add it again.', 'error' );
+					}
 				}
 				
 				//RSS stuff
@@ -306,9 +314,10 @@ function bebop_manage_provider() {
 					else {
 						$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
 					}
-					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'], strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ), strip_tags( $insert_url ) );
+					$new_name = strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] );
+					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'], $new_name, strip_tags( $insert_url ) );
+					bp_core_add_message( $new_name . ' has been added to the ' . $extension['display_name'] . ' feed.' );
 				}
-				bp_core_add_message( 'Settings for ' . $extension['display_name'] . ' have been saved.' );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}//End if ( isset( $_POST['submit'] ) ) {
 			
@@ -355,7 +364,7 @@ function bebop_manage_provider() {
 				$username = $_GET['remove_username'];
 				bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $username );
 				bp_core_add_message( $username . ' has been removed from your ' . $extension['display_name'] . ' feed.' );
-			bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}
 		}//End if ( isset( $_GET['provider'] ) ) {
 	}//End if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('providers' ) ) {

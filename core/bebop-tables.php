@@ -9,7 +9,7 @@ class bebop_tables {
 		
 		if ( $wpdb->get_results( 'TRUNCATE TABLE ' . bp_core_get_table_prefix() . $table_name ) ) {
 			//if we get results, something has gone wrong...
-			bebop_tables::log_error( 'Table Truncate error', 'Could not empty the $table_name table.' );
+			bebop_tables::log_error( 'Table Truncate remove_username_from_provider', 'Could not empty the $table_name table.' );
 			return false;
 		}
 		else {
@@ -55,7 +55,7 @@ class bebop_tables {
 		}
 	}
 	
-	//function to remove user data by oer provider
+	//function to remove user data by oer provider (admin function)
 	function remove_user_from_provider( $user_id, $provider ) {
 		global $wpdb, $bp;
 		
@@ -71,7 +71,7 @@ class bebop_tables {
 	function remove_username_from_provider( $user_id, $provider, $username ) {
 		global $wpdb, $bp;
 		$like_search = $provider . '_' . $username;
-		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type =  '" . $wpdb->escape( $like_search ) . "'" ) ) || 
+		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name LIKE '%" . $wpdb->escape( $like_search ) . "%'" ) ) || 
 		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_value = '" . $wpdb->escape( $username ) . "'" ) ) ) {
 			return true;
 		}
@@ -230,6 +230,17 @@ class bebop_tables {
 			return false;
 		}
 	}
+	function check_user_meta_value_exists( $user_id, $meta_name, $meta_value ) { //function to check if user meta value aready exists for a user and an extension. THis is usd for adding multiple feeds.
+		global $wpdb;
+		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' AND meta_value = '" . $wpdb->escape( $meta_value ) . "' LIMIT 1" );
+		
+		if ( ! empty( $result->meta_value ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	/*Special function to return list of users with a specific import type */
 	function get_user_ids_from_meta_name( $meta_name ) {//function to get user id's from the meta table
 		global $wpdb;
@@ -259,9 +270,9 @@ class bebop_tables {
 		}
 	}
 	
-	function add_user_meta( $user_id, $meta_type, $meta_name, $meta_value, $allow_multiple = false ) { //function to add user meta to the user_meta table. - allow_multiple skips existence checks and inserts.
+	function add_user_meta( $user_id, $meta_type, $meta_name, $meta_value, $check_meta_value = false ) { //function to add user meta to the user_meta table. - allow_multiple skips existence checks and inserts.
 		global $wpdb;
-		if ( $allow_multiple == false ) {
+		if ( $check_meta_value == false ) {
 			if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == false ) {
 				$wpdb->query(
 								$wpdb->prepare(
@@ -272,18 +283,22 @@ class bebop_tables {
 				return true;
 			}
 			else {
-				bebop_tables::log_error( 'bebop_user_meta_error', "meta: '" . $meta_name . "' already exists for user " . $user_id . 'in type ' . $meta_type );
 				return false;
 			}
 		}
 		else {
-			$wpdb->query(
-								$wpdb->prepare(
-												'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
-												$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
-								)
-					);
-			return true;
+			if ( bebop_tables::check_user_meta_value_exists( $user_id, $meta_name, $meta_value ) == false ) {
+				$wpdb->query(
+									$wpdb->prepare(
+													'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta (user_id, meta_type, meta_name, meta_value) VALUES (%s, %s, %s, %s)',
+													$wpdb->escape( $user_id ), $wpdb->escape( $meta_type ), $wpdb->escape( $meta_name ), $wpdb->escape( $meta_value )
+									)
+						);
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 	}
 	
