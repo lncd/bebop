@@ -315,8 +315,12 @@ function bebop_manage_provider() {
 						$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
 					}
 					$new_name = strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] );
-					bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'], $new_name, strip_tags( $insert_url ) );
-					bp_core_add_message( $new_name . ' has been added to the ' . $extension['display_name'] . ' feed.' );
+					if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'], $new_name, strip_tags( $insert_url ) ) ) {
+						bp_core_add_message( $new_name . ' has been added to the ' . $extension['display_name'] . ' feed.' );
+					}
+					else {
+						bp_core_add_message( $new_name . ' already exists in the ' . $extension['display_name'] . ' feed; you cannot add it again.', 'error' );
+					}
 				}
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}//End if ( isset( $_POST['submit'] ) ) {
@@ -353,6 +357,7 @@ function bebop_manage_provider() {
 					$check_http = strpos( $check_feed, '://' );
 					if ( $check_http ) {
 						bebop_tables::remove_user_meta( $bp->loggedin_user->id, $_GET['delete_feed'] );
+						bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $_GET['delete_feed'] );
 						bp_core_add_message( $extension['display_name'] . ' feed deleted.' );
 						bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 					}

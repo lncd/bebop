@@ -61,7 +61,7 @@ class bebop_tables {
 		
 		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) || 
 		( $wpdb->get_results( 'DELETE FROM ' . $bp->activity->table_name . " WHERE component = 'bebop_oer_plugin' AND type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) ||
-		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE  user_id = '" . $wpdb->escape( $user_id ) . "' AND type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) ) {
+		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) ) {
 			return true;
 		}
 		else {
@@ -72,7 +72,7 @@ class bebop_tables {
 		global $wpdb, $bp;
 		$like_search = $provider . '_' . $username;
 		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name LIKE '%" . $wpdb->escape( $like_search ) . "%'" ) ) || 
-		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_value = '" . $wpdb->escape( $username ) . "'" ) ) ) {
+		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type = '" . $wpdb->escape( $provider ) . "' AND meta_value = '" . $wpdb->escape( $username ) . "'" ) ) ) {
 			return true;
 		}
 		else {

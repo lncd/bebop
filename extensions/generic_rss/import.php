@@ -29,9 +29,9 @@ function bebop_generic_rss_import( $extension ) {
 					$feed_name = $user_feed->meta_name;
 					$feed_url = $user_feed->meta_value;
 					
-					$import_name = str_replace( ' ', '_', $feed_name );
+					$import_username = str_replace( ' ', '_', $feed_name );
 					//Check the user has not gone past their import limit for the day.
-					if ( ! bebop_filters::import_limit_reached( $this_extension['name'] . '_' . $import_name, $user_meta->user_id ) ) {
+					if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
 						
 						/* 
 						 * ******************************************************************************************************************
@@ -80,7 +80,7 @@ function bebop_generic_rss_import( $extension ) {
 							$items = $feed->get_items();
 							if ( $items ) {
 								foreach ( $items as $item ) {
-									if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id ) ) {
+									if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
 										
 										//Edit the following variables to point to where the relevant content is being stored:
 										//$description	= $item->get_content();
@@ -111,6 +111,7 @@ function bebop_generic_rss_import( $extension ) {
 															'user_id' 			=> $user_meta->user_id,
 															'extention' 		=> $this_extension['name'],
 															'type' 				=> $this_extension['content_type'],
+															'username'			=> $import_username,							//required for day counter increases.
 															'content' 			=> $item_content,
 															'content_oembed' 	=> $this_extension['content_oembed'],
 															'item_id' 			=> $item_id,
