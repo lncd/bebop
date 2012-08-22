@@ -4,7 +4,6 @@ class bebop_filters {
 	public function day_increase( $extension, $user_id, $username ) {
 		$user_count = bebop_tables::get_user_meta_value( $user_id, 'bebop_' . $extension . '_' . $username . '_daycounter' );
 		if ( bebop_tables::get_option_value( 'bebop_' . $extension .'_maximport' ) > $user_count ) {
-			bebop_tables::log_error( 'bebop_' . $extension  . '_' . $username . '_daycounter', $user_count );
 			$new_count = $user_count + 1;
 			bebop_tables::update_user_meta( $user_id, $extension, 'bebop_' . $extension . '_' . $username . '_daycounter', $new_count );
 			return true;
