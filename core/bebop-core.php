@@ -196,7 +196,6 @@ function bebop_manage_oers() {
 								if ( bp_activity_add( $new_activity_item ) ) {
 									bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'verified' );
 									bebop_tables::update_oer_data( $data->secondary_item_id, 'activity_stream_id', $activity_stream_id = $wpdb->insert_id );
-									bebop_filters::day_increase( $data->type, $data->user_id );
 									$oer_count++;
 								}
 								else {
