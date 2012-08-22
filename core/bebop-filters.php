@@ -37,7 +37,7 @@ class bebop_filters {
 			return $returnDefault;
 		}
 		$content = strip_tags( $content );
-
+		
 		foreach ( explode( ',', $filters ) as $filterValue ) {
 			if ( $filterValue ) {
 				$filterValue = trim( $filterValue );

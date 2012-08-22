@@ -17,35 +17,46 @@ global $bp;
 $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 
 //put some options into variables
-$username = 'bebop_' . $extension['name'] . '_username';																//the username
-$$username = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );	//the username value
-
 $active = 'bebop_' . $extension['name'] . '_active_for_user';																//the active boolean name
 $$active = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_active_for_user' );	//the value of the boolean
 
 if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 	echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/providers/?provider=' . $extension['name'] . '" method="post">
 	<h3>' . $extension['display_name'] . ' Settings</h3>';
-	if ( ! empty( $$username ) ) {
-		echo '<h5>Enable ' . $extension['display_name'] . ' import?</h5>
-		<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$active == 1 ) {
-			echo 'checked';
-		} echo '>
-		<label for="yes">Yes</label>
-		<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="0"'; if ( $$active == 0 ) {
-			echo 'checked';
-		} echo '>
-		<label for="no">No</label><br>';
-	}
 	
-	echo '<label for="bebop_' . $extension['name'] . '_username">' . $extension['display_name'] . ' Username:</label>
-	<input type="text" name="bebop_' . $extension['name'] . '_username" value="' . $$username .'" size="50"><br>
+	echo '<h5>Enable ' . $extension['display_name'] . ' import?</h5>
+	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$active == 1 ) {
+		echo 'checked';
+	} echo '>
+	<label for="yes">Yes</label>
+	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="0"'; if ( $$active == 0 ) {
+		echo 'checked';
+	} echo '>
+	<label for="no">No</label><br>';
+	
+	echo '<label for="bebop_' . $extension['name'] . '_username">New ' . $extension['display_name'] . ' Username:</label>
+	<input type="text" name="bebop_' . $extension['name'] . '_username" value="" size="50"><br>
 	
 	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings" name="submit"></div>';
-	if ( ! empty( $$username ) ) {
-		echo '<div class="button_container"><a class="standard_button" href="?provider=' . $extension['name'] . '&reset=true">Remove Channel</a></div>';
-	}
+
 	echo '</form>';
+	//table of user feeds
+	$user_feeds = bebop_tables::get_user_feeds( $bp->loggedin_user->id, $extension['name'] );
+	if ( count( $user_feeds ) > 0 ) {
+		echo '<h3>Your ' . $extension['display_name'] . ' feeds</h3>';
+		echo '<table class="bebop_user_table">
+				<tr class="nodata">
+					<th>Username</th>
+					<th>Options</th>
+				</tr>';
+		foreach ( $user_feeds as $user_feed ) {
+			echo '<tr>
+				<td>' . bebop_tables::sanitise_element( $user_feed->meta_value ) . '</td>
+				<td><a href="?provider=' . $extension['name'] . '&remove_username=' . $user_feed->meta_value . '">Delete Feed</a></td>
+			</tr>';
+		}
+		echo '</table>';
+	}
 }
 else {
 	echo $extension['display_name'] . ' has not yet been configured. Please contact the blog admin to make sure ' . $extension['display_name'] . ' is configured properly.';
