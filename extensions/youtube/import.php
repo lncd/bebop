@@ -123,7 +123,7 @@ function bebop_youtube_import( $extension ) {
 										$returnCreate = bebop_create_buffer_item(
 														array(
 															'user_id' 			=> $user_meta->user_id,
-															'extention' 		=> $this_extension['name'],
+															'extension' 		=> $this_extension['name'],
 															'type' 				=> $this_extension['content_type'],
 															'username'			=> $import_username,							//required for day counter increases.
 															'content' 			=> $item_content,

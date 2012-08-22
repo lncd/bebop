@@ -130,7 +130,7 @@ function bebop_flickr_import( $extension ) {
 								
 								//check if the secondary_id already exists
 								$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
-								//if the id is found, we have the item in the database and all following items (feeds return most recent items first). Move onto the next user..
+								//if the id is found, we have the item in the database and all following items (feeds return most recent items first). Move onto the next user.
 								if ( ! empty( $secondary->secondary_item_id ) ) {
 									break;
 								}
@@ -148,7 +148,7 @@ function bebop_flickr_import( $extension ) {
 								if ( bebop_create_buffer_item(
 												array(
 													'user_id'			=> $user_meta->user_id,
-													'extention'			=> $this_extension['name'],
+													'extension'			=> $this_extension['name'],
 													'type'				=> $this_extension['content_type'],
 													'username'			=> $import_username,							//required for day counter increases.
 													'content'			=> $item_content,

@@ -80,12 +80,20 @@ class bebop_tables {
 		}
 	}
 	
+	function bebop_check_existing_content_buffer( $user_id, $extension, $content ) {
+		global $wpdb;
+		$content = strip_tags( $content );
+		$content = trim( $content );
+		
+		if ( $wpdb->get_row( 'SELECT content FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager user_id = '" . $wpdb->escape( $user_id ) . "' AND type = '" . $wpdb->escape( $extension ) . "' AND content LIKE '%" . $content . "%'" ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 	
-	/*
-	 * Plugins
-	 */
-	 
-	 function fetch_oer_data( $user_id, $extensions, $status ) { //function to retrieve oer data from the oer manager table.
+	function fetch_oer_data( $user_id, $extensions, $status ) { //function to retrieve oer data from the oer manager table.
 		global $wpdb;
 		
 		$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN ( ". stripslashes( $extensions ) . ') ORDER BY date_imported DESC' );

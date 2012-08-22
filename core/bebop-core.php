@@ -465,17 +465,17 @@ function bebop_create_buffer_item( $params ) {
 	if ( is_array( $params ) ) {
 		if ( ! bp_has_activities( 'secondary_id=' . $params['item_id'] ) ) {
 			$originalText = $params['content'];
-			$content = '';
-			if ( $params['content_oembed'] == true ) {
-				$content = $originalText;
-			}
-			else {
-				$content = '<div class="bebop_activity_container ' . $params['extention'] . '">' . $originalText . '</div>';
-			}
-			if ( ! bebop_check_existing_content_buffer( $originalText ) ) {
+			if ( ! bebop_tables::bebop_check_existing_content_buffer( $params['user_id'], $params['extension'], $originalText ) ) {
+				$content = '';
+				if ( $params['content_oembed'] == true ) {
+					$content = $originalText;
+				}
+				else {
+					$content = '<div class="bebop_activity_container ' . $params['extension'] . '">' . $originalText . '</div>';
+				}
 				$action  = '<a href="' . bp_core_get_user_domain( $params['user_id'] ) .'" title="' . bp_core_get_username( $params['user_id'] ).'">'.bp_core_get_user_displayname( $params['user_id'] ) . '</a>';
-				$action .= ' ' . __( 'posted&nbsp;a', 'bebop' . $extention['name'] ) . ' ';
-				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_'.$extention['name'] );
+				$action .= ' ' . __( 'posted&nbsp;a', 'bebop' . $extension['name'] ) . ' ';
+				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_'.$extension['name'] );
 				$action .= '</a>: ';
 				
 				$oer_hide_sitewide = 0;
@@ -489,11 +489,11 @@ function bebop_create_buffer_item( $params ) {
 					if ( $wpdb->query(
 									$wpdb->prepare(
 													'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager ( user_id, status, type, action, content, secondary_item_id, date_imported, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s )',
-													$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extention'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
+													$wpdb->escape( $params['user_id'] ), 'unverified', $wpdb->escape( $params['extension'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
 													$wpdb->escape( $params['item_id'] ), $wpdb->escape( $date_imported ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
 									)
 					) ) {
-						bebop_filters::day_increase( $params['extention'], $params['user_id'], $params['username'] );
+						bebop_filters::day_increase( $params['extension'], $params['user_id'], $params['username'] );
 					}
 					else {
 						bebop_tables::log_error( 'Importer', 'Import query error' );
@@ -509,7 +509,7 @@ function bebop_create_buffer_item( $params ) {
 			}
 		}
 		else {
-			bebop_tables::log_error('activity ' . $params['item_id'] . ' already exists', serialize($secondary));
+			bebop_tables::log_error( 'Import Error - ' . $params['extension'], $params['item_id'] . ' already exists', serialize( $secondary ) );
 			return false;
 		}
 	}
@@ -528,19 +528,6 @@ function update_bebop_status( $deleted_ids ) {
 			bebop_tables::update_oer_data( $result->secondary_item_id, 'status', 'deleted' );
 			bebop_tables::update_oer_data( $result->secondary_item_id, 'activity_stream_id', '' );
 		}
-	}
-}
-
-function bebop_check_existing_content_buffer( $content ) {
-	global $wpdb, $bp;
-	$content = strip_tags( $content );
-	$content = trim( $content );
-	
-	if ( $wpdb->get_row( 'SELECT content FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE content LIKE '%" . $content . "%'" ) ) {
-		return true;
-	}
-	else {
-		return false;
 	}
 }
 
