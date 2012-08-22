@@ -24,11 +24,9 @@ function bebop_flickr_import( $extension ) {
 	$user_metas = bebop_tables::get_user_ids_from_meta_type( $this_extension['name'] );
 	if ( $user_metas ) {
 		foreach ( $user_metas as $user_meta ) {
-			$errors = null;
-			$items 	= null;
-			
 			//Ensure the user is currently wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
+				
 				$user_feeds = bebop_tables::get_user_feeds( $user_meta->user_id , $this_extension['name']);
 				foreach ($user_feeds as $user_feed ) {
 					$errors = null;
@@ -169,7 +167,7 @@ function bebop_flickr_import( $extension ) {
 								}
 							}
 						}
-					}//End if ( ! bebop_filters::import_limit_reached( $this_extension['name'] . '_' . $import_username, $user_meta->user_id ) ) {
+					}//End if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
 				}//End foreach ($user_feeds as $user_feed ) {
 			}
 		}

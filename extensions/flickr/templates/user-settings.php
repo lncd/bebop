@@ -17,8 +17,6 @@ global $bp;
 $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 
 //put some options into variables
-
-
 $active = 'bebop_' . $extension['name'] . '_active_for_user';																//the active boolean name
 $$active = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_active_for_user' );	//the value of the boolean
 
@@ -59,7 +57,6 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		}
 		echo '</table>';
 	}
-
 }
 else {
 	echo $extension['display_name'] . ' has not yet been configured. Please contact the blog admin to make sure ' . $extension['display_name'] . ' is configured properly.';
