@@ -1,4 +1,4 @@
-<p>Here you can manage your OER's. Change the filter to switch between approved content, removed content, and unverified content.</p>
+<p>Here you can manage your OER's. Recently imported OER's are categorised as unverified, items that appear in your activity stream are categorised as verified. The deleted category holds items which you do not want to show in your activity stream.</p><br>
 <div class="button_container"><a class="standard_button min_width_100" href="?type=unverified">Unverified</a></div>
 <div class="button_container"><a class="standard_button min_width_100" href="?type=verified">Verified</a></div>
 <div class="button_container"><a class="standard_button min_width_100" href="?type=deleted">Deleted</a></div>
@@ -9,7 +9,7 @@ if ( ! empty( $type ) ) {
 	
 	if ( count( $oers ) > 0 ) {
 		echo '<form id="oer_table" class="bebop_user_form" method="post">';
-		echo '<h4>' . ucfirst( $type ) . ' OERs</h4>
+		echo '<h5>' . ucfirst( $type ) . ' OER\'s</h5>
 		<table class="bebop_user_table">
 			<tr class="nodata">
 				<th>Type</th>
@@ -32,7 +32,7 @@ if ( ! empty( $type ) ) {
 		echo '<div class="button_container button_right"><a class="standard_button" rel="#oer_table" href="#select_all">Select All</a></div>';
 		echo '<div class="button_container button_right"><a class="standard_button" rel="#oer_table" href="#select_none">Select None</a></div>';
 		
-		echo '<h4>Action</h4>';
+		echo '<h5>Action</h5>';
 		$verify_oer_option = '<label class="alt" for="verify">Verify:</label><input type="radio" name="action" id="verify" value="verify"><br>';
 		$delete_oer_option = '<label class="alt" for="delete">Delete:</label><input type="radio" name="action" id="delete" value="delete"><br>';
 		$reset_oer_option  = '<label class="alt" for="reset">Reset:</label><input type="radio" name="action" id="reset" value="reset"><br>';

@@ -21,12 +21,11 @@ $active = 'bebop_' . $extension['name'] . '_active_for_user';																//t
 $$active = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_active_for_user' );	//the value of the boolean
 
 if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on') && ( bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_consumer_key' ) ) ) {
-	echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/accounts/?provider=' . $extension['name'] . '" method="post">
-	<h3>' . $extension['display_name'] . ' Settings</h3>';
+	echo '<h5>' . $extension['display_name'] . ' Settings</h5>
+	<p>Generic settings for ' . $extension['display_name'] . '. Here you can select whether content is actively imported into WordPress.</p>';
 	
-	echo '<p>Generic settings for ' . $extension['display_name'] . '. Here you can select whether content is actively imported into WordPress.</p>';
-	
-	echo '<h5>Enable ' . $extension['display_name'] . ' import?</h5>
+	echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/accounts/?provider=' . $extension['name'] . '" method="post">	
+	<label>Enable ' . $extension['display_name'] . ' import:</label>
 	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$active == 1 ) {
 		echo 'checked';
 	} echo '>
@@ -45,7 +44,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 	//table of user feeds
 	$user_feeds = bebop_tables::get_user_feeds( $bp->loggedin_user->id, $extension['name'] );
 	if ( count( $user_feeds ) > 0 ) {
-		echo '<h3>Your ' . $extension['display_name'] . ' Usernames</h3>';
+		echo '<h5>Your ' . $extension['display_name'] . ' Usernames</h5>';
 		echo '<p>These are usernames that are set to be imported for ' . $extension['display_name'] . '. To remove a feed, click the \'Delete Feed\' link.</p>';
 		echo '<table class="bebop_user_table">
 				<tr class="nodata">

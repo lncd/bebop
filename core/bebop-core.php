@@ -362,6 +362,10 @@ function bebop_manage_provider() {
 					}
 				}
 			}
+			//resets the user's data
+				if ( isset( $_GET['reset'] ) ) {
+					bebop_tables::remove_user_meta( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );
+				}
 			
 			//resets the user's data
 			if ( isset( $_GET['remove_username'] ) ) {
