@@ -5,7 +5,7 @@
 	<div class='postbox full_width center_margin margin-bottom_22px'>
 		<h3>Bebop Errors</h3>
 		<div class='inside'>
-			Logs any errors which the plugin has produced. Please report these to dmckeown-AT-lincoln-DOT-ac-DOT-uk (replace -AT- and -DOT- as necessary) 
+			Logs any errors which the plugin has produced. Please report these to ost-AT-lincoln-DOT-ac-DOT-uk (replace -AT- and -DOT- as necessary) 
 		</div>
 	</div>
 	<?php
