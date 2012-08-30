@@ -1,8 +1,5 @@
 <?php
-//STOP CACHING THE PAGE!
 session_start();
-header( 'Cache-Control: no-cache, must-revalidate' ); // HTTP/1.1
-header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' ); // Date in the past
 /*
 Plugin Name: Bebop
 Plugin URI: http://bebop.blogs.lincoln.ac.uk/
@@ -153,9 +150,8 @@ define( 'BP_BEBOP_VERSION', '1.0' );
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
-register_deactivation_hook( __FILE__, 'bebop_deactivate' );
-//register_uninstall_hook( __FILE__, 'bebop_deactivate' );
+//register_deactivation_hook( __FILE__, 'bebop_deactivate' );
+register_uninstall_hook( __FILE__, 'bebop_deactivate' );
 
 add_action( 'bp_init', 'bebop_init', 5 );
-
 ?>
