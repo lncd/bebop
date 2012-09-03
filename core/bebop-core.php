@@ -427,10 +427,10 @@ function bebop_oer_js() {
 	wp_register_script( 'bebop-oer-js', plugins_url() . '/bebop/core/resources/js/bebop-oers.js' );
 	wp_enqueue_script( 'bebop-oer-js' );
 }
-function bebop_loop_js() {
+/*function bebop_loop_js() {
 	wp_register_script( 'bebop-loop-js', plugins_url() . '/bebop/core/resources/js/bebop-loop.js' );
 	wp_enqueue_script( 'bebop-loop-js' );
-}
+}*/
 
 /*
  * Gets the url of a page
@@ -537,13 +537,14 @@ function update_bebop_status( $deleted_ids ) {
 
 //This function loads additional filter options for the extensions.
 function load_new_options() {
+	echo 'load new options ';
 	$store = array();
 	//gets only the active extension list.
 	$active_extensions = bebop_extensions::get_active_extension_names();
 	foreach ( $active_extensions as $extension ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
 			$this_extension = bebop_extensions::get_extension_config_by_name( $extension );
-			$store[] = '<option value="' . $this_extension['name']  .'">' . $this_extension['display_name'] . '</option>';
+			$store[] = '<option value="' . $this_extension['name'] .'">' . $this_extension['display_name'] . '</option>';
 		}
 	}
 	
@@ -563,62 +564,61 @@ function load_new_options() {
  * to pull from the database needs to be created manually. */
 function dropdown_query_checker( $query_string ) {
 	global $bp;
-
-	//Passes the query string as an array as its easy to determine the page number then "if any".
-	parse_str( $query_string, $str );
-	var_dump($str);
-	$page_number = '';
-	//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
-	if ( isset( $str['page'] ) ) {
-		$page_number = '&page=' . $str['page'];
-	}
-	
-	//Checks if the all_oer has been selected or as a default on the bebop-oer page to show all_oer.
-	if ( isset( $str['type'] ) ) {
-		var_dump( $str['type'] );
-		if ( $str['type'] == 'all_oer' ) {
-			//Sets the string_build variable ready.
-			$string_build = '';
-			
-			//Loops through all the different extensions and adds the active extensions to the temp variable.
-			$active_extensions = bebop_extensions::get_active_extension_names();
-			$extensions = array();
-			foreach ( $active_extensions as $extension ) {
-				if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
-					$extensions[] = $extension;
+	$new_query_string = '';
+	//Checks if this is the oer page
+	if ( $bp->current_component == 'bebop-oers' ) {
+		
+		//Passes the query string as an array as its easy to determine the page number then "if any".
+		parse_str( $query_string, $str );
+		var_dump($str);
+		$page_number = '';
+		//This checks if there is a certain page and if so ensure it is saved to be put into the query string.
+		if ( isset( $str['page'] ) ) {
+			$page_number = '&page=' . $str['page'];
+		}
+		//Checks if the all_oer has been selected or as a default on the bebop-oer page to show all_oer.
+		if ( isset( $str['type'] ) ) {
+			if ( $str['type'] == 'all_oer' ) {
+				//Sets the string_build variable ready.
+				$string_build = '';
+				
+				//Loops through all the different extensions and adds the active extensions to the temp variable.
+				$active_extensions = bebop_extensions::get_active_extension_names();
+				$extensions = array();
+				foreach ( $active_extensions as $extension ) {
+					if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
+						$extensions[] = $extension;
+					}
 				}
-			}
-			
-			if ( ! empty( $extensions ) ) {
-				$string_build = implode( ',', $extensions );
 				
-				//Recreates the query string with the new views.
-				$query_string = 'type=' . $string_build . '&action=' . $string_build;
-				
+				if ( ! empty( $extensions ) ) {
+					$string_build = implode( ',', $extensions );
+					
+					//Recreates the query string with the new views.
+					$new_query_string = 'type=' . $string_build . '&action=' . $string_build;
+				}
 				/*Puts the current page number onto the query for the all_oer.
 				(others are dealt with by the activity stream processes)*/
-				$query_string .= $page_number;
+				$new_query_string .= $page_number;
+			}
+			else {
+				$new_query_string = 'type=' . $str['type'] . '&action=' . $str['type'] . $page_number;
+				$_COOKIE['bp-activity-filter'] = $str['type'];
 			}
 		}
-		else {
-			var_dump($bp);
-		}
-	}
-
-	//Checks if this is the oer page
-	if ( $bp->current_component === 'bebop-oers' ) {
+		
 		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
 		$_SESSION['previous_area'] = 1;
 		
 		//Sets the page number for the bebop-oers page.
-		$query_string .= '&per_page=10';
+		$new_query_string .= '&per_page=10';
 	}
 	else {
 		//This checks if the oer page was visited so it can reset the filters for the activity stream.
 		if ( isset( $_SESSION['previous_area'] ) ) {
 			unset( $_SESSION['previous_area'] );
 			
-			$query_string = ''; 
+			$new_query_string = ''; 
 			/*
 			 * This ensures that the default activity stream is reset if they have left the OER page.
 			 * "This is done to stop the dropdown list and activity stream being the same as the oer 
@@ -632,16 +632,8 @@ function dropdown_query_checker( $query_string ) {
 		}
 	}
 	//Returns the query string.
-	var_dump($query_string);
-	return $query_string;
-}
-
-
-//This adds a hook before the loading of the activity data to adjust if all_oer is selected.
-add_action( 'bp_before_activity_loop', 'load_new_options2' );
-function load_new_options2() {
-	//Adds the filter to the function to check for all_oer and rebuild the query if so.
-	add_filter( 'bp_ajax_querystring', 'dropdown_query_checker' );
+	var_dump($new_query_string);
+	return $new_query_string;
 }
 
 //This is a hook into the member activity filter options.
@@ -649,5 +641,11 @@ add_action( 'bp_member_activity_filter_options', 'load_new_options' );
 
 //This is a hook into the activity filter options.
 add_action( 'bp_activity_filter_options', 'load_new_options' );
-	
 
+//This adds a hook before the loading of the activity data to adjust if all_oer is selected.
+add_action( 'bp_before_activity_loop', 'load_new_options2' );
+function load_new_options2() {
+	//Adds the filter to the function to check for all_oer and rebuild the query if so.
+	add_filter( 'bp_ajax_querystring', 'dropdown_query_checker' );
+}
+?>

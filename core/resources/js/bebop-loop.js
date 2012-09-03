@@ -4,7 +4,6 @@
 
 
 function bebop_activity_cookie_modify(scope,filter) {
-	alert(scope + ' ' + filter);
 	/* Save the type and filter to a session cookie */
 	jq.cookie( 'bp-activity-scope', scope, {path: '/'} );
 	jq.cookie( 'bp-activity-filter', filter, {path: '/'} );
@@ -14,7 +13,7 @@ function bebop_activity_cookie_modify(scope,filter) {
 	jq('div.item-list-tabs li').each( function() {
 		jq(this).removeClass('selected loading');
 	});
-		
+	
 	/* Set the correct selected nav and filter */
 	jq('li#activity-' + scope + ', div.item-list-tabs li.current').addClass('selected');
 	jq('div#object-nav.item-list-tabs li.selected, div.activity-type-tabs li.selected').addClass('loading');

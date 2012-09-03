@@ -35,7 +35,6 @@ if ( bp_is_my_profile() ) {
 } 
 
 if ( $page == '/bebop-oers/home/' ) {
-	$_COOKIE['bp-activity-filter'] = 'all_oer';
 	add_action( 'wp_enqueue_scripts', 'bebop_loop_js' );
 	?>
 	
