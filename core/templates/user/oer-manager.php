@@ -9,8 +9,11 @@ if ( ! empty( $type ) ) {
 	
 	if ( count( $oers ) > 0 ) {
 		echo '<form id="oer_table" class="bebop_user_form" method="post">';
-		echo '<h5>' . ucfirst( $type ) . ' OER\'s</h5>
-		<table class="bebop_user_table">
+		echo '<h5>' . ucfirst( $type ) . ' OER\'s</h5>';
+		echo '<div class="button_container button_right"><a class="standard_button" rel="#oer_table" href="#select_all">Select All</a></div>';
+		echo '<div class="button_container button_right"><a class="standard_button" rel="#oer_table" href="#select_none">Select None</a></div>';
+		
+		echo '<table class="bebop_user_table">
 			<tr class="nodata">
 				<th>Type</th>
 				<th>Imported</th>

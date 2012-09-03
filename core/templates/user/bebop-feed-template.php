@@ -21,14 +21,13 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 >
 
 <channel>
-	<title><?php echo bp_site_name() ?> | <?php bebop_feed_type(); ?></title>
-	<type><?php bebop_feed_type() ?></type>
+	<title><?php bebop_feed_type(); ?></title>
 	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 	<link><?php bebop_feed_url() ?></link>
 	<description><?php bebop_feed_description() ?></description>
 	<pubDate><?php echo mysql2date('D, d M Y H:i:s O', bp_activity_get_last_updated(), false); ?></pubDate>
 	<generator>http://buddypress.org/?v=<?php echo BP_VERSION ?></generator>
-	<language><?php echo get_option('rss_language'); ?></language>
+	<language>en-uk</language>
 	<?php do_action('bp_activity_personal_comment_feed_head'); ?>
 	
 	<?php
@@ -56,6 +55,10 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 		</item>
 		<?php
 		endwhile;
+	}
+	else
+	{
+		echo 'no \'' .  bebop_feed_type() . '\' data found.';
 	}
 	?>
 </channel>

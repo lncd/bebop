@@ -7,7 +7,8 @@ Description: Bebop is the name of a rapid innovation project funded by the Joint
 Version: 1.0
 Authors: Dale Mckeown, David Whitehead
 Author URI: http://phone.online.lincoln.ac.uk/dmckeown, http://phone.online.lincoln.ac.uk/dwhitehead
-License: TBA
+License: GNU General Public Licence - https://www.gnu.org/copyleft/gpl.html
+Copyright 2012 The University of Lincoln - http://www.lincoln.ac.uk.
 Credits: BuddySteam - buddystream.net
 */
 // This plugin is intended for use on BuddyPress only.
