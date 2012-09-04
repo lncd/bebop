@@ -6,10 +6,10 @@
  */
 header( 'Cache-Control: no-cache, must-revalidate' ); // HTTP/1.1
 header( 'Expires: Mon, 26 Jul 1997 05:00:00 GMT' ); // Date in the past
-header('Content-Type: text/xml; charset=' . get_option('blog_charset'), true);
-header('Status: 200 OK');
+header( 'Content-Type: text/xml; charset=' . get_option( 'blog_charset' ), true );
+header( 'Status: 200 OK' );
 
-echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
+echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'"?'.'>';
 ?>
 
 <rss version="2.0"
@@ -17,7 +17,7 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
 	xmlns:dc="http://purl.org/dc/elements/1.1/"
 	xmlns:atom="http://www.w3.org/2005/Atom"
-	<?php do_action('bp_activity_personal_feed'); ?>
+	<?php do_action( 'bp_activity_personal_feed' ); ?>
 >
 
 <channel>
@@ -25,10 +25,10 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 	<atom:link href="<?php self_link(); ?>" rel="self" type="application/rss+xml" />
 	<link><?php bebop_feed_url() ?></link>
 	<description><?php bebop_feed_description() ?></description>
-	<pubDate><?php echo mysql2date('D, d M Y H:i:s O', bp_activity_get_last_updated(), false); ?></pubDate>
+	<pubDate><?php echo mysql2date( 'D, d M Y H:i:s O', bp_activity_get_last_updated(), false ); ?></pubDate>
 	<generator>http://buddypress.org/?v=<?php echo BP_VERSION ?></generator>
 	<language>en-uk</language>
-	<?php do_action('bp_activity_personal_comment_feed_head'); ?>
+	<?php do_action( 'bp_activity_personal_comment_feed_head' ); ?>
 	
 	<?php
 	
@@ -40,7 +40,7 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 			<type><?php echo bp_activity_action_name(); ?></type>
 			<title><![CDATA[<?php bp_activity_feed_item_title() ?>]]></title>
 			<link><?php echo bp_activity_thread_permalink() ?></link>
-			<pubDate><?php echo mysql2date('D, d M Y H:i:s O', bp_activity_feed_item_date(), false); ?></pubDate>
+			<pubDate><?php echo mysql2date( 'D, d M Y H:i:s O', bp_activity_feed_item_date(), false ); ?></pubDate>
 			<description><![CDATA[<?php bp_activity_feed_item_description();
 			if ( bp_activity_can_comment() ) { ?>
 				<p><?php printf( __( 'Comments: %s', 'buddypress' ), bp_activity_get_comment_count() ); ?></p>
@@ -51,7 +51,7 @@ echo '<?xml version="1.0" encoding="'.get_option('blog_charset').'"?'.'>';
 				<?php bp_activity_parent_content();
 				}
 			?>]]></description>
-			<?php do_action('bp_activity_personal_feed_item'); ?>
+			<?php do_action( 'bp_activity_personal_feed_item' ); ?>
 		</item>
 		<?php
 		endwhile;

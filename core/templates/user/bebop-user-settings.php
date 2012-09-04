@@ -37,7 +37,6 @@ if ( bp_is_my_profile() ) {
 if ( $page == '/bebop-oers/home/' ) {
 	add_action( 'wp_enqueue_scripts', 'bebop_loop_js' );
 	?>
-	
 	<!-- This overrides the current filter in the cookie to nothing "i.e.
 		on page refresh it will reset back to default" -->
 	<script type='text/javascript'>
@@ -49,6 +48,23 @@ if ( $page == '/bebop-oers/home/' ) {
 		and modified due to lack of pratical hooks. Taken from bp_activity_request(scope, filter).*/ ?>
 		bebop_activity_cookie_modify( scope,filter );
 	</script>
+	
+	<div class='bebop_rss_feeds'>
+		<?php
+		$rss_active_extensions = array();
+		$extensions = bebop_extensions::get_active_extension_names();
+		foreach ( $extensions as $extension ) {
+			if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {
+				$rss_active_extensions[] = $extension;
+			}
+		}	
+		
+		foreach ( $active_feed as $feed )
+		{
+			
+		}
+		?>
+	</div>
 	
 	<!-- This section creates the drop-down menu with its classes hooked into buddypress -->
 	<div class='item-list-tabs no-ajax' id='subnav' role='navigation'>

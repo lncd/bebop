@@ -537,7 +537,6 @@ function update_bebop_status( $deleted_ids ) {
 
 //This function loads additional filter options for the extensions.
 function load_new_options() {
-	echo 'load new options ';
 	$store = array();
 	//gets only the active extension list.
 	$active_extensions = bebop_extensions::get_active_extension_names();
@@ -563,7 +562,6 @@ function load_new_options() {
  * as well as the all_oer option. This is because the all_oer is not a type thus the query for what
  * to pull from the database needs to be created manually. */
 function dropdown_query_checker( $query_string ) {
-	
 	global $bp;
 	$new_query_string = '';
 	//Checks if this is the oer page
