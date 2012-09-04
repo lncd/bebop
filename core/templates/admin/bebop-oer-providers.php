@@ -18,7 +18,7 @@ else {
 		</div>
 		
 		<form method='post' class='bebop_admin_form no_border'>
-			<table class="widefat margin-top_22px">
+			<table class="widefat margin-top_22px margin-bottom_22px">
 				<thead>
 					<tr>
 						<th>Extension Name</th>

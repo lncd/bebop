@@ -47,10 +47,10 @@
 	font-size:16px;
 	font-weight:normal;
 	line-height:45px;
-	margin:0 auto;
+	margin:0 1% 0 0;
 	min-height:100px;
 	border-radius:7px;
-	width:96.5%;
+	width:99%;
 }
 .bebop_admin_box a {
 	text-decoration:none;
@@ -65,10 +65,13 @@
 }
 
 .postbox-container {
-	width:50%;
+	width:49%;
+	margin-right:1%;
 }
+
+
 .postbox {
-	margin:22px 30px 0px 30px;
+	margin:22px 0 0 0;
 	border-radius:7px;
 	background:#eeeeee;
 	padding:0px;

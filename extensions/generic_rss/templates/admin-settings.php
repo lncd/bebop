@@ -50,7 +50,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			?>
 		</fieldset>
 		
-		<div class='bebop_button_container'><button id='submit' name='submit'>Save Changes</button></div>	
+		<input class='button-primary' type='submit' id='submit' name='submit' value='Save Changes'>
 	</form>
 	<?php
 	
@@ -58,32 +58,43 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $extension['name'] . '_active_for_user' );
 	if ( count( $user_metas ) > 0 ) {
 		?>
-		<table class='bebop_settings_table'>
-			<tr class='nodata'>
-				<th colspan='5'><?php echo $extension['display_name']; ?> Users</th>
-			</tr>
-			
-			<tr class='nodata'>
-				<td class='bold'>User ID</td>
-				<td class='bold'>Username</td>
-				<td class='bold'>User email</td>
-				<td class='bold'>Options</td>
-			</tr>
-			<?php	
-			/*
-			 * Loops through each user and prints their details to the screen.
-			 */
-			foreach ( $user_metas as $user ) {	
-				$this_user = get_userdata( $user->user_id );
-				echo '<tr>
-					<td>' . bebop_tables::sanitise_element( $user->user_id ) . '</td>
-					<td>' . bebop_tables::sanitise_element( $this_user->user_login ) . '</td>
-					<td>' . bebop_tables::sanitise_element( $this_user->user_email ) . '</td>' .
-					"<td><a href='?page=bebop_oer_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>Reset User</a></td>
-				</tr>";
-			}
-		?>
-		<!-- <End bebop_table -->
+		<table class="widefat margin-top_22px margin-bottom_22px">
+			<thead>
+				<tr>
+					<th colspan='5'><?php echo $extension['display_name']; ?> Users</th>
+				</tr>
+				<tr>
+					<td class='bold'>User ID</td>
+					<td class='bold'>Username</td>
+					<td class='bold'>User email</td>
+					<td class='bold'>Options</td>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td class='bold'>User ID</td>
+					<td class='bold'>Username</td>
+					<td class='bold'>User e	mail</td>
+					<td class='bold'>Options</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<?php
+				/*
+				 * Loops through each user and prints their details to the screen.
+				 */
+				foreach ( $user_metas as $user ) {
+					$this_user = get_userdata( $user->user_id );
+					echo '<tr>
+						<td>' . bebop_tables::sanitise_element( $user->user_id ) . '</td>
+						<td>' . bebop_tables::sanitise_element( $this_user->user_login ) . '</td>
+						<td>' . bebop_tables::sanitise_element( $this_user->user_email ) . "</td>
+						<td><a href='?page=bebop_oer_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>Reset User</a></td>
+					</tr>";
+				}
+			?>
+			<!-- <End bebop_table -->
+			</tbody>
 		</table>
 		<?php
 	}
