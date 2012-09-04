@@ -12,27 +12,37 @@
 	$table_row_data = bebop_tables::fetch_table_data( 'bp_bebop_error_log' );
 	if ( count( $table_row_data ) > 0 ) {
 		?>
-		<div class='button_container'><a class='options_button' href="<?php echo $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ); ?>&clear_table=true">Flush table data</a></div>
-		<div class='clear'></div>
+		<a class='button-secondary' href="<?php echo $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ); ?>&clear_table=true">Flush table data</a>
 		
-		<table class='bebop_table'>
-			<tr class='nodata'>
-				<th>Error ID</th>
-				<th>Timestamp</th>
-				<th>Error Type</th>
-				<th>Error Message</th>
-			</tr>
-			<?php
-			foreach ( $table_row_data as $row_data ) {
+		<table class="widefat margin-top_22px">
+			<thead>
+				<tr>
+					<th>Error ID</th>
+					<th>Timestamp</th>
+					<th>Error Type</th>
+					<th>Error Message</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<th>Error ID</th>
+					<th>Timestamp</th>
+					<th>Error Type</th>
+					<th>Error Message</th>
+				</tr>
+			</tfoot>
+			<tbody>
+				<?php
+				foreach ( $table_row_data as $row_data ) {
 				echo '<tr>
-					<td>' . bebop_tables::sanitise_element( $row_data->id ) . '</td>
-					<td>' . bebop_tables::sanitise_element( $row_data->timestamp ) . '</td>
-					<td>' . bebop_tables::sanitise_element( $row_data->error_type ) . '</td>
-					<td>' . bebop_tables::sanitise_element( $row_data->error_message ) . '</td>
+					<td>' . bebop_tables::sanitise_element( $row_data->id ) . '</td>' .
+					'<td>' . bebop_tables::sanitise_element( $row_data->timestamp ) . '</td>
+					<td>' . bebop_tables::sanitise_element( $row_data->type ) . '</td>
+					<td>' . bebop_tables::sanitise_element( $row_data->message ) . '</td>
 				</tr>';
 			}
 			?>
-		<!-- <End bebop_table -->
+			</tbody>
 		</table>
 		<?php
 	}

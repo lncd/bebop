@@ -21,7 +21,7 @@
 			<input type='text' id='traditional_cron' value="wget <?php echo plugins_url() . '/bebop/import.php -O /dev/null -q'?>" size='75' READONLY>
 			<div class="clear"></div>
 		</fieldset>
-		<div class='button_container'><button id='submit' name='submit'>Save Changes</button></div>	
+		<input class='button-primary' type='submit' id='submit' name='submit' value='Save Changes'>
 	</form>
 	<div class="clear"></div>
 </div>

@@ -1,10 +1,10 @@
 /* Bebop admin style sheet */
 #bebop_admin_container {
 	min-height:400px;
-	width:97%;
+	width:99%;
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	border:0px solid #00FF00;
-	margin:91px auto 0 auto;
+	margin:20px 1% 0 0;
 	border:0px solid #000000;
 }
 #bebop_admin_container a {
@@ -70,15 +70,15 @@
 .postbox {
 	margin:22px 30px 0px 30px;
 	border-radius:7px;
-    background:#eeeeee;
-    padding:0px;
-    text-align: justify;
+	background:#eeeeee;
+	padding:0px;
+	text-align: justify;
 }
 .postbox h3 {
 	padding:10px;
 	font-size: 16pt;
 	margin:0;
-    font-weight:normal;
+	font-weight:normal;
 }
 .postbox.inside {
 	padding:0px 2px 8px 2px;
@@ -103,56 +103,6 @@
 .center_margin {
 	margin-left:auto;
 	margin-right:auto;
-}
-
-.bebop_admin_menu {
-	display:inline-block;
-	position:absolute;
-	z-index:1;
-	width:100%;
-	top:0;
-	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
-	margin:27px auto 0 auto;
-	height:auto;
-	border-bottom:5px solid #eeeeee;
-	text-align:center;
-}
-.bebop_admin_menu a {
-	display:inline-block;
-	padding:10px;
-	margin-right:4px;
-	background-color:#D9D9D9;
-	color:#000000;
-	text-decoration:none;
-	font-size:16px;
-	border-top-left-radius:5px;
-	border-top-right-radius:5px;
-	border-left:1px solid #dfdfdf;
-	border-right:1px solid #dfdfdf;
-	border-top:1px solid #dfdfdf;
-	cursor: pointer;
-}
-.bebop_admin_menu a:hover {
-	background-color:#000000;
-	border-color:#FFFACD;
-	color:#000000;
-	background-image:linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-	background-image:-o-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-	background-image:-moz-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-	background-image:-webkit-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-	background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #FBEC5D), color-stop(0.5, #FFFACD));
-	background-image:-ms-linear-gradient(bottom, #FBEC5D 30%, #FFFACD 70%); 
-}
-.bebop_admin_menu .activetab,.bebop_admin_menu .activetab:hover {
-	background-color:#444444;
-	border-color:#444444;
-	color:#ffffff;
-	background-image:linear-gradient(bottom, #000000 50%, #444444 50%);
-	background-image:-o-linear-gradient(bottom, #000000 50%, #444444 50%);
-	background-image:-moz-linear-gradient(bottom, #000000 50%, #444444 50%);
-	background-image:-webkit-linear-gradient(bottom, #000000 50%, #444444 50%);
-	background-image:-ms-linear-gradient(bottom, #000000 50%, #444444 50%);
-	background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.5, #000000), color-stop(0.5, #444444));
 }
 .bebop_table, .bebop_settings_table {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
@@ -191,14 +141,20 @@
 }
 
 .bebop_table a {
-    text-decoration:none;
-    color:#000000;
+	text-decoration:none;
+	color:#000000;
 }
 .width_98 {
 	width:98.5%;
 }
 .margin-bottom_22px {
 	margin-bottom:22px;
+}
+.margin-top_22px {
+	margin-top:22px;
+}
+.margin-top_40px {
+	margin-top:40px;
 }
 .bebop_admin_form {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
@@ -241,46 +197,6 @@
 .bebop_admin_form input {
 	padding:5px;
 	margin:5px 0;
-}
-.button_container {
-	display:inline-block;
-	margin:0px 15px 0 0;
-	padding:3px 0;
-}
-
-.bebop_admin_form button, .options_button {
-	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
-	font-size:15px;
-	margin:0px auto;
-	padding:10px;
-	text-align:center;
-	background-image:linear-gradient(bottom, #FFD492 50%, #FFFACD 50%);
-	background-image:-o-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-	background-image:-moz-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-	background-image:-webkit-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%);
-	background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #FBEC5D), color-stop(0.5, #FFFACD));
-	background-image:-ms-linear-gradient(bottom, #FBEC5D 50%, #FFFACD 50%); 
-	border-radius:4px;
-	text-decoration:none;
-	color:#000000;
-	border:none;
-}
-.options_button {
-	float:left;
-	display:inline-block;
-}
-.bebop_admin_form button:hover, .options_button:hover {
-	background-image:linear-gradient(bottom, #000000 50%, #444444 50%);
-	background-image:-o-linear-gradient(bottom, #000000 50%, #444444 50%);
-	background-image:-moz-linear-gradient(bottom, #000000 50%, #444444 50%);
-	background-image:-webkit-linear-gradient(bottom, #000000 50%, #444444 50%);
-	background-image:-webkit-gradient(linear, left bottom, left top, color-stop(0.5, #000000), color-stop(0.5, #444444));
-	background-image:-ms-linear-gradient(bottom, #000000 50%, #444444 50%); 
-	color:#FFFFFF !important;
-}
-.button_container:active {
-	padding-top:4px;
-	padding-bottom:2px;
 }
 .no_border {
 	border:0px;

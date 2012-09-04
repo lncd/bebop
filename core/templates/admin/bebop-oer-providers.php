@@ -18,38 +18,53 @@ else {
 		</div>
 		
 		<form method='post' class='bebop_admin_form no_border'>
-		<table class='bebop_table'>
-			<tr class='nodata'>
-				<th>Extension Name</th>
-				<th>Active Users</th>
-				<th>Inactive Users</th>
-				<th colspan=>Unverified OERs</th>
-				<th colspan=>Verified OERs</th>
-				<th colspan=>Deleted OERs</th>
-				<th colspan='2'>Options</th>
-			</tr>
-			<?php
-			//loop throught extensions directory and get all extensions
-			foreach ( bebop_extensions::get_extension_configs() as $extension ) {
-						echo '<tr>
-					<td>' . $extension['display_name'] . '</td>
-					<td>' . bebop_tables::count_users_using_extension( $extension['name'], 1 ) . '</td>
-					<td>' . bebop_tables::count_users_using_extension( $extension['name'], 0 ) . '</td>
-					<td><a href="?page=bebop_oers&type=unverified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</a></td>
-					<td><a href="?page=bebop_oers&type=verified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</a></td>
-					<td><a href="?page=bebop_oers&type=deleted">' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</a></td>
-					<td>';
-					echo "<label for='bebop_" . $extension['name'] . "_provider'>Enabled:</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
-					if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
-						echo 'CHECKED';
+			<table class="widefat margin-top_22px">
+				<thead>
+					<tr>
+						<th>Extension Name</th>
+						<th>Active Users</th>
+						<th>Inactive Users</th>
+						<th colspan=>Unverified OERs</th>
+						<th colspan=>Verified OERs</th>
+						<th colspan=>Deleted OERs</th>
+						<th colspan='2'>Options</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<th>Extension Name</th>
+						<th>Active Users</th>
+						<th>Inactive Users</th>
+						<th colspan=>Unverified OERs</th>
+						<th colspan=>Verified OERs</th>
+						<th colspan=>Deleted OERs</th>
+						<th colspan='2'>Options</th>
+					</tr>
+				</tfoot>
+				<tbody>
+				<?php
+					//loop throught extensions directory and get all extensions
+					foreach ( bebop_extensions::get_extension_configs() as $extension ) {
+							echo '<tr>
+						<td>' . $extension['display_name'] . '</td>
+						<td>' . bebop_tables::count_users_using_extension( $extension['name'], 1 ) . '</td>
+						<td>' . bebop_tables::count_users_using_extension( $extension['name'], 0 ) . '</td>
+						<td><a href="?page=bebop_oers&type=unverified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</a></td>
+						<td><a href="?page=bebop_oers&type=verified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</a></td>
+						<td><a href="?page=bebop_oers&type=deleted">' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</a></td>
+						<td>';
+						echo "<label for='bebop_" . $extension['name'] . "_provider'>Enabled:</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
+						if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
+							echo 'CHECKED';
+						}
+						echo '></td>
+						<td><a href="?page=bebop_oer_providers&provider=' . strtolower( $extension['name'] ) . '">Settings</a></td>
+					</tr>';
 					}
-					echo '></td>
-					<td><a href="?page=bebop_oer_providers&provider=' . strtolower( $extension['name'] ) . '">Settings</a></td>
-				</tr>';
-			}
-			?>
+				?>
+				</tbody>
 			</table>
-			<div class='button_container'><button id='submit' name='submit'>Save Changes</button></div>
+			<input class='button-primary' type='submit' id='submit' name='submit' value='Save Changes'>
 		</form>
 	<!-- End bebop_admin_container -->
 	</div>

@@ -34,7 +34,6 @@
 				$oers = bebop_tables::admin_fetch_oer_data( 'verified', 20 );
 				
 				if ( count( $oers ) > 0 ) {
-					
 					echo '<table class="postbox_table">
 						<tr class="nodata">
 							<th>Username</th>
