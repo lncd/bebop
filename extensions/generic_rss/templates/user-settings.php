@@ -41,7 +41,8 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	<label for="bebop_' . $extension['name'] . '_newfeedurl">New Feed URL:</label>
 	<input type="text" name="bebop_' . $extension['name'] . '_newfeedurl" size="75"><br>
 	
-	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings" name="submit"></div>
+	<div class="button_container"><input class="auto button" type="submit" id="submit" name="submit" value="Save Changes"></div>
+	<div class="clear_both"></div>
 	</form>';
 	//table of user feeds
 	$user_feeds = bebop_tables::get_user_feeds( $bp->loggedin_user->id, $extension['name'] );

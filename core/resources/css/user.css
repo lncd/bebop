@@ -16,7 +16,9 @@
 	display:inline-block;
 	margin:0px 15px 0 0;
 	padding:3px 0;
+	float:left;
 }
+
 .standard_button {
 	float:left;
 	display:inline-block;

@@ -35,10 +35,12 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 			echo 'checked';
 		} echo '>
 		<label for="no">No</label><br>
-		<div class="button_container"><input type="submit" name="submit" class="standard_button" value="Save Settings" name="submit"></div>';
+		<div class="button_container"><input class="auto button" type="submit" id="submit" name="submit" value="Save Changes"></div>';
+		echo '<div class="clear_both"></div>';
 			
 		if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token' ) ) {
-			echo '<div class="button_container"><a class="standard_button" href="?provider=' . $extension['name'] . '&reset=true">Remove Authorisation</a></div>';
+			echo '<div class="button_container"><a class="auto button" href="?provider=' . $extension['name'] . '&reset=true">Remove Authorisation</a></div>';
+			echo '<div class="clear_both"></div>';
 		}
 		echo '</form>';
 	}
@@ -68,7 +70,8 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		//get the redirect url for the user
 		$redirectUrl = $OAuth->get_redirect_url();
 		if ( $redirectUrl ) {
-			echo '<div class="button_container"><a class="standard_button" href="' . $redirectUrl . '" class="standard_button">Start Authorisation</a></div>';
+			echo '<div class="button_container"><a class="auto button" href="' . $redirectUrl . '">Start Authorisation</a></div>';
+			echo '<div class="clear_both"></div>';
 		}
 		else {
 			echo 'authentication is all broken :(';

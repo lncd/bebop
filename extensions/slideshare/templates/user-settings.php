@@ -39,7 +39,8 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 	echo '<label for="bebop_' . $extension['name'] . '_username">New ' . $extension['display_name'] . ' Username:</label>
 	<input type="text" name="bebop_' . $extension['name'] . '_username" value="" size="50"><br>
 	
-	<div class="button_container"><input type="submit" class="standard_button" value="Save Settings" name="submit"></div>';
+	<div class="button_container"><input class="auto button" type="submit" id="submit" name="submit" value="Save Changes"></div>';
+	echo '<div class="clear_both"></div>';
 	
 	echo '</form>';
 	//table of user feeds

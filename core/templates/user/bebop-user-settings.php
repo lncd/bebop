@@ -27,7 +27,7 @@ if ( bp_is_my_profile() ) {
 				
 				foreach ( $active_extensions as $extension ) {
 					$extension = bebop_extensions::get_extension_config_by_name( strtolower($extension ) );
-					echo '<div class="button_container"><a class="standard_button provider_button" href="?provider=' . $extension['name'] .'">' . $extension['display_name'] . '</a></div>';
+					echo '<div class="button_container"><a class="auto button min_width_100" href="?provider=' . $extension['name'] .'">' . $extension['display_name'] . '</a></div>';
 				}
 			}
 		}

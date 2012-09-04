@@ -1,7 +1,8 @@
 <p>Here you can manage your OER's. Recently imported OER's are categorised as unverified, items that appear in your activity stream are categorised as verified. The deleted category holds items which you do not want to show in your activity stream.</p><br>
-<div class="button_container"><a class="standard_button min_width_100" href="?type=unverified">Unverified</a></div>
-<div class="button_container"><a class="standard_button min_width_100" href="?type=verified">Verified</a></div>
-<div class="button_container"><a class="standard_button min_width_100" href="?type=deleted">Deleted</a></div>
+<div class="button_container"><a class="auto button min_width_100" href="?type=unverified">Unverified</a></div>
+<div class="button_container"><a class="auto button min_width_100" href="?type=verified">Verified</a></div>
+<div class="button_container"><a class="auto button min_width_100" href="?type=deleted">Deleted</a></div>
+<div class="clear_both"></div>
 <?php
 $type = bebop_get_oer_type();
 if ( ! empty( $type ) ) {
@@ -10,8 +11,9 @@ if ( ! empty( $type ) ) {
 	if ( count( $oers ) > 0 ) {
 		echo '<form id="oer_table" class="bebop_user_form" method="post">';
 		echo '<h5>' . ucfirst( $type ) . ' OER\'s</h5>';
-		echo '<div class="button_container button_right"><a class="standard_button" rel="#oer_table" href="#select_all">Select All</a></div>';
-		echo '<div class="button_container button_right"><a class="standard_button" rel="#oer_table" href="#select_none">Select None</a></div>';
+		echo '<div class="button_container button_right"><a class="auto button" rel="#oer_table" href="#select_all">Select All</a></div>';
+		echo '<div class="button_container button_right"><a class="auto button" rel="#oer_table" href="#select_none">Select None</a></div>';
+		echo '<div class="clear_both"></div>';
 		
 		echo '<table class="bebop_user_table">
 			<tr class="nodata">
@@ -32,8 +34,8 @@ if ( ! empty( $type ) ) {
 			'</tr>';
 		}
 		echo '</table>';
-		echo '<div class="button_container button_right"><a class="standard_button" rel="#oer_table" href="#select_all">Select All</a></div>';
-		echo '<div class="button_container button_right"><a class="standard_button" rel="#oer_table" href="#select_none">Select None</a></div>';
+		echo '<div class="button_container button_right"><a class="auto button" rel="#oer_table" href="#select_all">Select All</a></div>';
+		echo '<div class="button_container button_right"><a class="auto button" rel="#oer_table" href="#select_none">Select None</a></div>';
 		
 		echo '<h5>Action</h5>';
 		$verify_oer_option = '<label class="alt" for="verify">Verify:</label><input type="radio" name="action" id="verify" value="verify"><br>';
@@ -50,7 +52,7 @@ if ( ! empty( $type ) ) {
 			echo $reset_oer_option;
 		}
 			
-		echo '<div class="button_container"><input type="submit" class="standard_button clear_both" value="Submit"></div>
+		echo '<div class="button_container"><input class="auto button" type="submit" id="submit" name="submit" value="Save Changes"></div>
 		</form>';
 	}
 	else {
