@@ -4,7 +4,7 @@ session_start();
 Plugin Name: Bebop
 Plugin URI: http://bebop.blogs.lincoln.ac.uk/
 Description: Bebop is the name of a rapid innovation project funded by the Joint Information Systems Committee (JISC) and developed by the University of Lincoln. The project involved the utilisation of OER's from 3rd party providers such as YouTube, Vimeo, SlideShare and Flickr.
-Version: 1.0
+Version: 1.1
 Authors: Dale Mckeown, David Whitehead
 Author URI: http://phone.online.lincoln.ac.uk/dmckeown, http://phone.online.lincoln.ac.uk/dwhitehead
 License: GNU General Public Licence - https://www.gnu.org/copyleft/gpl.html
@@ -147,7 +147,7 @@ function bebop_cron_function() {
 	require_once( 'import.php' );
 }
 
-define( 'BP_BEBOP_VERSION', '1.0' );
+define( 'BP_BEBOP_VERSION', '1.1' );
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
