@@ -26,7 +26,7 @@ if ( bp_is_my_profile() ) {
 				<p>To add an account, click on the relevant button below. You will then be guided through the setup process.</p><br></div>';
 				
 				foreach ( $active_extensions as $extension ) {
-					$extension = bebop_extensions::get_extension_config_by_name( strtolower($extension ) );
+					$extension = bebop_extensions::get_extension_config_by_name( strtolower( $extension ) );
 					echo '<div class="button_container"><a class="auto button min_width_100" href="?provider=' . $extension['name'] .'">' . $extension['display_name'] . '</a></div>';
 				}
 			}
@@ -48,23 +48,6 @@ if ( $page == '/bebop-oers/home/' ) {
 		and modified due to lack of pratical hooks. Taken from bp_activity_request(scope, filter).*/ ?>
 		bebop_activity_cookie_modify( scope,filter );
 	</script>
-	
-	<div class='bebop_rss_feeds'>
-		<?php
-		$rss_active_extensions = array();
-		$extensions = bebop_extensions::get_active_extension_names();
-		foreach ( $extensions as $extension ) {
-			if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {
-				$rss_active_extensions[] = $extension;
-			}
-		}	
-		
-		foreach ( $active_feed as $feed )
-		{
-			
-		}
-		?>
-	</div>
 	
 	<!-- This section creates the drop-down menu with its classes hooked into buddypress -->
 	<div class='item-list-tabs no-ajax' id='subnav' role='navigation'>

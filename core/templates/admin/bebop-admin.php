@@ -20,7 +20,7 @@
 		<div class="postbox">
 			<h3>Support</h3>
 			<div class="inside">
-				While we cannot guarantee official support, we will always do what we can to help people sing this plugin. For support, please contact ost-AT-lincoln-DOT-ac-DOT-uk (replace -AT- and -DOT- as necessary) 
+				While we cannot guarantee official support, we will always do what we can to help people sing this plugin. For support, please see our <a target="_blank" href="https://github.com/lncd/bebop/wiki">Github Wiki</a>.
 			</div>
 		</div>
 	<!-- End postbox-container -->
