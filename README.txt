@@ -33,7 +33,7 @@ Feature Updates:
 Bug fixes
 1. A bug was fixed which made the OER filter tab dislay the wrong text.
 2. RSS feeds now validate.
-
+3. Fixed deactivation bug where bebop_tables class is not found.
 Other
 Support email changed to github wiki.
 
