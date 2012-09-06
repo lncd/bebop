@@ -22,4 +22,19 @@ Requirements.
 
 == Changelog ==
 
-v1.0 - Initial release.
+v1.1 - 06.09.2012
+
+Feature Updates:
+1. RSS feeds are not shown for bebop content in the activity streams. The extension RSS feed for the user is shown, and the "all OER" feed is shown if more than one feed is active.
+2. The Twitter extension has been updated to conform with the new Twitter API.
+3. The admin interface has been replaced by standard WordPress and BuddyPress markup, resulting in a more "WordPressy" feel.
+4. The user interface has been replaced by standard WordPress and BuddyPress markup, resulting in a more "WordPressy" feel.
+
+Bug fixes
+1. A bug was fixed which made the OER filter tab dislay the wrong text.
+2. RSS feeds now validate.
+
+Other
+Support email changed to github wiki.
+
+v1.0 - 30.08.2012 - Initial release.
