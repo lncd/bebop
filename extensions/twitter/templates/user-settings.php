@@ -20,7 +20,7 @@ $extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['
 $variable_name = 'bebop_' . $extension['name'] . '_active_for_user';																//the name of the variable
 $$variable_name = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_active_for_user' );	//the value of the variable
 
-if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on') && ( bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_consumer_key' ) ) ) {
+if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on') && ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ) ) ) {
 	if ( ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token' ) ) && ( bebop_tables::check_user_meta_exists( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' ) ) ) {
 		echo '<h5>' . $extension['display_name'] . ' Settings</h5>
 		<p>Generic settings for ' . $extension['display_name'] . '. Here you can select whether content is actively imported into WordPress.</p>';
