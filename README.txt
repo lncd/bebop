@@ -40,9 +40,9 @@ Bug fixes
 4. Fixed import twitter bug where no username is specified.
 5. Fixed error log not displaying properly.
 6. Fixed a user settings bug where edit options were available but no API key is set in the admin panel.
-
 7. Fixed bug where same content is loaded when the 'load more' button is clicked.
-8. Fixed a bug where the OER filter is displaying an extra content from other plugins.
+
+8. Fixed a bug where the OER filter is displaying extra content filters from other plugins.
 
 
 Other
