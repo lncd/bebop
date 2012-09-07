@@ -4,7 +4,7 @@
 
 function get_feed_config() {
 	$config = array(
-		'name' 				=> 'Feed',
+		'name' 				=> 'feed',
 		'display_name'		=> 'Feed',
 		'type'				=> 'Feed',
 		'pages'				=> array( 'settings', ),
