@@ -30,7 +30,8 @@ Feature Updates:
 3. The admin interface has been replaced by standard WordPress and BuddyPress markup, resulting in a more "WordPressy" feel.
 4. The user interface has been replaced by standard WordPress and BuddyPress markup, resulting in a more "WordPressy" feel.
 5. Import scripts that require an API key now log to the general log instead of the error log incase a API key is not found. Changed because it is not specifically a Bebop error, but a user error.
-6. changes admin settings link in OER providers to a button.
+6. Changed admin settings link in OER providers to a button.
+7. Changed 'Generic RSS' extension to 'Feed' Extension
 
 Bug fixes
 1. A bug was fixed which made the OER filter tab dislay the wrong text.
@@ -39,6 +40,9 @@ Bug fixes
 4. Fixed import twitter bug where no username is specified.
 5. Fixed error log not displaying properly.
 6. Fixed a user settings bug where edit options were available but no API key is set in the admin panel.
+
+7. Fixed bug where same content is loaded when the 'load more' button is clicked.
+8. Fixed a bug where the OER filter is displaying an extra content from other plugins.
 
 
 Other

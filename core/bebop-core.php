@@ -562,6 +562,7 @@ function load_new_options() {
  * as well as the all_oer option. This is because the all_oer is not a type thus the query for what
  * to pull from the database needs to be created manually. */
 function dropdown_query_checker( $query_string ) {
+	var_dump($query_string);
 	global $bp;
 	$new_query_string = '';
 	//Checks if this is the oer page
@@ -574,39 +575,39 @@ function dropdown_query_checker( $query_string ) {
 		if ( isset( $str['page'] ) ) {
 			$page_number = '&page=' . $str['page'];
 		}
-		//Checks if the all_oer has been selected or as a default on the bebop-oer page to show all_oer.
-		if ( isset( $str['type'] ) ) {
-			if ( $str['type'] == 'all_oer' ) {
-				//Sets the string_build variable ready.
-				$string_build = '';
-				
-				//Loops through all the different extensions and adds the active extensions to the temp variable.
-				$active_extensions = bebop_extensions::get_active_extension_names();
-				$extensions = array();
-				foreach ( $active_extensions as $extension ) {
-					if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
-						$extensions[] = $extension;
-					}
+		//if str isnt set or it equals 'all_oer'
+		if ( ( ! isset( $str['type']) ) || ( $str['type'] == 'all_oer' ) ) {
+			//Sets the string_build variable ready.
+			$string_build = '';
+			
+			//Loops through all the different extensions and adds the active extensions to the temp variable.
+			$active_extensions = bebop_extensions::get_active_extension_names();
+			$extensions = array();
+			foreach ( $active_extensions as $extension ) {
+				if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
+					$extensions[] = $extension;
 				}
+			}
+			
+			if ( ! empty( $extensions ) ) {
+				$string_build = implode( ',', $extensions );
 				
-				if ( ! empty( $extensions ) ) {
-					$string_build = implode( ',', $extensions );
-					
-					//Recreates the query string with the new views.
-					$new_query_string = 'type=' . $string_build . '&action=' . $string_build;
-				}
-				/*Puts the current page number onto the query for the all_oer.
-				(others are dealt with by the activity stream processes)*/
-				$new_query_string .= $page_number;
+				//Recreates the query string with the new views.
+				$new_query_string = 'type=' . $string_build . '&action=' . $string_build;
 			}
-			else {
-				$new_query_string = 'type=' . $str['type'] . '&action=' . $str['type'] . $page_number;
-				$_COOKIE['bp-activity-filter'] = $str['type'];
-			}
+			/*Puts the current page number onto the query for the all_oer.
+			(others are dealt with by the activity stream processes)*/
+			$new_query_string .= $page_number;
+		}
+		else {
+			$new_query_string = 'type=' . $str['type'] . '&action=' . $str['type'] . $page_number;
+			$_COOKIE['bp-activity-filter'] = $str['type'];
 		}
 		
 		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
 		$_SESSION['previous_area'] = 1;
+		
+		
 		
 		//Sets the page number for the bebop-oers page.
 		$new_query_string .= '&per_page=10';
@@ -624,12 +625,13 @@ function dropdown_query_checker( $query_string ) {
 			 */
 			echo  "<script type='text/javascript' src='" . WP_CONTENT_URL . '/plugins/bebop/core/resources/js/bebop-loop.js' . "'></script>";
 			echo '<script type="text/javascript">';
-			echo 'bebop_activity_cookie_modify("","");';
+			//echo 'bebop_activity_cookie_modify("","");';
 			echo '</script>';
-			$_COOKIE['bp-activity-filter'] = '';
+			//$_COOKIE['bp-activity-filter'] = '';
 		}
 	}
 	//Returns the query string.
+	var_dump($new_query_string);
 	return $new_query_string;
 }
 
@@ -647,7 +649,8 @@ function load_new_options2() {
 }
 
 
-//add extra rss buttons
+
+//add extra rss buttons to activity stream content.
 function my_bp_activity_entry_meta() {
 	global $bp;
 	if ( bp_get_activity_object_name() == 'bebop_oer_plugin' ) {
@@ -667,13 +670,13 @@ function my_bp_activity_entry_meta() {
 				$extension = bebop_extensions::get_extension_config_by_name( strtolower( $feed ) );
 				echo '<a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/' . $extension['name'] . '/feed"><img style="vertical-align: text-top;"' .
 				'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> ' .
-				$extension['display_name'] . ' feed for ' . $user->user_nicename . '</a>';
+				$extension['display_name'] . ' resources for ' . $user->user_nicename . '</a>';
 			}
 		}
 		
 		if ( count( $rss_active_extensions ) >= 2 ) {
 			echo ' <a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/all_oers/feed"><img style="vertical-align: text-top;"' . 
-			'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> All OERs feed for ' . $user->user_nicename . '</a>';
+			'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> All resources for ' . $user->user_nicename . '</a>';
 		}
 	}
 }
