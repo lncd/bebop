@@ -12,7 +12,7 @@ function bebop_flickr_import( $extension ) {
 		return false;
 	}
 	else if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension . '_consumer_key' ) ) {
-		bebop_tables::log_error( 'Importer', 'No consumer key was found for ' . $extension );
+		bebop_tables::log_general( 'Importer', 'No consumer key was found for ' . $extension );
 		return false;
 	}
 	else {

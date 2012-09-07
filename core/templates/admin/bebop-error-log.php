@@ -5,7 +5,7 @@
 	<div class='postbox full_width center_margin margin-bottom_22px'>
 		<h3>Bebop Errors</h3>
 		<div class='inside'>
-			Logs any errors which the plugin has produced. Please report by opening a isue ticket in our <a target="_blank" href="https://github.com/lncd/bebop/wiki">Github Wiki</a>.
+			Logs any errors which the plugin has produced. Please report by opening a issue ticket in our <a target="_blank" href="https://github.com/lncd/bebop/wiki">Github Wiki</a>.
 		</div>
 	</div>
 	<?php
@@ -37,8 +37,8 @@
 				echo '<tr>
 					<td>' . bebop_tables::sanitise_element( $row_data->id ) . '</td>' .
 					'<td>' . bebop_tables::sanitise_element( $row_data->timestamp ) . '</td>
-					<td>' . bebop_tables::sanitise_element( $row_data->type ) . '</td>
-					<td>' . bebop_tables::sanitise_element( $row_data->message ) . '</td>
+					<td>' . bebop_tables::sanitise_element( $row_data->error_type ) . '</td>
+					<td>' . bebop_tables::sanitise_element( $row_data->error_message ) . '</td>
 				</tr>';
 			}
 			?>

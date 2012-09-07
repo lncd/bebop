@@ -1,7 +1,7 @@
 === Bebop ===
 Contributors: Dale Mckeown
 Tags: WordPress, BuddyPress, OER, Open Educational Resources, Rapid Innovation, JISC, LNCD.
-Tested on: WordPress 3.4.1, BuddyPress 1.6
+Tested on: WordPress 3.4.1, BuddyPress 1.6.1
 
 
 == Licence ==
@@ -29,12 +29,18 @@ Feature Updates:
 2. The Twitter extension has been updated to conform with the new Twitter API.
 3. The admin interface has been replaced by standard WordPress and BuddyPress markup, resulting in a more "WordPressy" feel.
 4. The user interface has been replaced by standard WordPress and BuddyPress markup, resulting in a more "WordPressy" feel.
+5. Import scripts that require an API key now log to the general log instead of the error log incase a API key is not found. Changed because it is not specifically a Bebop error, but a user error.
 
 Bug fixes
 1. A bug was fixed which made the OER filter tab dislay the wrong text.
 2. RSS feeds now validate.
 3. Fixed deactivation bug where bebop_tables class is not found.
+4. Fixed import twitter bug where no username is specified.
+5. Fixed error log not displaying properly.
+
+
 Other
-Support email changed to github wiki.
+1. Support email changed to github wiki.
+
 
 v1.0 - 30.08.2012 - Initial release.

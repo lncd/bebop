@@ -12,7 +12,7 @@ class bebop_filters {
 	}
 	
 	//Check import limits
-	public function import_limit_reached( $extension, $user_id, $username ) {
+	public function import_limit_reached( $extension, $user_id, $username = null ) {
 		//different day ot no day set, set the day and the counter to 0;
 		if ( bebop_tables::get_user_meta_value( $user_id, 'bebop_' . $extension . '_' . $username . '_counterdate' ) != date( 'dmy' ) ) {
 			bebop_tables::update_user_meta( $user_id, $extension, 'bebop_' . $extension . '_' . $username . '_daycounter', '0' );

@@ -7,7 +7,7 @@
 header( 'Content-Type: text/xml; charset=' . get_option( 'blog_charset' ), true );
 header( 'Status: 200 OK' );
 
-echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'"?'.'>';
+echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'" ?'.'>';
 ?>
 
 <rss version="2.0"
