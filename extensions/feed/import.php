@@ -5,7 +5,7 @@
  */
 
 //replace 'youtube' with the 'name' of your extension, as defined in your config.php file.
-function bebop_generic_rss_import( $extension ) {
+function bebop_feed_import( $extension ) {
 	global $wpdb, $bp;
 	if ( empty( $extension ) ) {
 		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty.' );

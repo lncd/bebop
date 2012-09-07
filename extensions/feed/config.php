@@ -2,11 +2,11 @@
 
 /*Config file for an extension*/
 
-function get_generic_rss_config() {
+function get_feed_config() {
 	$config = array(
-		'name' 				=> 'generic_rss',
-		'display_name'		=> 'Generic RSS',
-		'type'				=> 'generic_rss',
+		'name' 				=> 'Feed',
+		'display_name'		=> 'Feed',
+		'type'				=> 'Feed',
 		'pages'				=> array( 'settings', ),
 		'defaultpage'		=> 'settings',
 		'content_type' 			=> 'RSS link',
