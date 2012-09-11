@@ -115,50 +115,52 @@ function bebop_flickr_import( $extension ) {
 						//Edit the following variable to point to where the relevant content is being stored in the :
 						$items 	= $data->photos->photo;
 						
-						foreach ( $items as $item ) {
-							if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
-								//Edit the following variables to point to where the relevant content is being stored:
-								$id					= $item['id'];
-								$action_link		= $this_extension['action_link'] . $item['owner'] . '/' . $id;
-								$description		= $item['description'];
-								$item_published		= gmdate( 'Y-m-d H:i:s' , (INT)$item['dateupload']);
-								//Stop editing - you should be all done.
-								
-								
-								//generate an $item_id
-								$item_id = bebop_generate_secondary_id( $user_meta->user_id, $id, $item_published );
-								
-								//check if the secondary_id already exists
-								$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
-								//if the id is not found, import the content.
-								if ( ! empty( $secondary->secondary_item_id ) ) {
+						if( ! empty( $items ) ) {
+							foreach ( $items as $item ) {
+								if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
+									//Edit the following variables to point to where the relevant content is being stored:
+									$id					= $item['id'];
+									$action_link		= $this_extension['action_link'] . $item['owner'] . '/' . $id;
+									$description		= $item['description'];
+									$item_published		= gmdate( 'Y-m-d H:i:s' , (INT)$item['dateupload']);
+									//Stop editing - you should be all done.
 									
-									//Only for content which has a description.
-									if( ! empty( $description ) ) {
-										//This manually puts the link and description together with a line break, which is needed for oembed.
-										$item_content = $action_link . '
-										' . $description;
-									}
-									else {
-										$item_content = $action_link;
-									}
 									
-									if ( bebop_create_buffer_item(
-													array(
-														'user_id'			=> $user_meta->user_id,
-														'extension'			=> $this_extension['name'],
-														'type'				=> $this_extension['content_type'],
-														'username'			=> $import_username,							//required for day counter increases.
-														'content'			=> $item_content,
-														'content_oembed'	=> $this_extension['content_oembed'],
-														'item_id'			=> $item_id,
-														'raw_date'			=> $item_published,
-														'actionlink'		=> $action_link . '/lightbox',
-													)
-									) ) {
-										$itemCounter++;
-									}
-								}//End if ( ! empty( $secondary->secondary_item_id ) ) {
+									//generate an $item_id
+									$item_id = bebop_generate_secondary_id( $user_meta->user_id, $id, $item_published );
+									
+									//check if the secondary_id already exists
+									$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
+									//if the id is not found, import the content.
+									if ( ! empty( $secondary->secondary_item_id ) ) {
+										
+										//Only for content which has a description.
+										if( ! empty( $description ) ) {
+											//This manually puts the link and description together with a line break, which is needed for oembed.
+											$item_content = $action_link . '
+											' . $description;
+										}
+										else {
+											$item_content = $action_link;
+										}
+										
+										if ( bebop_create_buffer_item(
+														array(
+															'user_id'			=> $user_meta->user_id,
+															'extension'			=> $this_extension['name'],
+															'type'				=> $this_extension['content_type'],
+															'username'			=> $import_username,							//required for day counter increases.
+															'content'			=> $item_content,
+															'content_oembed'	=> $this_extension['content_oembed'],
+															'item_id'			=> $item_id,
+															'raw_date'			=> $item_published,
+															'actionlink'		=> $action_link . '/lightbox',
+														)
+										) ) {
+											$itemCounter++;
+										}
+									}//End if ( ! empty( $secondary->secondary_item_id ) ) {
+								}
 							}
 						}
 					}//End if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
