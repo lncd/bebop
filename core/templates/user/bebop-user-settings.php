@@ -56,7 +56,9 @@ if ( $page == '/bebop-oers/home/' ) {
 				<label for='activity-filter-by'>Show:</label> 
 				<select id='activity-filter-by'>
 					<!-- This adds the hook from the main bebop file to add the extension filter -->
-					<?php do_action( 'bp_activity_filter_options' ); ?>
+					<?php
+					bebop_load_filter_options(); //load the options.
+					?>
 				</select>
 			</li>
 		</ul>	

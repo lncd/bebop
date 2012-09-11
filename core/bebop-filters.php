@@ -26,19 +26,14 @@ class bebop_filters {
 		$maximport_value = bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' );
 		
 		if ( empty( $maximport_value ) || $maximport_value === 0 ) { //its empty. no value is set (unlimited)
-			bebop_tables::log_error( 'Import limit', 'empty/0 - should import' );
 			return false;
 		}
 		else if ( is_numeric( $maximport_value ) ) { //not empty but value is numeric
-			bebop_tables::log_error( 'Import limit', 'numeric - ' . $maximport_value );
-		
 			if ( bebop_tables::get_user_meta_value( $user_id, 'bebop_' . $extension . '_' . $username . '_daycounter' ) < $maximport_value ) {
-				bebop_tables::log_error( 'Import limit', 'less than - should import' );
 				return false;
 			}
 		}
-		bebop_tables::log_error( 'Import limit', 'limit reached. wont import.' );
-		//otherwise must be have been met
+		//otherwise limit must be have been met.
 		return true;
 	}
 	

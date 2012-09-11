@@ -543,7 +543,7 @@ function update_bebop_status( $deleted_ids ) {
 }
 
 //This function loads additional filter options for the extensions.
-function bebop_load_new_options() {
+function bebop_load_filter_options() {
 	
 	$store = array();
 	//gets only the active extension list.
@@ -685,14 +685,14 @@ function bebop_dropdown_query_checker( $query_string ) {
 }
 
 //This is a hook into the member activity filter options.
-add_action( 'bp_member_activity_filter_options', 'bebop_load_new_options' );
+add_action( 'bp_member_activity_filter_options', 'bebop_load_filter_options' );
 
 //This is a hook into the activity filter options.
-add_action( 'bp_activity_filter_options', 'bebop_load_new_options' );
+add_action( 'bp_activity_filter_options', 'bebop_load_filter_options' );
 
 //This adds a hook before the loading of the activity data to adjust if all_oer is selected.
-add_action( 'bp_before_activity_loop', 'bebop_load_new_options2' );
-function bebop_load_new_options2() {
+add_action( 'bp_before_activity_loop', 'bebop_access_ajax' );
+function bebop_access_ajax() {
 	//Adds the filter to the function to check for all_oer and rebuild the query if so.
 	add_filter( 'bp_ajax_querystring', 'bebop_dropdown_query_checker' );
 }
