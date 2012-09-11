@@ -143,7 +143,7 @@ function bebop_admin_notice() {
 			echo '<div class="bebop_success_box">Settings Saved.</div>';
 		}
 		else {
-			echo '<div class="bebop_error_box">Error: ' . ucfirst($success) . '</div>';
+			echo '<div class="bebop_error_box">' . ucfirst($success) . '</div>';
 		}
 		$_SESSION['bebop_admin_notice'] = null;
 		unset( $_SESSION['bebop_admin_notice'] );

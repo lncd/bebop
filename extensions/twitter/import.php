@@ -26,10 +26,9 @@ function bebop_twitter_import( $extension ) {
 		foreach ( $user_metas as $user_meta ) {
 			$errors = null;
 			$items 	= null;
-			
 			//Ensure the user is currently wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
-					
+				
 				/* 
 				 * ******************************************************************************************************************
 				 * Depending on the data source, you will need to switch how the data is retrieved. If the feed is RSS, use the 	*
@@ -75,6 +74,7 @@ function bebop_twitter_import( $extension ) {
 				
 				if ( ! $errors ) {
 					if ( $items ) {
+					
 						bebop_tables::update_user_meta( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_username', $username );
 						foreach ( $items as $item ) {
 							if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $username ) ) {
@@ -93,7 +93,8 @@ function bebop_twitter_import( $extension ) {
 								//check if the secondary_id already exists
 								$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
 								//if the id is not found, import the content.
-								if ( ! empty( $secondary->secondary_item_id ) ) {
+								if ( empty( $secondary->secondary_item_id ) ) {
+									
 									if ( bebop_create_buffer_item(
 													array(
 														'user_id'			=> $user_meta->user_id,

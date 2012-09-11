@@ -106,7 +106,7 @@ function bebop_slideshare_import( $extension ) {
 									//check if the secondary_id already exists
 									$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
 									//if the id is not found, import the content.
-									if ( ! empty( $secondary->secondary_item_id ) ) {
+									if ( empty( $secondary->secondary_item_id ) ) {
 									
 										//Only for content which has a description.
 										if( ! empty( $description) ) {
