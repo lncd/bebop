@@ -114,8 +114,8 @@ function bebop_activate() {
 }
 //remove the tables upon deactivation
 function bebop_deactivate() {
-	include_once( 'core/bebop-tables.php' );
 	//delete tables and clean up the activity data
+	include_once( 'core/bebop-tables.php' );
 	bebop_tables::drop_table( 'bp_bebop_general_log' );
 	bebop_tables::drop_table( 'bp_bebop_error_log' );
 	bebop_tables::drop_table( 'bp_bebop_options' );

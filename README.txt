@@ -22,7 +22,7 @@ Requirements.
 
 == Changelog ==
 
-v1.0.1 - 09.09.2012 - minor release.
+v1.0.1 - 11.09.2012 - minor release.
 
 This version adds a couple of extra features, but more importantly fixes a major bug regarding import limits and importing items.
 

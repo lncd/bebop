@@ -543,7 +543,8 @@ function update_bebop_status( $deleted_ids ) {
 }
 
 //This function loads additional filter options for the extensions.
-function load_new_options() {
+function bebop_load_new_options() {
+	
 	$store = array();
 	//gets only the active extension list.
 	$active_extensions = bebop_extensions::get_active_extension_names();
@@ -568,7 +569,7 @@ function load_new_options() {
 /*This function is added to the filter of the current query string and deals with the OER page
  * as well as the all_oer option. This is because the all_oer is not a type thus the query for what
  * to pull from the database needs to be created manually. */
-function dropdown_query_checker( $query_string ) {
+function bebop_dropdown_query_checker( $query_string ) {
 	global $bp;
 	$new_query_string = '';
 	//Checks if this is the oer page
@@ -684,16 +685,16 @@ function dropdown_query_checker( $query_string ) {
 }
 
 //This is a hook into the member activity filter options.
-add_action( 'bp_member_activity_filter_options', 'load_new_options' );
+add_action( 'bp_member_activity_filter_options', 'bebop_load_new_options' );
 
 //This is a hook into the activity filter options.
-add_action( 'bp_activity_filter_options', 'load_new_options' );
+add_action( 'bp_activity_filter_options', 'bebop_load_new_options' );
 
 //This adds a hook before the loading of the activity data to adjust if all_oer is selected.
-add_action( 'bp_before_activity_loop', 'load_new_options2' );
-function load_new_options2() {
+add_action( 'bp_before_activity_loop', 'bebop_load_new_options2' );
+function bebop_load_new_options2() {
 	//Adds the filter to the function to check for all_oer and rebuild the query if so.
-	add_filter( 'bp_ajax_querystring', 'dropdown_query_checker' );
+	add_filter( 'bp_ajax_querystring', 'bebop_dropdown_query_checker' );
 }
 
 
