@@ -1,7 +1,7 @@
 === Bebop ===
 Contributors: Dale Mckeown
 Tags: WordPress, BuddyPress, OER, Open Educational Resources, Rapid Innovation, JISC, LNCD.
-Tested on: WordPress 3.4.1, BuddyPress 1.6.1
+Tested on: WordPress 3.4.2, BuddyPress 1.6.1
 
 
 == Licence ==
