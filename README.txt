@@ -44,9 +44,10 @@ Bug fixes
 5. Fixed error log not displaying properly.
 6. Fixed a user settings bug where edit options were available but no API key is set in the admin panel.
 7. Fixed bug where the same content is loaded when the 'load more' button is clicked.
-8. Fixed a bug where the OER filter is displaying extra content filters from other plugins.						//todo
+8. Fixed a bug where the OER filter is displaying extra content filters from other plugins.
 9. Fixed a bug that stopped OER content from being imported if no import limit was set for an extension.
-10.Fixed a bug where admin error messages were showing the "settings saved" when they should return an error.
+10. Fixed a bug where admin error messages were showing the "settings saved" when they should return an error.
+11. Fixes a bug where aditional filters from other plugins were being added to the OER filters.
 
 
 Other
