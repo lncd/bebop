@@ -40,7 +40,7 @@ if ( ! empty( $type ) ) {
 		echo '<h5>Action</h5>';
 		$verify_oer_option = '<label class="alt" for="verify">Verify:</label><input type="radio" name="action" id="verify" value="verify"><br>';
 		$delete_oer_option = '<label class="alt" for="delete">Delete:</label><input type="radio" name="action" id="delete" value="delete"><br>';
-		$reset_oer_option  = '<label class="alt" for="reset">Reset:</label><input type="radio" name="action" id="reset" value="reset"><br>';
+		$undelete_oer_option  = '<label class="alt" for="undelete">Undelete:</label><input type="radio" name="action" id="undelete" value="undelete"><br>';
 		
 		if ( $type == 'unverified' ) {
 			echo $verify_oer_option . $delete_oer_option;
@@ -49,7 +49,7 @@ if ( ! empty( $type ) ) {
 			echo $delete_oer_option;
 		}
 		else if ( $type == 'deleted' ) {
-			echo $reset_oer_option;
+			echo $undelete_oer_option;
 		}
 			
 		echo '<div class="button_container"><input class="auto button" type="submit" id="submit" name="submit" value="Save Changes"></div>

@@ -253,9 +253,10 @@ function bebop_manage_oers() {
 					$message = 'Resource deleted.';
 				}
 			}
-			else if ( $_POST['action'] == 'reset' ) {
+			else if ( $_POST['action'] == 'undelete' ) {
 				foreach ( array_keys( $_POST ) as $oer ) {
-					if ( $oer != 'action' ) {
+					$exclude_array = array( 'action', 'submit' );
+					if ( ! in_array( $oer, $exclude_array ) ) {
 						$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
 						bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'unverified' );
 						$oer_count++;
@@ -263,18 +264,18 @@ function bebop_manage_oers() {
 				}
 				if ( $oer_count > 1 ) {
 					$success = true;
-					$message = 'Resources reset.';
+					$message = 'Resources undeleted.';
 				}
 				else {
 					$success = true;
-					$message = 'Resource reset.';
+					$message = 'Resource undeleted.';
 				}
 			}
 			if ( $success ) {
 				bp_core_add_message( $message );
 			}
 			else {
-				bp_core_add_message( "We couldn't do that for you. Please try again.", 'error' );
+				bp_core_add_message( "We couldnt do that for you. Please try again.", 'error' );
 			}
 			bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 		}

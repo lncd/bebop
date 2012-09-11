@@ -33,7 +33,7 @@ Feature Updates:
 4. The user interface has been replaced by standard WordPress and BuddyPress markup, resulting in a more "WordPressy" feel.
 5. Import scripts that require an API key now log to the general log instead of the error log incase a API key is not found. Changed because it is not specifically a Bebop error, but a user error.
 6. Changed admin settings link in OER providers to a button.
-7. Changed 'Generic RSS' extension to 'Feed' Extension
+7. Changed 'Generic RSS' extension to 'Feed' Extension.
 
 
 Bug fixes
@@ -48,10 +48,12 @@ Bug fixes
 9. Fixed a bug that stopped OER content from being imported if no import limit was set for an extension.
 10. Fixed a bug where admin error messages were showing the "settings saved" when they should return an error.
 11. Fixes a bug where aditional filters from other plugins were being added to the OER filters.
+12. Fixed bug where it is not possible to reset a deleted OER.
 
 
 Other
 1. Support email changed to github wiki.
 2. Removed the "break;" from import scripts - to retrieve older data if an import limit is removed.
+3. Changed some terminology here and there.
 
 v1.0 - 30.08.2012 - Initial release.
