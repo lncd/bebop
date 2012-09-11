@@ -4,7 +4,7 @@
  * Please see the section below on how to do this.
  */
 
-//replace 'youtube' with the 'name' of your extension, as defined in your config.php file.
+//replace 'feed' with the 'name' of your extension, as defined in your config.php file.
 function bebop_feed_import( $extension ) {
 	global $wpdb, $bp;
 	if ( empty( $extension ) ) {
@@ -98,31 +98,28 @@ function bebop_feed_import( $extension ) {
 										
 										//check if the secondary_id already exists
 										$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
-										//if the id is found, we have the item in the database and all following items (feeds return most recent items first). Move onto the next user..
+										//if the id is not found, import the content.
 										if ( ! empty( $secondary->secondary_item_id ) ) {
-											break;
-										}
-										
-										$item_content = $title . '
-										' . $action_link;
-										
-										$returnCreate = bebop_create_buffer_item(
-														array(
-															'user_id' 			=> $user_meta->user_id,
-															'extension' 		=> $this_extension['name'],
-															'type' 				=> $this_extension['content_type'],
-															'username'			=> $import_username,							//required for day counter increases.
-															'content' 			=> $item_content,
-															'content_oembed' 	=> $this_extension['content_oembed'],
-															'item_id' 			=> $item_id,
-															'raw_date' 			=> $item_published,
-															'actionlink'	 	=> $action_link,
-														)
-										);
-										
-										if ( $returnCreate ) {
-											$itemCounter++;
-										}
+											
+											$item_content = $title . '
+											' . $action_link;
+											
+											if ( bebop_create_buffer_item(
+															array(
+																'user_id' 			=> $user_meta->user_id,
+																'extension' 		=> $this_extension['name'],
+																'type' 				=> $this_extension['content_type'],
+																'username'			=> $import_username,							//required for day counter increases.
+																'content' 			=> $item_content,
+																'content_oembed' 	=> $this_extension['content_oembed'],
+																'item_id' 			=> $item_id,
+																'raw_date' 			=> $item_published,
+																'actionlink'	 	=> $action_link,
+															)
+											) ) {
+												$itemCounter++;
+											}
+										}//End if ( ! empty( $secondary->secondary_item_id ) ) {
 									}
 								}
 							}

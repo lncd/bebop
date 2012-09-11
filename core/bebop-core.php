@@ -93,7 +93,12 @@ function bebop_extension_admin_update_settings() {
 						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_secret', trim( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) );
 					}
 					if ( isset( $_POST['bebop_' . $extension['name'] . '_maximport'] ) ) {
-						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_maximport', trim( $_POST['bebop_' . $extension['name'] . '_maximport'] ) );
+						if ( empty( $_POST['bebop_' . $extension['name'] . '_maximport'] ) || is_numeric( $_POST['bebop_' . $extension['name'] . '_maximport'] ) ) {
+							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_maximport', trim( $_POST['bebop_' . $extension['name'] . '_maximport'] ) );
+						}
+						else {
+							$success = '"Imports per day" must be a number (or blank).';
+						}
 					}
 					/*rss stuff, dont touch */
 					if ( isset( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) ) {
@@ -101,7 +106,7 @@ function bebop_extension_admin_update_settings() {
 							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', trim( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) );
 						}
 						else {
-							$success = 'RSS feeds cannot be modified while the extension is not enabled';
+							$success = 'RSS feeds cannot be modified while the extension is not enabled.';
 						}
 					}
 					else {
@@ -133,11 +138,12 @@ function bebop_extension_admin_update_settings() {
 function bebop_admin_notice() {
 	if ( isset( $_SESSION['bebop_admin_notice'] ) ) {
 		$success = $_SESSION['bebop_admin_notice'];
-		if ( $success == true ) {
+		if ( $success === true ) {
+			echo $success;
 			echo '<div class="bebop_success_box">Settings Saved.</div>';
 		}
 		else {
-			echo '<div class="bebop_error_box">' . ucfirst($success) . '</div>';
+			echo '<div class="bebop_error_box">Error: ' . ucfirst($success) . '</div>';
 		}
 		$_SESSION['bebop_admin_notice'] = null;
 		unset( $_SESSION['bebop_admin_notice'] );
@@ -468,14 +474,14 @@ function bebop_create_buffer_item( $params ) {
 	global $bp, $wpdb;
 	if ( is_array( $params ) ) {
 		if ( ! bp_has_activities( 'secondary_id=' . $params['item_id'] ) ) {
-			$originalText = $params['content'];
-			if ( ! bebop_tables::bebop_check_existing_content_buffer( $params['user_id'], $params['extension'], $originalText ) ) {
+			$original_text = $params['content'];
+			if ( ! bebop_tables::bebop_check_existing_content_buffer( $params['user_id'], $params['extension'], $original_text ) ) {
 				$content = '';
 				if ( $params['content_oembed'] == true ) {
-					$content = $originalText;
+					$content = $original_ext;
 				}
 				else {
-					$content = '<div class="bebop_activity_container ' . $params['extension'] . '">' . $originalText . '</div>';
+					$content = '<div class="bebop_activity_container ' . $params['extension'] . '">' . $original_text . '</div>';
 				}
 				$action  = '<a href="' . bp_core_get_user_domain( $params['user_id'] ) .'" title="' . bp_core_get_username( $params['user_id'] ).'">'.bp_core_get_user_displayname( $params['user_id'] ) . '</a>';
 				$action .= ' ' . __( 'posted&nbsp;a', 'bebop' . $extension['name'] ) . ' ';
@@ -485,7 +491,7 @@ function bebop_create_buffer_item( $params ) {
 				$oer_hide_sitewide = 0;
 				$date_imported = gmdate( 'Y-m-d H:i:s', time() );
 				
-				//extra check to be sure we don't have a empty activity
+				//extra check to be sure we don't have an empty activity
 				$clean_comment = '';
 				$clean_comment = trim( strip_tags( $content ) );
 				
@@ -497,6 +503,7 @@ function bebop_create_buffer_item( $params ) {
 													$wpdb->escape( $params['item_id'] ), $wpdb->escape( $date_imported ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
 									)
 					) ) {
+						bebop_tables::log_error( 'Importer', 'USERNAME:' . $params['username']  );
 						bebop_filters::day_increase( $params['extension'], $params['user_id'], $params['username'] );
 					}
 					else {

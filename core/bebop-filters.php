@@ -2,8 +2,11 @@
 class bebop_filters {
 	//Increment the day counter
 	public function day_increase( $extension, $user_id, $username ) {
+		$maximport_value = bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' );
+		
 		$user_count = bebop_tables::get_user_meta_value( $user_id, 'bebop_' . $extension . '_' . $username . '_daycounter' );
-		if ( bebop_tables::get_option_value( 'bebop_' . $extension .'_maximport' ) > $user_count ) {
+		
+		if ( ( empty( $maximport_value ) || $maximport_value === 0 ) || ( $maximport_value > $user_count ) ) {
 			$new_count = $user_count + 1;
 			bebop_tables::update_user_meta( $user_id, $extension, 'bebop_' . $extension . '_' . $username . '_daycounter', $new_count );
 			return true;
@@ -20,14 +23,22 @@ class bebop_filters {
 		}
 		
 		//max items per day * < should return false*
-		if ( bebop_tables::check_option_exists( 'bebop_' . $extension . '_maximport' ) ) {
-			if ( bebop_tables::get_user_meta_value( $user_id, 'bebop_' . $extension . '_' . $username . '_daycounter' ) < bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' ) ) {
+		$maximport_value = bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' );
+		
+		if ( empty( $maximport_value ) || $maximport_value === 0 ) { //its empty. no value is set (unlimited)
+			bebop_tables::log_error( 'Import limit', 'empty/0 - should import' );
+			return false;
+		}
+		else if ( is_numeric( $maximport_value ) ) { //not empty but value is numeric
+			bebop_tables::log_error( 'Import limit', 'numeric - ' . $maximport_value );
+		
+			if ( bebop_tables::get_user_meta_value( $user_id, 'bebop_' . $extension . '_' . $username . '_daycounter' ) < $maximport_value ) {
+				bebop_tables::log_error( 'Import limit', 'less than - should import' );
 				return false;
 			}
 		}
-		else {
-			return false;
-		}
+		bebop_tables::log_error( 'Import limit', 'limit reached. wont import.' );
+		//otherwise must be have been met
 		return true;
 	}
 	

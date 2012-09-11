@@ -22,7 +22,9 @@ Requirements.
 
 == Changelog ==
 
-v1.1 - 07.09.2012
+v1.0.1 - 09.09.2012 - minor release.
+
+This version adds a couple of extra features, but more importantly fixes a major bug regarding import limits and importing items.
 
 Feature Updates:
 1. RSS feeds are not shown for bebop content in the activity streams. The extension RSS feed for the user is shown, and the "all OER" feed is shown if more than one feed is active.
@@ -33,20 +35,22 @@ Feature Updates:
 6. Changed admin settings link in OER providers to a button.
 7. Changed 'Generic RSS' extension to 'Feed' Extension
 
+
 Bug fixes
 1. A bug was fixed which made the OER filter tab dislay the wrong text.
-2. RSS feeds now validate.
-3. Fixed deactivation bug where bebop_tables class is not found.
+2. RSS feeds are closer to validating properly.
+3. Fixed deactivation bug where "bebop_tables()" class is not found.
 4. Fixed import twitter bug where no username is specified.
 5. Fixed error log not displaying properly.
 6. Fixed a user settings bug where edit options were available but no API key is set in the admin panel.
-7. Fixed bug where same content is loaded when the 'load more' button is clicked.
-
-8. Fixed a bug where the OER filter is displaying extra content filters from other plugins.
+7. Fixed bug where the same content is loaded when the 'load more' button is clicked.
+8. Fixed a bug where the OER filter is displaying extra content filters from other plugins.						//todo
+9. Fixed a bug that stopped OER content from being imported if no import limit was set for an extension.
+10.Fixed a bug where admin error messages were showing the "settings saved" when they should return an error.
 
 
 Other
 1. Support email changed to github wiki.
-
+2. Removed the "break;" from import scripts - to retrieve older data if an import limit is removed.
 
 v1.0 - 30.08.2012 - Initial release.
