@@ -139,7 +139,6 @@ function bebop_admin_notice() {
 	if ( isset( $_SESSION['bebop_admin_notice'] ) ) {
 		$success = $_SESSION['bebop_admin_notice'];
 		if ( $success === true ) {
-			echo $success;
 			echo '<div class="bebop_success_box">Settings Saved.</div>';
 		}
 		else {
@@ -503,7 +502,6 @@ function bebop_create_buffer_item( $params ) {
 													$wpdb->escape( $params['item_id'] ), $wpdb->escape( $date_imported ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
 									)
 					) ) {
-						bebop_tables::log_error( 'Importer', 'USERNAME:' . $params['username']  );
 						bebop_filters::day_increase( $params['extension'], $params['user_id'], $params['username'] );
 					}
 					else {
