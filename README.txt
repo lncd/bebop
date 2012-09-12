@@ -22,6 +22,33 @@ Requirements.
 
 == Changelog ==
 
+v1.1 - 20.09.2012 - Major Release
+
+This version changes some fundemental aspects of the plugin source code. See features for details.
+
+
+bebop feeds appear to be caching. 
+
+Need more feedback on adding an account e.g. new feed
+
+Takes too long for resources to appear in unverified area.  - I shall work on the cron, so that an account can retrieve data immediately once an account had been added.
+
+Bebop panel area needs icon - I shall change
+
+Language file for switching language/terminology
+
+Do atom feeds work? e.g. http://orbital.blogs.lincoln.ac.uk/feed/atom/
+
+apostrophe as \\\\
+
+change RSS buttons - should be on bar next to the OER filter.
+
+Boone's email.
+
+change uninstall hook back.
+
+
+
 v1.0.1 - 11.09.2012 - minor release.
 
 This version adds a couple of extra features, but more importantly fixes a major bug regarding import limits and importing items.
@@ -47,12 +74,12 @@ Bug fixes
 8. Fixed a bug where the OER filter is displaying extra content filters from other plugins.
 9. Fixed a bug that stopped OER content from being imported if no import limit was set for an extension.
 10. Fixed a bug where admin error messages were showing the "settings saved" when they should return an error.
-11. Fixes a bug where aditional filters from other plugins were being added to the OER filters.
+11. Fixes a bug where additional filters from other plugins were being added to the OER filters.
 12. Fixed bug where it is not possible to reset a deleted OER.
 
 
 Other
-1. Support email changed to github wiki.
+1. Support email changed to Github wiki.
 2. Removed the "break;" from import scripts - to retrieve older data if an import limit is removed.
 3. Changed some terminology here and there.
 

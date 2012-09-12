@@ -55,10 +55,11 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 					<th>Options</th>
 				</tr>';
 		foreach ( $user_feeds as $user_feed ) {
+			$feed_name =  bebop_tables::sanitise_element( $user_feed->meta_name ) ;
 			echo '<tr>
-				<td>' . bebop_tables::sanitise_element( $user_feed->meta_name ) . '</td>
+				<td>' . stripslashes( $feed_name ) . '</td>
 				<td>' . bebop_tables::sanitise_element( $user_feed->meta_value ) . '</td>
-				<td><a href="?provider=' . $extension['name'] . '&delete_feed=' . $user_feed->meta_name . '">Delete Feed</a></td>
+				<td><a href="?provider=' . $extension['name'] . '&delete_feed=' . $feed_name. '">Delete Feed</a></td>
 			</tr>';
 		}
 		echo '</table>';
