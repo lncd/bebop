@@ -322,7 +322,7 @@ function bebop_manage_provider() {
 					}
 					$new_name = stripslashes( strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) );
 					if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'], $new_name, strip_tags( $insert_url ) ) ) {
-						bp_core_add_message( 'feed successfully added to the ' . $extension['display_name'] . ' extension.' );
+						bp_core_add_message( 'Feed successfully added.' );
 					}
 					else {
 						bp_core_add_message( 'This feed already exists, you cannot add it again.', 'error' );
@@ -364,7 +364,7 @@ function bebop_manage_provider() {
 					if ( $check_http ) {
 						bebop_tables::remove_user_meta( $bp->loggedin_user->id, $_GET['delete_feed'] );
 						bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $_GET['delete_feed'] );
-						bp_core_add_message( $_GET['delete_feed'] . ' deleted.' );
+						bp_core_add_message( 'Feed successfully deleted.' );
 						bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 					}
 				}

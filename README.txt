@@ -39,7 +39,7 @@ Language file for switching language/terminology
 
 Do atom feeds work? e.g. http://orbital.blogs.lincoln.ac.uk/feed/atom/
 
-apostrophe as \\\\
+apostrophe as \\\\ - Fixed
 
 change RSS buttons - should be on bar next to the OER filter.
 
