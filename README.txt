@@ -30,7 +30,7 @@ Feature Updates:
 1. When a new account is added to an extension, an initial import is fired to allow content to become available in the unverified resources without having to wait for the cron import to do its magic.
 
 Bug Fixes:
-1. 
+1. Removed importer queue as it was no longer required.
 
 Other:
 1. 

@@ -301,7 +301,7 @@ function bebop_manage_provider() {
 				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
 					$new_name = stripslashes( $_POST['bebop_' . $extension['name'] . '_username'] );
 					if ( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $new_name, $check_meta_value = true ) ) {
-						
+						bebop_tables::add_to_first_import_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $_POST['bebop_' . $extension['name'] . '_username'] . '_done_initial_import', 0 );
 						bp_core_add_message( $new_name . ' has been added to the ' . $extension['display_name'] . ' feed.' );
 					}
 					else {
@@ -353,6 +353,7 @@ function bebop_manage_provider() {
 				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token', $accessToken['oauth_token'] );
 				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token_secret', $accessToken['oauth_token_secret'] );
 				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
+				bebop_tables::add_to_first_import_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_done_initial_import', 0 );
 				
 				bp_core_add_message( 'You have successfully authenticated your ' . $extension['display_name'] . ' account.' );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );

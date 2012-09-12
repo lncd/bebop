@@ -362,6 +362,34 @@ class bebop_tables {
 	return $return;
 	}
 	
+	function add_to_first_import_list( $user_id, $extension, $name, $value ) {
+		global $wpdb;
+		$wpdb->query(
+								$wpdb->prepare(
+												'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports (user_id, extension, name, value) VALUES (%s, %s, %s, %s)',
+												$wpdb->escape( $user_id ), $wpdb->escape( $extension ), $wpdb->escape( $name ), $wpdb->escape( $value )
+								)
+				);
+				return true;
+	}
+	
+	function get_first_importers_by_extension( $extension ) {
+		global $wpdb;
+		$results = $wpdb->get_results( 'SELECT user_id, name, value FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE value = '0' AND extenion = '" . $wpdb->escape( $extension ) );
+		return $results;
+	}
+
+	function update_first_import_list( $user_id, $extension, $name, $value ) {
+		global $wpdb;
+		$result = $wpdb->query( 'UPDATE ' . bp_core_get_table_prefix() . "bp_bebop_first_imports SET value = '"  . $wpdb->escape( $value ) . "' WHERE user_id = '" . $wpdb->escape( $user_id ) .
+		"' AND extension = '" . $wpdb->escape( $extension ) . "' AND name = '" . $wpdb->escape( $name ) . "' LIMIT 1" );
+		if ( ! empty( $result ) ) {
+			return $result;
+		}
+		else {
+			return false;
+		}
+	}
 	function sanitise_element( $data, $allow_tags = null ) {
 		if(	$allow_tags == true ) {
 			return stripslashes( $data );
