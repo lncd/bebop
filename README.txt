@@ -27,7 +27,11 @@ v1.1 - 20.09.2012 - Major Release
 This version changes some fundemental aspects of the plugin source code. See features for details.
 
 Feature Updates:
-1. When a new account is added to an extension, an initial import is fired to allow content to become available in the unverified resources without having to wait for the cron import to do its magic. This utilises a secondary wp-cron which the admin/user never sees.
+1. When a new account is added to an extension, an initial import is fired to allow content to become available in the unverified resources without having to wait for the cron import to do its magic.
+2. Introduced a secondary cron which scans a new batabase table every 15 seconds to detect feeds which are due an initial import. This means the default cron can be ran less often, while new users/feeds can still import content.
+3. Changed default cron time to 10 minutes to support the above feature.
+4. Updated all extension import scripts to allow processing of the new cron.
+
 
 
 Bug Fixes:
@@ -36,13 +40,14 @@ Bug Fixes:
 Other:
 1. Made a few import error/log messages a bit more clear.
 
+
 bebop feeds appear to be caching. 
 Do atom feeds work? e.g. http://orbital.blogs.lincoln.ac.uk/feed/atom/
 change RSS buttons - should be on bar next to the OER filter.
 
 Need more feedback on adding an account e.g. new feed
 
-Takes too long for resources to appear in unverified area.  - Done
+Takes too long for resources to appear in unverified area.  - finishing off  other extensions need switching over.
 
 Language file for switching language/terminology
 

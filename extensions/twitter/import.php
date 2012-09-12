@@ -23,22 +23,27 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 	$itemCounter = 0;
 	
 	//if user_metas is supplied, use that list
-	if( isset( $user_metas ) ) {
+	if( ! isset( $user_metas ) ) {
 		//update the status so they are not in the list again
-		foreach ( $user_metas as $user_meta )
-		{
-			bebop_tables::update_first_importers_list( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import', 1 );
-		}
-	}
-	else {
 		$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $this_extension['name'] . '_oauth_token' );
 	}
+	
 	if ( isset( $user_metas ) ) {
 		foreach ( $user_metas as $user_meta ) {
 			$errors = null;
 			$items 	= null;
+			
 			//Ensure the user is currently wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
+				
+				$check = bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import' );
+				
+				bebop_tables::log_error( 'Importer - ' . ucfirst( $this_extension['name'] ), 'feed error: ' . serialize( $check ) );
+				
+				//if it is the first update, update the flag.
+				if ( bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import' ) ) {
+					bebop_tables::delete_from_first_importers( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import' );
+				}
 				
 				/* 
 				 * ******************************************************************************************************************
@@ -70,12 +75,12 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 				 * ******************************************************************************************************************
 				 * 
 				 * Values you will need to check and update are:
-				 * 		$errors 				- Must point to the error boolean value (true/false)
-				 * 		$username				- Must point to the value holding the username of the person.
-				 *.		$id						- Must be the ID of the item returned through the data API.
-				 * 		$item_content			- The actual content of the imported item.
-				 * 		$item_published			- The time the item was published.
-				 * 		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
+				 *		$errors 				- Must point to the error boolean value (true/false)
+				 *		$username				- Must point to the value holding the username of the person.
+				 *		$id						- Must be the ID of the item returned through the data API.
+				 *		$item_content			- The actual content of the imported item.
+				 *		$item_published			- The time the item was published.
+				 *		$action_link			- This is where the link will point to - i.e. where the user can click to get more info.
 				 */
 				
 				//Edit the following two variables to point to where the relevant content is being stored in the API:

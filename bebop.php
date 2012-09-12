@@ -32,14 +32,20 @@ function bebop_init() {
 	include_once( 'core/bebop-core.php' );
 	include_once( 'core/bebop-pages.php' );
 
-	//fire cron
-	add_action( 'bebop_main_import_cron', 'bebop_main_import_function' ); 
+	//fire crons
+	add_action( 'bebop_main_import_cron', 'bebop_main_import_function' );
+	add_action( 'bebop_secondary_import_cron', 'bebop_secondary_import_function' );
 	
 	//Adds the schedule filter for changing the standard interval time.
 	add_filter( 'cron_schedules', 'bebop_main_cron_schedule' );
+	add_filter( 'cron_schedules', 'bebop_secondary_cron_schedule' );
 	
 	if ( ! wp_next_scheduled( 'bebop_main_import_cron' ) ) {
 		wp_schedule_event( time(), 'bebop_main_cron_time', 'bebop_main_import_cron' );
+	}
+	
+	if ( ! wp_next_scheduled( 'bebop_secondary_import_cron' ) ) {
+		wp_schedule_event( time(), 'bebop_secondary_cron_time', 'bebop_secondary_import_cron' );
 	}
 }
 
@@ -94,8 +100,7 @@ function bebop_activate() {
 			id int(10) NOT NULL auto_increment PRIMARY KEY,
 			user_id int(10) NOT NULL,
 			extension varchar(255) NOT NULL,
-			name varchar(255) NOT NULL,
-			value longtext NOT NULL
+			name varchar(255) NOT NULL
 		);'; 
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -134,8 +139,9 @@ function bebop_deactivate() {
 	bebop_tables::drop_table( 'bp_bebop_first_imports' );
 	bebop_tables::remove_activity_stream_data();
 	
-	//delete the cron 
-	wp_clear_scheduled_hook( 'bebop_main_import_cron' );	
+	//delete the scheduled crons
+	wp_clear_scheduled_hook( 'bebop_main_import_cron' );
+	wp_clear_scheduled_hook( 'bebop_secondary_import_cron' );
 }
 
 //This function sets up the time interval for the cron schedule.
@@ -144,7 +150,7 @@ function bebop_main_cron_schedule( $schedules ) {
 		$time = bebop_tables::get_option_value( 'bebop_general_crontime' );
 	}
 	else {
-		$time = 300;
+		$time = 600;
 		bebop_tables::update_option( 'bebop_general_crontime', $time );
 	} 
 	
@@ -155,8 +161,21 @@ function bebop_main_cron_schedule( $schedules ) {
 	return $schedules;
 }
 
+function bebop_secondary_cron_schedule( $schedules ) {
+
+	$schedules['bebop_secondary_cron_time'] = array(
+		'interval' => 15,
+		'display'  => __( 'Once Weekly' ),
+	);
+	return $schedules;
+}
+
 function bebop_main_import_function() {	
 	require_once( 'import.php' );
+}
+
+function bebop_secondary_import_function() {	
+	require_once( 'secondary_import.php' );
 }
 
 define( 'BP_BEBOP_VERSION', '1.0.1' );

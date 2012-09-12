@@ -362,34 +362,42 @@ class bebop_tables {
 	return $return;
 	}
 	
-	function add_to_first_importers_list( $user_id, $extension, $name, $value ) {
+	function add_to_first_importers_list( $user_id, $extension, $name ) {
 		global $wpdb;
 		$wpdb->query(
 								$wpdb->prepare(
-												'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports (user_id, extension, name, value) VALUES (%s, %s, %s, %s)',
-												$wpdb->escape( $user_id ), $wpdb->escape( $extension ), $wpdb->escape( $name ), $wpdb->escape( $value )
+												'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports (user_id, extension, name) VALUES (%s, %s, %s)',
+												$wpdb->escape( $user_id ), $wpdb->escape( $extension ), $wpdb->escape( $name )
 								)
 				);
 				return true;
 	}
+	function delete_from_first_importers( $user_id, $extension, $name ) {
+		global $wpdb;
+		$wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND extension = '" . $wpdb->escape( $extension ) . "' 
+		AND name = '" . $wpdb->escape( $name ) . "' LIMIT 1" );
+		return true;
+	}
 	
 	function get_first_importers_by_extension( $extension ) {
 		global $wpdb;
-		$results = $wpdb->get_results( 'SELECT user_id FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE extension = '" . $wpdb->escape( $extension ) ."' AND value = '0'" );
+		$results = $wpdb->get_results( 'SELECT user_id FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE extension = '" . $wpdb->escape( $extension ) ."'" );
 		return $results;
 	}
-
-	function update_first_importers_list( $user_id, $extension, $name, $value ) {
+	
+	function check_for_first_import( $user_id, $extension, $name ) {
 		global $wpdb;
-		$result = $wpdb->query( 'UPDATE ' . bp_core_get_table_prefix() . "bp_bebop_first_imports SET value = '"  . $wpdb->escape( $value ) . "' WHERE user_id = '" . $wpdb->escape( $user_id ) .
-		"' AND extension = '" . $wpdb->escape( $extension ) . "' AND name = '" . $wpdb->escape( $name ) . "' LIMIT 1" );
-		if ( ! empty( $result ) ) {
-			return $result;
+		$results =  $wpdb->get_results( 'SELECT name FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE user_id = '" . $wpdb->escape( $user_id ) ."' AND extension = '" . $wpdb->escape( $extension ) . 
+		"' AND name = '" . $wpdb->escape( $name ) ."'" );
+		
+		if ( ! empty( $results ) ) {
+			return true;
 		}
 		else {
 			return false;
 		}
 	}
+	
 	function sanitise_element( $data, $allow_tags = null ) {
 		if(	$allow_tags == true ) {
 			return stripslashes( $data );

@@ -10,10 +10,13 @@
 	<form class='bebop_admin_form' method='post'>
 		<fieldset>
 			<span class='header'>Bebop Settings</span>
-			<p>The WordPress cron runs the import script for the given timeframe. The default is set to 5 minutes. (300 seconds). The only issue with the WordPress cron is that it can only be activated when a page is accessed. So, if no-one was to visit the site for a long period of time,
+			<p>The WordPress cron runs the import script for the given timeframe. The default is set to 10 minutes. (600 seconds). The only issue with the WordPress cron is that it can only be activated when a page is accessed. So, if no-one was to visit the site for a long period of time,
 			the importers might miss some content items. You should therefore use the WordPress cron only if you cannot use a traditional cron. Do not use both together.</p>
-			<p>To use the traditional cron, add the following cron command to your webhosting cron lists, setting a timeframe of your choice, but we recommend that you do not go lower than 10 minutes.</p>
+			<p>To use the traditional cron, add the following cron command to your webhosting cron lists, setting a timeframe of your choice. </p>
 			<p>If you use a traditional cron, set the WordPress Cron time to '0'.</p>
+			
+			<p><strong>New:</strong> As of version 1.1, a secondary cron was introduced. This allows the major import scripts to run at less frequency, while still allowing new users and new feeds to import data within 20 seconds.
+				Therefore you should not need to run the cron any less than 10 minutes (600 seconds).</p>
 			<label for='bebop_general_crontime'>WordPress Cron time (in seconds):</label>
 			<input type='text' id='bebop_general_crontime' name='bebop_general_crontime' value='<?php echo bebop_tables::get_option_value( 'bebop_general_crontime' ); ?>' size='10'><br>
 			
