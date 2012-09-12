@@ -33,13 +33,13 @@ function bebop_init() {
 	include_once( 'core/bebop-pages.php' );
 
 	//fire cron
-	add_action( 'bebop_cron', 'bebop_cron_function' ); 
+	add_action( 'bebop_main_import_cron', 'bebop_main_import_function' ); 
 	
 	//Adds the schedule filter for changing the standard interval time.
-	add_filter( 'cron_schedules', 'bebop_seconds_cron' );
+	add_filter( 'cron_schedules', 'bebop_main_cron_schedule' );
 	
-	if ( ! wp_next_scheduled( 'bebop_cron' ) ) {
-    	wp_schedule_event( time(), 'secs', 'bebop_cron' );
+	if ( ! wp_next_scheduled( 'bebop_main_import_cron' ) ) {
+		wp_schedule_event( time(), 'bebop_main_cron_time', 'bebop_main_import_cron' );
 	}
 }
 
@@ -135,11 +135,11 @@ function bebop_deactivate() {
 	bebop_tables::remove_activity_stream_data();
 	
 	//delete the cron 
-	wp_clear_scheduled_hook( 'bebop_cron' );	
+	wp_clear_scheduled_hook( 'bebop_main_import_cron' );	
 }
 
 //This function sets up the time interval for the cron schedule.
-function bebop_seconds_cron( $schedules ) {
+function bebop_main_cron_schedule( $schedules ) {
 	if ( bebop_tables::get_option_value( 'bebop_general_crontime' ) ) {
 		$time = bebop_tables::get_option_value( 'bebop_general_crontime' );
 	}
@@ -148,14 +148,14 @@ function bebop_seconds_cron( $schedules ) {
 		bebop_tables::update_option( 'bebop_general_crontime', $time );
 	} 
 	
-	$schedules['secs'] = array(
+	$schedules['bebop_main_cron_time'] = array(
 		'interval' => $time,
 		'display'  => __( 'Once Weekly' ),
 	); 
 	return $schedules;
 }
 
-function bebop_cron_function() {	
+function bebop_main_import_function() {	
 	require_once( 'import.php' );
 }
 

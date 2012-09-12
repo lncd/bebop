@@ -80,7 +80,7 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 				
 				//Edit the following two variables to point to where the relevant content is being stored in the API:
 				$errors		 = $items->error;
-				$username	 = '' . $items->status->user->screen_name[0];
+				$username	 = $items->status->user->screen_name[0];
 				
 				if ( ! $errors ) {
 					if ( $items ) {

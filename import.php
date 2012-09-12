@@ -53,5 +53,10 @@ if ( ! empty( $importers[0] ) ) {
 		}
 	}
 	$log_results = implode( ', ', $return_array );
-	bebop_tables::log_general( 'Main Importer', 'Main importer service completed. Imported ' . $log_results . '.' );
+	if ( ! empty( $log_results ) ) {
+		bebop_tables::log_general( 'Main Importer', 'Main importer service completed. Imported ' . $log_results . '.' );
+	}
+	else {
+		bebop_tables::log_general( 'Main Importer', 'Main importer service completed. Nothing was imported.' );
+	}
 }

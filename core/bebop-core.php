@@ -23,9 +23,9 @@ function bebop_general_admin_update_settings() {
 		if ( $current_page == 'bebop_admin_settings' ) {
 			if ( ! empty( $_POST['bebop_general_crontime'] ) ) {
 				$crontime = bebop_tables::update_option( 'bebop_general_crontime', trim( strip_tags( strtolower( $_POST['bebop_general_crontime'] ) ) ) );
-				wp_clear_scheduled_hook( 'bebop_cron' ); //Stops the cron
-				if( $crontime > 0 ) {	//if cron time is > 0, reschedule the cron. If zero, do nto reschedule
-					wp_schedule_event( time(), 'secs', 'bebop_cron' );//Re-activate with new time.
+				wp_clear_scheduled_hook( 'bebop_main_import_cron' ); //Stops the cron
+				if( $crontime > 0 ) {	//if cron time is > 0, reschedule the cron. If zero, do not reschedule
+					wp_schedule_event( time(), 'bebop_main_cron_time', 'bebop_main_import_cron' );//Re-activate with new time.
 				}
 				$_SESSION['bebop_admin_notice'] = true;
 				wp_safe_redirect( wp_get_referer() );

@@ -27,13 +27,14 @@ v1.1 - 20.09.2012 - Major Release
 This version changes some fundemental aspects of the plugin source code. See features for details.
 
 Feature Updates:
-1. When a new account is added to an extension, an initial import is fired to allow content to become available in the unverified resources without having to wait for the cron import to do its magic.
+1. When a new account is added to an extension, an initial import is fired to allow content to become available in the unverified resources without having to wait for the cron import to do its magic. This utilises a secondary wp-cron which the admin/user never sees.
+
 
 Bug Fixes:
 1. Removed importer queue as it was no longer required.
 
 Other:
-1. 
+1. Made a few import error/log messages a bit more clear.
 
 bebop feeds appear to be caching. 
 Do atom feeds work? e.g. http://orbital.blogs.lincoln.ac.uk/feed/atom/
