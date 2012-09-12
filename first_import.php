@@ -36,7 +36,10 @@ if ( ! empty( $importers ) ) {
 			if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php' ) ) {
 				include_once( WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php' );
 				if ( function_exists( 'bebop_' . strtolower( $extension ) . '_import' ) ) {
-					$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', strtolower( $extension ) );
+					$user_metas = bebop_tables::get_first_importers_by_extension( strtolower( $extension ) );
+					if( count( $user_metas ) > 0 ) {
+						$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', strtolower( $extension ), $user_metas );
+					}
 				}
 				else {
 					bebop_tables::log_error( 'First Importer', 'The function: bebop_' . strtolower( $extension ) . '_import does not exist.' );

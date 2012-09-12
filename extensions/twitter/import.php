@@ -23,11 +23,11 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 	$itemCounter = 0;
 	
 	//if user_metas is supplied, use that list
-	if( ! empty( $user_metas ) ) {
+	if( isset( $user_metas ) ) {
 		//update the status so they are not in the list again
 		foreach ( $user_metas as $user_meta )
 		{
-			bebop_tables::update_first_import_list( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import', 1 );
+			bebop_tables::update_first_importers_list( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import', 1 );
 		}
 	}
 	else {
@@ -60,7 +60,6 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 				
 				$items = $OAuth->oauth_request( $this_extension['data_feed'] );
 				$items = simplexml_load_string( $items );
-				var_dump($items);
 				/* 
 				 * ******************************************************************************************************************
 				 * We can get as far as loading the items, but you will need to adjust the values of the variables below to match 	*
