@@ -88,6 +88,14 @@ function bebop_activate() {
 			date_imported datetime,
 			date_recorded datetime,
 			hide_sitewide tinyint(1)
+		);';
+		
+		$bebop_first_import = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports ( 
+			id int(10) NOT NULL auto_increment PRIMARY KEY,
+			user_id int(10) NOT NULL,
+			extension varchar(255) NOT NULL,
+			name varchar(255) NOT NULL,
+			value longtext NOT NULL
 		);'; 
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -96,6 +104,7 @@ function bebop_activate() {
 		dbDelta( $bebop_options );
 		dbDelta( $bebop_user_meta );
 		dbDelta( $bebop_oer_manager );
+		dbDelta( $bebop_first_import );
 		
 		//cleanup
 		unset( $bebop_error_log );
@@ -103,6 +112,7 @@ function bebop_activate() {
 		unset( $bebop_options );
 		unset( $bebop_user_meta );
 		unset( $bebop_oer_manager );
+		unset( $bebop_first_import );
 	}
 	else {
 		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
@@ -121,6 +131,7 @@ function bebop_deactivate() {
 	bebop_tables::drop_table( 'bp_bebop_options' );
 	bebop_tables::drop_table( 'bp_bebop_user_meta' );
 	bebop_tables::drop_table( 'bp_bebop_oer_manager' );
+	bebop_tables::drop_table( 'bp_bebop_first_imports' );
 	bebop_tables::remove_activity_stream_data();
 	
 	//delete the cron 

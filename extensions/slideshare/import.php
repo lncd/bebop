@@ -5,7 +5,7 @@
  */
 
 //replace 'slideshare' with the 'name' of your extension, as defined in your config.php file.
-function bebop_slideshare_import( $extension ) {
+function bebop_slideshare_import( $extension, $specific_user = null, $specific_feed = null  ) {
 	global $wpdb, $bp;
 	if ( empty( $extension ) ) {
 		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty.' );

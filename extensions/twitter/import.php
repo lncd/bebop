@@ -5,7 +5,7 @@
  */
 
 //replace 'twitter' with the 'name' of your extension, as defined in your config.php file.
-function bebop_twitter_import( $extension ) {
+function bebop_twitter_import( $extension, $user_metas = null ) {
 	global $wpdb, $bp;
 	if ( empty( $extension ) ) {
 		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty.' );
@@ -21,8 +21,19 @@ function bebop_twitter_import( $extension ) {
 	
 	//item counter for in the logs
 	$itemCounter = 0;
-	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $this_extension['name'] . '_oauth_token' );
-	if ( $user_metas ) {
+	
+	//if user_metas is supplied, use that list
+	if( ! empty( $user_metas ) ) {
+		//update the status so they are not in the list again
+		foreach ( $user_metas as $user_meta )
+		{
+			bebop_tables::update_first_import_list( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import', 1 );
+		}
+	}
+	else {
+		$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $this_extension['name'] . '_oauth_token' );
+	}
+	if ( isset( $user_metas ) ) {
 		foreach ( $user_metas as $user_meta ) {
 			$errors = null;
 			$items 	= null;
@@ -49,7 +60,7 @@ function bebop_twitter_import( $extension ) {
 				
 				$items = $OAuth->oauth_request( $this_extension['data_feed'] );
 				$items = simplexml_load_string( $items );
-				
+				var_dump($items);
 				/* 
 				 * ******************************************************************************************************************
 				 * We can get as far as loading the items, but you will need to adjust the values of the variables below to match 	*

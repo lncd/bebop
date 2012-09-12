@@ -2,16 +2,16 @@
 /**
  * Importer for bebop
  */
-set_time_limit( 10000 );
-ini_set( 'max_execution_time', 10000 );
+set_time_limit( 60 );
+ini_set( 'max_execution_time', 60 );
 
 //load the WordPress loader
 $currentPpath = getcwd();
-$seekingRoot  = pathinfo($currentPpath);
-$incPath      = str_replace('wp-content/plugins','',$seekingRoot['dirname']);
+$seekingRoot  = pathinfo( $currentPpath );
+$incPath      = str_replace( 'wp-content/plugins','',$seekingRoot['dirname'] );
 
-ini_set('include_path', $incPath);
-include_once('wp-load.php');
+ini_set( 'include_path', $incPath );
+include_once( 'wp-load.php' );
 
 //include files from core.
 include_once( 'core/bebop-data.php' );
@@ -25,8 +25,18 @@ include_once( 'core/bebop-extensions.php' );
 include_once( 'core/bebop-core.php' );
 
 //if import a specific OER.
-if ( isset( $_GET['provider'] ) ) {
-	$importers[] = $_GET['provider'];
+if ( isset( $_GET['extension'] ) ) {
+	$importers[] = $_GET['extension'];
+	
+	if( isset( $_GET['user_id'] ) ) {
+		set_time_limit( 5 );
+		ini_set( 'max_execution_time', 5 );
+		
+		$specific_user = $_GET['user_id'];
+		if ( isset( $_GET['specific_feed'] ) ) {
+			$specific_feed = $_GET['specific_feed'];
+		}
+	}
 }
 else {
 	$active_extensions = bebop_extensions::get_active_extension_names();
@@ -51,8 +61,15 @@ if ( ! empty( $importers[0] ) ) {
 			
 				include_once( WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php' );
 				if ( function_exists( 'bebop_' . strtolower( $extension ) . '_import' ) ) {
-					//call the import function, and pass in the extension name.
-					$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', strtolower( $extension ) );
+					if ( isset( $specific_user ) && isset( $specific_feed ) ) {
+						$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', strtolower( $extension ), $specific_user, $specific_feed );
+					}
+					else if ( isset( $specific_user ) ) {
+						$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', strtolower( $extension ), $specific_user );
+					}
+					else {
+						$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', strtolower( $extension ) );
+					}
 				}
 				else {
 					bebop_tables::log_error( 'Importer', 'The function: bebop_' . strtolower( $extension ) . '_import does not exist.' );

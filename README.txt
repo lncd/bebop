@@ -26,26 +26,34 @@ v1.1 - 20.09.2012 - Major Release
 
 This version changes some fundemental aspects of the plugin source code. See features for details.
 
+Feature Updates:
+1. When a new account is added to an extension, an initial import is fired to allow content to become available in the unverified resources without having to wait for the cron import to do its magic.
+
+Bug Fixes:
+1. 
+
+Other:
+1. 
 
 bebop feeds appear to be caching. 
+Do atom feeds work? e.g. http://orbital.blogs.lincoln.ac.uk/feed/atom/
+change RSS buttons - should be on bar next to the OER filter.
 
 Need more feedback on adding an account e.g. new feed
 
-Takes too long for resources to appear in unverified area.  - I shall work on the cron, so that an account can retrieve data immediately once an account had been added.
-
-Bebop panel area needs icon - I shall change
+Takes too long for resources to appear in unverified area.  - Done
 
 Language file for switching language/terminology
 
-Do atom feeds work? e.g. http://orbital.blogs.lincoln.ac.uk/feed/atom/
+Bebop panel area needs icon - I shall change
 
 apostrophe as \\\\ - Fixed
 
-change RSS buttons - should be on bar next to the OER filter.
+
 
 Boone's email.
 
-change uninstall hook back.
+change uninstall hook back before release
 
 
 
@@ -63,7 +71,7 @@ Feature Updates:
 7. Changed 'Generic RSS' extension to 'Feed' Extension.
 
 
-Bug fixes
+Bug Fixes:
 1. A bug was fixed which made the OER filter tab dislay the wrong text.
 2. RSS feeds are closer to validating properly.
 3. Fixed deactivation bug where "bebop_tables()" class is not found.
@@ -78,7 +86,7 @@ Bug fixes
 12. Fixed bug where it is not possible to reset a deleted OER.
 
 
-Other
+Other:
 1. Support email changed to Github wiki.
 2. Removed the "break;" from import scripts - to retrieve older data if an import limit is removed.
 3. Changed some terminology here and there.

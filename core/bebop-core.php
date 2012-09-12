@@ -301,6 +301,7 @@ function bebop_manage_provider() {
 				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
 					$new_name = stripslashes( $_POST['bebop_' . $extension['name'] . '_username'] );
 					if ( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $new_name, $check_meta_value = true ) ) {
+						
 						bp_core_add_message( $new_name . ' has been added to the ' . $extension['display_name'] . ' feed.' );
 					}
 					else {
@@ -322,6 +323,7 @@ function bebop_manage_provider() {
 					}
 					$new_name = stripslashes( strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) );
 					if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'], $new_name, strip_tags( $insert_url ) ) ) {
+						
 						bp_core_add_message( 'Feed successfully added.' );
 					}
 					else {
