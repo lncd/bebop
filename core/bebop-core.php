@@ -287,6 +287,7 @@ function bebop_manage_oers() {
  */
 add_action( 'bp_actions', 'bebop_manage_provider' );
 function bebop_manage_provider() {
+
 	if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('accounts' ) ) {
 		if ( isset( $_GET['provider'] ) ) {
 		global $bp;
@@ -321,10 +322,10 @@ function bebop_manage_provider() {
 					}
 					$new_name = stripslashes( strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) );
 					if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'], $new_name, strip_tags( $insert_url ) ) ) {
-						bp_core_add_message( $new_name . " has been added for the '" . $extension['display_name'] . "' extension." );
+						bp_core_add_message( 'feed successfully added to the ' . $extension['display_name'] . ' extension.' );
 					}
 					else {
-						bp_core_add_message( $new_name . " already exists for the '" . $extension['display_name'] . "' extension, you cannot add it again.", 'error' );
+						bp_core_add_message( 'This feed already exists, you cannot add it again.', 'error' );
 					}
 				}
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
