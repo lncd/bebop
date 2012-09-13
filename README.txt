@@ -36,6 +36,7 @@ Feature Updates:
 
 Bug Fixes:
 1. Removed importer queue as it was no longer required.
+2. Fixed a rather complexed quote escaping problem.
 
 Other:
 1. Made a few import error/log messages a bit more clear.

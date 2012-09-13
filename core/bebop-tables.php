@@ -229,6 +229,7 @@ class bebop_tables {
 	
 	function check_user_meta_exists( $user_id, $meta_name ) { //function to check if user meta name exists in the user_meta table.
 		global $wpdb;
+		$meta_name = addslashes( $meta_name );
 		$result = $wpdb->get_row( 'SELECT meta_name FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
 		
 		if ( ! empty( $result->meta_name ) ) {
@@ -312,7 +313,7 @@ class bebop_tables {
 	
 	function update_user_meta( $user_id, $meta_type, $meta_name, $meta_value ) { //function to update user meta in the user_meta table.
 		global $wpdb;
-		
+		bebop_tables::log_error( 'meta_log', 'meta_name: ' . $meta_name . ' meta_value: ' . $meta_value );
 		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == true ) {
 			$result = $wpdb->query( 'UPDATE ' . bp_core_get_table_prefix() . "bp_bebop_user_meta SET meta_value = '"  . $wpdb->escape( $meta_value ) . "' WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
 			if ( ! empty( $result ) ) {
@@ -343,7 +344,7 @@ class bebop_tables {
 	function get_user_feeds( $user_id, $provider ) {
 		global $wpdb;
 		$results = $wpdb->get_results( 'SELECT meta_name, meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE meta_type LIKE '%" . $wpdb->escape( $provider ) . "%' AND user_id = '" . $wpdb->escape( $user_id ) . "'" );
-		//filter out meta we do not want.
+		//filter out data we do not want.
 		$blacklist = array( 'active', 'counter' );
 		$return = array();
 		
@@ -362,15 +363,27 @@ class bebop_tables {
 	return $return;
 	}
 	
-	function add_to_first_importers_list( $user_id, $extension, $name ) {
+	function add_to_first_importers_list( $user_id, $extension, $name, $value = null ) {
 		global $wpdb;
-		$wpdb->query(
-								$wpdb->prepare(
-												'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports (user_id, extension, name) VALUES (%s, %s, %s)',
-												$wpdb->escape( $user_id ), $wpdb->escape( $extension ), $wpdb->escape( $name )
-								)
-				);
-				return true;
+		if ( empty( $value ) ) {
+			$wpdb->query(
+									$wpdb->prepare(
+													'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports (user_id, extension, name) VALUES (%s, %s, %s)',
+													$wpdb->escape( $user_id ), $wpdb->escape( $extension ), $wpdb->escape( $name )
+									)
+					);
+			return true;
+		}
+		else {
+			$wpdb->query(
+									$wpdb->prepare(
+													'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports (user_id, extension, name, value) VALUES (%s, %s, %s, %s)',
+													$wpdb->escape( $user_id ), $wpdb->escape( $extension ), $wpdb->escape( $name ), $wpdb->escape( $value )
+									)
+					);
+			return true;
+			
+		}
 	}
 	function delete_from_first_importers( $user_id, $extension, $name ) {
 		global $wpdb;
@@ -396,6 +409,15 @@ class bebop_tables {
 		else {
 			return false;
 		}
+	}
+	
+	function get_initial_import_feeds( $user_id, $extension ) {
+		global $wpdb;
+		$results = $wpdb->get_results( 'SELECT value FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE user_id = '" . $wpdb->escape( $user_id ) ."' AND extension = '" . $wpdb->escape( $extension ) . "'" );
+		foreach ( $results as $result ) {
+			$return = bebop_tables::sanitise_element( $result );
+		}
+		return $return;
 	}
 	
 	function sanitise_element( $data, $allow_tags = null ) {

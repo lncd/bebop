@@ -301,7 +301,7 @@ function bebop_manage_provider() {
 				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
 					$new_name = stripslashes( $_POST['bebop_' . $extension['name'] . '_username'] );
 					if ( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $new_name, $check_meta_value = true ) ) {
-						bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $_POST['bebop_' . $extension['name'] . '_username'] . '_do_initial_import' );
+						bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $new_name . '_do_initial_import', $new_name );
 						bp_core_add_message( $new_name . ' has been added to the ' . $extension['display_name'] . ' feed.' );
 					}
 					else {
@@ -322,8 +322,8 @@ function bebop_manage_provider() {
 						$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
 					}
 					$new_name = stripslashes( strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) );
-					if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'], $new_name, strip_tags( $insert_url ) ) ) {
-						bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $_POST['bebop_' . $extension['name'] . '_newfeedname'] . '_do_initial_import' );
+					if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $new_name, $new_name, strip_tags( $insert_url ) ) ) {
+						bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $new_name . '_do_initial_import', $new_name );
 						bp_core_add_message( 'Feed successfully added.' );
 					}
 					else {
@@ -617,21 +617,26 @@ function bebop_dropdown_query_checker( $query_string ) {
 		$new_query_string .= '&per_page=10';
 		
 		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
-		if ( $_SESSION['bebop_area'] == 'not_bebop_oer_plugin' ) {
-			
+		if ( isset( $_SESSION['bebop_area'] ) ) {
+			if ( $_SESSION['bebop_area'] == 'not_bebop_oer_plugin' ) {
+				
+				$_SESSION['bebop_area'] = 'bebop_oer_plugin';
+				
+				var_dump($_SESSION['bebop_area']);
+				/*
+				 * This ensures that the default activity stream is reset if they have left the OER page.
+				 * "This is done to stop the dropdown list and activity stream being the same as the oer 
+				 * page was peviously on.
+				 */
+				echo  "<script type='text/javascript' src='" . WP_CONTENT_URL . '/plugins/bebop/core/resources/js/bebop-loop.js' . "'></script>";
+				echo '<script type="text/javascript">';
+				echo 'bebop_activity_cookie_modify("","");';
+				echo '</script>';
+				$_COOKIE['bp-activity-filter'] = '';
+			}
+		}
+		else {
 			$_SESSION['bebop_area'] = 'bebop_oer_plugin';
-			
-			var_dump($_SESSION['bebop_area']);
-			/*
-			 * This ensures that the default activity stream is reset if they have left the OER page.
-			 * "This is done to stop the dropdown list and activity stream being the same as the oer 
-			 * page was peviously on.
-			 */
-			echo  "<script type='text/javascript' src='" . WP_CONTENT_URL . '/plugins/bebop/core/resources/js/bebop-loop.js' . "'></script>";
-			echo '<script type="text/javascript">';
-			echo 'bebop_activity_cookie_modify("","");';
-			echo '</script>';
-			$_COOKIE['bp-activity-filter'] = '';
 		}
 	}
 	else {
@@ -668,19 +673,23 @@ function bebop_dropdown_query_checker( $query_string ) {
 				}
 			}
 		}
-			
-		if ( $_SESSION['bebop_area'] == 'bebop_oer_plugin' ) {
+		if ( isset( $_SESSION['bebop_area'] ) ) {
+			if ( $_SESSION['bebop_area'] == 'bebop_oer_plugin' ) {
+				$_SESSION['bebop_area'] = 'not_bebop_oer_plugin';
+				/*
+				 * This ensures that the default activity stream is reset if they have left the OER page.
+				 * "This is done to stop the dropdown list and activity stream being the same as the oer 
+				 * page was peviously on.
+				 */
+				echo  "<script type='text/javascript' src='" . WP_CONTENT_URL . '/plugins/bebop/core/resources/js/bebop-loop.js' . "'></script>";
+				echo '<script type="text/javascript">';
+				echo 'bebop_activity_cookie_modify("","");';
+				echo '</script>';
+				$_COOKIE['bp-activity-filter'] = '';
+			}
+		}
+		else {
 			$_SESSION['bebop_area'] = 'not_bebop_oer_plugin';
-			/*
-			 * This ensures that the default activity stream is reset if they have left the OER page.
-			 * "This is done to stop the dropdown list and activity stream being the same as the oer 
-			 * page was peviously on.
-			 */
-			echo  "<script type='text/javascript' src='" . WP_CONTENT_URL . '/plugins/bebop/core/resources/js/bebop-loop.js' . "'></script>";
-			echo '<script type="text/javascript">';
-			echo 'bebop_activity_cookie_modify("","");';
-			echo '</script>';
-			$_COOKIE['bp-activity-filter'] = '';
 		}
 	}
 	//Returns the query string.

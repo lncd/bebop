@@ -21,30 +21,38 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 	if( ! isset( $user_metas ) ) {
 		$user_metas = bebop_tables::get_user_ids_from_meta_type( $this_extension['name'] );
 	}
+	else {
+		$secondary_importers = true;
+	}
 	//if no user_metas are supplied, serarch for them.
 	if ( $user_metas ) {
 		foreach ( $user_metas as $user_meta ) {
 			//Ensure the user is wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
 				
-				
-				$user_feeds = bebop_tables::get_user_feeds( $user_meta->user_id , $this_extension['name'] );
-				
-				
+				if ( $secondary_importers === true ) {
+					$user_feeds = bebop_tables::get_initial_import_feeds( $user_meta->user_id , $this_extension['name'] );
+					bebop_tables::log_error( 'Importer', $user_feeds );
+					
+				}
+				else {
+					$user_feeds = bebop_tables::get_user_feeds( $user_meta->user_id , $this_extension['name'] );
+				}
 				
 				foreach ($user_feeds as $user_feed ) {
 					$errors = null;
 					$items 	= null;
-					
-					//if it is the first import, update the flag.
-					if ( bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_do_initial_import' ) ) {
-						bebop_tables::delete_from_first_importers( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_do_initial_import' );
-					}
-					
 					$feed_name = $user_feed->meta_name;
 					$feed_url = $user_feed->meta_value;
 					
-					$import_username = str_replace( ' ', '_', $feed_name );
+					$import_username = stripslashes( str_replace( ' ', '_', $feed_name ) );
+					
+					
+					if ( $secondary_importers === true ) {
+						if ( bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_' . $import_username . '_do_initial_import' ) ) {
+							bebop_tables::delete_from_first_importers( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_' . $import_username . '_do_initial_import' );
+						}
+					}
 					//Check the user has not gone past their import limit for the day.
 					if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
 						
