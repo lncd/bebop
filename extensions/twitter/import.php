@@ -22,9 +22,8 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 	//item counter for in the logs
 	$itemCounter = 0;
 	
-	//if user_metas is supplied, use that list
+	//if no user_metas are supplied, serarch for them.
 	if( ! isset( $user_metas ) ) {
-		//update the status so they are not in the list again
 		$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $this_extension['name'] . '_oauth_token' );
 	}
 	
@@ -36,13 +35,9 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 			//Ensure the user is currently wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
 				
-				$check = bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import' );
-				
-				bebop_tables::log_error( 'Importer - ' . ucfirst( $this_extension['name'] ), 'feed error: ' . serialize( $check ) );
-				
-				//if it is the first update, update the flag.
-				if ( bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import' ) ) {
-					bebop_tables::delete_from_first_importers( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_done_initial_import' );
+				//if it is the first import, update the flag.
+				if ( bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_do_initial_import' ) ) {
+					bebop_tables::delete_from_first_importers( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_do_initial_import' );
 				}
 				
 				/* 

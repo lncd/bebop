@@ -5,8 +5,7 @@
  */
 
 //replace 'feed' with the 'name' of your extension, as defined in your config.php file.
-function bebop_feed_import( $extension, $specific_user = null, $specific_feed = null ) {
-	var_dump($specific_user . ' ' . $specific_feed );
+function bebop_feed_import( $extension, $user_metas = null ) {
 	global $wpdb, $bp;
 	if ( empty( $extension ) ) {
 		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty.' );
@@ -17,15 +16,30 @@ function bebop_feed_import( $extension, $specific_user = null, $specific_feed = 
 	}
 	require_once (ABSPATH . WPINC . '/class-feed.php');
 	$itemCounter = 0;
-	$user_metas = bebop_tables::get_user_ids_from_meta_type( $this_extension['name'] );
+	
+	//if user_metas is supplied, use that list
+	if( ! isset( $user_metas ) ) {
+		$user_metas = bebop_tables::get_user_ids_from_meta_type( $this_extension['name'] );
+	}
+	//if no user_metas are supplied, serarch for them.
 	if ( $user_metas ) {
 		foreach ( $user_metas as $user_meta ) {
 			//Ensure the user is wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
-				$user_feeds = bebop_tables::get_user_feeds( $user_meta->user_id , $this_extension['name']);
+				
+				
+				$user_feeds = bebop_tables::get_user_feeds( $user_meta->user_id , $this_extension['name'] );
+				
+				
+				
 				foreach ($user_feeds as $user_feed ) {
 					$errors = null;
 					$items 	= null;
+					
+					//if it is the first import, update the flag.
+					if ( bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_do_initial_import' ) ) {
+						bebop_tables::delete_from_first_importers( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_do_initial_import' );
+					}
 					
 					$feed_name = $user_feed->meta_name;
 					$feed_url = $user_feed->meta_value;

@@ -100,7 +100,8 @@ function bebop_activate() {
 			id int(10) NOT NULL auto_increment PRIMARY KEY,
 			user_id int(10) NOT NULL,
 			extension varchar(255) NOT NULL,
-			name varchar(255) NOT NULL
+			name varchar(255) NOT NULL,
+			value longtext NOT NULL
 		);'; 
 		//run queries
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
