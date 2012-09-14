@@ -25,7 +25,7 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 		$secondary_importers = true;
 	}
 	//if no user_metas are supplied, serarch for them.
-	if ( $user_metas ) {
+	if ( isset( $user_metas ) ) {
 		foreach ( $user_metas as $user_meta ) {
 			//Ensure the user is wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
@@ -37,13 +37,11 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 				else {
 					$user_feeds = bebop_tables::get_user_feeds( $user_meta->user_id , $this_extension['name'] );
 				}
-				var_dump($user_feeds);
 				foreach ($user_feeds as $user_feed ) {
 					$errors = null;
 					$items 	= null;
 					$feed_name = $user_feed->meta_name;
 					$feed_url = $user_feed->meta_value;
-					
 					$import_username = stripslashes( str_replace( ' ', '_', $feed_name ) );
 					
 					
