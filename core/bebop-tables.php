@@ -172,7 +172,7 @@ class bebop_tables {
 	
 	function check_option_exists( $option_name ) { //function to chech whether an option exists in the options table.
 		global $wpdb;
-		$result = $wpdb->get_row( 'SELECT option_name FROM ' . bp_core_get_table_prefix() . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
+		$result = $wpdb->get_row( 'SELECT option_name FROM ' . bp_core_get_table_prefix() . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "'" );
 		if ( ! empty( $result->option_name ) ) {
 			return true;
 		}
@@ -183,7 +183,7 @@ class bebop_tables {
 	
 	function get_option_value( $option_name ) { //function to get an option from the options table.
 		global $wpdb;
-		$result = $wpdb->get_row( 'SELECT option_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
+		$result = $wpdb->get_row( 'SELECT option_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "'" );
 		if ( ! empty( $result->option_value ) ) {
 			return $result->option_value;
 		}
@@ -230,7 +230,7 @@ class bebop_tables {
 	function check_user_meta_exists( $user_id, $meta_name ) { //function to check if user meta name exists in the user_meta table.
 		global $wpdb;
 		$meta_name = addslashes( $meta_name );
-		$result = $wpdb->get_row( 'SELECT meta_name FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
+		$result = $wpdb->get_row( 'SELECT meta_name FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "'" );
 		
 		if ( ! empty( $result->meta_name ) ) {
 			return true;
@@ -241,7 +241,7 @@ class bebop_tables {
 	}
 	function check_user_meta_value_exists( $user_id, $meta_name, $meta_value ) { //function to check if user meta value aready exists for a user and an extension. THis is usd for adding multiple feeds.
 		global $wpdb;
-		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' AND meta_value = '" . $wpdb->escape( $meta_value ) . "' LIMIT 1" );
+		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' AND meta_value = '" . $wpdb->escape( $meta_value ) . "'" );
 		
 		if ( ! empty( $result->meta_value ) ) {
 			return true;
@@ -272,7 +272,7 @@ class bebop_tables {
 	function get_user_meta_value( $user_id, $meta_name ) {//function to get user meta from the user_meta table.
 		global $wpdb;
 		$meta_name = addslashes( $meta_name );
-		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
+		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "'" );
 		if ( ! empty( $result->meta_value ) ) {
 			return $result->meta_value;
 		}
@@ -367,8 +367,24 @@ class bebop_tables {
 				$return[] = $result;
 			}
 		}
-	return $return;
+		return $return;
 	}
+
+function get_user_feeds_from_array( $user_id, $provider, $feeds ) {
+		global $wpdb;
+		if ( is_array( $feeds ) ) {
+			$return = array();
+			foreach ( $feeds as $feed ) {
+				$results = $wpdb->get_row( 'SELECT meta_name, meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) .
+				"' AND meta_type = '" . $wpdb->escape( $provider . '_' . $feed ) .
+				"' AND meta_name = '" . $wpdb->escape( $feed ) . "'" );
+				$return[] = $results;
+			}
+			return $return;
+		}
+		return false;
+	}
+
 	
 	function add_to_first_importers_list( $user_id, $extension, $name, $value = null ) {
 		global $wpdb;
@@ -420,9 +436,10 @@ class bebop_tables {
 	
 	function get_initial_import_feeds( $user_id, $extension ) {
 		global $wpdb;
+		$return = array();
 		$results = $wpdb->get_results( 'SELECT value FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE user_id = '" . $wpdb->escape( $user_id ) ."' AND extension = '" . $wpdb->escape( $extension ) . "'" );
 		foreach ( $results as $result ) {
-			$return = bebop_tables::sanitise_element( $result );
+			$return[] = bebop_tables::sanitise_element( $result->value );
 		}
 		return $return;
 	}

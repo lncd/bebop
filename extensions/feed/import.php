@@ -31,14 +31,13 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
 				
 				if ( $secondary_importers === true ) {
-					$user_feeds = bebop_tables::get_initial_import_feeds( $user_meta->user_id , $this_extension['name'] );
-					bebop_tables::log_error( 'Importer', $user_feeds );
-					
+					$feeds = bebop_tables::get_initial_import_feeds( $user_meta->user_id , $this_extension['name'] );
+					$user_feeds = bebop_tables::get_user_feeds_from_array( $user_meta->user_id , $this_extension['name'], $feeds );
 				}
 				else {
 					$user_feeds = bebop_tables::get_user_feeds( $user_meta->user_id , $this_extension['name'] );
 				}
-				
+				var_dump($user_feeds);
 				foreach ($user_feeds as $user_feed ) {
 					$errors = null;
 					$items 	= null;
