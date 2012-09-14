@@ -268,8 +268,10 @@ class bebop_tables {
 		}
 		return $return;
 	}
+	
 	function get_user_meta_value( $user_id, $meta_name ) {//function to get user meta from the user_meta table.
 		global $wpdb;
+		$meta_name = addslashes( $meta_name );
 		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
 		if ( ! empty( $result->meta_value ) ) {
 			return $result->meta_value;
@@ -331,10 +333,15 @@ class bebop_tables {
 	
 	function remove_user_meta( $user_id, $meta_name ) { //function to remove user meta from the user_meta table.
 		global $wpdb;
-		
-		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == true ) {
-			$wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
-			return true;
+		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) === true ) {
+			$meta_name = addslashes( $meta_name );
+			$results = $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
+			if ( mysql_affected_rows() > 0 ) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 		else {
 			return false;

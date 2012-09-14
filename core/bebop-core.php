@@ -361,14 +361,20 @@ function bebop_manage_provider() {
 			
 			//delete a user's feed
 			if ( isset( $_GET['delete_feed'] ) ) {
-				$check_feed = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, $_GET['delete_feed'] );
+				$feed_name = stripslashes( urldecode( $_GET['delete_feed'] ) );
+				$check_feed = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, $feed_name );
 				if ( ! empty( $check_feed ) ) {
 					$check_http = strpos( $check_feed, '://' );
 					if ( $check_http ) {
-						bebop_tables::remove_user_meta( $bp->loggedin_user->id, $_GET['delete_feed'] );
-						bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $_GET['delete_feed'] );
-						bp_core_add_message( 'Feed successfully deleted.' );
-						bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+						if ( bebop_tables::remove_user_meta( $bp->loggedin_user->id, $feed_name ) ) {
+							bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $feed_name );
+							bp_core_add_message( 'Feed successfully deleted.' );
+							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+						}
+						else {
+							bp_core_add_message( 'WTF?', 'error' );
+							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+						}
 					}
 				}
 			}
@@ -379,8 +385,8 @@ function bebop_manage_provider() {
 			
 			//resets the user's data
 			if ( isset( $_GET['remove_username'] ) ) {
-				$username = $_GET['remove_username'];
-				bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $username );
+				$username = stripslashes( $_GET['remove_username'] );
+				bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $username );
 				bp_core_add_message( $username . ' has been removed from your ' . $extension['display_name'] . ' feed.' );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}
