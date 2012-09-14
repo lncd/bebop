@@ -68,10 +68,17 @@ class bebop_tables {
 			return false;
 		}
 	}
+	/*SELECT * 
+FROM  `wp_bp_bebop_user_meta` 
+WHERE  `meta_name` LIKE  '%bebop_feed_joss\\\\''%'
+LIMIT 0 , 30*/
+
 	function remove_username_from_provider( $user_id, $provider, $username ) {
 		global $wpdb, $bp;
-		$like_search = $provider . '_' . $username;
-		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name LIKE '%" . $wpdb->escape( $like_search ) . "%'" ) ) || 
+		$like_username = str_replace( "'", "\\\\\\\\''", $username ); //yeah......
+		$like_search = 'bebop_' . $provider . '_' . $like_username;
+		$username = addslashes( $username );
+		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name LIKE '%" . $like_search . "%'" ) ) || 
 		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type = '" . $wpdb->escape( $provider ) . "' AND meta_value = '" . $wpdb->escape( $username ) . "'" ) ) ) {
 			return true;
 		}
@@ -411,7 +418,6 @@ function get_user_feeds_from_array( $user_id, $provider, $feeds ) {
 	function delete_from_first_importers( $user_id, $extension, $name ) {
 		global $wpdb;
 		$name = addslashes( $name );
-		var_dump($name);
 		$wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND extension = '" . $wpdb->escape( $extension ) . "' 
 		AND name = '" . $wpdb->escape( $name ) . "' LIMIT 1" );
 		return true;
@@ -425,6 +431,7 @@ function get_user_feeds_from_array( $user_id, $provider, $feeds ) {
 	
 	function check_for_first_import( $user_id, $extension, $name ) {
 		global $wpdb;
+		$name = addslashes( $name );
 		$results =  $wpdb->get_results( 'SELECT name FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE user_id = '" . $wpdb->escape( $user_id ) ."' AND extension = '" . $wpdb->escape( $extension ) . 
 		"' AND name = '" . $wpdb->escape( $name ) ."'" );
 		

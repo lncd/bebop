@@ -368,6 +368,10 @@ function bebop_manage_provider() {
 							bp_core_add_message( 'Feed successfully deleted.' );
 							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 						}
+						else {
+							bp_core_add_message( 'it didnt work', 'error' );
+							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+						}
 					}
 				}
 			}
