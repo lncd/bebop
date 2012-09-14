@@ -314,7 +314,7 @@ function bebop_manage_provider() {
 					( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedurl'] ) ) ) {
 					if ( filter_var(  $_POST['bebop_' . $extension['name'] . '_newfeedurl'], FILTER_VALIDATE_URL ) ) {
 						$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
-						$new_name = stripslashes( strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) );
+						$new_name = str_replace(' ', '_', stripslashes( strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) ) );
 						if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $new_name, $new_name, strip_tags( $insert_url ) ) ) {
 							bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $new_name . '_do_initial_import', $new_name );
 							bp_core_add_message( 'Feed successfully added.' );
@@ -358,17 +358,14 @@ function bebop_manage_provider() {
 			
 			//delete a user's feed
 			if ( isset( $_GET['delete_feed'] ) ) {
-				$feed_name = stripslashes( urldecode( $_GET['delete_feed'] ) );
+				$feed_name = str_replace( ' ', '_', stripslashes( urldecode( $_GET['delete_feed'] ) ) );
 				$check_feed = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, $feed_name );
 				if ( ! empty( $check_feed ) ) {
 					if( filter_var( $check_feed, FILTER_VALIDATE_URL ) ) {
 						if ( bebop_tables::remove_user_meta( $bp->loggedin_user->id, $feed_name ) ) {
 							bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $feed_name );
+							bebop_tables::delete_from_first_importers( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $feed_name . '_do_initial_import' );
 							bp_core_add_message( 'Feed successfully deleted.' );
-							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
-						}
-						else {
-							bp_core_add_message( 'WTF?', 'error' );
 							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 						}
 					}

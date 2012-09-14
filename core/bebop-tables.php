@@ -315,7 +315,6 @@ class bebop_tables {
 	
 	function update_user_meta( $user_id, $meta_type, $meta_name, $meta_value ) { //function to update user meta in the user_meta table.
 		global $wpdb;
-		bebop_tables::log_error( 'meta_log', 'meta_name: ' . $meta_name . ' meta_value: ' . $meta_value );
 		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == true ) {
 			$result = $wpdb->query( 'UPDATE ' . bp_core_get_table_prefix() . "bp_bebop_user_meta SET meta_value = '"  . $wpdb->escape( $meta_value ) . "' WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
 			if ( ! empty( $result ) ) {
@@ -375,6 +374,7 @@ function get_user_feeds_from_array( $user_id, $provider, $feeds ) {
 		if ( is_array( $feeds ) ) {
 			$return = array();
 			foreach ( $feeds as $feed ) {
+				$feed = addslashes( $feed) ;
 				$results = $wpdb->get_row( 'SELECT meta_name, meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) .
 				"' AND meta_type = '" . $wpdb->escape( $provider . '_' . $feed ) .
 				"' AND meta_name = '" . $wpdb->escape( $feed ) . "'" );
@@ -410,6 +410,8 @@ function get_user_feeds_from_array( $user_id, $provider, $feeds ) {
 	}
 	function delete_from_first_importers( $user_id, $extension, $name ) {
 		global $wpdb;
+		$name = addslashes( $name );
+		var_dump($name);
 		$wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_first_imports WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND extension = '" . $wpdb->escape( $extension ) . "' 
 		AND name = '" . $wpdb->escape( $name ) . "' LIMIT 1" );
 		return true;

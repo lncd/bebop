@@ -55,7 +55,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 					<th>Options</th>
 				</tr>';
 		foreach ( $user_feeds as $user_feed ) {
-			$feed_name =  bebop_tables::sanitise_element( $user_feed->meta_name );
+			$feed_name =  str_replace( '_', ' ', bebop_tables::sanitise_element( $user_feed->meta_name ) );
 			echo '<tr>
 				<td>' . stripslashes( $feed_name ) . '</td>
 				<td>' . substr(bebop_tables::sanitise_element( $user_feed->meta_value ), 0, 150 ) . '</td>
