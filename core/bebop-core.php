@@ -309,25 +309,22 @@ function bebop_manage_provider() {
 					}
 				}
 				
-				//RSS stuff
+				//Try and add a new RSS feed.
 				if ( ( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) ) && 
 					( ! empty( $_POST['bebop_' . $extension['name'] . '_newfeedurl'] ) ) ) {
-					//Updates the channel name.
-					
-					$found_http = strpos( $_POST['bebop_' . $extension['name'] . '_newfeedurl'], '://' );
-					if ( ! $found_http ) {
-						$insert_url = 'http://' . $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
-					}
-					else {
+					if ( filter_var(  $_POST['bebop_' . $extension['name'] . '_newfeedurl'], FILTER_VALIDATE_URL ) ) {
 						$insert_url = $_POST['bebop_' . $extension['name'] . '_newfeedurl'];
-					}
-					$new_name = stripslashes( strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) );
-					if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $new_name, $new_name, strip_tags( $insert_url ) ) ) {
-						bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $new_name . '_do_initial_import', $new_name );
-						bp_core_add_message( 'Feed successfully added.' );
+						$new_name = stripslashes( strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) );
+						if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $new_name, $new_name, strip_tags( $insert_url ) ) ) {
+							bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $new_name . '_do_initial_import', $new_name );
+							bp_core_add_message( 'Feed successfully added.' );
+						}
+						else {
+							bp_core_add_message( 'This feed already exists, you cannot add it again.', 'error' );
+						}
 					}
 					else {
-						bp_core_add_message( 'This feed already exists, you cannot add it again.', 'error' );
+						bp_core_add_message( 'That feed cannot be added as it is not a valid URL.', 'error' );
 					}
 				}
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
@@ -364,8 +361,7 @@ function bebop_manage_provider() {
 				$feed_name = stripslashes( urldecode( $_GET['delete_feed'] ) );
 				$check_feed = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, $feed_name );
 				if ( ! empty( $check_feed ) ) {
-					$check_http = strpos( $check_feed, '://' );
-					if ( $check_http ) {
+					if( filter_var( $check_feed, FILTER_VALIDATE_URL ) ) {
 						if ( bebop_tables::remove_user_meta( $bp->loggedin_user->id, $feed_name ) ) {
 							bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $feed_name );
 							bp_core_add_message( 'Feed successfully deleted.' );

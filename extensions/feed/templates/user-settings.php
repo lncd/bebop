@@ -58,7 +58,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 			$feed_name =  bebop_tables::sanitise_element( $user_feed->meta_name );
 			echo '<tr>
 				<td>' . stripslashes( $feed_name ) . '</td>
-				<td>' . bebop_tables::sanitise_element( $user_feed->meta_value ) . '</td>
+				<td>' . substr(bebop_tables::sanitise_element( $user_feed->meta_value ), 0, 150 ) . '</td>
 				<td><a href="?provider=' . $extension['name'] . '&delete_feed=' . urlencode( $feed_name ) . '">Delete Feed</a></td>
 			</tr>';
 		}
