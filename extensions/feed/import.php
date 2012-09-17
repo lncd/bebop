@@ -7,6 +7,9 @@
 //replace 'feed' with the 'name' of your extension, as defined in your config.php file.
 function bebop_feed_import( $extension, $user_metas = null ) {
 	global $wpdb, $bp;
+	
+	$itemCounter = 0;
+	
 	if ( empty( $extension ) ) {
 		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty.' );
 		return false;
@@ -15,16 +18,15 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 		$this_extension = bebop_extensions::get_extension_config_by_name( $extension );
 	}
 	require_once (ABSPATH . WPINC . '/class-feed.php');
-	$itemCounter = 0;
 	
-	//if user_metas is supplied, use that list
+	//if user_metas is not defined, get some user meta.
 	if( ! isset( $user_metas ) ) {
 		$user_metas = bebop_tables::get_user_ids_from_meta_type( $this_extension['name'] );
 	}
 	else {
 		$secondary_importers = true;
 	}
-	//if no user_metas are supplied, serarch for them.
+
 	if ( isset( $user_metas ) ) {
 		foreach ( $user_metas as $user_meta ) {
 			//Ensure the user is wanting to import items.
@@ -45,14 +47,12 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 					$feed_url = $user_feed->meta_value;
 					$import_username = stripslashes( $feed_name );
 					
-					if ( bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_' . $import_username . '_do_initial_import' ) ) {
-						bebop_tables::delete_from_first_importers( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_' . $import_username . '_do_initial_import' );
-					}
-					else {
-						echo 'not first import apparently!!!!!';
-					}
 					//Check the user has not gone past their import limit for the day.
 					if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
+						
+						if ( bebop_tables::check_for_first_import( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_' . $import_username . '_do_initial_import' ) ) {
+							bebop_tables::delete_from_first_importers( $user_meta->user_id, $this_extension['name'], 'bebop_' . $this_extension['name'] . '_' . $import_username . '_do_initial_import' );
+						}
 						
 						/* 
 						 * ******************************************************************************************************************

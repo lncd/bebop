@@ -30,19 +30,22 @@ Feature Updates:
 1. When a new account is added to an extension, an initial import is fired to allow content to become available in the unverified resources without having to wait for the cron import to do its magic.
 2. Introduced a secondary cron which scans a new batabase table every 15 seconds to detect feeds which are due an initial import. This means the default cron can be ran less often, while new users/feeds can still import content.
 3. Changed default cron time to 10 minutes to support the above feature.
-4. Updated all extension import scripts to allow processing of the new cron.
+4. Updated all extension import scripts to allow processing of the new cron. //doing
+5. Changed the logo for the plugin.
 
 
 
 Bug Fixes:
 1. Removed importer queue as it was no longer required.
-2. Fixed a rather complexed quote escaping problem.
+2. Fixed a rather complexed quote escaping problem in user feeds.
+3. Fixed a bug which displayed the user's activity stream if no OER extensions are active.
 
 Other:
 1. Made a few import error/log messages a bit more clear.
 
 
-bebop feeds appear to be caching. 
+
+bebop feeds appear to be caching.
 Do atom feeds work? e.g. http://orbital.blogs.lincoln.ac.uk/feed/atom/
 change RSS buttons - should be on bar next to the OER filter.
 
@@ -52,10 +55,7 @@ Takes too long for resources to appear in unverified area.  - finishing off  oth
 
 Language file for switching language/terminology
 
-Bebop panel area needs icon - I shall change
-
-apostrophe as \\\\ - Fixed
-
+Look at use of remove_username_from_provider
 
 
 Boone's email.

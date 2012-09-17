@@ -68,12 +68,7 @@ class bebop_tables {
 			return false;
 		}
 	}
-	/*SELECT * 
-FROM  `wp_bp_bebop_user_meta` 
-WHERE  `meta_name` LIKE  '%bebop_feed_joss\\\\''%'
-LIMIT 0 , 30*/
-
-	function remove_username_from_provider( $user_id, $provider, $username ) {
+	/*function remove_username_from_provider( $user_id, $provider, $username ) {
 		global $wpdb, $bp;
 		$like_username = str_replace( "'", "\\\\\\\\''", $username ); //yeah......
 		$like_search = 'bebop_' . $provider . '_' . $like_username;
@@ -85,7 +80,7 @@ LIMIT 0 , 30*/
 		else {
 			return false;
 		}
-	}
+	}*/
 	
 	function bebop_check_existing_content_buffer( $user_id, $extension, $content ) {
 		global $wpdb;
@@ -376,12 +371,12 @@ LIMIT 0 , 30*/
 		return $return;
 	}
 
-function get_user_feeds_from_array( $user_id, $provider, $feeds ) {
+	function get_user_feeds_from_array( $user_id, $provider, $feeds ) {
 		global $wpdb;
 		if ( is_array( $feeds ) ) {
 			$return = array();
 			foreach ( $feeds as $feed ) {
-				$feed = addslashes( $feed) ;
+				$feed = addslashes( $feed ) ;
 				$results = $wpdb->get_row( 'SELECT meta_name, meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) .
 				"' AND meta_type = '" . $wpdb->escape( $provider . '_' . $feed ) .
 				"' AND meta_name = '" . $wpdb->escape( $feed ) . "'" );

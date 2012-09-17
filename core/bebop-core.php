@@ -350,7 +350,7 @@ function bebop_manage_provider() {
 				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token', $accessToken['oauth_token'] );
 				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token_secret', $accessToken['oauth_token_secret'] );
 				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
-				bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_do_initial_import' );
+				bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_do_initial_import', 1 );
 				
 				bp_core_add_message( 'You have successfully authenticated your ' . $extension['display_name'] . ' account.' );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
@@ -363,27 +363,26 @@ function bebop_manage_provider() {
 				if ( ! empty( $check_feed ) ) {
 					if( filter_var( $check_feed, FILTER_VALIDATE_URL ) ) {
 						if ( bebop_tables::remove_user_meta( $bp->loggedin_user->id, $feed_name ) ) {
-							bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $extension['name'], $feed_name );
 							bebop_tables::delete_from_first_importers( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $feed_name . '_do_initial_import' );
 							bp_core_add_message( 'Feed successfully deleted.' );
 							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 						}
 						else {
-							bp_core_add_message( 'it didnt work', 'error' );
+							bp_core_add_message( 'We could not delete that feed.', 'error' );
 							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 						}
 					}
 				}
 			}
-			//resets the user's data
-				if ( isset( $_GET['reset'] ) ) {
-					bebop_tables::remove_user_meta( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );
-				}
+			//resets the user's data - twitter
+			if ( isset( $_GET['reset'] ) ) {
+				bebop_tables::remove_user_meta( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_username' );
+			}
 			
-			//resets the user's data
+			//resets the user's data - other
 			if ( isset( $_GET['remove_username'] ) ) {
 				$username = stripslashes( $_GET['remove_username'] );
-				bebop_tables::remove_username_from_provider( $bp->loggedin_user->id, $username );
+				bebop_tables::remove_user_meta( $bp->loggedin_user->id, $username );
 				bp_core_add_message( $username . ' has been removed from your ' . $extension['display_name'] . ' feed.' );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}
@@ -485,14 +484,14 @@ function bebop_create_buffer_item( $params ) {
 			if ( ! bebop_tables::bebop_check_existing_content_buffer( $params['user_id'], $params['extension'], $original_text ) ) {
 				$content = '';
 				if ( $params['content_oembed'] == true ) {
-					$content = $original_ext;
+					$content = $original_text;
 				}
 				else {
 					$content = '<div class="bebop_activity_container ' . $params['extension'] . '">' . $original_text . '</div>';
 				}
 				$action  = '<a href="' . bp_core_get_user_domain( $params['user_id'] ) .'" title="' . bp_core_get_username( $params['user_id'] ).'">'.bp_core_get_user_displayname( $params['user_id'] ) . '</a>';
-				$action .= ' ' . __( 'posted&nbsp;a', 'bebop' . $extension['name'] ) . ' ';
-				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_'.$extension['name'] );
+				$action .= ' ' . __( 'posted&nbsp;a', 'bebop' . $params['extension'] ) . ' ';
+				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_' . $params['extension'] );
 				$action .= '</a>: ';
 				
 				$oer_hide_sitewide = 0;
@@ -565,7 +564,9 @@ function bebop_load_filter_options() {
 	if ( count( $store ) >= 2 ) {
 		echo '<option value="all_oer">All OERs</option>';
 	}
-	
+	else if ( count( $store ) === 0 ) {
+		echo '<option>No Extensions are active - please enable them in the admin panel.</option>';
+	}
 	//Outputs the options
 	foreach ( $store as $option ) {
 		echo $option;
@@ -588,7 +589,7 @@ function bebop_dropdown_query_checker( $query_string ) {
 		if ( isset( $str['page'] ) ) {
 			$page_number = '&page=' . $str['page'];
 		}
-		//if str isnt set or it equals 'all_oer'
+		//if type isnt set or it equals 'all_oer'
 		if ( ( ! isset( $str['type']) ) || ( $str['type'] == 'all_oer' ) ) {
 			//Sets the string_build variable ready.
 			$string_build = '';
@@ -615,6 +616,13 @@ function bebop_dropdown_query_checker( $query_string ) {
 		else {
 			$new_query_string = 'type=' . $str['type'] . '&action=' . $str['type'] . $page_number;
 			$_COOKIE['bp-activity-filter'] = $str['type'];
+		}
+		
+		//if the query string is empty there are no extensions active. fill with an obscure query type/action.
+		if ( empty( $new_query_string ) ) {
+			$new_query_string = 'type=thisisadelightfulplugin&action=soitisitsamazing';
+		}
+		else {
 		}
 		//Sets the page number for the bebop-oers page.
 		$new_query_string .= '&per_page=10';
