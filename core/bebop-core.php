@@ -111,7 +111,7 @@ function bebop_extension_admin_update_settings() {
 						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', '' );
 					}
 					
-					//hook to allow others to extend admin settings.
+					//Extension authors: use this hook to add your own admin data saves.
 					do_action( 'bebop_admin_settings_pre_save', $extension, $success );
 					
 					$_SESSION['bebop_admin_notice'] = $success;
@@ -329,8 +329,9 @@ function bebop_manage_provider() {
 						bp_core_add_message( 'That feed cannot be added as it is not a valid URL.', 'error' );
 					}
 				}
-
-				//hook to allow others to extend admin settings.
+				
+				//
+				//Extension authors: use this hook to add your own data saves.
 				do_action( 'bebop_user_settings_pre_edit_save', $extension );
 				
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
@@ -393,7 +394,7 @@ function bebop_manage_provider() {
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}
 			
-			//hook to allow others to extend admin settings.
+			//Extension authors: use this hook to add your own removal functionality.
 			do_action( 'bebop_admin_settings_pre_remove', $extension );
 		}//End if ( isset( $_GET['provider'] ) ) {
 	}//End if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('accounts' ) ) {

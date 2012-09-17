@@ -33,6 +33,7 @@ Feature Updates:
 4. Updated all extension import scripts to allow processing of the new cron.
 5. Changed the logo for the plugin.
 6. Improved RSS atom compatability.
+7. Added some hooks in relevant places to allow further extensions to be developed and easily hooked into bebop's functionality.
 
 
 Bug Fixes:
