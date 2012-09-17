@@ -8,8 +8,7 @@ class bebop_tables {
 		global $wpdb;
 		
 		if ( $wpdb->get_results( 'TRUNCATE TABLE ' . bp_core_get_table_prefix() . $table_name ) ) {
-			//if we get results, something has gone wrong...
-			bebop_tables::log_error( 'Table Truncate remove_username_from_provider', 'Could not empty the $table_name table.' );
+			bebop_tables::log_error( 'Table Truncate error', 'Could not empty the $table_name table.' );
 			return false;
 		}
 		else {
@@ -68,19 +67,6 @@ class bebop_tables {
 			return false;
 		}
 	}
-	/*function remove_username_from_provider( $user_id, $provider, $username ) {
-		global $wpdb, $bp;
-		$like_username = str_replace( "'", "\\\\\\\\''", $username ); //yeah......
-		$like_search = 'bebop_' . $provider . '_' . $like_username;
-		$username = addslashes( $username );
-		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name LIKE '%" . $like_search . "%'" ) ) || 
-		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type = '" . $wpdb->escape( $provider ) . "' AND meta_value = '" . $wpdb->escape( $username ) . "'" ) ) ) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}*/
 	
 	function bebop_check_existing_content_buffer( $user_id, $extension, $content ) {
 		global $wpdb;

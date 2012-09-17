@@ -733,18 +733,16 @@ function my_bp_activity_entry_meta() {
 				$rss_active_extensions[] = $extension;
 			}
 		}
-		
+		$user = get_user_by( 'id', bp_get_activity_user_id() );
 		foreach ( $rss_active_extensions as $feed )
 		{
 			if( bp_get_activity_type() == $feed ) {
-				$user = get_user_by( 'id', bp_get_activity_user_id() );
 				$extension = bebop_extensions::get_extension_config_by_name( strtolower( $feed ) );
 				echo '<a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/' . $extension['name'] . '/feed"><img style="vertical-align: text-top;"' .
 				'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> ' .
 				$extension['display_name'] . ' resources for ' . $user->user_nicename . '</a>';
 			}
 		}
-		
 		if ( count( $rss_active_extensions ) >= 2 ) {
 			echo ' <a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/all_oers/feed"><img style="vertical-align: text-top;"' . 
 			'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> All resources for ' . $user->user_nicename . '</a>';
