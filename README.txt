@@ -32,21 +32,18 @@ Feature Updates:
 3. Changed default cron time to 10 minutes to support the above feature.
 4. Updated all extension import scripts to allow processing of the new cron.
 5. Changed the logo for the plugin.
-
+6. Improved RSS atom compatability.
 
 
 Bug Fixes:
 1. Removed importer queue as it was no longer required.
 2. Fixed a rather complexed quote escaping problem in user feeds.
 3. Fixed a bug which displayed the user's activity stream if no OER extensions are active.
+4. Fixed an issue which forced the RSS feeds generator to always output results for 'all_oers' regardless of what content supposed to display.
 
 Other:
 1. Made a few import error/log messages a bit more clear.
 
-
-
-bebop feeds appear to be caching.
-Do atom feeds work? e.g. http://orbital.blogs.lincoln.ac.uk/feed/atom/
 change RSS buttons - should be on bar next to the OER filter.
 
 Need more feedback on adding an account e.g. new feed

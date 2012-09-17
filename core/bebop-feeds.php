@@ -11,7 +11,7 @@ function bebop_feeds() {
 		$active_extensions[] = 'all_oers';
 		foreach ( $active_extensions as $extension ) {
 			if ( bp_current_action() == $extension ) {
-				 if ( $extension = 'all_oers' ) {
+				 if ( $extension == 'all_oers' ) {
 				 	$this_bp_feed = $extension;
 				 }
 				 else if ( bebop_tables::check_option_exists( 'bebop_' . $extension . '_rss_feed' ) ) {
