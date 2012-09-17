@@ -41,6 +41,7 @@ Bug Fixes:
 2. Fixed a rather complexed quote escaping problem in user feeds.
 3. Fixed a bug which displayed the user's activity stream if no OER extensions are active.
 4. Fixed an issue which forced the RSS feeds generator to always output results for 'all_oers' regardless of what content supposed to display.
+5. Prefixed some functions to prevent some possible name conflicts with other possible plugins.
 
 Other:
 1. Made a few import error/log messages a bit more clear.

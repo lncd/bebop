@@ -8,7 +8,7 @@ if ( bp_is_my_profile() ) {
 	}
 	else if ( $page == '/bebop-oers/accounts/' ) {
 		if ( isset( $_GET['provider'] ) ) {
-			if ( bebop_extensions::extension_exist( $_GET['provider'] ) ) {
+			if ( bebop_extensions::bebop_extension_exists( $_GET['provider'] ) ) {
 				include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );
 			}
 			else {
@@ -17,7 +17,7 @@ if ( bp_is_my_profile() ) {
 			
 		}
 		else {
-			$active_extensions = bebop_extensions::get_active_extension_names();
+			$active_extensions = bebop_extensions::bebop_get_active_extension_names();
 			if ( count( $active_extensions ) == 0 ) {
 				echo '<p>No extensions are currently active. Please activate them in the bebop OER providers admin panel.</p>';
 			}
@@ -26,7 +26,7 @@ if ( bp_is_my_profile() ) {
 				<p>To add an account, click on the relevant button below. You will then be guided through the setup process.</p><br></div>';
 				
 				foreach ( $active_extensions as $extension ) {
-					$extension = bebop_extensions::get_extension_config_by_name( strtolower( $extension ) );
+					$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $extension ) );
 					echo '<div class="button_container"><a class="auto button min_width_100" href="?provider=' . $extension['name'] .'">' . $extension['display_name'] . '</a></div>';
 				}
 			}

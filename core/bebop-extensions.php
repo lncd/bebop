@@ -2,7 +2,45 @@
 
 class bebop_extensions {
 	
-	function load_extensions() {
+	function bebop_register_extension( $path ) {
+	add_filter( 'bebop_plugin_extensions', create_function( '$extensions', '
+	$extensions[] = "' . $path . '";
+	return $extensions;
+	' ) );
+	}
+	
+	function bebop_gather_extensions() {
+		
+		//core extensions are stored in bebop/extensions. 3rd party developers should store extensions elsewhere, or Bebop will overwrite them on update.
+		
+		$extension_paths = array();
+		$handle = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
+		if ( $handle ) {
+			while ( false !== ( $file = readdir( $handle ) ) ) {
+				if ( $file != '.' && $file != '..' && $file != '.DS_Store' ) {
+					if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/core.php' ) ) {
+						$extension_paths[] = WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/';
+					}
+				}
+			}
+		}
+		echo '<pre>';
+		var_dump( $extension_paths );
+		echo '</pre>';
+		
+		// Put together a list of plugin extensions
+		$plugin_extensions = apply_filters( 'bebop_plugin_extensions', array() );
+		if ( ! empty( $plugin_extensions ) ) {
+			$extension_paths = array_merge( $extension_paths, $plugin_extensions );
+		}
+			
+		echo '<pre>';
+		var_dump( $extension_paths );
+		echo '</pre>';
+		return $extension_paths;
+	}
+	
+	function bebop_load_extensions() {
 		$handle = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 		if ( $handle ) {
 			while ( false !== ( $file = readdir( $handle ) ) ) {
@@ -15,7 +53,7 @@ class bebop_extensions {
 		}
 	}
 	
-	function get_extension_configs() {
+	function bebop_get_extension_configs() {
 		$config = array();
 		$handle = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 		
@@ -33,8 +71,8 @@ class bebop_extensions {
 		}
 		return $config;
 	}
-	function get_extension_config_by_name( $extension ) {
-		if ( bebop_extensions::extension_exist( $extension ) ) {
+	function bebop_get_extension_config_by_name( $extension ) {
+		if ( bebop_extensions::bebop_extension_exists( $extension ) ) {
 			if ( ! function_exists( 'get_' . $extension . '_config' ) ) {
 				require( WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/config.php' );
 			}
@@ -44,7 +82,7 @@ class bebop_extensions {
 			return false;
 		}
 	}
-	function get_active_extension_names( $addslashes = false ) {
+	function bebop_get_active_extension_names( $addslashes = false ) {
 		//only pull data form active extensions
 		$handle     = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
 		$extensions = array();
@@ -68,7 +106,7 @@ class bebop_extensions {
 		return $extensions; 
 	}
 	
-	function extension_exist( $extensions ) {
+	function bebop_extension_exists( $extensions ) {
 		if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extensions ) . '/core.php' ) ) {
 			return true;
 		}
@@ -77,7 +115,8 @@ class bebop_extensions {
 		}
 	}
 	
-	function page_loader( $extension ) {
+	
+	function bebop_page_loader( $extension ) {
 		$extension = strtolower( $extension );
 		if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $extension . '/config.php' ) ) {
 			if ( ! function_exists( 'get_' . $extension . '_config' ) ) {
@@ -103,7 +142,7 @@ class bebop_extensions {
 		}
 	}
 	
-	function user_page_loader( $extension, $page = 'settings' ) {
+	function bebop_user_page_loader( $extension, $page = 'settings' ) {
 		global $bp;
 		if ( $bp->displayed_user->id != $bp->loggedin_user->id && $page != 'album' ) {
 			header( 'location:' . get_site_url() );

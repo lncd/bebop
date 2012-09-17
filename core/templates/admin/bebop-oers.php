@@ -68,7 +68,7 @@
 			<tbody>';
 				
 				foreach ( $oers as $oer ) {
-				$extension = bebop_extensions::get_extension_config_by_name( $oer->type );
+				$extension = bebop_extensions::bebop_get_extension_config_by_name( $oer->type );
 				echo '<tr>
 					<td>' . $oer->id . '</td>' .
 					'<td>' . $oer->secondary_item_id . '</td>' .
@@ -86,7 +86,7 @@
 	}
 	else {
 		echo '<h4>' . ucfirst( $type ) . ' OERs</h4>';
-		echo '<p>No ' . $type . ' oers exist in the oer manager.</p>';
+		echo '<p>No ' . $type . ' OERs exist in the oer manager.</p>';
 	}
 		
 	?>

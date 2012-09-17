@@ -3,7 +3,7 @@
 <?php
 //load the individual admin page
 if ( isset( $_GET['provider'] ) ) {
-	bebop_extensions::page_loader( $_GET['provider'] );
+	bebop_extensions::bebop_page_loader( $_GET['provider'] );
 }
 else {
 	include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
@@ -44,7 +44,7 @@ else {
 				<tbody>
 				<?php
 					//loop throught extensions directory and get all extensions
-					foreach ( bebop_extensions::get_extension_configs() as $extension ) {
+					foreach ( bebop_extensions::bebop_get_extension_configs() as $extension ) {
 							echo '<tr>
 						<td>' . $extension['display_name'] . '</td>
 						<td>' . bebop_tables::count_users_using_extension( $extension['name'], 1 ) . '</td>

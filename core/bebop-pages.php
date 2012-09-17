@@ -67,7 +67,7 @@ function bebop_setup_user_nav() {
 }
 
 function bebop_user_settings() {
-	bebop_extensions::user_page_loader( 'default', 'settings' );
+	bebop_extensions::bebop_user_page_loader( 'default', 'settings' );
 }
 
 function bebop_user_settings_screen_content() {

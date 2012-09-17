@@ -1,7 +1,6 @@
 <?php
-bebop_extensions::load_extensions();
 
-
+bebop_extensions::bebop_load_extensions();
 
 /*
  * Hook into admin functions to provide functionality to update, delete, etc.
@@ -48,7 +47,7 @@ function bebop_oer_providers_update_active() {
 					
 					//set the new importer queue
 					$importerQueue = array();
-					foreach ( bebop_extensions::get_extension_configs() as $extension ) {
+					foreach ( bebop_extensions::bebop_get_extension_configs() as $extension ) {
 						if ( isset( $_POST['bebop_' . $extension['name'] . '_provider'] ) ) {
 							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_provider', trim( $_POST['bebop_' . $extension['name'] . '_provider'] ) );
 							if ( ! bebop_tables::check_option_exists( 'bebop_' . $extension['name'] . '_rss_feed' ) ) {
@@ -80,7 +79,7 @@ function bebop_extension_admin_update_settings() {
 		$current_page = $_GET['page'];
 		if ( ! empty( $_GET['provider'] ) ) {
 			if ( $current_page == 'bebop_oer_providers' ) {
-				$extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
+				$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 				
 				if ( isset( $_POST['submit'] ) ) {
 					$success = true;
@@ -293,7 +292,7 @@ function bebop_manage_provider() {
 	if ( bp_is_current_component( 'bebop-oers' ) && bp_is_current_action('accounts' ) ) {
 		if ( isset( $_GET['provider'] ) ) {
 		global $bp;
-		$extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
+		$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 			if ( isset( $_POST['submit'] ) ) {
 				if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
 					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
@@ -421,7 +420,7 @@ function bebop_get_oer_type() {
 }
 function bebop_get_oers( $type ) {
 	global $bp, $wpdb;
-	$active_extensions = bebop_extensions::get_active_extension_names( $addslashes = true );
+	$active_extensions = bebop_extensions::bebop_get_active_extension_names( $addslashes = true );
 	$extension_names   = join( ',' ,$wpdb->escape( $active_extensions ) );
 	return bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extension_names, $type );
 }
@@ -562,10 +561,10 @@ function bebop_load_filter_options() {
 	
 	$store = array();
 	//gets only the active extension list.
-	$active_extensions = bebop_extensions::get_active_extension_names();
+	$active_extensions = bebop_extensions::bebop_get_active_extension_names();
 	foreach ( $active_extensions as $extension ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
-			$this_extension = bebop_extensions::get_extension_config_by_name( $extension );
+			$this_extension = bebop_extensions::bebop_get_extension_config_by_name( $extension );
 			$store[] = '<option value="' . $this_extension['name'] .'">' . $this_extension['display_name'] . '</option>';
 		}
 	}
@@ -605,7 +604,7 @@ function bebop_dropdown_query_checker( $query_string ) {
 			$string_build = '';
 			
 			//Loops through all the different extensions and adds the active extensions to the temp variable.
-			$active_extensions = bebop_extensions::get_active_extension_names();
+			$active_extensions = bebop_extensions::bebop_get_active_extension_names();
 			$extensions = array();
 			foreach ( $active_extensions as $extension ) {
 				if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
@@ -673,7 +672,7 @@ function bebop_dropdown_query_checker( $query_string ) {
 				$string_build = '';
 				
 				//Loops through all the different extensions and adds the active extensions to the temp variable.
-				$active_extensions = bebop_extensions::get_active_extension_names();
+				$active_extensions = bebop_extensions::bebop_get_active_extension_names();
 				$extensions = array();
 				foreach ( $active_extensions as $extension ) {
 					if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_provider' ) == 'on' ) {
@@ -736,7 +735,7 @@ function my_bp_activity_entry_meta() {
 	if ( bp_get_activity_object_name() == 'bebop_oer_plugin' ) {
 		
 		$rss_active_extensions = array();
-		$extensions = bebop_extensions::get_active_extension_names();
+		$extensions = bebop_extensions::bebop_get_active_extension_names();
 		foreach ( $extensions as $extension ) {
 			if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {
 				$rss_active_extensions[] = $extension;
@@ -746,7 +745,7 @@ function my_bp_activity_entry_meta() {
 		foreach ( $rss_active_extensions as $feed )
 		{
 			if( bp_get_activity_type() == $feed ) {
-				$extension = bebop_extensions::get_extension_config_by_name( strtolower( $feed ) );
+				$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $feed ) );
 				echo '<a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/' . $extension['name'] . '/feed"><img style="vertical-align: text-top;"' .
 				'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> ' .
 				$extension['display_name'] . ' resources for ' . $user->user_nicename . '</a>';
