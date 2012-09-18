@@ -23,12 +23,12 @@ include_once( 'core/bebop-pages.php' );
 include_once( 'core/bebop-extensions.php' );
 
 //Main content file
-include_once( 'core/bebop-core.php' );
+include_once( 'core/bebop-core-user.php' );
 
 //above code can be moved when this has been tested as working.
 
 
-$importers = bebop_extensions::get_active_extension_names();
+$importers = bebop_extensions::bebop_get_active_extension_names();
 
 if ( ! empty( $importers ) ) {
 	bebop_tables::log_general( 'Secondary Importer', 'Secondary importer service started.' ); 
@@ -54,10 +54,14 @@ if ( ! empty( $importers ) ) {
 	}
 	$log_results = implode( ', ', $return_array );
 	if ( ! empty( $log_results ) ) {
-		bebop_tables::log_general( 'Secondary Importer', 'Secondary importer service completed. Imported ' . $log_results . '.' );
+		$message = 'Secondary importer service completed. Imported ' . $log_results . '.';
+		bebop_tables::log_general( 'Secondary Importer', $message );
+		echo $message;
 	}
 	else {
-		bebop_tables::log_general( 'Secondary Importer', 'Secondary importer service completed. Nothing was imported.' );
+		$message = 'Secondary importer service completed. Nothing was imported.';
+		bebop_tables::log_general( 'Secondary Importer', $message );
+		echo $message;
 	}
 }
 ?>

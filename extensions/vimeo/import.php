@@ -30,7 +30,7 @@ function bebop_vimeo_import( $extension, $user_metas = null ) {
 			//Ensure the user is currently wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
 				
-				if ( $secondary_importers === true ) {
+				if ( isset( $secondary_importers ) && $secondary_importers === true ) {
 					$user_feeds = bebop_tables::get_initial_import_feeds( $user_meta->user_id , $this_extension['name'] );
 				}
 				else {
@@ -42,7 +42,7 @@ function bebop_vimeo_import( $extension, $user_metas = null ) {
 					$items 	= null;
 					
 					//extract the username as appropriate
-					if ( $secondary_importers === true ) {
+					if ( isset( $secondary_importers ) && $secondary_importers === true ) {
 						$username = $user_feed;
 					}
 					else {

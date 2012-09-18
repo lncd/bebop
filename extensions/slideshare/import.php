@@ -5,7 +5,7 @@
  */
 
 //replace 'slideshare' with the 'name' of your extension, as defined in your config.php file.
-function bebop_slideshare_import( $extension, $user_metas ) {
+function bebop_slideshare_import( $extension, $user_metas = null ) {
 	global $wpdb, $bp;
 	$itemCounter = 0;
 		
@@ -34,7 +34,7 @@ function bebop_slideshare_import( $extension, $user_metas ) {
 			//Ensure the user is currently wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) == 1 ) {
 			
-				if ( $secondary_importers === true ) {
+				if ( isset( $secondary_importers ) && $secondary_importers === true ) {
 					$user_feeds = bebop_tables::get_initial_import_feeds( $user_meta->user_id , $this_extension['name'] );
 				}
 				else {
@@ -46,7 +46,7 @@ function bebop_slideshare_import( $extension, $user_metas ) {
 					$items 	= null;
 					
 					//extract the username as appropriate
-					if ( $secondary_importers === true ) {
+					if ( isset( $secondary_importers ) && $secondary_importers === true ) {
 						$username = $user_feed;
 					}
 					else {

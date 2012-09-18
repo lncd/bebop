@@ -22,14 +22,14 @@ include_once( 'core/bebop-pages.php' );
 include_once( 'core/bebop-extensions.php' );
 
 //Main content file
-include_once( 'core/bebop-core.php' );
+include_once( 'core/bebop-core-user.php' );
 
 //if import a specific OER.
 if ( isset( $_GET['extension'] ) ) {
 	$importers[] = $_GET['extension'];
 }
 else {
-	$importers = bebop_extensions::get_active_extension_names();
+	$importers = bebop_extensions::bebop_get_active_extension_names();
 }
 
 //Check that the importers queue isn't empty, then start calling the import functions
@@ -53,10 +53,15 @@ if ( ! empty( $importers[0] ) ) {
 		}
 	}
 	$log_results = implode( ', ', $return_array );
+	
 	if ( ! empty( $log_results ) ) {
-		bebop_tables::log_general( 'Main Importer', 'Main importer service completed. Imported ' . $log_results . '.' );
+		$message = 'Main importer service completed. Imported ' . $log_results . '.';
+		bebop_tables::log_general( 'Main Importer', $message );
+		echo $message;
 	}
 	else {
-		bebop_tables::log_general( 'Main Importer', 'Main importer service completed. Nothing was imported.' );
+		$message = 'Main importer service completed. Nothing was imported.';
+		bebop_tables::log_general( 'Main Importer', $message );
+		echo $message;
 	}
 }

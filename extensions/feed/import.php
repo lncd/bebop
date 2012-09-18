@@ -32,7 +32,7 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 			//Ensure the user is wanting to import items.
 			if ( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_active_for_user' ) ) {
 				
-				if ( $secondary_importers === true ) {
+				if ( isset( $secondary_importers ) && $secondary_importers === true ) {
 					$feeds = bebop_tables::get_initial_import_feeds( $user_meta->user_id , $this_extension['name'] );
 					$user_feeds = bebop_tables::get_user_feeds_from_array( $user_meta->user_id , $this_extension['name'], $feeds );
 				}

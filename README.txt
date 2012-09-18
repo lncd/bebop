@@ -34,6 +34,9 @@ Feature Updates:
 5. Changed the logo for the plugin.
 6. Improved RSS atom compatability.
 7. Added some hooks in relevant places to allow further extensions to be developed and easily hooked into bebop's functionality.
+8. Moved RSS links to top of the Teaching Resources home tab, to prevent repetition and to make feeds visible even with no-one logged in.
+9. Made it easier for extensions to hook into bebop.
+10. Seperated admin functions from normal functions to increase performance.
 
 
 Bug Fixes:
