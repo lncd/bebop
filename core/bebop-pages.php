@@ -8,11 +8,11 @@ if ( isset( $_get['action'] ) ) {
 	if ( $_GET['action'] == 'logout' ) {
 	}
 	else {
-		bebop_setup_user_nav();
+		add_action( 'bp_setup_nav', 'bebop_setup_user_nav', 20 );
 	}
 }
 else {
-	bebop_setup_user_nav();
+	add_action( 'bp_setup_nav', 'bebop_setup_user_nav', 20 );
 }
 
 function bebop_setup_user_nav() {
