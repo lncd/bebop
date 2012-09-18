@@ -75,44 +75,35 @@ function bebop_flickr_import( $extension, $user_metas = null ) {
 						$data_request = new bebop_data();
 						
 						//send a request to see if we have a username or a user_id.
-						$data_request->set_parameters( 
-									array( 
-												'method'		=> 'flickr.people.getPublicPhotos',
-												'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
-												'user_id'		=> $username,
-												'extras'		=> 'date_upload,url_m,url_t,description',
-									)
+						$params = array(  
+										'method'		=> 'flickr.people.getPublicPhotos',
+										'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
+										'user_id'		=> $username,
+										'extras'		=> 'date_upload,url_m,url_t,description',
 						);
-						$query = $data_request->build_query( $this_extension['data_feed'] );
-						$data = $data_request->execute_request( $query );
+						$data = $data_request->execute_request( $this_extension['data_feed'], $params );
 						$data = simplexml_load_string( $data );
 						
 						//if the previous request failed. we have a username not a user_id.
 						if ( empty ( $data->photos ) ) {
 						
 							//Go and get the user_id
-							$data_request->set_parameters( 
-										array( 
-													'method'		=> 'flickr.urls.lookupuser',
-													'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
-													'url' 			=> 'http://www.flickr.com/photos/' . $username,
-										)
+							$params = array( 
+										'method'		=> 'flickr.urls.lookupuser',
+										'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
+										'url' 			=> 'http://www.flickr.com/photos/' . $username,
 							);
-							$query = $data_request->build_query( $this_extension['data_feed'] );
-							$data = $data_request->execute_request( $query );
+							$data = $data_request->execute_request( $this_extension['data_feed'], $params );
 							$data = simplexml_load_string( $data );
 							
 							//retry the request
-							$data_request->set_parameters( 
-										array( 
-													'method'		=> 'flickr.people.getPublicPhotos',
-													'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
-													'user_id'		=> urldecode($data->user['id']),
-													'extras'		=> 'date_upload,url_m,url_t,description',
-										)
+							$params = array( 
+										'method'		=> 'flickr.people.getPublicPhotos',
+										'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
+										'user_id'		=> urldecode($data->user['id']),
+										'extras'		=> 'date_upload,url_m,url_t,description',
 							);
-							$query = $data_request->build_query( $this_extension['data_feed'] );
-							$data = $data_request->execute_request( $query );
+							$data = $data_request->execute_request( $this_extension['data_feed'], $params );
 							$data = simplexml_load_string( $data );
 						}
 						
@@ -150,7 +141,6 @@ function bebop_flickr_import( $extension, $user_metas = null ) {
 									
 									//generate an $item_id
 									$item_id = bebop_generate_secondary_id( $user_meta->user_id, $id, $item_published );
-									echo $item_id . '<br>';
 									//check if the secondary_id already exists
 									$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
 									//if the id is not found, import the content.

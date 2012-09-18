@@ -75,16 +75,13 @@ function bebop_slideshare_import( $extension, $user_metas = null ) {
 						
 						$data_request = new bebop_data();
 						
-						$data_request->set_parameters( 
-									array( 
-												'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
-												'ts' 			=> time(),
-												'hash'			=> sha1( bebop_tables::get_option_value( 'bebop_' . $this_extension ['name']. '_consumer_secret' ) . time() ),
-												'username_for'	=> $import_username,
-									)
+						$params = array( 
+										'api_key' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ),
+										'ts' 			=> time(),
+										'hash'			=> sha1( bebop_tables::get_option_value( 'bebop_' . $this_extension ['name']. '_consumer_secret' ) . time() ),
+										'username_for'	=> $import_username,
 						);
-						$query = $data_request->build_query( $this_extension['data_feed'] );
-						$data = $data_request->execute_request( $query );
+						$data = $data_request->execute_request( $this_extension['data_feed'], $params );
 						$data = simplexml_load_string( $data );
 						
 						/* 
