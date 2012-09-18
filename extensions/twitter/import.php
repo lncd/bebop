@@ -16,7 +16,7 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 		return false;
 	}
 	else {
-		$this_extension = bebop_extensions::get_extension_config_by_name( $extension );
+		$this_extension = bebop_extensions::bebop_get_extension_config_by_name( $extension );
 	}
 	
 	//item counter for in the logs

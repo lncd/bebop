@@ -40,13 +40,21 @@ function bebop_init() {
 	add_filter( 'cron_schedules', 'bebop_main_cron_schedule' );
 	add_filter( 'cron_schedules', 'bebop_secondary_cron_schedule' );
 	
+	//main cron
 	if ( ! wp_next_scheduled( 'bebop_main_import_cron' ) ) {
 		wp_schedule_event( time(), 'bebop_main_cron_time', 'bebop_main_import_cron' );
 	}
 	
+	//secondary cron
 	if ( ! wp_next_scheduled( 'bebop_secondary_import_cron' ) ) {
 		wp_schedule_event( time(), 'bebop_secondary_cron_time', 'bebop_secondary_import_cron' );
 	}
+	
+	//hook in any 3rd party extensions to this hook.
+	do_action( 'bebop_loaded' );
+	
+	//load all the extensions.
+	bebop_extensions::bebop_load_extensions();
 }
 
 //Code that should be fired when he plugin is activated.

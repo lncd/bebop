@@ -14,7 +14,7 @@
  * i.e. if you extension name is 'my_extension', the value of $extension will be 'my_extension'.
  *  Make sure the extension name is in lower case.
  */
-$extension = bebop_extensions::get_extension_config_by_name( strtolower( $extension ) );
+$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $extension ) );
 
 //Include the admin menu.
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>

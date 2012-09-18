@@ -15,7 +15,7 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 		return false;
 	}
 	else {
-		$this_extension = bebop_extensions::get_extension_config_by_name( $extension );
+		$this_extension = bebop_extensions::bebop_get_extension_config_by_name( $extension );
 	}
 	require_once (ABSPATH . WPINC . '/class-feed.php');
 	

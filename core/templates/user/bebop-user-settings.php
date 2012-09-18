@@ -14,7 +14,6 @@ if ( bp_is_my_profile() ) {
 			else {
 				echo 'The extension \'' .  $_GET['provider'] . '\' doesn\'t exist.';
 			}
-			
 		}
 		else {
 			$active_extensions = bebop_extensions::bebop_get_active_extension_names();

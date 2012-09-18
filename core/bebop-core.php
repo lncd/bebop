@@ -1,7 +1,5 @@
 <?php
 
-bebop_extensions::bebop_load_extensions();
-
 /*
  * Hook into admin functions to provide functionality to update, delete, etc.
  */

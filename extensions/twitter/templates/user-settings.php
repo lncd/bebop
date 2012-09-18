@@ -14,7 +14,7 @@ global $bp;
  * i.e. if you extension name is 'my_extension', the value of $extension will be 'my_extension'.
  * The extension has to exist if this page is being included.
  */
-$extension = bebop_extensions::get_extension_config_by_name( strtolower( $_GET['provider'] ) );
+$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 
 //put some options into variables
 $variable_name = 'bebop_' . $extension['name'] . '_active_for_user';																//the name of the variable
