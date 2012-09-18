@@ -141,3 +141,8 @@
 	margin-right:0;
 	margin-left:15px;
 }
+
+.rss_feed_container {
+	float:left;
+	max-width:82.5%;
+}

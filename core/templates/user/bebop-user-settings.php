@@ -50,6 +50,7 @@ if ( $page == '/bebop-oers/home/' ) {
 	
 	<!-- This section creates the drop-down menu with its classes hooked into buddypress -->
 	<div class='item-list-tabs no-ajax' id='subnav' role='navigation'>
+		<?php echo bebop_rss_buttons(); ?>
 		<ul class='clearfix'>
 			<li id='activity-filter-select' class='last'>
 				<label for='activity-filter-by'>Show:</label> 

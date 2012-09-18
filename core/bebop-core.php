@@ -728,32 +728,31 @@ function bebop_access_ajax() {
 
 
 //add extra rss buttons to activity stream content.
-function my_bp_activity_entry_meta() {
+function bebop_rss_buttons() {
 	global $bp;
-	if ( bp_get_activity_object_name() == 'bebop_oer_plugin' ) {
-		
-		$rss_active_extensions = array();
-		$extensions = bebop_extensions::bebop_get_active_extension_names();
-		foreach ( $extensions as $extension ) {
-			if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {
-				$rss_active_extensions[] = $extension;
-			}
-		}
-		$user = get_user_by( 'id', bp_get_activity_user_id() );
-		foreach ( $rss_active_extensions as $feed )
-		{
-			if( bp_get_activity_type() == $feed ) {
-				$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $feed ) );
-				echo '<a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/' . $extension['name'] . '/feed"><img style="vertical-align: text-top;"' .
-				'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> ' .
-				$extension['display_name'] . ' resources for ' . $user->user_nicename . '</a>';
-			}
-		}
-		if ( count( $rss_active_extensions ) >= 2 ) {
-			echo ' <a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/all_oers/feed"><img style="vertical-align: text-top;"' . 
-			'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> All resources for ' . $user->user_nicename . '</a>';
+	
+	$count = 0;
+	$rss_active_extensions = array();
+	$extensions = bebop_extensions::bebop_get_active_extension_names();
+	
+	$user = $bp->displayed_user->userdata;
+	
+	echo '<h3>' . $user->user_nicename  . ' Resource Feeds</h3>';
+	echo '<div class="rss_feed_container">';
+	foreach ( $extensions as $extension ) {
+		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {
+			$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $extension ) );
+			echo '<a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/' . $extension['name'] . '/feed"><img style="vertical-align: text-top;"' .
+			'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> ' .
+		$extension['display_name'] . ' resources';
+			$count++;
 		}
 	}
+	
+	if ( $count >= 2 ) {
+		echo ' <a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/all_oers/feed"><img style="vertical-align: text-top;"' . 
+		'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> All resources</a>';
+	}
+	echo '</div>';
 }
-add_action('bp_activity_entry_meta', 'my_bp_activity_entry_meta');
 ?>
