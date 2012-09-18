@@ -37,6 +37,7 @@ Feature Updates:
 8. Moved RSS links to top of the Teaching Resources home tab, to prevent repetition and to make feeds visible even with no-one logged in.
 9. Made it easier for extensions to hook into bebop.
 10. Seperated admin functions from normal functions to increase performance.
+11. Placed buttons in the admin general settings which can automatically fire a cron. This could aid problem solving with users if they cannet get content to import.
 
 
 Bug Fixes:
@@ -45,13 +46,10 @@ Bug Fixes:
 3. Fixed a bug which displayed the user's activity stream if no OER extensions are active.
 4. Fixed an issue which forced the RSS feeds generator to always output results for 'all_oers' regardless of what content supposed to display.
 5. Prefixed some functions to prevent some possible name conflicts with other possible plugins.
+6. Fixed a flickr import bug which accidentally removed data from the OER manager table.
 
 Other:
 1. Made a few import error/log messages a bit more clear.
-
-change RSS buttons - should be on bar next to the OER filter.
-
-Need more feedback on adding an account e.g. new feed
 
 Language file for switching language/terminology
 

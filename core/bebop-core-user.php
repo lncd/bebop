@@ -560,7 +560,6 @@ function bebop_access_ajax() {
 	add_filter( 'bp_ajax_querystring', 'bebop_dropdown_query_checker' );
 }
 
-
 //add extra rss buttons to activity stream content.
 function bebop_rss_buttons() {
 	global $bp;
@@ -571,7 +570,7 @@ function bebop_rss_buttons() {
 	
 	$user = $bp->displayed_user->userdata;
 	
-	echo '<h3>' . $user->user_nicename  . ' Resource Feeds</h3>';
+	echo '<h3>' . $user->user_nicename  . ' feeds</h3>';
 	echo '<div class="rss_feed_container">';
 	foreach ( $extensions as $extension ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {

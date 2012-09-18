@@ -150,7 +150,7 @@ function bebop_flickr_import( $extension, $user_metas = null ) {
 									
 									//generate an $item_id
 									$item_id = bebop_generate_secondary_id( $user_meta->user_id, $id, $item_published );
-									
+									echo $item_id . '<br>';
 									//check if the secondary_id already exists
 									$secondary = bebop_tables::fetch_individual_oer_data( $item_id );
 									//if the id is not found, import the content.

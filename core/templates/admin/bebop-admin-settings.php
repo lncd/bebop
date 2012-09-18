@@ -17,11 +17,17 @@
 			
 			<p><strong>New:</strong> As of version 1.1, a secondary cron was introduced. This allows the major import scripts to run at less frequency, while still allowing new users and new feeds to import data within 20 seconds.
 				Therefore you should not need to run the cron any less than 10 minutes (600 seconds).</p>
+			<p><strong>New:</strong> As of version 1.1, A Crons can be forced to run at the click of a button. This can be used to test whether content is being imported and does not affect the WordPress cron time.</p>
 			<label for='bebop_general_crontime'>WordPress Cron time (in seconds):</label>
 			<input type='text' id='bebop_general_crontime' name='bebop_general_crontime' value='<?php echo bebop_tables::get_option_value( 'bebop_general_crontime' ); ?>' size='10'><br>
 			
 			<label for='traditional_cron'>Traditional Cron:</label>
 			<input type='text' id='traditional_cron' value="wget <?php echo plugins_url() . '/bebop/import.php -O /dev/null -q'?>" size='75' READONLY>
+			
+			<label>Force  Main Cron:</label>
+			<a class="button auto" target="_blank" href="<?php echo plugins_url(); ?>/bebop/import.php">Main Import</a> (all users, all feeds)
+			<label>Force  Secondary Cron:</label>
+			<a class="button auto" target="_blank" href="<?php echo plugins_url(); ?>/bebop/secondary_import.php">Secondary Import</a> (new users/new feeds)
 			<div class="clear"></div>
 		</fieldset>
 		<input class='button-primary' type='submit' id='submit' name='submit' value='Save Changes'>

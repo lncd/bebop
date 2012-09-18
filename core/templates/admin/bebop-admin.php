@@ -13,7 +13,8 @@
 		<div class='postbox'>
 			<h3>Latest News</h3>
 			<div class='inside'>
-				Version 1.0 of Bebop has now been released. This BuddyPress plugin allows users to import Open Educational Resources from around the web, into their BuddyPress activity stream.
+				<p>Version 1.1 of Bebop has been released. Many requested features have been implemented, bugs have been fixed, and issues resolved. For more details, please see the changelog in README.txt.</p>
+				<p>Version 1.0 of Bebop has now been released. This BuddyPress plugin allows users to import Open Educational Resources from around the web, into their BuddyPress activity stream.</p>
 			</div>
 		</div>
 

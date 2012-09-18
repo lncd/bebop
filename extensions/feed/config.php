@@ -9,6 +9,7 @@ function get_feed_config() {
 		'type'				=> 'Feed',
 		'pages'				=> array( 'settings', ),
 		'defaultpage'		=> 'settings',
+		'content_oembed'	=> false,
 		'content_type' 			=> 'RSS link',
 	);
 	return $config;
