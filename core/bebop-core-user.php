@@ -576,16 +576,15 @@ function bebop_rss_buttons() {
 		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {
 			$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $extension ) );
 			echo '<a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/' . $extension['name'] . '/feed"><img style="vertical-align: text-top;"' .
-			'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> ' .
-		$extension['display_name'] . '';
+			'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png">' .$extension['display_name'] . '</a>';
 			$count++;
 		}
 	}
-	
 	if ( $count >= 2 ) {
 		echo ' <a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/members/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/all_oers/feed"><img style="vertical-align: text-top;"' . 
-		'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> All</a>';
+		'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png">All</a>';
 	}
+
 	echo '</div>';
 }
 ?>

@@ -58,9 +58,9 @@ class bebop_tables {
 	function remove_user_from_provider( $user_id, $provider ) {
 		global $wpdb, $bp;
 		
-		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) || 
-		( $wpdb->get_results( 'DELETE FROM ' . $bp->activity->table_name . " WHERE component = 'bebop_oer_plugin' AND type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) ||
-		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND type LIKE '%" . $wpdb->escape( $provider ) . "%'" ) ) ) {
+		if ( ( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta  WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_type LIKE '%" . like_escape( $provider ) . "%'" ) ) || 
+		( $wpdb->get_results( 'DELETE FROM ' . $bp->activity->table_name . " WHERE component = 'bebop_oer_plugin' AND type LIKE '%" . like_escape( $provider ) . "%'" ) ) ||
+		( $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND type LIKE '%" . like_escape( $provider ) . "%'" ) ) ) {
 			return true;
 		}
 		else {
@@ -71,7 +71,7 @@ class bebop_tables {
 	function bebop_check_existing_content_buffer( $user_id, $extension, $content ) {
 		global $wpdb;
 		$content = strip_tags( $content );
-		$content = trim( $content );
+		$content = like_escape( $content );
 		
 		if ( $wpdb->get_row( 'SELECT content FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager user_id = '" . $wpdb->escape( $user_id ) . "' AND type = '" . $wpdb->escape( $extension ) . "' AND content LIKE '%" . $content . "%'" ) ) {
 			return true;
@@ -337,7 +337,7 @@ class bebop_tables {
 	
 	function get_user_feeds( $user_id, $provider ) {
 		global $wpdb;
-		$results = $wpdb->get_results( 'SELECT meta_name, meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE meta_type LIKE '%" . $wpdb->escape( $provider ) . "%' AND user_id = '" . $wpdb->escape( $user_id ) . "'" );
+		$results = $wpdb->get_results( 'SELECT meta_name, meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE meta_type LIKE '%" . like_escape( $provider ) . "%' AND user_id = '" . $wpdb->escape( $user_id ) . "'" );
 		//filter out data we do not want.
 		$blacklist = array( 'active', 'counter' );
 		$return = array();

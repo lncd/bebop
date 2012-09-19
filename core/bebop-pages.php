@@ -125,13 +125,11 @@ function bebop_admin_pages() {
 		echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $_GET['page'] . '" page not found. Loaded home instead.</div>';
 		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin.php';
 	}
-}  
-//add_action('admin_menu', 'bebop_admin_menu');
+}
 add_action( bp_core_admin_hook(), 'bebop_admin_menu' );
 
 function bebop_admin_stylesheets() {
 	wp_register_style( 'bebop-admin-styles', plugins_url() . '/bebop/core/resources/css/admin.css' );
 	wp_enqueue_style( 'bebop-admin-styles' );
 }
-//wp_enqueue_scripts hooks is not available?
 add_action( bp_core_admin_hook(), 'bebop_admin_stylesheets' );
