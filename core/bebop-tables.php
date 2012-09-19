@@ -202,7 +202,7 @@ class bebop_tables {
 		global $wpdb;
 		
 		if ( bebop_tables::check_option_exists( $option_name ) == true ) {
-			$wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_options  WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
+			$wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
 			return true;
 		}
 		else {
@@ -219,7 +219,6 @@ class bebop_tables {
 		global $wpdb;
 		$meta_name = addslashes( $meta_name );
 		$result = $wpdb->get_row( 'SELECT meta_name FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "'" );
-		
 		if ( ! empty( $result->meta_name ) ) {
 			return true;
 		}
@@ -227,7 +226,7 @@ class bebop_tables {
 			return false;
 		}
 	}
-	function check_user_meta_value_exists( $user_id, $meta_name, $meta_value ) { //function to check if user meta value aready exists for a user and an extension. THis is usd for adding multiple feeds.
+	function check_user_meta_value_exists( $user_id, $meta_name, $meta_value ) { //function to check if user meta value aready exists for a user and an extension. This is used for adding multiple feeds.
 		global $wpdb;
 		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' AND meta_value = '" . $wpdb->escape( $meta_value ) . "'" );
 		
@@ -320,7 +319,7 @@ class bebop_tables {
 	
 	function remove_user_meta( $user_id, $meta_name ) { //function to remove user meta from the user_meta table.
 		global $wpdb;
-		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) === true ) {
+		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == true ) {
 			$meta_name = addslashes( $meta_name );
 			$results = $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
 			if ( mysql_affected_rows() > 0 ) {
@@ -329,6 +328,19 @@ class bebop_tables {
 			else {
 				return false;
 			}
+		}
+		else {
+			return false;
+		}
+	}
+	
+	function remove_user_meta_value( $user_id, $meta_value ) { //function to remove user meta value from the user_meta table.
+		global $wpdb;
+		
+		$meta_value = addslashes( $meta_value );
+		$results = $wpdb->get_results( 'DELETE FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_value = '" . $wpdb->escape( $meta_value ) . "' LIMIT 1" );
+		if ( mysql_affected_rows() > 0 ) {
+			return true;
 		}
 		else {
 			return false;

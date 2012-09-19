@@ -123,7 +123,7 @@ function bebop_manage_oers() {
  */
 add_action( 'bp_actions', 'bebop_manage_provider' );
 function bebop_manage_provider() {
-	
+	global $bp;
 	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('accounts' ) ) {
 		if ( isset( $_GET['provider'] ) ) {
 			global $bp;
@@ -206,7 +206,7 @@ function bebop_manage_provider() {
 						if ( bebop_tables::remove_user_meta( $bp->loggedin_user->id, $feed_name ) ) {
 							bebop_tables::delete_from_first_importers( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $feed_name . '_do_initial_import' );
 							bp_core_add_message( 'Feed successfully deleted.' );
-							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+							//bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 						}
 						else {
 							bp_core_add_message( 'We could not delete that feed.', 'error' );
@@ -223,9 +223,14 @@ function bebop_manage_provider() {
 			//resets the user's data - other
 			if ( isset( $_GET['remove_username'] ) ) {
 				$username = stripslashes( $_GET['remove_username'] );
-				bebop_tables::remove_user_meta( $bp->loggedin_user->id, $username );
-				bp_core_add_message( $username . ' has been removed from your ' . $extension['display_name'] . ' feed.' );
-				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+				if ( bebop_tables::remove_user_meta_value( $bp->loggedin_user->id, $username ) ) {
+					bp_core_add_message( $username . ' has been removed from your ' . $extension['display_name'] . ' feed.' );
+					bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+				}
+				else {
+					bp_core_add_message( 'We could not delete that feed.', 'error' );
+					bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+				}
 			}
 			
 			//Extension authors: use this hook to add your own removal functionality.
