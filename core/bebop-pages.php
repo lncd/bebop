@@ -18,11 +18,13 @@ else {
 function bebop_setup_user_nav() {
 	global $bp;
 	
+	$should_users_verify_content = bebop_tables::get_option_value( 'bebop_content_user_verification' );
+	
 	//Shows in the profile all the time.
 	bp_core_new_nav_item(
 					array(
 						'name' => 'Teaching Resources',
-						'slug' => 'bebop-oers/home',
+						'slug' => 'bebop/home',
 						'position' => 30,
 						'show_for_displayed_user' => true,
 						'screen_function' => 'bebop_user_settings',
@@ -34,8 +36,8 @@ function bebop_setup_user_nav() {
 					array(
 						'name' => 'Home',
 						'slug' => 'home',
-						'parent_url' => bp_displayed_user_domain() . 'bebop-oers/',
-						'parent_slug' => 'bebop-oers',
+						'parent_url' => bp_displayed_user_domain() . 'bebop/',
+						'parent_slug' => 'bebop',
 						'screen_function' => 'bebop_user_settings',
 						'position' => 10,
 					)
@@ -46,23 +48,25 @@ function bebop_setup_user_nav() {
 								array(
 								'name' => 'Accounts',
 								'slug' => 'accounts',
-								'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
-								'parent_slug' => 'bebop-oers',
+								'parent_url' => $bp->loggedin_user->domain . 'bebop/',
+								'parent_slug' => 'bebop',
 								'screen_function' => 'bebop_user_settings',
 								'position' => 20,
 								)
 		);
-			
-		bp_core_new_subnav_item(
-						array(
-							'name' => 'Resource Manager',
-							'slug' => 'manager',
-							'parent_url' => $bp->loggedin_user->domain . 'bebop-oers/',
-							'parent_slug' => 'bebop-oers',
-							'screen_function' => 'bebop_user_settings',
-							'position' => 20,
-						)
-		);
+		
+		if ( $should_users_verify_content != 'no' ) {
+			bp_core_new_subnav_item(
+							array(
+								'name' => 'Resource Manager',
+								'slug' => 'manager',
+								'parent_url' => $bp->loggedin_user->domain . 'bebop/',
+								'parent_slug' => 'bebop',
+								'screen_function' => 'bebop_user_settings',
+								'position' => 20,
+							)
+			);
+		}
 	}
 }
 
@@ -120,10 +124,6 @@ function bebop_admin_pages() {
 	}
 	else if ( $_GET['page'] == 'bebop_general_log' ) {
 		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-general-log.php';
-	}
-	else {
-		echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $_GET['page'] . '" page not found. Loaded home instead.</div>';
-		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin.php';
 	}
 }
 add_action( bp_core_admin_hook(), 'bebop_admin_menu' );

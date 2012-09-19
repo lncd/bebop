@@ -38,6 +38,7 @@ Feature Updates:
 9. Made it easier for extensions to hook into bebop.
 10. Seperated admin functions from normal functions to increase performance.
 11. Placed buttons in the admin general settings which can automatically fire a cron. This could aid problem solving with users if they cannet get content to import.
+12. Added another general settings option which allows content to be either verified automatically, or be verified by the user through the OER manager.
 
 
 Bug Fixes:

@@ -25,7 +25,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		echo '<h5>' . $extension['display_name'] . ' Settings</h5>
 		<p>Generic settings for ' . $extension['display_name'] . '. Here you can select whether content is actively imported into WordPress.</p>';
 	
-		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/accounts/?provider=' . $extension['name'] . '" method="post">
+		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop/accounts/?provider=' . $extension['name'] . '" method="post">
 		<label>Enable ' . $extension['display_name'] . ' import:</label>
 		<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$variable_name == 1 ) {
 			echo 'checked';
@@ -54,7 +54,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		$OAuth->set_request_token_url( $extension['request_token_url'] );
 		$OAuth->set_access_token_url( $extension['access_token_url'] );
 		$OAuth->set_authorize_url( $extension['authorize_url'] );
-		$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop-oers/accounts/?provider=' . $extension['name'] );
+		$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop/accounts/?provider=' . $extension['name'] );
 		$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ) );
 		$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ) );
 		

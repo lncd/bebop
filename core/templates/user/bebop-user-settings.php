@@ -3,10 +3,13 @@
 <?php 
 $page = bebop_page_url( 2 );
 if ( bp_is_my_profile() ) {
-	if ( $page == '/bebop-oers/manager/' ) {
-		include(WP_PLUGIN_DIR . '/bebop/core/templates/user/oer-manager.php');
+	if ( $page == '/bebop/manager/' ) {
+		$should_users_verify_content = bebop_tables::get_option_value( 'bebop_content_user_verification' );
+		if ( $should_users_verify_content != 'no' ) {
+			include( WP_PLUGIN_DIR . '/bebop/core/templates/user/oer-manager.php' );
+		}
 	}
-	else if ( $page == '/bebop-oers/accounts/' ) {
+	else if ( $page == '/bebop/accounts/' ) {
 		if ( isset( $_GET['provider'] ) ) {
 			if ( bebop_extensions::bebop_extension_exists( $_GET['provider'] ) ) {
 				include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );
@@ -33,7 +36,7 @@ if ( bp_is_my_profile() ) {
 	}
 } 
 
-if ( $page == '/bebop-oers/home/' ) {
+if ( $page == '/bebop/home/' ) {
 	add_action( 'wp_enqueue_scripts', 'bebop_loop_js' );
 	?>
 	<!-- This overrides the current filter in the cookie to nothing "i.e.

@@ -24,7 +24,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	echo '<h5>' . $extension['display_name'] . ' Settings</h5>
 	<p>Generic settings for ' . $extension['display_name'] . '. Here you can select whether content is actively imported into WordPress.</p>';
 	
-	echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop-oers/accounts/?provider=' . $extension['name'] . '" method="post">';
+	echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop/accounts/?provider=' . $extension['name'] . '" method="post">';
 	echo '<label>Enable ' . $extension['display_name'] . ' import:</label>
 	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$active == 1 ) {
 		echo 'checked';

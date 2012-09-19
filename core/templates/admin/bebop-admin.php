@@ -5,7 +5,7 @@
 	<div class='bebop_admin_box'>
 		<img class='bebop_logo' src="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_logo.png';?>">
 		<p>Welcome to the OER plugin for BuddyPress. Developed by <a href='http://www.lncd.lincoln.ac.uk'>LNCD @ the University of Lincoln</a>.</p>
-		<p>Bebop was designed for academic institutions who want to incorporate Open Educational Resources into BuddyPress Profiles. This plugin aids the discovery of OERs  in the BuddyPress environment.</p>
+		<p>Bebop was designed for academic institutions who want to incorporate Open Educational Resources into BuddyPress Profiles. This plugin aids the discovery of OERs in the BuddyPress environment.</p>
 		<div class="clear"></div>
 	</div>
 	
@@ -29,7 +29,7 @@
 	
 	<div class="postbox-container">
 		<div class='postbox'>
-			<h3><a href="?page=bebop_oers&type=verified">Recent OERs</a></h3>
+			<h3><a href="?page=bebop_oers&type=verified">Recently Verified Content</a></h3>
 			<div class='inside'>
 				<?php
 				$oers = bebop_tables::admin_fetch_oer_data( 'verified', 20 );
@@ -38,7 +38,7 @@
 					echo '<table class="postbox_table">
 						<tr class="nodata">
 							<th>Username</th>
-							<th>OER Type</th>
+							<th>Type</th>
 							<th>Imported</th>
 							<th>Published</th>
 							<th>Content</th>

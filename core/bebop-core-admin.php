@@ -15,6 +15,14 @@ function bebop_general_admin_update_settings() {
 	if ( ! empty( $_GET['page']) ) {
 		$current_page = $_GET['page'];
 		if ( $current_page == 'bebop_admin_settings' ) {
+			
+			if ( ! empty( $_POST['bebop_content_user_verification'] ) ) {
+				bebop_tables::update_option( 'bebop_content_user_verification', trim( strip_tags( strtolower( $_POST['bebop_content_user_verification'] ) ) ) );
+				$_SESSION['bebop_admin_notice'] = true;
+				wp_safe_redirect( wp_get_referer() );
+				exit();
+			}
+			
 			if ( ! empty( $_POST['bebop_general_crontime'] ) ) {
 				$crontime = bebop_tables::update_option( 'bebop_general_crontime', trim( strip_tags( strtolower( $_POST['bebop_general_crontime'] ) ) ) );
 				wp_clear_scheduled_hook( 'bebop_main_import_cron' ); //Stops the cron

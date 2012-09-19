@@ -17,7 +17,17 @@
 			
 			<p><strong>New:</strong> As of version 1.1, a secondary cron was introduced. This allows the major import scripts to run at less frequency, while still allowing new users and new feeds to import data within 20 seconds.
 				Therefore you should not need to run the cron any less than 10 minutes (600 seconds).</p>
-			<p><strong>New:</strong> As of version 1.1, A Crons can be forced to run at the click of a button. This can be used to test whether content is being imported and does not affect the WordPress cron time.</p>
+			<p><strong>New:</strong> As of version 1.1, A Crons can be forced to run at the click of a button. This can be used to test whether content is being imported and does not affect the WordPress cron.</p>
+			<p><strong>New:</strong> As of version 1.1, You can decide whether content is imported to users activity streams automatically, or whether it needs to be user verified first.</p>
+			
+			<?php $should_users_verify_content = bebop_tables::get_option_value( 'bebop_content_user_verification' ); ?>
+			<label for='bebop_content_user_verification'>Should imported content be user verified?</label>
+			<select id='bebop_content_user_verification' name='bebop_content_user_verification'>
+				<option value='yes'<?php if ( $should_users_verify_content === 'yes' ) { echo 'SELECTED'; } ?>>Yes</option>
+				<option value='no'<?php if ( $should_users_verify_content === 'no' ) { echo 'SELECTED'; } ?>>No</option>
+			</select>
+			<br>
+			
 			<label for='bebop_general_crontime'>WordPress Cron time (in seconds):</label>
 			<input type='text' id='bebop_general_crontime' name='bebop_general_crontime' value='<?php echo bebop_tables::get_option_value( 'bebop_general_crontime' ); ?>' size='10'><br>
 			
