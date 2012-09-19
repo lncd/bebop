@@ -6,7 +6,7 @@ set_time_limit( 60 );
 ini_set( 'max_execution_time', 60 );
 
 //load the WordPress loader
-$current_path = getcwd();
+$current_path  = getcwd();
 $seeking_root  = pathinfo( $current_path );
 $inc_path      = str_replace( 'wp-content/plugins','',$seeking_root['dirname'] );
 
