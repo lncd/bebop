@@ -48,13 +48,13 @@ Bug Fixes:
 4. Fixed an issue which forced the RSS feeds generator to always output results for 'all_oers' regardless of what content supposed to display.
 5. Prefixed some functions to prevent some possible name conflicts with other possible plugins.
 6. Fixed a Flickr import bug which accidentally removed data from the OER manager table.
+7. Fixed a bug which made it difficult to remove a users feed from a regular extension.
+
 
 Other:
 1. Made a few import error/log messages a bit more clear.
 
 Language file for switching language/terminology
-
-Boone's email.
 
 change uninstall hook back before release
 

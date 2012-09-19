@@ -58,7 +58,7 @@ function bebop_setup_user_nav() {
 		if ( $should_users_verify_content != 'no' ) {
 			bp_core_new_subnav_item(
 							array(
-								'name' => 'Resource Manager',
+								'name' => 'Content Manager',
 								'slug' => 'manager',
 								'parent_url' => $bp->loggedin_user->domain . 'bebop/',
 								'parent_slug' => 'bebop',
