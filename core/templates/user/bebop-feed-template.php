@@ -45,7 +45,7 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'" ?'.'>';
 				<?php 
 				}
 				if ( 'activity_comment' == bp_get_activity_action_name() ) { ?>
-				<br /><strong><?php _e( 'In reply to', 'buddypress' ) ?></strong> - 
+				<br /><strong><?php _e( 'In reply to', 'buddypress' ); ?></strong> - 
 				<?php bp_activity_parent_content();
 				}
 			?>]]></description>
