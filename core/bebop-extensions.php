@@ -66,7 +66,7 @@ class bebop_extensions {
 				include_once( $extension . 'core.php' );
 			}
 			else {
-				bebop_tables::log_error( 'Extension Error', "Could not find a 'core.php' file in " . $extension );
+				bebop_tables::log_error( __('Extension Error', 'bebop' ), sprintf( __( 'Could not find a "core.php" file in %1$s.', 'bebop' ), $extension ) );
 			}
 		}
 	}
@@ -82,11 +82,11 @@ class bebop_extensions {
 					$config[] = call_user_func( 'get_' . $extension_name . '_config' );
 				}
 				else {
-					bebop_tables::log_error( 'Extension Error', "Could not find the method 'get_" . $extension_name . "_config' for the $extension_name extension" );
+					bebop_tables::log_error(  __('Extension Error', 'bebop' ),  sprintf( __( 'Could not find the method "get_%1$s_config" for the %1$s extension.', 'bebop' ), $extension_name ) );
 				}
 			}
 			else {
-				bebop_tables::log_error( 'Extension Error', "Could not find a 'config.php' file in " . $extension_path );
+				bebop_tables::log_error(  __('Extension Error', 'bebop' ), sprintf( __( 'Could not find a "config.php" file in %1$s.', 'bebop' ), $extension_path ) ); 
 			}
 		}
 		return $config;
@@ -143,7 +143,11 @@ class bebop_extensions {
 			include $extension_path . 'templates/admin-settings.php';
 		}
 		else {
-			echo '<div class="bebop_error_box"><b>Bebop Error:</b> "' . $extension_name . '" is not a valid extension.</div>';
+			echo '<div class="bebop_error_box"><b>';
+			_e('Bebop Error', 'bebop' );
+			echo ':</b> ';
+			sprintf( __( '%1$s is not a valid extension.', 'bebop' ), $extension_name );
+			echo '</div>';
 			include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' );
 		}
 	}

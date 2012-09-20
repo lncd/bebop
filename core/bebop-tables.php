@@ -8,7 +8,7 @@ class bebop_tables {
 		global $wpdb;
 		
 		if ( $wpdb->get_results( 'TRUNCATE TABLE ' . bp_core_get_table_prefix() . $table_name ) ) {
-			bebop_tables::log_error( 'Table Truncate error', 'Could not empty the $table_name table.' );
+			bebop_tables::log_error( __( 'Table Truncate error', 'bebop' ), sprintf( __( 'Could not empty the %1$s table.', 'bebop'), $table_name ) );
 			return false;
 		}
 		else {
@@ -153,7 +153,7 @@ class bebop_tables {
 			return true;
 		}
 		else {
-			bebop_tables::log_error( 'bebop_option_error', "option: '" . $option_name . "' already exists." );
+			bebop_tables::log_error( __( 'bebop_option_error', 'bebop' ), sprintf( __( 'option: %1$s already exists.', 'bebop'), $option_name ) );
 			return false;
 		}
 	}
@@ -206,7 +206,7 @@ class bebop_tables {
 			return true;
 		}
 		else {
-			bebop_tables::log_error( 'bebop_option_error', "option: '" . $option_name . "' does not exist." );
+			bebop_tables::log_error( __( 'bebop_option_error', 'bebop' ),  sprintf( __( 'option: %1$s does not exist.', 'bebop'), $option_name ) );
 			return false;
 		}
 	}
