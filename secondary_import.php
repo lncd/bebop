@@ -31,7 +31,7 @@ include_once( 'core/bebop-core-user.php' );
 $importers = bebop_extensions::bebop_get_active_extension_names();
 
 if ( ! empty( $importers ) ) {
-	bebop_tables::log_general( 'Secondary Importer', 'Secondary importer service started.' ); 
+	bebop_tables::log_general( __( 'Secondary Importer', 'bebop' ), __( 'Secondary importer service started.', 'bebop' ) ); 
 	$return_array = array();
 	foreach ( $importers as $extension ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . strtolower( $extension ) . '_provider' ) == 'on' ) {
@@ -44,24 +44,23 @@ if ( ! empty( $importers ) ) {
 					}
 				}
 				else {
-					bebop_tables::log_error( 'Secondary Importer', 'The function: bebop_' . strtolower( $extension ) . '_import does not exist.' );
+					bebop_tables::log_error( __( 'Secondary Importer', 'bebop' ), sprintf( __( 'The function: bebop_%1$s_import does not exist.', 'bebop' ), strtolower( $extension ) ) );
 				}
 			}
 			else {
-				bebop_tables::log_error( 'Secondary Importer', 'The file: ' . WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php does not exist.' );
+				bebop_tables::log_error( __( 'Secondary Importer', 'bebop' ),  sprintf( __( 'The function: %1$s/import.php does not exist.', 'bebop'), WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) ) );
 			}
 		}
 	}
 	$log_results = implode( ', ', $return_array );
 	if ( ! empty( $log_results ) ) {
-		$message = 'Secondary importer service completed. Imported ' . $log_results . '.';
-		bebop_tables::log_general( 'Secondary Importer', $message );
+		$message = sprintf( __( 'Secondary importer service completed. Imported %1$s.', 'bebop' ), $log_results );
 		echo $message;
 	}
 	else {
-		$message = 'Secondary importer service completed. Nothing was imported.';
-		bebop_tables::log_general( 'Secondary Importer', $message );
+		$message = __( 'Secondary importer service completed. Nothing was imported.', 'bebop' );
 		echo $message;
 	}
+	bebop_tables::log_general( __( 'Secondary Importer', 'bebop' ), $message );
 }
 ?>

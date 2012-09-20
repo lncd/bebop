@@ -34,7 +34,7 @@ else {
 
 //Check that the importers queue isn't empty, then start calling the import functions
 if ( ! empty( $importers[0] ) ) {
-	bebop_tables::log_general( 'Main Importer', 'Main importer service started.' ); 
+	bebop_tables::log_general( __( 'Main Importer', 'bebop' ), __( 'Main importer service started.', 'bebop' ) ); 
 	$return_array = array();
 	foreach ( $importers as $extension ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . strtolower( $extension ) . '_provider' ) == 'on' ) {
@@ -44,24 +44,24 @@ if ( ! empty( $importers[0] ) ) {
 					$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', strtolower( $extension ) );
 				}
 				else {
-					bebop_tables::log_error( 'Main Importer', 'The function: bebop_' . strtolower( $extension ) . '_import does not exist.' );
+					bebop_tables::log_error( __( 'Main Importer', 'bebop' ), sprintf( __( 'The function: bebop_%1$s_import does not exist.', 'bebop' ), strtolower( $extension ) ) );
 				}
 			}
 			else {
-				bebop_tables::log_error( 'Main Importer', 'The file: ' . WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php does not exist.' );
+				bebop_tables::log_error( __( 'Main Importer', 'bebop' ), sprintf( __( 'The function: %1$s/import.php does not exist.', 'bebop'), WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) ) );
 			}
 		}
 	}
 	$log_results = implode( ', ', $return_array );
 	
 	if ( ! empty( $log_results ) ) {
-		$message = 'Main importer service completed. Imported ' . $log_results . '.';
-		bebop_tables::log_general( 'Main Importer', $message );
+		$message = sprintf( __( 'Main importer service completed. Imported %1$s.', 'bebop' ), $log_results );
 		echo $message;
 	}
 	else {
-		$message = 'Main importer service completed. Nothing was imported.';
-		bebop_tables::log_general( 'Main Importer', $message );
+		
+		$message = __( 'Main importer service completed. Nothing was imported.', 'bebop' );
 		echo $message;
 	}
+	bebop_tables::log_general( __( 'Main Importer', 'bebop' ), $message );
 }
