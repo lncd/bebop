@@ -31,7 +31,7 @@ include_once( 'core/bebop-core-user.php' );
 $importers = bebop_extensions::bebop_get_active_extension_names();
 
 if ( ! empty( $importers ) ) {
-	bebop_tables::log_general( __( 'secondary_importer_name', 'bebop' ), __( 'secondary_importer_service_started', 'bebop') );
+	bebop_tables::log_general( 'Secondary Importer', 'Secondary importer service started.' ); 
 	$return_array = array();
 	foreach ( $importers as $extension ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . strtolower( $extension ) . '_provider' ) == 'on' ) {
@@ -44,23 +44,23 @@ if ( ! empty( $importers ) ) {
 					}
 				}
 				else {
-					bebop_tables::log_error( __( 'secondary_importer_name', 'bebop' ), sprintf( __( 'bebop_%1$s_import does_not_exist', 'bebop' ), strtolower( $extension ) ) );
+					bebop_tables::log_error( 'Secondary Importer', 'The function: bebop_' . strtolower( $extension ) . '_import does not exist.' );
 				}
 			}
 			else {
-				bebop_tables::log_error( __( 'secondary_importer_name', 'bebop' ), sprintf( __('%1$s/import.php does_not_exist', 'bebop' ), WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) ) );
+				bebop_tables::log_error( 'Secondary Importer', 'The file: ' . WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php does not exist.' );
 			}
 		}
 	}
 	$log_results = implode( ', ', $return_array );
 	if ( ! empty( $log_results ) ) {
-		$message =  __( 'secondary_importer_completed', 'bebop' ) .  ' ' . sprintf( __( 'main_importer_imported %1$s.', 'bebop' ), $log_results );
-		bebop_tables::log_general( __( 'secondary_importer_name', 'bebop' ), $message );
+		$message = 'Secondary importer service completed. Imported ' . $log_results . '.';
+		bebop_tables::log_general( 'Secondary Importer', $message );
 		echo $message;
 	}
 	else {
-		$message = __( 'secondary_importer_completed', 'bebop' ) .  ' ' . __( 'nothing_imported', 'bebop' );
-		bebop_tables::log_general( __( 'secondary_importer_name', 'bebop' ), $message );
+		$message = 'Secondary importer service completed. Nothing was imported.';
+		bebop_tables::log_general( 'Secondary Importer', $message );
 		echo $message;
 	}
 }

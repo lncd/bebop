@@ -34,7 +34,7 @@ else {
 
 //Check that the importers queue isn't empty, then start calling the import functions
 if ( ! empty( $importers[0] ) ) {
-	bebop_tables::log_general( __( 'main_importer_name', 'bebop' ), __( 'main_importer_service_started', 'bebop') );
+	bebop_tables::log_general( 'Main Importer', 'Main importer service started.' ); 
 	$return_array = array();
 	foreach ( $importers as $extension ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . strtolower( $extension ) . '_provider' ) == 'on' ) {
@@ -44,24 +44,24 @@ if ( ! empty( $importers[0] ) ) {
 					$return_array[] = call_user_func( 'bebop_' . strtolower( $extension ) . '_import', strtolower( $extension ) );
 				}
 				else {
-					bebop_tables::log_error( __( 'main_importer_name', 'bebop' ), sprintf( __( 'bebop_%1$s_import does_not_exist', 'bebop' ), strtolower( $extension ) ) );
+					bebop_tables::log_error( 'Main Importer', 'The function: bebop_' . strtolower( $extension ) . '_import does not exist.' );
 				}
 			}
 			else {
-				bebop_tables::log_error( __( 'main_importer_name', 'bebop' ), sprintf( __('%1$s/import.php does_not_exist', 'bebop' ), WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) ) );
+				bebop_tables::log_error( 'Main Importer', 'The file: ' . WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) . '/import.php does not exist.' );
 			}
 		}
 	}
 	$log_results = implode( ', ', $return_array );
 	
 	if ( ! empty( $log_results ) ) {
-		$message =  __( 'main_importer_completed', 'bebop' ) .  ' ' . sprintf( __( 'main_importer_imported %1$s.', 'bebop' ), $log_results );
-		bebop_tables::log_general( __( 'main_importer_name', 'bebop' ), $message );
+		$message = 'Main importer service completed. Imported ' . $log_results . '.';
+		bebop_tables::log_general( 'Main Importer', $message );
 		echo $message;
 	}
 	else {
-		$message = __( 'main_importer_completed', 'bebop' ) .  ' ' . __( 'nothing_imported', 'bebop' );
-		bebop_tables::log_general( __( 'main_importer_name', 'bebop' ), $message );
+		$message = 'Main importer service completed. Nothing was imported.';
+		bebop_tables::log_general( 'Main Importer', $message );
 		echo $message;
 	}
 }
