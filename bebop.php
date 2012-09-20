@@ -21,10 +21,9 @@ Credits: BuddySteam - buddystream.net
 // MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.						*
 ****************************************************************************/
 
-//initialise Bebop
+//Initialise Bebop
 function bebop_init() {
-	
-	load_plugin_textdomain( 'bebop' , false, basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'bebop', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 	
 	//include files from core. (also edit in import.php)
 	include_once( 'core/bebop-oauth.php' );
@@ -144,7 +143,7 @@ function bebop_activate() {
 		include_once( 'core/bebop-tables.php' );
 		bebop_tables::log_error( 'BuddyPress Error', 'BuddyPress is not active.' );
 		deactivate_plugins( basename( __FILE__ ) ); // Deactivate this plugin
-		wp_die( 'You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again.' );
+		wp_die( _e( 'buddypress_not_installed', 'bebop' ) );
 	}
 }
 //remove the tables upon deactivation

@@ -23,7 +23,7 @@ function bebop_setup_user_nav() {
 	//Shows in the profile all the time.
 	bp_core_new_nav_item(
 					array(
-						'name' => __( 'Teaching Resources', 'bebop' ),
+						'name' => __( 'user_area_header_name', 'bebop' ), //Teaching Resources
 						'slug' => 'bebop/home',
 						'position' => 30,
 						'show_for_displayed_user' => true,
@@ -34,7 +34,7 @@ function bebop_setup_user_nav() {
 
 	bp_core_new_subnav_item(
 					array(
-						'name' =>  __( 'Home', 'bebop' ),
+						'name' =>  __( 'user_area_home_name', 'bebop' ), //Home
 						'slug' => 'home',
 						'parent_url' => bp_displayed_user_domain() . 'bebop/',
 						'parent_slug' => 'bebop',
@@ -46,7 +46,7 @@ function bebop_setup_user_nav() {
 	if ( bp_is_my_profile() ) {
 		bp_core_new_subnav_item(
 								array(
-								'name' => __( 'Accounts', 'bebop' ),
+								'name' => __( 'user_area_accounts_name', 'bebop' ), //Acounts
 								'slug' => 'accounts',
 								'parent_url' => $bp->loggedin_user->domain . 'bebop/',
 								'parent_slug' => 'bebop',
@@ -58,7 +58,7 @@ function bebop_setup_user_nav() {
 		if ( $should_users_verify_content != 'no' ) {
 			bp_core_new_subnav_item(
 							array(
-								'name' => __( 'Content Manager', 'bebop' ),
+								'name' => __( 'user_area_content_manager_name', 'bebop' ), //Content Manager
 								'slug' => 'manager',
 								'parent_url' => $bp->loggedin_user->domain . 'bebop/',
 								'parent_slug' => 'bebop',
@@ -89,7 +89,7 @@ function bebop_admin_menu() {
 		return false;
 	}
 	add_menu_page(
-					__( 'Bebop Admin', 'bebop' ),
+					__( 'admin_menu_name', 'bebop' ),
 					__( 'Bebop', 'bebop' ),
 					'manage_options',
 					'bebop_admin', 
