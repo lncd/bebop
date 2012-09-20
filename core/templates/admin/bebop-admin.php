@@ -4,24 +4,24 @@
 <div id='bebop_admin_container'>
 	<div class='bebop_admin_box'>
 		<img class='bebop_logo' src="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_logo.png';?>">
-		<p>Welcome to the OER plugin for BuddyPress. Developed by <a href='http://www.lncd.lincoln.ac.uk'>LNCD @ the University of Lincoln</a>.</p>
-		<p>Bebop was designed for academic institutions who want to incorporate Open Educational Resources into BuddyPress Profiles. This plugin aids the discovery of OERs in the BuddyPress environment.</p>
+		<p><?php _e( 'Welcome to the OER plugin for BuddyPress. Developed by <a href="http://www.lncd.lincoln.ac.uk">LNCD @ the University of Lincoln</a>.', 'bebop' ); ?></p>
+		<p><?php _e( 'Bebop was designed for academic institutions who want to incorporate Open Educational Resources into BuddyPress Profiles. This plugin aids the discovery of OERs in the BuddyPress environment', 'bebop' ); ?></p>
 		<div class="clear"></div>
 	</div>
 	
 	<div class='postbox-container'>
 		<div class='postbox'>
-			<h3>Latest News</h3>
+			<h3><?php _e( 'Latest News' ); ?></h3>
 			<div class='inside'>
-				<p>Version 1.1 of Bebop has been released. Many requested features have been implemented, bugs have been fixed, and issues resolved. For more details, please see the changelog in README.txt.</p>
-				<p>Version 1.0 of Bebop has now been released. This BuddyPress plugin allows users to import Open Educational Resources from around the web, into their BuddyPress activity stream.</p>
+				<p><?php _e( 'Version 1.1 of Bebop has been released. Many requested features have been implemented, bugs have been fixed, and issues resolved. For more details, please see the changelog in README.txt.', 'bebop' ); ?></p>
+				<p><?php _e( 'Version 1.0 of Bebop has now been released. This BuddyPress plugin allows users to import Open Educational Resources from around the web, into their BuddyPress activity stream.</p>', 'bebop' ); ?>
 			</div>
 		</div>
 
 		<div class="postbox">
-			<h3>Support</h3>
+			<h3><?php _e( 'Support', 'bebop' ); ?></h3>
 			<div class="inside">
-				While we cannot guarantee official support, we will always do what we can to help people sing this plugin. For support, please see our <a target="_blank" href="https://github.com/lncd/bebop/wiki">Github Wiki</a>.
+				<?php _e( 'While we cannot guarantee official support, we will always do what we can to help people sing this plugin. For support, please see our <a target="_blank" href="https://github.com/lncd/bebop/wiki">Github Wiki</a>.', 'bebop' ); ?>
 			</div>
 		</div>
 	<!-- End postbox-container -->
@@ -29,7 +29,7 @@
 	
 	<div class="postbox-container">
 		<div class='postbox'>
-			<h3><a href="?page=bebop_oers&type=verified">Recently Verified Content</a></h3>
+			<h3><a href="?page=bebop_oers&type=verified"><?php _e( 'Recently Verified Content', 'bebop' ); ?></a></h3>
 			<div class='inside'>
 				<?php
 				$oers = bebop_tables::admin_fetch_oer_data( 'verified', 20 );
@@ -37,11 +37,11 @@
 				if ( count( $oers ) > 0 ) {
 					echo '<table class="postbox_table">
 						<tr class="nodata">
-							<th>Username</th>
-							<th>Type</th>
-							<th>Imported</th>
-							<th>Published</th>
-							<th>Content</th>
+							<th>'; _e( 'Username', 'bebop' );  echo '</th>
+							<th>'; _e( 'Type', 'bebop' );  echo '</th>
+							<th>'; _e( 'Imported', 'bebop' );  echo '</th>
+							<th>'; _e( 'Published', 'bebop' );  echo '</th>
+							<th>'; _e( 'Content', 'bebop' );  echo '</th>
 						</tr>';
 					
 					foreach ( $oers as $oer ) {
@@ -56,7 +56,7 @@
 					echo '</table>';
 				}
 				else {
-					echo '<p>No verified oers exist in the oer manager.</p>';
+					echo '<p>'; _e( 'No verified oers exist in the oer manager.', 'bebop' );  echo '</p>';
 				}
 				?>
 				
