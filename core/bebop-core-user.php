@@ -39,22 +39,22 @@ function bebop_manage_oers() {
 										$oer_count++;
 									}
 									else {
-										bebop_tables::log_error( 'Activity Stream', 'Could not update the oer buffer status.' );
+										bebop_tables::log_error( __( 'Activity Stream', 'bebop' ),  __( 'Could not update the oer buffer status.', 'bebop' ) );
 									}
 								}
 								else {
-									bebop_tables::log_error( 'Activity Stream', 'This content already exists in the activity stream.' );
+									bebop_tables::log_error(  __( 'Activity Stream', 'bebop'),  __( 'This content already exists in the activity stream.', 'bebop' ) );
 								}
 							}
 						}
 					}//End foreach ( array_keys($_POST) as $oer ) {
 					if ( $oer_count > 1 ) {
 						$success = true;
-						$message = 'Resources verified.';
+						$message = __( 'Resources verified.', 'bebop' );
 					}
 					else {
 						$success = true;
-						$message = 'Resource verified.';
+						$message = __( 'Resource verified.', 'bebop' );
 					}
 				}//End if ( $_POST['action'] == 'verify' ) {
 				else if ( $_POST['action'] == 'delete' ) {
@@ -81,11 +81,11 @@ function bebop_manage_oers() {
 					} //End foreach ( array_keys( $_POST ) as $oer ) {
 					if ( $oer_count > 1 ) {
 						$success = true;
-						$message = 'Resources deleted.';
+						$message = __( 'Resources deleted.', 'bebop' );
 					}
 					else {
 						$success = true;
-						$message = 'Resource deleted.';
+						$message = __( 'Resource deleted.', 'bebop' );
 					}
 				}
 				else if ( $_POST['action'] == 'undelete' ) {
@@ -99,18 +99,18 @@ function bebop_manage_oers() {
 					}
 					if ( $oer_count > 1 ) {
 						$success = true;
-						$message = 'Resources undeleted.';
+						$message =  __( 'Resources undeleted.', 'bebop' );
 					}
 					else {
 						$success = true;
-						$message = 'Resource undeleted.';
+						$message = __( 'Resource undeleted.', 'bebop' );
 					}
 				}
 				if ( $success ) {
 					bp_core_add_message( $message );
 				}
 				else {
-					bp_core_add_message( "We couldnt do that for you. Please try again.", 'error' );
+					bp_core_add_message( __( 'We couldnt do that for you. Please try again.', 'bebop' ), 'error' );
 				}
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}//End if ( isset( $_POST['action'] ) ) {
@@ -138,10 +138,10 @@ function bebop_manage_provider() {
 					$new_name = stripslashes( $_POST['bebop_' . $extension['name'] . '_username'] );
 					if ( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_username', $new_name, $check_meta_value = true ) ) {
 						bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $new_name . '_do_initial_import', $new_name );
-						bp_core_add_message( $new_name . ' has been added to the ' . $extension['display_name'] . ' feed.' );
+						bp_core_add_message( sprintf( __( '%1$s has been added to the %2$s feed.', 'bebop' ), $new_name, $extension['display_name'] ) );
 					}
 					else {
-						bp_core_add_message( $new_name . ' already exists in the ' . $extension['display_name'] . ' feed; you cannot add it again.', 'error' );
+						bp_core_add_message( sprintf( __( '%1$s  already exists in the %2$s feed; you cannot add it again.', 'bebop' ), $new_name, $extension['display_name'] ), 'error' );
 					}
 				}
 				
@@ -153,14 +153,14 @@ function bebop_manage_provider() {
 						$new_name = str_replace(' ', '_', stripslashes( strip_tags( $_POST['bebop_' . $extension['name'] . '_newfeedname'] ) ) );
 						if( bebop_tables::add_user_meta( $bp->loggedin_user->id, $extension['name']. '_' . $new_name, $new_name, strip_tags( $insert_url ) ) ) {
 							bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $new_name . '_do_initial_import', $new_name );
-							bp_core_add_message( 'Feed successfully added.' );
+							bp_core_add_message( __( 'Feed successfully added.', 'bebop' ) );
 						}
 						else {
-							bp_core_add_message( 'This feed already exists, you cannot add it again.', 'error' );
+							bp_core_add_message( __( 'This feed already exists, you cannot add it again.', 'bebop' ), 'error' );
 						}
 					}
 					else {
-						bp_core_add_message( 'That feed cannot be added as it is not a valid URL.', 'error' );
+						bp_core_add_message( __( 'That feed cannot be added as it is not a valid URL.', 'bebop' ), 'error' );
 					}
 				}
 				
@@ -193,7 +193,7 @@ function bebop_manage_provider() {
 				bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
 				bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_do_initial_import', 1 );
 				
-				bp_core_add_message( 'You have successfully authenticated your ' . $extension['display_name'] . ' account.' );
+				bp_core_add_message( sprintf( __( 'You have successfully authenticated your %1$s account.', 'bebop' ), $extension['display_name'] ) );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}
 			
@@ -205,11 +205,11 @@ function bebop_manage_provider() {
 					if( filter_var( $check_feed, FILTER_VALIDATE_URL ) ) {
 						if ( bebop_tables::remove_user_meta( $bp->loggedin_user->id, $feed_name ) ) {
 							bebop_tables::delete_from_first_importers( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $feed_name . '_do_initial_import' );
-							bp_core_add_message( 'Feed successfully deleted.' );
+							bp_core_add_message( __('Feed successfully deleted.', 'bebop' ) );
 							//bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 						}
 						else {
-							bp_core_add_message( 'We could not delete that feed.', 'error' );
+							bp_core_add_message( __('We could not delete that feed.', 'bebop' ), 'error' );
 							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 						}
 					}
@@ -224,11 +224,11 @@ function bebop_manage_provider() {
 			if ( isset( $_GET['remove_username'] ) ) {
 				$username = stripslashes( $_GET['remove_username'] );
 				if ( bebop_tables::remove_user_meta_value( $bp->loggedin_user->id, $username ) ) {
-					bp_core_add_message( $username . ' has been removed from your ' . $extension['display_name'] . ' feed.' );
+					bp_core_add_message( sprintf( __( '%1$s has been removed from your %2$s feed.', 'bebop' ),$username, $extension['display_name'] ) );
 					bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 				}
 				else {
-					bp_core_add_message( 'We could not delete that feed.', 'error' );
+					bp_core_add_message( __( 'We could not delete that feed.', 'bebop' ), 'error' );
 					bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 				}
 			}
@@ -339,7 +339,7 @@ function bebop_create_buffer_item( $params ) {
 					$content = '<div class="bebop_activity_container ' . $params['extension'] . '">' . $original_text . '</div>';
 				}
 				$action  = '<a href="' . bp_core_get_user_domain( $params['user_id'] ) .'" title="' . bp_core_get_username( $params['user_id'] ).'">'.bp_core_get_user_displayname( $params['user_id'] ) . '</a>';
-				$action .= ' ' . __( 'posted&nbsp;a', 'bebop' . $params['extension'] ) . ' ';
+				$action .= ' ' . __( 'posted a', 'bebop' );
 				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_' . $params['extension'] );
 				$action .= '</a>: ';
 				
@@ -389,11 +389,11 @@ function bebop_create_buffer_item( $params ) {
 						}
 					}
 					else {
-						bebop_tables::log_error( 'Importer', 'Import query error' );
+						bebop_tables::log_error( __( 'Importer', 'bebop' ), __( 'Import query error', 'bebop' ) );
 					}
 				}
 				else {
-					bebop_tables::log_error( 'Importer', 'Could not import, content already exists.' );
+					bebop_tables::log_error( __( 'Importer', 'bebop' ), __( 'Could not import, content already exists.', 'bebop' ) );
 					return false;
 				}
 			}
@@ -402,7 +402,7 @@ function bebop_create_buffer_item( $params ) {
 			}
 		}
 		else {
-			bebop_tables::log_error( 'Import Error - ' . $params['extension'], $params['item_id'] . ' already exists' );
+			bebop_tables::log_error( sprintf(__( 'Import Error - %1$s', 'bebop' ), $params['extension'] ), sprintf( __( '%1$s already exists', 'bebop'), $params['item_id'] ) );
 			return false;
 		}
 	}
@@ -439,10 +439,10 @@ function bebop_load_filter_options() {
 	
 	//Ensures the All OER only shows if there are two or more OER's to choose from.
 	if ( count( $store ) >= 2 ) {
-		echo '<option value="all_oer">All OERs</option>';
+		echo '<option value="all_oer">'; __e( 'All OERs', 'bebop' ); echo '</option>';
 	}
 	else if ( count( $store ) === 0 ) {
-		echo '<option>No Extensions are active - please enable them in the admin panel.</option>';
+		echo '<option>'; __e( 'No Extensions are active - please enable them in the admin panel', 'bebop' ); echo '</option>';
 	}
 	//Outputs the options
 	foreach ( $store as $option ) {

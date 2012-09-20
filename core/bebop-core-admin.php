@@ -106,7 +106,7 @@ function bebop_extension_admin_update_settings() {
 							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', trim( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) );
 						}
 						else {
-							$success = 'RSS feeds cannot be modified while the extension is not enabled.';
+							$success = __( 'RSS feeds cannot be modified while the extension is not enabled.', 'bebop');
 						}
 					}
 					else {
@@ -143,10 +143,12 @@ function bebop_admin_notice() {
 	if ( isset( $_SESSION['bebop_admin_notice'] ) ) {
 		$success = $_SESSION['bebop_admin_notice'];
 		if ( $success === true ) {
-			echo '<div class="bebop_success_box">Settings Saved.</div>';
+			echo '<div class="bebop_success_box">';
+			_e( 'Settings Saved', 'bebop');
+			echo '</div>';
 		}
 		else {
-			echo '<div class="bebop_error_box">' . ucfirst($success) . '</div>';
+			echo '<div class="bebop_error_box">' . ucfirst( $success ) . '</div>';
 		}
 		$_SESSION['bebop_admin_notice'] = null;
 		unset( $_SESSION['bebop_admin_notice'] );
@@ -166,7 +168,7 @@ function bebop_admin_flush_table() {
 						
 					}
 					else {
-						$_SESSION['bebop_admin_notice'] ='Error clearing table data.';
+						$_SESSION['bebop_admin_notice'] = __( 'Error clearing table data.', 'bebop');
 					}
 					wp_safe_redirect( $_SERVER['PHP_SELF'] . '?page=' . $current_page );
 					exit();
