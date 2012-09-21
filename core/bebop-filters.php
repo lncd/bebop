@@ -6,10 +6,15 @@ class bebop_filters {
 		$user_count = bebop_tables::get_user_meta_value( $user_id, 'bebop_' . $extension . '_' . $username . '_daycounter' );
 		
 		var_dump($user_count);
-		if ( ( empty( $maximport_value ) || $maximport_value === 0 ) || ( $maximport_value > $user_count ) ) {
-			$new_count = $user_count + 1;
-			bebop_tables::update_user_meta( $user_id, $extension, 'bebop_' . $extension . '_' . $username . '_daycounter', $new_count );
-			return true;
+		if ( ! $user_count === false ) {
+			if ( ( empty( $maximport_value ) || $maximport_value === 0 ) || ( $maximport_value > $user_count ) ) {
+				$new_count = $user_count + 1;
+				bebop_tables::update_user_meta( $user_id, $extension, 'bebop_' . $extension . '_' . $username . '_daycounter', $new_count );
+				return true;
+			}
+		}
+		else {
+			return false;
 		}
 	}
 	
