@@ -49,6 +49,7 @@ Bug Fixes:
 5. Prefixed some functions to prevent some possible name conflicts with other possible plugins.
 6. Fixed a Flickr import bug which accidentally removed data from the OER manager table.
 7. Fixed a bug which made it difficult to remove a users feed from a regular extension.
+8. Fixed a bug which threw a fatal error if BuddyPress is not active when Bebop is activated.
 
 
 Other:

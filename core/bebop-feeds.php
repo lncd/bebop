@@ -34,7 +34,7 @@ function bebop_feeds() {
 }
 
 function bebop_feed_url() {
-	echo bebop_get_feed_url();
+	return bebop_get_feed_url();
 }
 function bebop_get_feed_url() {
 	global $this_bp_feed;
@@ -47,7 +47,7 @@ function bebop_get_feed_url() {
 }
 
 function bebop_feed_type() {
-	echo bebop_get_feed_type();
+	return bebop_get_feed_type();
 }
 function bebop_get_feed_type() {
 	global $this_bp_feed;
@@ -61,7 +61,7 @@ function bebop_get_feed_type() {
 }
 
 function bebop_feed_description() {
-	echo bebop_get_feed_description();
+	return bebop_get_feed_description();
 }
 function bebop_get_feed_description() {
 	global $this_bp_feed;
@@ -74,7 +74,7 @@ function bebop_get_feed_description() {
 }
 
 function bebop_activity_args() {
-	echo bebop_get_activity_args();
+	return bebop_get_activity_args();
 }
 function bebop_get_activity_args() {
 	global $bp, $this_bp_feed;

@@ -439,7 +439,7 @@ function bebop_load_filter_options() {
 	
 	//Ensures the All OER only shows if there are two or more OER's to choose from.
 	if ( count( $store ) >= 2 ) {
-		echo '<option value="all_oer">'; __e( 'All OERs', 'bebop' ); echo '</option>';
+		echo '<option value="all_oer">'; _e( 'All OERs', 'bebop' ); echo '</option>';
 	}
 	else if ( count( $store ) === 0 ) {
 		echo '<option>'; __e( 'No Extensions are active - please enable them in the admin panel', 'bebop' ); echo '</option>';
