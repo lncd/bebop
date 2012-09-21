@@ -21,7 +21,6 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 	<div class='postbox center_margin margin-bottom_22px'>
 		<h3><?php echo sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ); ?></h3>
 		<div class="inside">
-			<p>Settings for the <?php echo $extension['display_name']; ?> extension.</p>
 			<p><?php echo sprintf( __( 'Settings for the %1$s extension.', 'bebop' ), $extension['display_name'] ); ?></p>
 			<p><?php _e( 'To pull OER content from some providers, the importer settings need to be configured correctly for some extensions. or example, "API Tokens", and "API secrets" may be required for API based sources, but not for RSS based sources.', 'bebop') ?></p>
 			<p><?php _e( 'By default, RSS feeds are available for each extension in bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the "enabled" option of the RSS feed settings below. Please note

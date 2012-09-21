@@ -39,9 +39,9 @@ if ( ! empty( $type ) ) {
 		echo '<div class="button_container button_right"><a class="auto button" rel="#oer_table" href="#select_none">'; _e( 'Select None', 'bebop' ); echo '</a></div>';
 		
 		echo '<h5>'; _e( 'Action', 'bebop' ); echo '</h5>';
-		$verify_oer_option = '<label class="alt" for="verify">'; _e( 'Verify', 'bebop' ); echo ':</label><input type="radio" name="action" id="verify" value="verify"><br>';
-		$delete_oer_option = '<label class="alt" for="delete">'; _e( 'Delete', 'bebop' ); echo ':</label><input type="radio" name="action" id="delete" value="delete"><br>';
-		$undelete_oer_option  = '<label class="alt" for="undelete">'; _e( 'Undelete', 'bebop' ); echo ':</label><input type="radio" name="action" id="undelete" value="undelete"><br>';
+		$verify_oer_option = '<label class="alt" for="verify">' . __( 'Verify', 'bebop' ) . ':</label><input type="radio" name="action" id="verify" value="verify"><br>';
+		$delete_oer_option = '<label class="alt" for="delete">' . __( 'Delete', 'bebop' ) . ':</label><input type="radio" name="action" id="delete" value="delete"><br>';
+		$undelete_oer_option  = '<label class="alt" for="undelete">' . __( 'Undelete', 'bebop' ) . ':</label><input type="radio" name="action" id="undelete" value="undelete"><br>';
 		
 		if ( $type == 'unverified' ) {
 			echo $verify_oer_option . $delete_oer_option;

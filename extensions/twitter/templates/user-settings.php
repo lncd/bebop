@@ -39,7 +39,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		echo '<div class="clear_both"></div>';
 			
 		if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token' ) ) {
-			echo '<div class="button_container"><a class="auto button" href="?provider=' . $extension['name'] . '&reset=true">' . _e(' Remove Authorisation', 'bebop') . '</a></div>';
+			echo '<div class="button_container"><a class="auto button" href="?provider=' . $extension['name'] . '&reset=true">'; _e(' Remove Authorisation', 'bebop'); echo '</a></div>';
 			echo '<div class="clear_both"></div>';
 		}
 		echo '</form>';
@@ -70,7 +70,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		//get the redirect url for the user
 		$redirectUrl = $OAuth->get_redirect_url();
 		if ( $redirectUrl ) {
-			echo '<div class="button_container"><a class="auto button" href="' . $redirectUrl . '">' . _e(' Start Authorisation', 'bebop') . '</a></div>';
+			echo '<div class="button_container"><a class="auto button" href="' . $redirectUrl . '">'; _e(' Start Authorisation', 'bebop'); echo '</a></div>';
 			echo '<div class="clear_both"></div>';
 		}
 		else {
