@@ -361,35 +361,41 @@ function bebop_create_buffer_item( $params ) {
 				}
 				
 				if ( ! empty( $clean_comment ) ) {
-					if ( $wpdb->query(
-									$wpdb->prepare(
-													'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager ( user_id, status, type, action, content, secondary_item_id, date_imported, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s )',
-													$wpdb->escape( $params['user_id'] ), $oer_status, $wpdb->escape( $params['extension'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
-													$wpdb->escape( $params['item_id'] ), $wpdb->escape( $date_imported ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
-									)
-					) ) {
-						bebop_filters::day_increase( $params['extension'], $params['user_id'], $params['username'] );
-						
-						//if users shouldn't verify content, add it to the activity stream immediately.
-						if ( $should_users_verify_content == 'no' ) {
+					
+					if ( bebop_filters::day_increase( $params['extension'], $params['user_id'], $params['username'] ) ) {
+						if ( $wpdb->query(
+										$wpdb->prepare(
+														'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager ( user_id, status, type, action, content, secondary_item_id, date_imported, date_recorded, hide_sitewide ) VALUES ( %s, %s, %s, %s, %s, %s, %s, %s, %s )',
+														$wpdb->escape( $params['user_id'] ), $oer_status, $wpdb->escape( $params['extension'] ), $wpdb->escape( $action ), $wpdb->escape( $content ),
+														$wpdb->escape( $params['item_id'] ), $wpdb->escape( $date_imported ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
+										)
+						) ) {
 							
-							$new_activity_item = array (
-										'user_id'			=> $params['user_id'],
-										'component'			=> 'bebop_oer_plugin',
-										'type'				=> $params['extension'],
-										'action'			=> $action,
-										'content'			=> $content,
-										'secondary_item_id'	=> $params['item_id'],
-										'date_recorded'		=> $date_imported,
-										'hide_sitewide'		=>$oer_hide_sitewide,
-							);
-							if ( bp_activity_add( $new_activity_item ) ) {
-								bebop_tables::update_oer_data( $params['item_id'], 'activity_stream_id', $activity_stream_id = $wpdb->insert_id );
+							//if users shouldn't verify content, add it to the activity stream immediately.
+							if ( $should_users_verify_content == 'no' ) {
+								
+								$new_activity_item = array (
+											'user_id'			=> $params['user_id'],
+											'component'			=> 'bebop_oer_plugin',
+											'type'				=> $params['extension'],
+											'action'			=> $action,
+											'content'			=> $content,
+											'secondary_item_id'	=> $params['item_id'],
+											'date_recorded'		=> $date_imported,
+											'hide_sitewide'		=>$oer_hide_sitewide,
+								);
+								if ( bp_activity_add( $new_activity_item ) ) {
+									bebop_tables::update_oer_data( $params['item_id'], 'activity_stream_id', $activity_stream_id = $wpdb->insert_id );
+								}
 							}
 						}
-					}
+						else {
+							bebop_tables::log_error( __( 'Importer', 'bebop' ), __( 'Import query error', 'bebop' ) );
+						}
+					}//End if ( bebop_filters::day_increase( $params['extension'], $params['user_id'], $params['username'] ) ) {
 					else {
-						bebop_tables::log_error( __( 'Importer', 'bebop' ), __( 'Import query error', 'bebop' ) );
+						bebop_tables::log_error( __( 'Importer', 'bebop' ), __( 'Could not import as a daycounter could not be found.', 'bebop' ) );
+						return false;
 					}
 				}
 				else {

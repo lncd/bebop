@@ -258,8 +258,9 @@ class bebop_tables {
 	
 	function get_user_meta_value( $user_id, $meta_name ) {//function to get user meta from the user_meta table.
 		global $wpdb;
-		$meta_name = addslashes( $meta_name );
-		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "'" );
+		$meta_name = str_replace( "'", "\\'", $meta_name );
+		var_dump($meta_name);
+		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $meta_name . "'" );
 		if ( ! empty( $result->meta_value ) ) {
 			return $result->meta_value;
 		}
