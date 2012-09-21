@@ -62,7 +62,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		<table class="widefat margin-top_22px margin-bottom_22px">
 			<thead>
 				<tr>
-					<th colspan='5'><?php echo $extension['display_name']; ?> Users</th>
+					<th colspan='5'><?php echo sprintf( __( '^%1$s Users', 'bebop' ), $extension['display_name'] ); ?></th>
 				</tr>
 				<tr>
 					<td class='bold'><?php _e( 'User ID', 'bebop' ); ?></td>
