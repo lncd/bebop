@@ -126,7 +126,7 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 					}
 				}
 				else {
-					bebop_tables::log_error( 'Importer - ' . ucfirst( $this_extension['name'] ), 'feed error: ' . $errors );
+					bebop_tables::log_error( sprintf( __( 'Importer - %1$s', 'bebop' ), $this_extension['display_name'] ), sprintf( __( 'Feed Error: %1$s', 'bebop' ), $errors ) );
 				}
 			}
 		}
