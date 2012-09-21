@@ -69,6 +69,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 					<td class='bold'><?php _e( 'Options', 'bebop' ); ?></td>
 				</tr>
 			</thead>
+			<?php if ( count( $user_metas ) >= 10 ) { ?>
 			<tfoot>
 				<tr>
 					<td class='bold'><?php _e( 'User ID', 'bebop' ); ?></td>
@@ -78,6 +79,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 					<td class='bold'><?php _e( 'Options', 'bebop' ); ?></td>
 				</tr>
 			</tfoot>
+			<?php } ?>
 			<tbody>
 				<?php
 				/*

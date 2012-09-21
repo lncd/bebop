@@ -22,7 +22,7 @@ Requirements.
 
 == Changelog ==
 
-v1.1 - 20.09.2012 - Major Release
+v1.1 - 21.09.2012 - Major Release
 
 This version changes some fundemental aspects of the plugin source code. See features for details.
 
@@ -54,8 +54,6 @@ Bug Fixes:
 
 Other:
 1. Made a few import error/log messages a bit more clear.
-
-Language file for switching language/terminology
 
 change uninstall hook back before release
 
