@@ -10,7 +10,7 @@ add_action( 'bp_actions', 'bebop_manage_oers' );
 function bebop_manage_oers() {
 	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('manager' ) ) {
 		$should_users_verify_content = bebop_tables::get_option_value( 'bebop_content_user_verification' );
-		if ( $should_users_verify_content == 'yes' ) {
+		if ( $should_users_verify_content != 'no' ) { 
 			if ( isset( $_POST['action'] ) ) {
 				global $bp;
 				$oer_count = 0;
