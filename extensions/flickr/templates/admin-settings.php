@@ -53,8 +53,9 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			?>
 		</fieldset>
 		
-		<input class='button-primary' type='submit' id='submit' name='submit' value='Save Changes'>
+		<input class='button-primary' type='submit' id='submit' name='submit' value='<?php _e( 'Save Changes', 'bebop' ); ?>'>
 	</form>
+	
 	<?php
 	$user_metas = bebop_tables::get_user_ids_from_meta_name( 'bebop_' . $extension['name'] . '_active_for_user' );
 	if ( count( $user_metas ) > 0 ) {
@@ -110,7 +111,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		<?php
 	}
 	else {
-		echo sprintf( __( 'No users found for the %1$s.', 'bebop' ), $extension['display_name'] );
+		echo sprintf( __( 'No users found for the %1$s extension.', 'bebop' ), $extension['display_name'] );
 	}
 	?>
 <!-- End bebop_admin_container -->

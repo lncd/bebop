@@ -100,7 +100,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		<?php
 	}
 	else {
-		echo sprintf( __( 'No users found for the %1$s.', 'bebop' ), $extension['display_name'] );
+		echo sprintf( __( 'No users found for the %1$s extension.', 'bebop' ), $extension['display_name'] );
 	}
 	?>
 <!-- End bebop_admin_container -->
