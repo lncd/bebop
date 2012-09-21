@@ -10,7 +10,7 @@ function get_feed_config() {
 		'pages'				=> array( 'settings', ),
 		'defaultpage'		=> 'settings',
 		'content_oembed'	=> false,
-		'content_type' 			=> 'RSS link',
+		'content_type' 			=> __( 'RSS link', 'bebop' ),
 	);
 	return $config;
 }

@@ -21,13 +21,11 @@ $active = 'bebop_' . $extension['name'] . '_active_for_user';																//t
 $$active = bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_active_for_user' );	//the value of the boolean
 
 if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
-	echo '<h5>'; sprintf( _e( '%1$s Settings', 'bebop' ), $extension['display_name'] ); echo '</h5>
-	<p>';
-	sprintf( __( 'Generic settings for %1$s. Here you can select whether content is actively imported into WordPress.', 'bebop' ), $extension['display_name'] );
-	echo '</p>';
+	echo '<h5>' . sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ) .'</h5>
+	<p>' . sprintf( __( 'Generic settings for %1$s. Here you can select whether content is actively imported into WordPress.', 'bebop' ), $extension['display_name'] ) . '</p>';
 	
 	echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . 'bebop/accounts/?provider=' . $extension['name'] . '" method="post">';
-	echo '<label>'; sprintf( _e( 'Enable %1$s import', 'bebop' ), $extension['display_name'] ); echo ':</label>
+	echo '<label>' . sprintf( __( 'Enable %1$s import', 'bebop' ), $extension['display_name'] ) . ':</label>
 	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$active == 1 ) {
 		echo 'checked';
 	} echo '>
@@ -49,7 +47,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	//table of user feeds
 	$user_feeds = bebop_tables::get_user_feeds( $bp->loggedin_user->id, $extension['name'] );
 	if ( count( $user_feeds ) > 0 ) {
-		echo '<h5>'; sprintf( _e( 'Your %1$ss', 'bebop' ), $extension['display_name'] ); echo '</h5>';
+		echo '<h5>' . sprintf( __( 'Your %1$ss', 'bebop' ), $extension['display_name'] ) . '</h5>';
 		echo '<table class="bebop_user_table">
 				<tr class="nodata">
 					<th>'; _e( 'Feed Name', 'bebop' ); echo '</th>
@@ -57,7 +55,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 					<th>'; _e( 'Options', 'bebop' ); echo '</th>
 				</tr>';
 		foreach ( $user_feeds as $user_feed ) {
-			$feed_name =  str_replace( '_', ' ', bebop_tables::sanitise_element( $user_feed->meta_name ) );
+			$feed_name =  str_replace('_', ' ', bebop_tables::sanitise_element( $user_feed->meta_name ) );
 			echo '<tr>
 				<td>' . stripslashes( $feed_name ) . '</td>
 				<td>' . substr(bebop_tables::sanitise_element( $user_feed->meta_value ), 0, 150 ) . '</td>
@@ -68,6 +66,6 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	}
 }
 else {
-	sprintf( _( '%1$s has not yet been configured. Please contact the blog admin to make sure %1$s is configured properly.', 'bebop' ), $extension['display_name'] );
+	echo sprintf( __( '%1$s has not yet been configured. Please contact the blog admin to make sure %1$s is configured properly.', 'bebop' ), $extension['display_name'] );
 }
 ?>

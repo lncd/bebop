@@ -15,13 +15,14 @@
  */
 $extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $extension ) );
 
+
 //Include the admin menu.
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
 	<div class='postbox center_margin margin-bottom_22px'>
-		<h3><?php echo $extension['display_name']; ?> Settings</h3>
+		<h3><?php echo sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ); ?></h3>
 		<div class="inside">
-			<p><?php sprintf( _e( 'Settings for the $1$s extension.', 'bebop' ), $extension['display_name'] ); ?></p>
+			<p><?php echo sprintf( __( 'Settings for the %1$s extension.', 'bebop' ), $extension['display_name'] ); ?></p>
 			<p><?php _e( 'To pull OER content from some providers, the importer settings need to be configured correctly for some extensions. or example, "API Tokens", and "API secrets" may be required for API based sources, but not for RSS based sources.', 'bebop') ?></p>
 			<p><?php _e( 'By default, RSS feeds are available for each extension in bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the "enabled" option of the RSS feed settings below. Please note
 				that RSS feeds will only be available when the extension is active.', 'bebop') ?></p>
@@ -29,13 +30,13 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 	</div>
 	<form class='bebop_admin_form' method='post'>
 		<fieldset>  
-			<span class='header'><?php sprintf( _e( '%1$s Import Settings', 'bebop' ), $extension['display_name'] ); ?></span>
-			<label for='bebop_<?php echo $extension['name']; ?>_maximport'>Imports per day (blank = unlimited):</label>
+			<span class='header'><?php echo sprintf( __( '%1$s Import Settings', 'bebop' ), $extension['display_name'] ); ?></span>
+			<label for='bebop_<?php echo $extension['name']; ?>_maximport'><?php _e( 'Imports per day (blank = unlimited)', 'bebop') ?>:</label>
 			<input type='text' id='bebop_<?php echo $extension['name']; ?>_maximport' name='bebop_<?php echo $extension['name']; ?>_maximport' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_maximport' ); ?>' size='5'>
 		</fieldset>
 		
 		<fieldset>
-			<span class='header'><?php sprintf( _e( '%1$s RSS Settings', 'bebop' ), $extension['display_name'] ); ?></span>
+			<span class='header'><?php echo sprintf( __( '%1$s RSS Settings', 'bebop' ), $extension['display_name'] ); ?></span>
 			<?php
 			if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 				echo "<label for='bebop_" . $extension['name'] . "_rss_feed'>"; _e( 'RSS Enabled', 'bebop' ); echo ":</label><input id='bebop_" .$extension['name'] . "_rss_feed' name='bebop_".$extension['name'] . "_rss_feed' type='checkbox'";
@@ -45,9 +46,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 				echo '>';
 			}
 			else {
-				echo '<p>';
-				sprintf( _e( 'RSS feeds cannot be enabled because %1$s  is not an active extension.', 'bebop' ), $extension['display_name'] );
-				echo '</p>';
+				echo '<p>' . sprintf( __( 'RSS feeds cannot be enabled because %1$s  is not an active extension.', 'bebop' ), $extension['display_name'] ) . '</p>';
 			}
 			?>
 		</fieldset>
@@ -101,7 +100,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		<?php
 	}
 	else {
-		 sprintf( _e( 'No users found for the %1$s.', 'bebop' ), $extension['display_name'] );
+		echo sprintf( __( 'No users found for the %1$s.', 'bebop' ), $extension['display_name'] );
 	}
 	?>
 <!-- End bebop_admin_container -->
