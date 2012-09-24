@@ -56,7 +56,6 @@ Bug Fixes:
 Other:
 1. Made a few import error/log messages a bit more clear.
 
-change uninstall hook back before release
 
 v1.0.1 - 11.09.2012 - minor release.
 
