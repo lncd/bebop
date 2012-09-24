@@ -219,11 +219,7 @@ class bebop_tables {
 		global $wpdb;
 		$meta_name = addslashes( $meta_name );
 		$result = $wpdb->get_row( 'SELECT meta_name FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "'" );
-		
-		if( is_numeric( $result->meta_value ) ) {
-			return true;
-		}
-		else if( ! empty($result->meta_value ) ) {
+		if ( ! empty( $result->meta_name ) ) {
 			return true;
 		}
 		else {
@@ -266,13 +262,17 @@ class bebop_tables {
 		$meta_name = str_replace( "'", "\\\\\'", $meta_name );
 		$result = $wpdb->get_row( 'SELECT meta_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_user_meta WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $meta_name . "'" );
 		
-		var_dump($result->meta_value);
-		
-		if( is_numeric(  $result->meta_value ) ) {
-			return $result->meta_value;
-		}
-		else if( ! empty($result->meta_value ) ) {
-			return $result->meta_value;
+		if( ! empty( $result ) ) {
+			
+			if ( is_numeric(  $result->meta_value ) ) {
+				return $result->meta_value;
+			}
+			else if ( ! empty($result->meta_value ) ) {
+				return $result->meta_value;
+			}
+			else {
+				return false;
+			}
 		}
 		else {
 			return false;
@@ -314,10 +314,9 @@ class bebop_tables {
 	function update_user_meta( $user_id, $meta_type, $meta_name, $meta_value ) { //function to update user meta in the user_meta table.
 		global $wpdb;
 		if ( bebop_tables::check_user_meta_exists( $user_id, $meta_name ) == true ) {
-			$result = $wpdb->query( 'UPDATE ' . bp_core_get_table_prefix() . "bp_bebop_user_meta SET meta_value = '"  . $wpdb->escape( $meta_value ) . "' WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $wpdb->escape( $meta_name ) . "' LIMIT 1" );
 			
-			var_dump($wpdb);
-			
+			$meta_name = str_replace( "'", "\\\\\'", $meta_name ); //damn quotes.
+			$result = $wpdb->query( 'UPDATE ' . bp_core_get_table_prefix() . "bp_bebop_user_meta SET meta_value = '"  . $wpdb->escape( $meta_value ) . "' WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND meta_name = '" . $meta_name . "' LIMIT 1" );
 			if ( ! empty( $result ) ) {
 				return $result;
 			}
@@ -327,7 +326,7 @@ class bebop_tables {
 		}
 		else {
 			bebop_tables::add_user_meta( $user_id, $meta_type, $meta_name, $meta_value );
-			bebop_tables::update_user_meta( $user_id, $meta_type, $meta_name, $meta_value );
+			return false;
 		}
 	}
 	

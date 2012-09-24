@@ -5,13 +5,18 @@ class bebop_filters {
 		$maximport_value = bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' );
 		$user_count = bebop_tables::get_user_meta_value( $user_id, 'bebop_' . $extension . '_' . $username . '_daycounter' );
 		
-		var_dump( $user_count );
+		
 		
 		if ( ( ! empty( $user_count ) ) || ( is_numeric( $user_count ) ) ) {
+			
 			if ( ( empty( $maximport_value ) || $maximport_value === 0 ) || ( $maximport_value > $user_count ) ) {
 				$new_count = $user_count + 1;
-				bebop_tables::update_user_meta( $user_id, $extension, 'bebop_' . $extension . '_' . $username . '_daycounter', $new_count );
-				return true;
+				if ( bebop_tables::update_user_meta( $user_id, $extension, 'bebop_' . $extension . '_' . $username . '_daycounter', $new_count ) ) {
+					return true;
+				}
+				else {
+					return false;
+				}
 			}
 		}
 		else {
