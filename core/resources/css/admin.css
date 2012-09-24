@@ -15,7 +15,7 @@
 	text-decoration:underline;
 }
 
-#bebop_admin_container .bebop_error_box, #bebop_admin_container .bebop_success_box {
+.bebop_error_box, .bebop_success_box {
 	display:inline-block;
 	position:absolute;
 	top:0;
@@ -27,10 +27,10 @@
 	border-bottom-right-radius:5px;
 	z-index:5;
 }
-#bebop_admin_container .bebop_error_box {
+.bebop_error_box {
 	background:#FF6A6A;
 }
-#bebop_admin_container .bebop_success_box {
+.bebop_success_box {
 	background:#E1FFD6;
 }
 #bebop_admin_container .bebop_admin_box,
@@ -108,8 +108,8 @@
 	margin-left:auto;
 	margin-right:auto;
 }
- #bebop_admin_container.bebop_table,
- #bebop_admin_container .bebop_settings_table {
+#bebop_admin_container.bebop_table,
+#bebop_admin_container .bebop_settings_table {
 	font-family: "HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;
 	background-color:#ffffff;
 	width:100%;
@@ -158,10 +158,10 @@
 #bebop_admin_container .margin-bottom_22px {
 	margin-bottom:22px;
 }
-#bebop_admin_container .margin-top_22px {
+.margin-top_22px {
 	margin-top:22px;
 }
-#bebop_admin_container .margin-top_40px {
+.margin-top_40px {
 	margin-top:40px;
 }
 #bebop_admin_container .bebop_admin_form {
