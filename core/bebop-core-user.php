@@ -448,7 +448,7 @@ function bebop_load_filter_options() {
 		echo '<option value="all_oer">'; _e( 'All OERs', 'bebop' ); echo '</option>';
 	}
 	else if ( count( $store ) === 0 ) {
-		echo '<option>'; __e( 'No Extensions are active - please enable them in the admin panel', 'bebop' ); echo '</option>';
+		echo '<option>'; _e( 'No Extensions are active - please enable them in the admin panel', 'bebop' ); echo '</option>';
 	}
 	//Outputs the options
 	foreach ( $store as $option ) {

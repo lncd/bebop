@@ -10,13 +10,13 @@
 	</div>
 	
 	<div class='postbox-container'>
-		<div class='postbox'>
+		<div id="normal-sortables" class="meta-box-sortables ui-sortable"><div class='postbox'>
 			<h3><?php _e( 'Latest News' ); ?></h3>
 			<div class='inside'>
 				<p><?php _e( 'Version 1.1 of Bebop has been released. Many requested features have been implemented, bugs have been fixed, and issues resolved. For more details, please see the changelog in README.txt.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.0 of Bebop has now been released. This BuddyPress plugin allows users to import Open Educational Resources from around the web, into their BuddyPress activity stream.</p>', 'bebop' ); ?>
 			</div>
-		</div>
+		</div></div>
 
 		<div class="postbox">
 			<h3><?php _e( 'Support', 'bebop' ); ?></h3>
@@ -28,7 +28,7 @@
 	</div>
 	
 	<div class="postbox-container">
-		<div class='postbox'>
+		<div id="normal-sortables" class="meta-box-sortables ui-sortable"><div class='postbox'>
 			<h3><a href="?page=bebop_oers&type=verified"><?php _e( 'Recently Verified Content', 'bebop' ); ?></a></h3>
 			<div class='inside'>
 				<?php
@@ -61,7 +61,7 @@
 				?>
 				
 			</div>
-		</div>
+		</div></div>
 	</div>
 	
 	<div class="clear"></div>

@@ -5,8 +5,6 @@ class bebop_filters {
 		$maximport_value = bebop_tables::get_option_value( 'bebop_' . $extension . '_maximport' );
 		$user_count = bebop_tables::get_user_meta_value( $user_id, 'bebop_' . $extension . '_' . $username . '_daycounter' );
 		
-		
-		
 		if ( ( ! empty( $user_count ) ) || ( is_numeric( $user_count ) ) ) {
 			
 			if ( ( empty( $maximport_value ) || $maximport_value === 0 ) || ( $maximport_value > $user_count ) ) {

@@ -22,7 +22,7 @@ Requirements.
 
 == Changelog ==
 
-v1.1 - 21.09.2012 - Major Release
+v1.1 - 24.09.2012 - Major Release
 
 This version changes some fundemental aspects of the plugin source code. See features for details.
 
@@ -50,13 +50,13 @@ Bug Fixes:
 6. Fixed a Flickr import bug which accidentally removed data from the OER manager table.
 7. Fixed a bug which made it difficult to remove a users feed from a regular extension.
 8. Fixed a bug which threw a fatal error if BuddyPress is not active when Bebop is activated.
+9. Fixed a bug which overwrote standard  WordPress CSS rules.
 
 
 Other:
 1. Made a few import error/log messages a bit more clear.
 
 change uninstall hook back before release
-
 
 v1.0.1 - 11.09.2012 - minor release.
 
