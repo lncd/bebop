@@ -183,7 +183,7 @@ function bebop_main_cron_schedule( $schedules ) {
 function bebop_secondary_cron_schedule( $schedules ) {
 
 	$schedules['bebop_secondary_cron_time'] = array(
-		'interval' => 15,
+		'interval' => 10,
 		'display'  => __( 'Once Weekly' ),
 	);
 	return $schedules;
@@ -201,8 +201,8 @@ define( 'BP_BEBOP_VERSION', '1.1' );
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
-register_deactivation_hook( __FILE__, 'bebop_deactivate' );
-//register_uninstall_hook( __FILE__, 'bebop_deactivate' );
+//register_deactivation_hook( __FILE__, 'bebop_deactivate' );
+register_uninstall_hook( __FILE__, 'bebop_deactivate' );
 
 add_action( 'bp_init', 'bebop_init', 5 );
 ?>
