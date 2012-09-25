@@ -52,7 +52,13 @@ if ( ! empty( $importers[0] ) ) {
 			}
 		}
 	}
-	$log_results = implode( ', ', $return_array );
+	$log_array = array();
+	foreach ( $return_array as $key => $value ) {
+		if ( ! empty( $value ) ) {
+			$log_array[] = $value;
+		}
+	}
+	$log_results = implode( ', ', $log_array );
 	
 	if ( ! empty( $log_results ) ) {
 		$message = sprintf( __( 'Main importer service completed. Imported %1$s.', 'bebop' ), $log_results );

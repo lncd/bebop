@@ -4,7 +4,7 @@ session_start();
 Plugin Name: Bebop
 Plugin URI: http://bebop.blogs.lincoln.ac.uk/
 Description: Bebop is the name of a rapid innovation project funded by the Joint Information Systems Committee (JISC) and developed by the University of Lincoln. The project involved the utilisation of OER's from 3rd party providers such as YouTube, Vimeo, SlideShare and Flickr.
-Version: 1.1
+Version: 1.1.1
 Text Domain: bebop
 Authors: Dale Mckeown, David Whitehead
 Author URI: http://phone.online.lincoln.ac.uk/dmckeown, http://phone.online.lincoln.ac.uk/dwhitehead
@@ -165,8 +165,11 @@ function bebop_deactivate() {
 
 //This function sets up the time interval for the cron schedule.
 function bebop_main_cron_schedule( $schedules ) {
-	if ( bebop_tables::get_option_value( 'bebop_general_crontime' ) ) {
-		$time = bebop_tables::get_option_value( 'bebop_general_crontime' );
+	
+	$crontime = bebop_tables::get_option_value( 'bebop_general_crontime' );
+	
+	if ( is_numeric( $crontime ) ) {
+		$time = $crontime;
 	}
 	else {
 		$time = 600;
@@ -175,7 +178,7 @@ function bebop_main_cron_schedule( $schedules ) {
 	
 	$schedules['bebop_main_cron_time'] = array(
 		'interval' => $time,
-		'display'  => __( 'Once Weekly' ),
+		'display'  => __( 'main_cron' ),
 	); 
 	return $schedules;
 }
@@ -184,7 +187,7 @@ function bebop_secondary_cron_schedule( $schedules ) {
 
 	$schedules['bebop_secondary_cron_time'] = array(
 		'interval' => 10,
-		'display'  => __( 'Once Weekly' ),
+		'display'  => __( 'secondary_cron' ),
 	);
 	return $schedules;
 }
@@ -197,12 +200,12 @@ function bebop_secondary_import_function() {
 	require_once( 'secondary_import.php' );
 }
 
-define( 'BP_BEBOP_VERSION', '1.1' );
+define( 'BP_BEBOP_VERSION', '1.1.1' );
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
-//register_deactivation_hook( __FILE__, 'bebop_deactivate' );
-register_uninstall_hook( __FILE__, 'bebop_deactivate' );
+register_deactivation_hook( __FILE__, 'bebop_deactivate' );
+//register_uninstall_hook( __FILE__, 'bebop_deactivate' );
 
 add_action( 'bp_init', 'bebop_init', 5 );
 ?>

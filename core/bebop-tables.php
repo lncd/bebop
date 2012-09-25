@@ -172,7 +172,11 @@ class bebop_tables {
 	function get_option_value( $option_name ) { //function to get an option from the options table.
 		global $wpdb;
 		$result = $wpdb->get_row( 'SELECT option_value FROM ' . bp_core_get_table_prefix() . "bp_bebop_options WHERE option_name = '" . $wpdb->escape( $option_name ) . "'" );
-		if ( ! empty( $result->option_value ) ) {
+		
+		if ( isset( $result->option_value ) && is_numeric( $result->option_value ) ) {
+				return $result->option_value;
+			}
+		else if ( ! empty($result->option_value ) ) {
 			return $result->option_value;
 		}
 		else {
@@ -182,7 +186,6 @@ class bebop_tables {
 	
 	function update_option( $option_name, $option_value ) { //function to update an option in the options table.
 		global $wpdb;
-		
 		if ( bebop_tables::check_option_exists( $option_name ) == true ) {
 			$result = $wpdb->query( 'UPDATE ' . bp_core_get_table_prefix() . "bp_bebop_options SET option_value = '"  . $wpdb->escape( $option_value ) . "' WHERE option_name = '" . $wpdb->escape( $option_name ) . "' LIMIT 1" );
 			if ( ! empty( $result ) ) {

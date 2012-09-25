@@ -44,16 +44,6 @@ function bebop_setup_user_nav() {
 	);
 	//only show if current user is the owner of the profile.
 	if ( bp_is_my_profile() ) {
-		bp_core_new_subnav_item(
-								array(
-								'name' => __( 'Accounts', 'bebop' ),
-								'slug' => 'accounts',
-								'parent_url' => $bp->loggedin_user->domain . 'bebop/',
-								'parent_slug' => 'bebop',
-								'screen_function' => 'bebop_user_settings',
-								'position' => 20,
-								)
-		);
 		
 		if ( $should_users_verify_content != 'no' ) {
 			bp_core_new_subnav_item(
@@ -67,6 +57,17 @@ function bebop_setup_user_nav() {
 							)
 			);
 		}
+		
+		bp_core_new_subnav_item(
+								array(
+								'name' => __( 'Accounts', 'bebop' ),
+								'slug' => 'accounts',
+								'parent_url' => $bp->loggedin_user->domain . 'bebop/',
+								'parent_slug' => 'bebop',
+								'screen_function' => 'bebop_user_settings',
+								'position' => 20,
+								)
+		);
 	}
 }
 

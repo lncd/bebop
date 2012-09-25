@@ -18,7 +18,7 @@ Requirements.
 == Installation ==
 1. Upload this plugin to your '/wp-content/plugins/' directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Configure extensions in the 'OER Provider' menu.
+3. Configure extensions in the 'OER Provider' admin menu.
 
 == Changelog ==
 
@@ -31,12 +31,13 @@ N/A
 
 Bug Fixes:
 1. Fixed a bug which was overriding the custom bebop activity feed query when first loaded, which caused all content to be displayed, not just Bebop generated content.
-2. 
+2. Fixed an issue with updating the main wordpress cron time.
+
 
 
 
 Other:
-N/A
+1. Fixed an issue with with strange log messages of no consumer key is set for an extension.
 
 v1.1 - 24.09.2012 - Major Release
 
