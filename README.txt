@@ -22,6 +22,22 @@ Requirements.
 
 == Changelog ==
 
+v1.1.1 - 29.09.2012 - Minor Release
+
+This is a minor update which fixes some bugs found in the previous version.
+
+Feature Updates:
+N/A
+
+Bug Fixes:
+1. Fixed a bug which was overriding the custom bebop activity feed query when first loaded, which caused all content to be displayed, not just Bebop generated content.
+2. 
+
+
+
+Other:
+N/A
+
 v1.1 - 24.09.2012 - Major Release
 
 This version changes some fundemental aspects of the plugin source code. See features for details.

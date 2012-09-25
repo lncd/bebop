@@ -41,8 +41,8 @@ if ( bp_is_my_profile() ) {
 		}
 	}
 } 
-
-if ( $page == '/bebop/home/' ) {
+$page = bebop_page_url( 1 );
+if ( $page == '/bebop/' ) {
 	add_action( 'wp_enqueue_scripts', 'bebop_loop_js' );
 	?>
 	<!-- This overrides the current filter in the cookie to nothing "i.e.

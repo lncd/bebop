@@ -513,19 +513,7 @@ function bebop_dropdown_query_checker( $query_string ) {
 		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
 		if ( isset( $_SESSION['bebop_area'] ) ) {
 			if ( $_SESSION['bebop_area'] == 'not_bebop_oer_plugin' ) {
-				
 				$_SESSION['bebop_area'] = 'bebop_oer_plugin';
-				
-				/*
-				 * This ensures that the default activity stream is reset if they have left the OER page.
-				 * "This is done to stop the dropdown list and activity stream being the same as the oer 
-				 * page was peviously on.
-				 */
-				echo  "<script type='text/javascript' src='" . WP_CONTENT_URL . '/plugins/bebop/core/resources/js/bebop-loop.js' . "'></script>";
-				echo '<script type="text/javascript">';
-				echo 'bebop_activity_cookie_modify("","");';
-				echo '</script>';
-				$_COOKIE['bp-activity-filter'] = '';
 			}
 		}
 		else {

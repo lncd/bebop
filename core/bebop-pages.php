@@ -23,19 +23,19 @@ function bebop_setup_user_nav() {
 	//Shows in the profile all the time.
 	bp_core_new_nav_item(
 					array(
-						'name' => __( 'Teaching Resources', 'bebop' ),
-						'slug' => 'bebop/home',
+						'name' => __( 'Resources', 'bebop' ),
+						'slug' => 'bebop',
 						'position' => 30,
 						'show_for_displayed_user' => true,
 						'screen_function' => 'bebop_user_settings',
-						'default_subnav_slug' => 'home',
+						'default_subnav_slug' => 'content',
 					)
 	);
 
 	bp_core_new_subnav_item(
 					array(
-						'name' =>  __( 'Home', 'bebop' ),
-						'slug' => 'home',
+						'name' =>  __( 'Content', 'bebop' ),
+						'slug' => 'content',
 						'parent_url' => bp_displayed_user_domain() . 'bebop/',
 						'parent_slug' => 'bebop',
 						'screen_function' => 'bebop_user_settings',
