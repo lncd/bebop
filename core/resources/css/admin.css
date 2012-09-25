@@ -13,7 +13,10 @@
 #bebop_admin_container a:hover {
 	text-decoration:underline;
 }
-
+#bebop_admin_container .button-secondary:hover {
+	/*quick fix for button-secondary that are a href's */
+	text-decoration:none;
+}
 .bebop_error_box, .bebop_success_box {
 	display:inline-block;
 	position:absolute;
