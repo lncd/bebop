@@ -154,9 +154,7 @@ class bebop_extensions {
 	
 	function bebop_user_page_loader( $extension, $page = 'settings' ) {
 		global $bp;
-		if ( $bp->displayed_user->id != $bp->loggedin_user->id && $page != 'album' ) {
-			header( 'location:' . get_site_url() );
-		}
+
 		add_action( 'wp_enqueue_scripts', 'bebop_user_stylesheets' );
 		add_action( 'bp_template_content', 'bebop_user_'.$page.'_screen_content' );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );

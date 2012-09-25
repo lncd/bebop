@@ -1,6 +1,5 @@
 <?php
 //File used to load pages
-
 /**
 * User settings
 */

@@ -22,9 +22,9 @@ Requirements.
 
 == Changelog ==
 
-v1.1.1 - 29.09.2012 - Minor Release
+v1.1.1 - 25.09.2012 - Minor Release
 
-This is a minor update which fixes some bugs found in the previous version.
+This is a minor update which fixes some bugs found in version 1.1.
 
 Feature Updates:
 N/A
@@ -33,8 +33,7 @@ Bug Fixes:
 1. Fixed a bug which was overriding the custom bebop activity feed query when first loaded, which caused all content to be displayed, not just Bebop generated content.
 2. Fixed an issue with updating the main wordpress cron time.
 3. Stopped admin secondary buttons from having an underline link.
-
-
+4. Fixed a page redirection error which was redirecting to the site URL when trying to access another users resources.
 
 
 Other:

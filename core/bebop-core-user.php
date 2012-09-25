@@ -600,7 +600,6 @@ function bebop_rss_buttons() {
 	
 	$user = $bp->displayed_user->userdata;
 	
-	echo '<h3>' . $user->user_nicename  . ' feeds</h3>';
 	echo '<div class="rss_feed_container">';
 	foreach ( $extensions as $extension ) {
 		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {
