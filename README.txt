@@ -1,6 +1,6 @@
 === Bebop ===
 Contributors: Dale Mckeown
-Tags: WordPress, BuddyPress, OER, Open Educational Resources, ukeor, oerri, Rapid Innovation, JISC, LNCD, University of Lincoln.
+Tags: WordPress, BuddyPress, OER, Open Educational Resources, ukeor, oerri, Rapid Innovation, JISC, LNCD, The University of Lincoln.
 Tested on: WordPress 3.4.2, BuddyPress 1.6.1
 
 
