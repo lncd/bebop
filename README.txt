@@ -50,6 +50,7 @@ Bug Fixes:
 Other:
 * Fixed an issue with with strange log messages of no consumer key is set for an extension.
 * Added some padding to admin secondary buttons.
+* .gitignore'd a few other unnecessary files and folders.
 
 v1.1 - 24.09.2012 - Major Release
 
