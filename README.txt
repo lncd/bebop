@@ -26,9 +26,13 @@ Bebop is compatible with WordPress Networks as well as standalone sites.
 1. Upload this plugin to your '/wp-content/plugins/' directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
-OR Install via the 'Add New' button in your plugins page.
+OR
 
-3. Configure extensions in the 'OER Provider' admin menu.
+Install via the 'Add New' button in your plugins page.
+
+THEN
+
+Configure extensions in the 'OER Provider' admin menu.
 
 
 == Changelog ==
