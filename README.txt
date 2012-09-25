@@ -32,12 +32,14 @@ N/A
 Bug Fixes:
 1. Fixed a bug which was overriding the custom bebop activity feed query when first loaded, which caused all content to be displayed, not just Bebop generated content.
 2. Fixed an issue with updating the main wordpress cron time.
+3. Stopped admin secondary buttons from having an underline link.
 
 
 
 
 Other:
 1. Fixed an issue with with strange log messages of no consumer key is set for an extension.
+2. Added some padding to admin secondary buttons.
 
 v1.1 - 24.09.2012 - Major Release
 

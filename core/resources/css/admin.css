@@ -13,6 +13,10 @@
 #bebop_admin_container a:hover {
 	text-decoration:underline;
 }
+
+#bebop_admin_container .button-secondary {
+	margin-right:10px;
+}
 #bebop_admin_container .button-secondary:hover {
 	/*quick fix for button-secondary that are a href's */
 	text-decoration:none;
