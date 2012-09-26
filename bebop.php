@@ -204,8 +204,8 @@ define( 'BP_BEBOP_VERSION', '1.1.1' );
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );
-//register_deactivation_hook( __FILE__, 'bebop_deactivate' );
-register_uninstall_hook( __FILE__, 'bebop_deactivate' );
+register_deactivation_hook( __FILE__, 'bebop_deactivate' );
+//register_uninstall_hook( __FILE__, 'bebop_deactivate' );
 
 add_action( 'bp_init', 'bebop_init', 5 );
 ?>
