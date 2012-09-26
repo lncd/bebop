@@ -4,38 +4,38 @@
 <div id='bebop_admin_container'>
 	
 	<div class='postbox center_margin margin-bottom_22px'>
-		<h3><?php _e( 'OERs', 'bebop' ); ?></h3>
+		<h3><?php _e( 'Content', 'bebop' ); ?></h3>
 		<div class="inside">
-			<p><?php _e( 'Lists all the OERs in the database by type.', 'bebop' ); ?></p>
+			<p><?php _e( 'Lists all Bebop content in the database by type.', 'bebop' ); ?></p>
 		</div>
 	</div>
 	<?php 
 	if ( isset( $_GET['type'] ) ) {
 		if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
 			$type = 'unverified';
-			$message = __( 'These OERs have not been approved to be displayed in owners activity streams.', 'bebop' );
+			$message = __( 'This content has not bee verified by your users.', 'bebop' );
 		}
 		else if ( strtolower( strip_tags( $_GET['type'] == 'verified' ) ) ) {
 			$type = 'verified';
-			$message = __( 'These OERs are currently being displayed in their owner\'s activity streams.', 'bebop' );
+			$message = __( 'This content has been verified and is actively displayed in your users activity streams.', 'bebop' );
 		}
 		else if ( strtolower( strip_tags( $_GET['type'] == 'deleted' ) ) ) {
 			$type = 'deleted';
-			$message = __( 'These OERs are not in the activity stream and have been marked as deleted by the owner.', 'bebop' );
+			$message = __( 'This content has been deleted by your users.', 'bebop' );
 		}
 	}
 	else {
 		$type = 'verified';
-		$message = __( 'These OERs are currently being displayed their owner\'s activity streams.', 'bebop' );
+		$message = __( 'This content has not bee verified by your users.', 'bebop' );
 	}
-	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_oers&type=unverified">'; _e( 'Unverified OERs', 'bebop' ); echo '</a>';
-	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_oers&type=verified">'; _e( 'Verified OERs', 'bebop' ); echo '</a>';
-	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_oers&type=deleted">'; _e( 'Deleted OERs', 'bebop' ); echo '</a>';
+	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_content&type=unverified">'; _e( 'Unverified Content', 'bebop' ); echo '</a>';
+	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_content&type=verified">'; _e( 'Verified Content', 'bebop' ); echo '</a>';
+	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_content&type=deleted">'; _e( 'Deleted Content', 'bebop' ); echo '</a>';
 	
-	$oers = bebop_tables::admin_fetch_oer_data( $type );
+	$contents = bebop_tables::admin_fetch_content_data( $type );
 	
-	if ( count( $oers ) > 0 ) {
-		echo '<h4>' . ucfirst( $type ) . ' '; _e( 'OERs', 'bebop' ); echo '</h4>';
+	if ( count( $contents ) > 0 ) {
+		echo '<h4>' . ucfirst( $type ) . ' '; _e( 'Content', 'bebop' ); echo '</h4>';
 		echo $message;
 		
 		
@@ -46,7 +46,7 @@
 					<th>'; _e( 'Secondary ID', 'bebop'); echo '</th>
 					<th>'; _e( 'Activity Stream ID', 'bebop'); echo '</th>
 					<th>'; _e( 'Username', 'bebop'); echo '</th>
-					<th>'; _e( 'OER Type', 'bebop'); echo '</th>
+					<th>'; _e( 'Type', 'bebop'); echo '</th>
 					<th>'; _e( 'Imported', 'bebop'); echo '</th>
 					<th>'; _e( 'Published', 'bebop'); echo '</th>
 					<th>'; _e( 'Content', 'bebop'); echo '</th>
@@ -58,7 +58,7 @@
 					<th>'; _e( 'Secondary ID', 'bebop'); echo '</th>
 					<th>'; _e( 'Activity Stream ID', 'bebop'); echo '</th>
 					<th>'; _e( 'Username', 'bebop'); echo '</th>
-					<th>'; _e( 'OER Type', 'bebop'); echo '</th>
+					<th>'; _e( 'Type', 'bebop'); echo '</th>
 					<th>'; _e( 'Imported', 'bebop'); echo '</th>
 					<th>'; _e( 'Published', 'bebop'); echo '</th>
 					<th>'; _e( 'Content', 'bebop'); echo '</th>
@@ -66,17 +66,17 @@
 			</tfoot>
 			<tbody>';
 				
-				foreach ( $oers as $oer ) {
-				$extension = bebop_extensions::bebop_get_extension_config_by_name( $oer->type );
+				foreach ( $contents as $content ) {
+				$extension = bebop_extensions::bebop_get_extension_config_by_name( $content->type );
 				echo '<tr>
-					<td>' . $oer->id . '</td>' .
-					'<td>' . $oer->secondary_item_id . '</td>' .
-					'<td>' . $oer->activity_stream_id . '</td>' .
-					'<td>' . bp_core_get_username( $oer->user_id ) . '</td>' .
+					<td>' . $content->id . '</td>' .
+					'<td>' . $content->secondary_item_id . '</td>' .
+					'<td>' . $content->activity_stream_id . '</td>' .
+					'<td>' . bp_core_get_username( $content->user_id ) . '</td>' .
 					'<td>' . bebop_tables::sanitise_element( $extension['display_name'] ) . '</td>' .
-					'<td>' . bp_core_time_since( $oer->date_imported ) . '</td>' .
-					'<td>' . bp_core_time_since( $oer->date_recorded ) . '</td>' .
-					'<td class="content">' . bebop_tables::sanitise_element( $oer->content ) . '</td>' .
+					'<td>' . bp_core_time_since( $content->date_imported ) . '</td>' .
+					'<td>' . bp_core_time_since( $content->date_recorded ) . '</td>' .
+					'<td class="content">' . bebop_tables::sanitise_element( $content->content ) . '</td>' .
 				'</tr>';
 				}
 			echo '
@@ -84,8 +84,8 @@
 		</table>';
 	}
 	else {
-		echo '<h4>' . ucfirst( $type ) . ' '; _e( 'OERs', 'bebop' ); echo '</h4>';
-		echo '<p>'; _e( 'No content was found in the oer manager.', 'bebop' ); echo '</p>';
+		echo '<h4>' . ucfirst( $type ) . ' '; _e( 'Content', 'bebop' ); echo '</h4>';
+		echo '<p>'; _e( 'No content was found in the content manager.', 'bebop' ); echo '</p>';
 	}
 		
 	?>
