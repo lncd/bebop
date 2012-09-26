@@ -10,9 +10,9 @@ else {
 	<div id='bebop_admin_container'>
 		
 		<div class='postbox center_margin margin-bottom_22px'>
-			<h3><?php _e( 'OER Providers', 'bebop' ); ?></h3>
+			<h3><?php _e( 'Content Providers', 'bebop' ); ?></h3>
 			<div class="inside">
-				<?php _e( 'Here you can manage installed OER extensions. To enable an extension, click the "enabled" checkbox and click "Save Changes". The "Admin Settings" link can now be clicked to 
+				<?php _e( 'Here you can manage Bebop\'s extensions. To enable an extension, click the "enabled" checkbox and click the "Save Changes" button. The "Admin Settings" link can now be clicked to 
 				change any configuration settings the extension might require, such as API keys and import limits.', 'bebop' ); ?>
 			</div>
 		</div>
@@ -24,9 +24,9 @@ else {
 						<th><?php _e( 'Extension Name<', 'bebop' ); ?>/th>
 						<th><?php _e( 'Active Users', 'bebop' ); ?></th>
 						<th><?php _e( 'Inactive Users', 'bebop' ); ?></th>
-						<th colspan=><?php _e( 'Unverified OERs', 'bebop' ); ?></th>
-						<th colspan=><?php _e( 'Verified OERs', 'bebop' ); ?></th>
-						<th colspan=><?php _e( 'Deleted OERs', 'bebop' ); ?></th>
+						<th colspan=><?php _e( 'Unverified Content', 'bebop' ); ?></th>
+						<th colspan=><?php _e( 'Verified Content', 'bebop' ); ?></th>
+						<th colspan=><?php _e( 'Deleted Content', 'bebop' ); ?></th>
 						<th colspan='2'><?php _e( 'Options', 'bebop' ); ?></th>
 					</tr>
 				</thead>
@@ -35,9 +35,9 @@ else {
 						<th><?php _e( 'Extension Name', 'bebop' ); ?></th>
 						<th><?php _e( 'Active Users', 'bebop' ); ?></th>
 						<th><?php _e( 'Inactive Users', 'bebop' ); ?></th>
-						<th colspan=><?php _e( 'Unverified OERs', 'bebop' ); ?></th>
-						<th colspan=><?php _e( 'Verified OERs', 'bebop' ); ?></th>
-						<th colspan=><?php _e( 'Deleted OERs', 'bebop' ); ?></th>
+						<th colspan=><?php _e( 'Unverified Content', 'bebop' ); ?></th>
+						<th colspan=><?php _e( 'Verified Content', 'bebop' ); ?></th>
+						<th colspan=><?php _e( 'Deleted Content', 'bebop' ); ?></th>
 						<th colspan='2'><?php _e( 'Options', 'bebop' ); ?></th>
 					</tr>
 				</tfoot>
@@ -49,16 +49,16 @@ else {
 						<td>' . $extension['display_name'] . '</td>
 						<td>' . bebop_tables::count_users_using_extension( $extension['name'], 1 ) . '</td>
 						<td>' . bebop_tables::count_users_using_extension( $extension['name'], 0 ) . '</td>
-						<td><a href="?page=bebop_oers&type=unverified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'unverified' ) . '</a></td>
-						<td><a href="?page=bebop_oers&type=verified">' . bebop_tables::count_oers_by_extension( $extension['name'], 'verified' ) . '</a></td>
-						<td><a href="?page=bebop_oers&type=deleted">' . bebop_tables::count_oers_by_extension( $extension['name'], 'deleted' ) . '</a></td>
+						<td><a href="?page=bebop_content&type=unverified">' . bebop_tables::count_content_by_extension( $extension['name'], 'unverified' ) . '</a></td>
+						<td><a href="?page=bebop_content&type=verified">' . bebop_tables::count_content_by_extension( $extension['name'], 'verified' ) . '</a></td>
+						<td><a href="?page=bebop_content&type=deleted">' . bebop_tables::count_content_by_extension( $extension['name'], 'deleted' ) . '</a></td>
 						<td>';
 						echo "<label for='bebop_" . $extension['name'] . "_provider'>";  _e( 'Enabled:', 'bebop' ); echo "</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
 						if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 							echo 'CHECKED';
 						}
 						echo '></td>
-						<td><a class="button auto" style="display:inline-block;margin:6px 0 6px 0;" href="?page=bebop_oer_providers&provider=' . strtolower( $extension['name'] ) . '">Settings</a></td>
+						<td><a class="button auto" style="display:inline-block;margin:6px 0 6px 0;" href="?page=bebop_providers&provider=' . strtolower( $extension['name'] ) . '">Settings</a></td>
 					</tr>';
 					}
 				?>

@@ -5,12 +5,12 @@
 	<a id='bebop_general' href='?page=bebop_admin_settings' class='nav-tab<?php if ( $_GET['page'] == 'bebop_admin_settings' ) {
 		echo ' nav-tab-active';
 	}?>'><?php _e( 'General Settings', 'bebop' ); ?></a>
-	<a id='bebop_oer_providers' href='?page=bebop_oer_providers' class='nav-tab<?php if ( $_GET['page'] == 'bebop_oer_providers' ) {
+	<a id='bebop_content_providers' href='?page=bebop_providers' class='nav-tab<?php if ( $_GET['page'] == 'bebop_providers' ) {
 		echo ' nav-tab-active';
-	}?>'><?php _e( 'OER Providers', 'bebop' ); ?></a>
-	<a id='bebop_oers' href='?page=bebop_oers' class='nav-tab<?php if ( $_GET['page'] == 'bebop_oers' ) {
+	}?>'><?php _e( 'Content Providers', 'bebop' ); ?></a>
+	<a id='bebop_content' href='?page=bebop_content' class='nav-tab<?php if ( $_GET['page'] == 'bebop_content' ) {
 		echo ' nav-tab-active';
-	}?>'><?php _e( 'OERs', 'bebop' ); ?></a>
+	}?>'><?php _e( 'Content', 'bebop' ); ?></a>
 	<a id='bebop_error_log' href='?page=bebop_error_log' class='nav-tab<?php if ( $_GET['page'] == 'bebop_error_log' ) {
 		echo ' nav-tab-active';
 	}?>'><?php _e( 'Error Log', 'bebop' ); ?></a>

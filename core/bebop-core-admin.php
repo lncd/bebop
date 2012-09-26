@@ -50,7 +50,7 @@ function bebop_general_admin_update_settings() {
 function bebop_oer_providers_update_active() {
 	if ( ! empty( $_GET['page']) ) {
 		$current_page = $_GET['page'];
-		if ( $current_page == 'bebop_oer_providers' ) {
+		if ( $current_page == 'bebop_providers' ) {
 			if ( empty( $_GET['provider'] ) ) {
 				if ( isset( $_POST['submit'] ) ){
 					//reset the importer queue
@@ -89,7 +89,7 @@ function bebop_extension_admin_update_settings() {
 	if ( ! empty( $_GET['page']) ) {
 		$current_page = $_GET['page'];
 		if ( ! empty( $_GET['provider'] ) ) {
-			if ( $current_page == 'bebop_oer_providers' ) {
+			if ( $current_page == 'bebop_providers' ) {
 				$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 				
 				if ( isset( $_POST['submit'] ) ) {
@@ -139,7 +139,7 @@ function bebop_extension_admin_update_settings() {
 					wp_safe_redirect( wp_get_referer() );
 					exit();
 				}
-			}// End if ( $current_page == 'bebop_oer_providers' ) {
+			}// End if ( $current_page == 'bebop_providers' ) {
 		}//End if ( ! empty( $_GET['provider'] ) ) {
 	}//End if ( ! empty( $_GET['page']) ) {
 }

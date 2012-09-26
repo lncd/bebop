@@ -63,6 +63,7 @@ Other:
 * .gitignore'd a few other unnecessary files and folders.
 * Updated the readme.txt file.
 * Changed feed back to RSS
+* Changes some admin terminology so that it suites our social media users a little better.
 
 v1.1 - 24.09.2012 - Major Release
 
