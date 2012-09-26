@@ -20,11 +20,11 @@ Bebop was developed by the University of Lincoln for a JISC-funded 'Open Educati
 
 == Installation ==
 
-Requirements.
+Requirements:
 - PHP 5.2.1+
-
 Bebop is compatible with WordPress Networks as well as standalone sites.
 
+Instructions:
 1. Upload this plugin to your '/wp-content/plugins/' directory.
 2. Activate the plugin through the 'Plugins' menu in WordPress.
 
@@ -47,7 +47,8 @@ v1.1.1 - 25.09.2012 - Minor Release
 This is a minor update which fixes some bugs found in version 1.1.
 
 Feature Updates:
-N/A
+* Made RSS feed link buttons only visible when the user is importing content. Prevents clutter of buttons when a user is not actively using an extension.
+
 
 Bug Fixes:
 * Fixed a bug which was overriding the custom bebop activity feed query when first loaded, which caused all content to be displayed, not just Bebop generated content.
@@ -61,6 +62,9 @@ Other:
 * Added some padding to admin secondary buttons.
 * .gitignore'd a few other unnecessary files and folders.
 * Updated the readme.txt file.
+* Changed feed back to RSS
+* Changes some admin terminology so that it suites our social media users a little better.
+
 
 v1.1 - 24.09.2012 - Major Release
 

@@ -34,10 +34,10 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="0"'; if ( $$active == 0 ) {
 		echo 'checked';
 	} echo '>
-	<label for="no">'; _e( 'No', 'bebop' ); echo '</label><br>';
+	<label for="no">'; _e( 'No', 'bebop' ); echo '</label><br><br>';
 	
 	echo '<label for="bebop_' . $extension['name'] . '_username">'; _e( 'New Username', 'bebop' ); echo ':</label>
-	<input type="text" name="bebop_' . $extension['name'] . '_username" value="" size="50"><br>
+	<input type="text" name="bebop_' . $extension['name'] . '_username" value="" size="50"><br><br>
 	
 	<div class="button_container"><input class="auto button" type="submit" id="submit" name="submit" value="'; _e( 'Save Changes', 'bebop' ); echo '"></div>';
 	echo '<div class="clear_both"></div>';

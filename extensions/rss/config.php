@@ -2,11 +2,11 @@
 
 /*Config file for an extension*/
 
-function get_feed_config() {
+function get_rss_config() {
 	$config = array(
-		'name' 				=> 'feed',
-		'display_name'		=> 'Feed',
-		'type'				=> 'Feed',
+		'name' 				=> 'rss',
+		'display_name'		=> 'RSS',
+		'type'				=> 'rss',
 		'pages'				=> array( 'settings', ),
 		'defaultpage'		=> 'settings',
 		'content_oembed'	=> false,

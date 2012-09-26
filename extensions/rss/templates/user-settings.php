@@ -33,13 +33,13 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="0"'; if ( $$active == 0 ) {
 		echo 'checked';
 	} echo '>
-	<label for="no">'; _e( 'No', 'bebop' ); echo '</label><br>';
+	<label for="no">'; _e( 'No', 'bebop' ); echo '</label><br><br>';
 	
 	echo '<label for="bebop_' . $extension['name'] . '_newfeedname">'; _e( 'New Feed Name', 'bebop' ); echo ':</label>
-	<input type="text" name="bebop_' . $extension['name'] . '_newfeedname" size="50"><br>
+	<input type="text" name="bebop_' . $extension['name'] . '_newfeedname" size="50"><br><br>
 	
 	<label for="bebop_' . $extension['name'] . '_newfeedurl">'; _e( 'New Feed URL', 'bebop' ); echo '</label>
-	<input type="text" name="bebop_' . $extension['name'] . '_newfeedurl" size="75"><br>
+	<input type="text" name="bebop_' . $extension['name'] . '_newfeedurl" size="75"><br><br>
 	
 	<div class="button_container"><input class="auto button" type="submit" id="submit" name="submit" value="'; _e( 'Save Changes', 'bebop' ); echo '"></div>
 	<div class="clear_both"></div>
@@ -47,7 +47,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	//table of user feeds
 	$user_feeds = bebop_tables::get_user_feeds( $bp->loggedin_user->id, $extension['name'] );
 	if ( count( $user_feeds ) > 0 ) {
-		echo '<h5>' . sprintf( __( 'Your %1$ss', 'bebop' ), $extension['display_name'] ) . '</h5>';
+		echo '<h5>' . sprintf( __( 'Your %1$s feeds', 'bebop' ), $extension['display_name'] ) . '</h5>';
 		echo '<table class="bebop_user_table">
 				<tr class="nodata">
 					<th>'; _e( 'Feed Name', 'bebop' ); echo '</th>

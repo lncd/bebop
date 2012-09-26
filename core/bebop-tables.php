@@ -23,7 +23,7 @@ class bebop_tables {
 		return $count;
 	}
 	
-	function count_oers_by_extension( $extension, $status ) {
+	function count_content_by_extension( $extension, $status ) {
 		global $wpdb;
 
 		$count = $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE type = '" . $wpdb->escape( $extension ) . "' AND status = '" . $wpdb->escape( $status ) . "'" ) );
@@ -88,7 +88,7 @@ class bebop_tables {
 		return $result;
 	}
 	 
-	 function admin_fetch_oer_data( $status, $limit = null ) { //function to retrieve all oer data by status in the oer manager table.
+	 function admin_fetch_content_data( $status, $limit = null ) { //function to retrieve all oer data by status in the oer manager table.
 		global $wpdb;
 		
 		if ( $limit != null ) {

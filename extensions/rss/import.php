@@ -5,7 +5,7 @@
  */
 
 //replace 'feed' with the 'name' of your extension, as defined in your config.php file.
-function bebop_feed_import( $extension, $user_metas = null ) {
+function bebop_rss_import( $extension, $user_metas = null ) {
 	global $wpdb, $bp;
 	
 	$itemCounter = 0;
@@ -146,7 +146,7 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 							}
 						}
 						else {
-							bebop_tables::log_error( sprintf( __( 'Importer - %1$s', 'bebop' ), $this_extension['display_name'] ), sprintf( __( 'Feed Error: %1$s', 'bebop' ), $errors ) );
+							bebop_tables::log_error( sprintf( __( 'Importer - %1$s', 'bebop' ), $this_extension['display_name'] ), sprintf( __( 'RSS Error: %1$s', 'bebop' ), $errors ) );
 						}
 					}
 				}//End foreach ($user_feeds as $user_feed ) {
