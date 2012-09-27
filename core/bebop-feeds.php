@@ -114,7 +114,12 @@ function bebop_get_activity_args() {
 				}
 			}
 			if ( ! empty( $import_feeds ) ) {
-				$query_feeds = implode( ',', $import_feeds );
+				if ( count( $import_feeds ) >= 2 ) {
+					$query_feeds = implode( ',', $import_feeds );
+				}
+				else {
+					$query_feeds = $import_feeds;
+				}
 				return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&max=' . $limit . '&display_comments=stream&';
 			}
 		}
