@@ -81,7 +81,7 @@ function bebop_get_activity_args() {
 	
 	//get the count limit
 	$action_variables = bp_action_variables();
-	$standard_limit = 25;
+	$standard_limit = 40;
 	$max_limit = 500;
 	
 	if ( $action_variables[0] == 'feed' ) {
@@ -119,12 +119,12 @@ function bebop_get_activity_args() {
 					$query_feeds = implode( ',', $import_feeds );
 				}
 				else {
-					$query_feeds = $import_feeds;
+					$query_feeds = $import_feeds[0];
 				}
-				return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&max=' . $limit . '&display_comments=stream';
+				return  'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&per_page=' . $limit . '&max=' . $limit . '&display_comments=stream';;
 			}
 		}
-		return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $this_bp_feed . '&max=' .$limit . '&display_comments=stream';
+		return  'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&per_page=' . $limit . '&max=' . $limit . '&display_comments=stream';
 	}
 	else {
 		return false;
