@@ -25,10 +25,19 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'" ?'.'>';
 	<description><?php echo bebop_feed_description() ?></description>
 	<pubDate><?php echo mysql2date( 'D, d M Y H:i:s O', bp_activity_get_last_updated(), false ); ?></pubDate>
 	<generator>http://buddypress.org/?v=<?php echo BP_VERSION ?></generator>
+	<args><?php echo bebop_activity_args(); ?></args>
 	<language>en_US</language>
 	<?php do_action( 'bp_activity_personal_comment_feed_head' ); ?>
 	
 	<?php
+	$stream = 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=youtube,flickr&per_page=500&max=500&display_comments=stream';
+	echo $stream;
+	if ( bp_has_activities( $stream ) ) {
+		
+		while ( bp_activities() ) : bp_the_activity();
+			var_dump( bp_activity_id());
+		endwhile;
+	}
 	if ( bp_has_activities( bebop_activity_args() ) ) {
 		while ( bp_activities() ) : bp_the_activity();
 		?><item>
