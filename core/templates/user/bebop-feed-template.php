@@ -28,7 +28,8 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'" ?'.'>';
 	<args><?php echo bebop_activity_args(); ?></args>
 	<language>en_US</language>
 	<?php do_action( 'bp_activity_personal_comment_feed_head' ); ?>
-
+	
+	<?php
 	if ( bp_has_activities( bebop_activity_args() ) ) {
 		while ( bp_activities() ) : bp_the_activity();
 		?><item>
