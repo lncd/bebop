@@ -25,7 +25,6 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'" ?'.'>';
 	<description><?php echo bebop_feed_description() ?></description>
 	<pubDate><?php echo mysql2date( 'D, d M Y H:i:s O', bp_activity_get_last_updated(), false ); ?></pubDate>
 	<generator>http://buddypress.org/?v=<?php echo BP_VERSION ?></generator>
-	<args><?php echo bebop_activity_args(); ?></args>
 	<language>en_US</language>
 	<?php do_action( 'bp_activity_personal_comment_feed_head' ); ?>
 	
