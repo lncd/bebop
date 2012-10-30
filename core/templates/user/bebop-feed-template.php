@@ -30,7 +30,7 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'" ?'.'>';
 	
 	<?php
 	
-	if ( bp_has_activities( bebop_get_activity_args() ) ) {
+	if ( bp_has_activities( bebop_activity_args() ) ) {
 		while ( bp_activities() ) : bp_the_activity();
 		?><item>
 			<dbid><?php echo bp_activity_id(); ?></dbid>
@@ -56,7 +56,7 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'" ?'.'>';
 	}
 	else
 	{
-		echo 'no "' .  bebop_get_feed_type() . '" data found.';
+		echo 'no "' .  bebop_feed_type() . '" data found.';
 		echo "\r";
 	}
 	?>
