@@ -105,7 +105,7 @@ function bebop_get_activity_args() {
 		if ( $this_bp_feed == 'all_oers' ) {
 			//only want to import active feeds
 			$import_feeds = array();
-			$active_extensions = bebop_extensions::get_active_extension_names();
+			$active_extensions = bebop_extensions::bebop_get_active_extension_names();
 			foreach ( $active_extensions as $extension ) {
 				if ( bebop_tables::check_option_exists( 'bebop_' . $extension . '_rss_feed' ) ) {
 					if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) { 

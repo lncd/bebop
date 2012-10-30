@@ -288,10 +288,7 @@ function bebop_oer_js() {
 	wp_register_script( 'bebop-oer-js', plugins_url() . '/bebop/core/resources/js/bebop-oers.js' );
 	wp_enqueue_script( 'bebop-oer-js' );
 }
-/*function bebop_loop_js() {
-	wp_register_script( 'bebop-loop-js', plugins_url() . '/bebop/core/resources/js/bebop-loop.js' );
-	wp_enqueue_script( 'bebop-loop-js' );
-}*/
+
 
 /*
  * Gets the url of a page
