@@ -36,10 +36,10 @@ echo '<?xml version="1.0" encoding="'.get_option( 'blog_charset' ).'" ?'.'>';
 			<guid><?php echo bp_activity_thread_permalink(); ?></guid>
 			<type><?php echo bp_activity_action_name(); ?></type>
 			<title><?php bp_activity_feed_item_title(); ?></title>
-			<link><?php echo bp_activity_thread_permalink(); ?></link>
+			<link><![CDATA[<?php echo bp_activity_thread_permalink(); ?>]]></link>
 			<wpPubDate><?php echo mysql2date( 'D, d M Y H:i:s O', bp_activity_feed_item_date(), false ); ?></wpPubDate>
 			<pubDate><?php echo bebop_feed_date_recorded( bp_get_activity_secondary_item_id() ); ?></pubDate>
-			<description><?php bp_activity_feed_item_description();?></description>
+			<description><![CDATA[<?php echo strip_tags( bp_get_activity_feed_item_description(), '<a>' );?>]]></description>
 			<?php do_action( 'bp_activity_personal_feed_item' ); ?>
 		</item>
 		<?php
