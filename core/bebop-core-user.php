@@ -340,7 +340,13 @@ function bebop_create_buffer_item( $params ) {
 				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_' . $params['extension'] );
 				$action .= '</a>: ';
 				
-				$oer_hide_sitewide = 0;
+				$hide_sitewide = bebop_tables::get_option_value( 'bebop_' . $params['extension'] . '_hide_sitewide' );
+				if( $hide_sitewide == 'yes' ) {
+					$oer_hide_sitewide = 1;
+				}
+				else {
+					$oer_hide_sitewide = 0;
+				}
 				$date_imported = gmdate( 'Y-m-d H:i:s', time() );
 				
 				//extra check to be sure we don't have an empty activity
@@ -571,6 +577,8 @@ function bebop_dropdown_query_checker( $query_string ) {
 		}
 	}
 	//Returns the query string.
+	$new_query_string .= '&show_hidden=true';
+	var_dump($new_query_string);
 	return $new_query_string;
 }
 

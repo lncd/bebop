@@ -100,6 +100,9 @@ function bebop_extension_admin_update_settings() {
 					if ( isset( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) ) {
 						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_secret', trim( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) );
 					}
+					if ( isset( $_POST['bebop_' . $extension['name'] . '_hide_sitewide'] ) ) {
+						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_hide_sitewide', trim( strip_tags( strtolower( $_POST['bebop_' . $extension['name'] . '_hide_sitewide'] ) ) ) );
+					}
 					if ( isset( $_POST['bebop_' . $extension['name'] . '_maximport'] ) ) {
 						if ( empty( $_POST['bebop_' . $extension['name'] . '_maximport'] ) || is_numeric( $_POST['bebop_' . $extension['name'] . '_maximport'] ) ) {
 							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_maximport', trim( $_POST['bebop_' . $extension['name'] . '_maximport'] ) );
@@ -108,6 +111,10 @@ function bebop_extension_admin_update_settings() {
 							$success = '"Imports per day" must be a number (or blank).';
 						}
 					}
+					
+					
+					
+					
 					/*rss stuff, dont touch */
 					if ( isset( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) ) {
 						if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {

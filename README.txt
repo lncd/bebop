@@ -48,6 +48,7 @@ This is a minor update which fixes some bugs found in version 1.1.1, improves se
 
 Feature Updates:
 * Increased RSS output limit from 250 to 500.
+* Added admin option in each extension to hide content for that extension form the sitewide activity stream.
 
 
 Bug Fixes:
