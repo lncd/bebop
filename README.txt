@@ -42,6 +42,23 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 == Changelog ==
 
+v1.1.2 - 02.11.2012 - Minor Release
+
+This is a minor update which fixes some bugs found in version 1.1.1, improves security, an changes the user interface slightly.
+
+Feature Updates:
+* Increased RSS output limit from 250 to 500.
+
+
+Bug Fixes:
+* RSS - Fixed a bug which only allowed 20 items to be returned at a time fro RSS feeds.
+* RSS - Redefined pubDate in the RSS feeds as the date the item was uploaded to the original source.
+* RSS - Added wpPubDate the the RSS feeds and defined it as the date it was added to BuddyPress.
+
+
+Other:
+* Corrected various spelling mistakes.
+
 v1.1.1 - 25.09.2012 - Minor Release
 
 This is a minor update which fixes some bugs found in version 1.1.

@@ -5,7 +5,7 @@
 	<div class='bebop_admin_box'>
 		<img class='bebop_logo' src="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_logo.png';?>">
 		<p><?php _e( 'Welcome to the Bebop plugin for BuddyPress. Developed by <a href="http://www.lncd.lincoln.ac.uk">LNCD @ the University of Lincoln</a>.', 'bebop' ); ?></p>
-		<p><?php _e( 'Bebop was designed for academic institutions who want to incorporate Open Educational Resources into BuddyPress Profiles. This plugin aids the discovery of OERs in the BuddyPress environment', 'bebop' ); ?></p>
+		<p><?php _e( 'Bebop was designed for academic institutions who want to incorporate Open Educational Resources into BuddyPress Profiles. This plugin aids the discovery of OERs in the BuddyPress environment.', 'bebop' ); ?></p>
 		<p><?php _e( 'As requested by several users, we have also made the terminology more suitable to those who are using Bebop as a social media aggregator.', 'bebop' ); ?></p>
 		<div class="clear"></div>
 	</div>
