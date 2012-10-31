@@ -106,6 +106,9 @@ class bebop_tables {
 		if ( ! empty( $result[0]->secondary_item_id ) ) {
 			return $result[0];
 		}
+		else {
+			return 'error';
+		} 
 	}
 	
 	function update_oer_data( $secondary_item_id, $column, $value ) {

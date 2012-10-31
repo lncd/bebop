@@ -46,6 +46,15 @@ function bebop_get_feed_url() {
 	}
 }
 
+function bebop_feed_date_recorded( $secondary_item_id ) {
+	return bebop_feed_get_date_recorded( $secondary_item_id );
+}
+function bebop_feed_get_date_recorded( $secondary_item_id ) {
+	$data = bebop_tables::fetch_individual_oer_data( $secondary_item_id );
+	return $data->date_recorded;
+}
+
+
 function bebop_feed_type() {
 	return bebop_get_feed_type();
 }
