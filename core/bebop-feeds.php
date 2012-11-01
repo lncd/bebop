@@ -130,10 +130,10 @@ function bebop_get_activity_args() {
 				else {
 					$query_feeds = $import_feeds[0];
 				}
-				return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&per_page=' . $limit . '&max=' . $limit . '&display_comments=stream';
+				return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&per_page=' . $limit . '&max=' . $limit . '&show_hidden=true&display_comments=stream';
 			}
 		}
-		return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $query_feeds . '&per_page=' . $limit . '&max=' . $limit . '&display_comments=stream';
+		return 'user_id=' . bp_displayed_user_id() . '&object=bebop_oer_plugin&action=' . $this_bp_feed . '&per_page=' . $limit . '&max=' . $limit . '&show_hidden=true&display_comments=stream';
 	}
 	else {
 		return false;
