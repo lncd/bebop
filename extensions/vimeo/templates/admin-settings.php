@@ -22,7 +22,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		<h3><?php echo sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ); ?></h3>
 		<div class="inside">
 			<p><?php echo sprintf( __( 'Settings for the %1$s extension.', 'bebop' ), $extension['display_name'] ); ?></p>
-			<p><?php _e( 'To pull OER content from some providers, the importer settings need to be configured correctly for some extensions. or example, "API Tokens", and "API secrets" may be required for API based sources, but not for RSS based sources.', 'bebop') ?></p>
+			<p><?php _e( 'To pull content from some providers, the importer settings need to be configured correctly for some extensions. or example, "API Tokens", and "API secrets" may be required for API based sources, but not for RSS based sources.', 'bebop') ?></p>
 			<p><?php _e( 'By default, RSS feeds are available for each extension in bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the "enabled" option of the RSS feed settings below. Please note
 				that RSS feeds will only be available when the extension is active.', 'bebop') ?></p>
 		</div>
@@ -110,7 +110,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 						<td>' . bebop_tables::sanitise_element( $this_user->user_login ) . '</td>
 						<td>' . bebop_tables::sanitise_element( $this_user->user_email ) . '</td>
 						<td>' . bebop_tables::sanitise_element( $user_feeds ) . "</td>
-						<td><a href='?page=bebop_oer_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>"; _e( 'Reset User', 'bebop' ); echo "</a></td>
+						<td><a href='?page=bebop_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>"; _e( 'Reset User', 'bebop' ); echo "</a></td>
 					</tr>";
 				}
 			?>

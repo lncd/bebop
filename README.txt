@@ -57,6 +57,7 @@ Bug Fixes:
 * RSS - Added wpPubDate the the RSS feeds and defined it as the date it was added to BuddyPress.
 * Content Stream - had to allow bebop-core-user.php to be included on every page so the new 'hide_sitewide' feature works as expected.
 * Admin Area - forced checkboxes in forms to be on same line as text.
+* Admin Area - made it possible to actually remove users from extensions now...
 
 
 Other:

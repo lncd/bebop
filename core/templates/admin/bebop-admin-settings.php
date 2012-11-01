@@ -40,6 +40,7 @@
 			<a class="button auto" target="_blank" href="<?php echo plugins_url(); ?>/bebop/secondary_import.php"><?php _e( 'Secondary Import', 'bebop' ); ?></a> <?php _e( '(new users/new feeds)', 'bebop' ); ?><br><br>
 			<div class="clear"></div>
 		</fieldset>
+		<?php wp_nonce_field( 'bebop_admin_settings' ); ?>
 		<input class='button-primary' type='submit' id='submit' name='submit' value='<?php _e( 'Save Changes', 'bebop' ); ?>'>
 	</form>
 	<div class="clear"></div>

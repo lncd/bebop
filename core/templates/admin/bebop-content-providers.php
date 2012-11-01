@@ -64,6 +64,9 @@ else {
 				?>
 				</tbody>
 			</table>
+			
+			<?php wp_nonce_field( 'bebop_content_provider_settings' ); ?>
+			
 			<input class='button-primary' type='submit' id='submit' name='submit' value='<?php _e( 'Save Changes', 'bebop' ); ?>'>
 		</form>
 	<!-- End bebop_admin_container -->

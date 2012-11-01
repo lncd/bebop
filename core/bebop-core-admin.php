@@ -36,10 +36,11 @@ function bebop_general_admin_update_settings() {
 				
 				$edited = true;
 			}
-			//var_dump($edited);
 			if ( $edited == true ) {
+				
+				check_admin_referer( 'bebop_admin_settings' );
+				
 				wp_safe_redirect( wp_get_referer() );
-				exit();
 			}
 		}
 	}
@@ -53,6 +54,9 @@ function bebop_oer_providers_update_active() {
 		if ( $current_page == 'bebop_providers' ) {
 			if ( empty( $_GET['provider'] ) ) {
 				if ( isset( $_POST['submit'] ) ) {
+					
+					check_admin_referer( 'bebop_content_provider_settings' );
+					
 					//reset the importer queue
 					bebop_tables::update_option( 'bebop_importers_queue', '' );
 					
@@ -76,7 +80,6 @@ function bebop_oer_providers_update_active() {
 					bebop_tables::update_option( 'bebop_importers_queue', implode( ',', $importerQueue ) );
 					$_SESSION['bebop_admin_notice'] = true;
 					wp_safe_redirect( wp_get_referer() );
-					exit();
 				}
 			}
 		}
@@ -136,7 +139,6 @@ function bebop_extension_admin_update_settings() {
 					
 					$_SESSION['bebop_admin_notice'] = $success;
 					wp_safe_redirect( wp_get_referer() );
-					exit();
 				}
 				/*
 				 * Mechanics to remove a user from your extension is already provided - you do not need to modify this.
