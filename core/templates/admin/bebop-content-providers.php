@@ -53,7 +53,7 @@ else {
 						<td><a href="?page=bebop_content&type=verified">' . bebop_tables::count_content_by_extension( $extension['name'], 'verified' ) . '</a></td>
 						<td><a href="?page=bebop_content&type=deleted">' . bebop_tables::count_content_by_extension( $extension['name'], 'deleted' ) . '</a></td>
 						<td>';
-						echo "<label for='bebop_" . $extension['name'] . "_provider'>";  _e( 'Enabled:', 'bebop' ); echo "</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
+						echo "<label class='alt' for='bebop_" . $extension['name'] . "_provider'>";  _e( 'Enabled:', 'bebop' ); echo "</label><input id='bebop_" .$extension['name'] . "_provider' name='bebop_".$extension['name'] . "_provider' type='checkbox'";
 						if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 							echo 'CHECKED';
 						}

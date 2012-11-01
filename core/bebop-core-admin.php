@@ -52,7 +52,7 @@ function bebop_oer_providers_update_active() {
 		$current_page = $_GET['page'];
 		if ( $current_page == 'bebop_providers' ) {
 			if ( empty( $_GET['provider'] ) ) {
-				if ( isset( $_POST['submit'] ) ){
+				if ( isset( $_POST['submit'] ) ) {
 					//reset the importer queue
 					bebop_tables::update_option( 'bebop_importers_queue', '' );
 					
@@ -93,6 +93,9 @@ function bebop_extension_admin_update_settings() {
 				$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 				
 				if ( isset( $_POST['submit'] ) ) {
+					
+					check_admin_referer( 'bebop_' . $extension['name'] . '_admin_settings' );
+					
 					$success = true;
 					if ( isset( $_POST['bebop_' . $extension['name'] . '_consumer_key'] ) ) {
 						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_key', trim( $_POST['bebop_' . $extension['name'] . '_consumer_key'] ) );
