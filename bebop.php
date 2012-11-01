@@ -32,16 +32,12 @@ function bebop_init() {
 	include_once( 'core/bebop-filters.php' );
 	include_once( 'core/bebop-extensions.php' );
 	include_once( 'core/bebop-feeds.php' );
-	
 	include_once( 'core/bebop-pages.php' );
-	
 	
 	if ( current_user_can( 'manage_options' ) && is_admin() ) {
 		include_once( 'core/bebop-core-admin.php' );
 	}
-	else {
-		include_once( 'core/bebop-core-user.php' );
-	}
+	include_once( 'core/bebop-core-user.php' );
 
 	//fire crons
 	add_action( 'bebop_main_import_cron', 'bebop_main_import_function' );

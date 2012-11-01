@@ -464,6 +464,7 @@ function bebop_load_filter_options() {
  * to pull from the database needs to be created manually. */
 function bebop_dropdown_query_checker( $query_string ) {
 	global $bp;
+	
 	$new_query_string = '';
 	//Checks if this is the oer page
 	if ( $bp->current_component == 'bebop' ) {
@@ -578,7 +579,6 @@ function bebop_dropdown_query_checker( $query_string ) {
 	}
 	//Returns the query string.
 	$new_query_string .= '&show_hidden=true';
-	var_dump($new_query_string);
 	return $new_query_string;
 }
 
@@ -590,6 +590,7 @@ add_action( 'bp_activity_filter_options', 'bebop_load_filter_options' );
 
 //This adds a hook before the loading of the activity data to adjust if all_oer is selected.
 add_action( 'bp_before_activity_loop', 'bebop_access_ajax' );
+
 function bebop_access_ajax() {
 	//Adds the filter to the function to check for all_oer and rebuild the query if so.
 	add_filter( 'bp_ajax_querystring', 'bebop_dropdown_query_checker' );
