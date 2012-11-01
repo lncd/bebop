@@ -39,22 +39,27 @@ class bebop_extensions {
 	
 	function bebop_gather_extensions() {
 		
-		//core extensions are stored in bebop/extensions. 3rd party developers should store extensions elsewhere, or Bebop will overwrite them it updates.
-		$extension_paths = array();
-		$handle = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
-		if ( $handle ) {
-			while ( false !== ( $file = readdir( $handle ) ) ) {
-				if ( $file != '.' && $file != '..' && $file != '.DS_Store' ) {
-					if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/core.php' ) ) {
-						$extension_paths[] = WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/';
+		//only generate the list once per page request.
+		static $extension_paths;
+		
+		//core extensions are stored in bebop/extensions. 3rd party developers should store extensions elsewhere, or Bebop will overwrite them whenever updated.
+		if ( empty( $extension_paths ) ) {
+			$extension_paths = array();
+			$handle = opendir( WP_PLUGIN_DIR . '/bebop/extensions' );
+			if ( $handle ) {
+				while ( false !== ( $file = readdir( $handle ) ) ) {
+					if ( $file != '.' && $file != '..' && $file != '.DS_Store' ) {
+						if ( file_exists( WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/core.php' ) ) {
+							$extension_paths[] = WP_PLUGIN_DIR . '/bebop/extensions/' . $file . '/';
+						}
 					}
 				}
 			}
-		}
-		// Put together a list of plugin extensions
-		$plugin_extensions = apply_filters( 'bebop_plugin_extensions', array() );
-		if ( ! empty( $plugin_extensions ) ) {
-			$extension_paths = array_merge( $extension_paths, $plugin_extensions );
+			// Put together a list of plugin extensions
+			$plugin_extensions = apply_filters( 'bebop_plugin_extensions', array() );
+			if ( ! empty( $plugin_extensions ) ) {
+				$extension_paths = array_merge( $extension_paths, $plugin_extensions );
+			}
 		}
 		return $extension_paths;
 	}
