@@ -13,7 +13,7 @@
 	if ( isset( $_GET['type'] ) ) {
 		if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
 			$type = 'unverified';
-			$message = __( 'This content has not bee verified by your users.', 'bebop' );
+			$message = __( 'This content has not been verified by your users.', 'bebop' );
 		}
 		else if ( strtolower( strip_tags( $_GET['type'] == 'verified' ) ) ) {
 			$type = 'verified';
@@ -26,7 +26,7 @@
 	}
 	else {
 		$type = 'verified';
-		$message = __( 'This content has not bee verified by your users.', 'bebop' );
+		$message = __( 'This content has been verified by your users.', 'bebop' );
 	}
 	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_content&type=unverified">'; _e( 'Unverified Content', 'bebop' ); echo '</a>';
 	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_content&type=verified">'; _e( 'Verified Content', 'bebop' ); echo '</a>';

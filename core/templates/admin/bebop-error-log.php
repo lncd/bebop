@@ -5,7 +5,7 @@
 	<div class='postbox full_width center_margin margin-bottom_22px'>
 		<h3><?php _e( 'Bebop Errors', 'bebop' ); ?></h3>
 		<div class='inside'>
-			<p><?php _e( 'Logs any errors which the plugin has produced. Please report by opening a issue ticket in our <a target="_blank" href="https://github.com/lncd/bebop/wiki">Github Wiki</a>.', 'bebop' ); ?></p>
+			<p><?php _e( 'Logs any errors which the plugin has produced. Please report by opening a issue ticket on our <a target="_blank" href="https://github.com/lncd/bebop/issues">Github Issue Tracker</a>.', 'bebop' ); ?></p>
 		</div>
 	</div>
 	<?php
