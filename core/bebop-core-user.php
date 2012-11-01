@@ -129,6 +129,9 @@ function bebop_manage_provider() {
 			global $bp;
 			$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $_GET['provider'] ) );
 			if ( isset( $_POST['submit'] ) ) {
+				
+				check_admin_referer( 'bebop_' . $extension['name'] . '_user_settings' );
+				
 				if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
 					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
 					bp_core_add_message( 'Settings for ' . $extension['display_name'] . ' have been saved.' );

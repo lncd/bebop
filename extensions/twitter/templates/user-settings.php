@@ -36,6 +36,9 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		} echo '>
 		<label for="no">'; _e( 'No', 'bebop' ); echo '</label><br><br>
 		<div class="button_container"><input class="auto button" type="submit" id="submit" name="submit" value="Save Changes"></div>';
+		
+		wp_nonce_field( 'bebop_' . $extension['name'] . '_user_settings' );
+		
 		echo '<div class="clear_both"></div>';
 			
 		if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token' ) ) {

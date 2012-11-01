@@ -40,6 +40,9 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 	<input type="text" name="bebop_' . $extension['name'] . '_username" value="" size="50"><br><br>
 	
 	<div class="button_container"><input class="auto button" type="submit" id="submit" name="submit" value="'; _e( 'Save Changes', 'bebop' ); echo '"></div>';
+	
+	wp_nonce_field( 'bebop_' . $extension['name'] . '_user_settings' );
+	
 	echo '<div class="clear_both"></div>';
 
 	echo '</form>';
