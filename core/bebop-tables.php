@@ -81,20 +81,42 @@ class bebop_tables {
 		}
 	}
 	
-	function fetch_oer_data( $user_id, $extensions, $status ) { //function to retrieve oer data from the oer manager table.
+	function count_content_rows( $user_id, $status ) {
+		global $wpdb;
+		$result = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status= '" . $status . "'" );
+		return $result;
+		
+	}
+	function fetch_oer_data( $user_id, $extensions, $status, $page = null, $per_page = null ) { //function to retrieve oer data from the oer manager table.
 		global $wpdb;
 		
-		$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN ( ". stripslashes( $extensions ) . ') ORDER BY date_imported DESC' );
+		if ( isset( $page ) ) {
+			if ( ! isset( $per_page ) ) {
+				$per_page = 20;
+			}
+			
+			if ( $page >= 2 ) {
+				$query_from = ( $page * $per_page ) - $per_page; 
+			}
+			else {
+				$query_from = 0;
+			}
+			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . 
+			"' AND status = '" . $wpdb->escape( $status ) . "' AND type IN ( ". stripslashes( $extensions ) . ') ORDER BY date_imported DESC LIMIT ' . $query_from . ',' . $per_page );
+		}
+		else {
+			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . 
+			"' AND status = '" . $wpdb->escape( $status ) . "' AND type IN ( ". stripslashes( $extensions ) . ') ORDER BY date_imported DESC' );
+		}
 		return $result;
 	}
 	
-	function count_content_rows( $status ) {
+	function admin_count_content_rows( $status ) {
 		global $wpdb;
 		$result = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE status= '" . $status . "'" );
 		return $result;
 		
 	}
-	
 	function admin_fetch_content_data( $status, $page = null, $per_page = null ) { //function to retrieve stuff from tables
 		global $wpdb;
 		

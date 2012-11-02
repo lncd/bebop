@@ -261,11 +261,11 @@ function bebop_get_oer_type() {
 		}
 	}
 }
-function bebop_get_oers( $type ) {
+function bebop_get_oers( $type, $page_number, $per_page ) {
 	global $bp, $wpdb;
 	$active_extensions = bebop_extensions::bebop_get_active_extension_names( $addslashes = true );
 	$extension_names   = join( ',' ,$wpdb->escape( $active_extensions ) );
-	return bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extension_names, $type );
+	return bebop_tables::fetch_oer_data( $bp->loggedin_user->id, $extension_names, $type, $page_number, $per_page );
 }
 
 
@@ -665,11 +665,11 @@ function bebop_pagination( $number_of_rows, $per_page ) {
 	$return = '<div class="margin-top_22px">';
 	for ( $i = 1; $i <= $number_of_pages; $i++ ) {
 		
-		$return .= '<a href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&page_number=' . $i . '&per_page=' . $per_page . '">';
+		$return .= '<a href="?' . http_build_query( $_GET ) . '&page_number=' . $i . '&per_page=' . $per_page . '">';
 		
 		if ( ( isset( $this_page_number ) && $this_page_number == $i )  ||
-		( $i == 1 ) ) {
-			$return .= '<b>' . $i . '</b>';
+		( ( ! isset( $this_page_number ) ) && $i == 1 ) ) {
+			$return .= '<strong>' . $i . '</strong>';
 		}
 		else {
 			$return .= $i;

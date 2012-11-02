@@ -32,11 +32,11 @@
 	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_content&type=verified">' . __( 'Verified Content', 'bebop' ) . '</a>';
 	echo '<a class="button-secondary" href="' . $_SERVER['PHP_SELF'] . '?page=bebop_content&type=deleted">' . __( 'Deleted Content', 'bebop' ) . '</a>';
 	
-	$number_of_rows = bebop_tables::count_content_rows( $type );
+	$number_of_rows = bebop_tables::admin_count_content_rows( $type );
 	$page_vars = bebop_pagination_vars( 30 );
 	$bebop_pagination = bebop_pagination( $number_of_rows, $page_vars['per_page'] );
 	
-	$contents = bebop_tables::admin_fetch_content_data( $type, $page_vars['page_number'], $page_vars['per_page']  );
+	$contents = bebop_tables::admin_fetch_content_data( $type, $page_vars['page_number'], $page_vars['per_page'] );
 	if ( count( $contents ) > 0 ) {
 		echo '<h4>' . ucfirst( $type ) . ' ' . __( 'Content', 'bebop' ) . '</h4>';
 		echo $message;
