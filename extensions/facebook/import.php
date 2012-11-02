@@ -48,18 +48,15 @@ function bebop_facebook_import( $extension, $user_metas = null ) {
 				 * ******************************************************************************************************************
 				 */
 				
-				//Facebook uses oAuth - so let the pre-built oAuth class handle the data request.
 				
-				//Handle the OAuth requests
-				$OAuth = new bebop_oauth();
-				$OAuth->set_callback_url( $bp->root_domain );
-				$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_consumer_key' ) );
-				$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $this_extension ['name']. '_consumer_secret' ) );
-				$OAuth->set_access_token( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_oauth_token' ) );
-				$OAuth->set_access_token_secret( bebop_tables::get_user_meta_value( $user_meta->user_id, 'bebop_' . $this_extension['name'] . '_oauth_token_secret' ) );
-				
-				$items = $OAuth->oauth_request( $this_extension['data_feed'] );
-				$items = simplexml_load_string( $items );
+					$params = array(  
+									'access_token' 		=> bebop_tables::get_option_value( 'bebop_' . $this_extension['name'] . '_oauth_token' ),
+					);
+					$data = $data_request->execute_request( $this_extension['data_feed'], $params );
+					$data = simplexml_load_string( $data );
+					echo '<pre>';
+					var_dump($data);
+					echo '</pre>';
 				/* 
 				 * ******************************************************************************************************************
 				 * We can get as far as loading the items, but you will need to adjust the values of the variables below to match 	*
