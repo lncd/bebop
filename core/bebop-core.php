@@ -662,7 +662,7 @@ function bebop_pagination( $number_of_rows, $per_page ) {
 		unset($_GET['per_page']);
 	}
 		
-	$return = '<div class="margin-top_22px">';
+	$return = '<div class="margin-top_22px clear_above">';
 	for ( $i = 1; $i <= $number_of_pages; $i++ ) {
 		
 		$return .= '<a href="?' . http_build_query( $_GET ) . '&page_number=' . $i . '&per_page=' . $per_page . '">';

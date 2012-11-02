@@ -15,9 +15,9 @@ if ( ! empty( $type ) ) {
 	
 	$oers = bebop_get_oers( $type, $page_vars['page_number'], $page_vars['per_page'] );
 	if ( count( $oers ) > 0 ) {
-		echo $bebop_pagination;
 		echo '<form id="oer_table" class="bebop_user_form" method="post">';
 		echo '<h5>' . ucfirst( $type ) . ' ' . __( 'OERs', 'bebop' ) . '</h5>';
+		echo $bebop_pagination;
 		echo '<div class="button_container button_right"><a class="auto button" rel="#oer_table" href="#select_all">' . __( 'Select All', 'bebop' ) . '</a></div>';
 		echo '<div class="button_container button_right"><a class="auto button" rel="#oer_table" href="#select_none">' . __( 'Select None', 'bebop' ) . '</a></div>';
 		echo '<div class="clear_both"></div>';
