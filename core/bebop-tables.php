@@ -87,12 +87,29 @@ class bebop_tables {
 		$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND status = '" . $wpdb->escape( $status ) . "' AND type IN ( ". stripslashes( $extensions ) . ') ORDER BY date_imported DESC' );
 		return $result;
 	}
-	 
-	 function admin_fetch_content_data( $status, $limit = null ) { //function to retrieve all oer data by status in the oer manager table.
+	
+	function count_content_rows( $status ) {
+		global $wpdb;
+		$result = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE status= '" . $status . "'" );
+		return $result;
+		
+	}
+	
+	function admin_fetch_content_data( $status, $page = null, $per_page = null ) { //function to retrieve stuff from tables
 		global $wpdb;
 		
-		if ( $limit != null ) {
-			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_imported DESC LIMIT $limit");
+		if ( isset( $page ) ) {
+			if ( ! isset( $per_page ) ) {
+				$per_page = 20;
+			}
+			
+			if ( $page >= 2 ) {
+				$query_from = ( $page * $per_page ) - $per_page; 
+			}
+			else {
+				$query_from = 0;
+			}
+			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_imported DESC LIMIT " . $query_from . ',' . $per_page );
 		}
 		else {
 			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE status = '" . $wpdb->escape( $status ) . "' ORDER BY date_imported DESC");
@@ -154,14 +171,12 @@ class bebop_tables {
 			}
 			
 			if ( $page >= 2 ) {
-				$query_to = $page * $per_page;
-				$query_from = $query_to - $per_page;
+				$query_from = ( $page * $per_page ) - $per_page; 
 			}
 			else {
 				$query_from = 0;
-				$query_to = $page * $per_page;
 			}
-			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . $table_name . ' ORDER BY id DESC LIMIT ' . $query_from . ',' . $query_to );
+			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . $table_name . ' ORDER BY id DESC LIMIT ' . $query_from . ',' . $per_page );
 		}
 		else {
 			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . $table_name . ' ORDER BY id DESC' );

@@ -656,9 +656,25 @@ function bebop_pagination_vars( $custom_per_page = null ) {
 }
 function bebop_pagination( $number_of_rows, $per_page ) {
 	$number_of_pages = (int)ceil( $number_of_rows / $per_page );
-	$return = '<div class="margin-top_22px {">';
+	if( isset( $_GET['page_number'] ) ) {
+		$this_page_number = $_GET['page_number'];
+		unset($_GET['page_number']);
+		unset($_GET['per_page']);
+	}
+		
+	$return = '<div class="margin-top_22px">';
 	for ( $i = 1; $i <= $number_of_pages; $i++ ) {
-		$return .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $_GET['page'] . '&page_number=' . $i . '&per_page=' . $per_page . '">' . $i . '</a> ';
+		
+		$return .= '<a href="' . $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&page_number=' . $i . '&per_page=' . $per_page . '">';
+		
+		if ( ( isset( $this_page_number ) && $this_page_number == $i )  ||
+		( $i == 1 ) ) {
+			$return .= '<b>' . $i . '</b>';
+		}
+		else {
+			$return .= $i;
+		}
+		$return .= '</a> ';
 	}
 	$return .= '</div>';
 	return $return;

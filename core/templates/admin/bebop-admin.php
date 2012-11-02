@@ -35,7 +35,7 @@
 			<h3><a href="?page=bebop_content&type=verified"><?php _e( 'Recently Verified Content', 'bebop' ); ?></a></h3>
 			<div class='inside'>
 				<?php
-				$contents = bebop_tables::admin_fetch_content_data( 'verified', 20 );
+				$contents = bebop_tables::admin_fetch_content_data( 'verified', 0, 20 );
 				
 				if ( count( $contents ) > 0 ) {
 					echo '<table class="postbox_table">
