@@ -20,11 +20,9 @@
 	$bebop_pagination = bebop_pagination( $number_of_rows, $page_vars['per_page'] );
 	echo $bebop_pagination;
 	
-	
 	$table_row_data = bebop_tables::fetch_table_data( 'bp_bebop_general_log', $page_vars['page_number'], $page_vars['per_page'] );
 	if ( count( $table_row_data ) > 0 ) {
 		?>
-		
 		<table class="widefat margin-top_22px">
 			<thead>
 				<tr>

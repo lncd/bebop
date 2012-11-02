@@ -9,11 +9,20 @@
 		</div>
 	</div>
 	<?php
-	$table_row_data = bebop_tables::fetch_table_data( 'bp_bebop_error_log' );
+	
+	$number_of_rows = bebop_tables::count_table_rows( 'bp_bebop_error_log' );
+	
+	if ( count( $number_of_rows ) ) {
+		echo '<a class="button-secondary" href="' .$_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ) . '&clear_table=true">' . __( 'Flush table data', 'bebop' ) . '</a>';
+	}
+	
+	$page_vars = bebop_pagination_vars( 100 );
+	$bebop_pagination = bebop_pagination( $number_of_rows, $page_vars['per_page'] );
+	echo $bebop_pagination;
+	
+	$table_row_data = bebop_tables::fetch_table_data( 'bp_bebop_error_log', $page_vars['page_number'], $page_vars['per_page'] );
 	if ( count( $table_row_data ) > 0 ) {
-		?>
-		<a class='button-secondary' href="<?php echo $_SERVER['PHP_SELF'] . '?' . http_build_query( $_GET ); ?>&clear_table=true"><?php _e( 'Flush table data', 'bebop' ); ?></a>
-		
+		?>		
 		<table class="widefat margin-top_22px">
 			<thead>
 				<tr>
@@ -45,6 +54,7 @@
 			</tbody>
 		</table>
 		<?php
+		echo $bebop_pagination;
 	}
 	else {
 		 _e( 'No data found in the error table.', 'bebop' );
