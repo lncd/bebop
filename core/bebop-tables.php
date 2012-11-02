@@ -138,16 +138,40 @@ class bebop_tables {
 
 		$wpdb->query( $wpdb->prepare( 'INSERT INTO ' . bp_core_get_table_prefix() . 'bp_bebop_general_log (type, message) VALUES (%s, %s)', $wpdb->escape( $type ), $wpdb->escape( $message ) ) );
 	}
+
+	function count_table_rows( $table_name ) {
+		global $wpdb;
+		$result = $wpdb->get_var( 'SELECT COUNT(*) FROM ' . bp_core_get_table_prefix() . $table_name );
+		return $result;
+		
+	}
+	function fetch_table_data( $table_name, $page = null, $per_page = null ) { //function to retrieve stuff from tables
+		global $wpdb;
+		
+		if ( isset( $page ) ) {
+			if ( ! isset( $per_page ) ) {
+				$per_page = 20;
+			}
+			
+			if ( $page >= 2 ) {
+				$query_to = $page * $per_page;
+				$query_from = $query_to - $per_page;
+			}
+			else {
+				$query_from = 0;
+				$query_to = $page * $per_page;
+			}
+			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . $table_name . ' ORDER BY id DESC LIMIT ' . $query_from . ',' . $query_to );
+		}
+		else {
+			$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . $table_name . ' ORDER BY id DESC' );
+		}
+		return $result;
+	}
 	
 	/*
 	* Options
 	*/
-	function fetch_table_data( $table_name ) { //function to retrieve stuff from tables
-		global $wpdb;
-		
-		$result = $wpdb->get_results( 'SELECT * FROM ' . bp_core_get_table_prefix() . $table_name . ' ORDER BY id DESC' );
-		return $result;
-	}
 	
 	function add_option( $option_name, $option_value ) { //function to add option to the options table.
 		global $wpdb;

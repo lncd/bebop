@@ -627,4 +627,41 @@ function bebop_rss_buttons() {
 
 	echo '</div>';
 }
+
+//pagination
+function bebop_pagination_vars( $custom_per_page = null ) {
+	if ( isset( $_GET['page_number'] ) ) {
+		$page_number = substr( strip_tags( $_GET['page_number'] ), 0 , 4 );
+	}
+	if ( empty( $page_number ) || ! is_numeric( $page_number ) ) {
+		$page_number = 1;
+	}
+	
+	if ( isset( $_GET['per_page'] ) ) {
+		$per_page = substr( strip_tags( $_GET['per_page'] ), 0 , 4 );
+	}
+	if ( empty( $per_page ) || ! is_numeric( $per_page ) ) {
+		if ( ! empty( $custom_per_page ) || ! is_numeric( $custom_per_page ) ) {
+			$per_page = $custom_per_page;
+		}
+		else {
+			$per_page = 30;
+		}
+	}
+	
+	return array(
+		'page_number'	=> $page_number,
+		'per_page'		=> $per_page,
+	);
+}
+function bebop_pagination( $number_of_rows, $per_page ) {
+	$number_of_pages = (int)ceil( $number_of_rows / $per_page );
+	$return = '<div class="margin-top_22px {">';
+	for ( $i = 1; $i <= $number_of_pages; $i++ ) {
+		$return .= '<a href="' . $_SERVER['PHP_SELF'] . '?page=' . $_GET['page'] . '&page_number=' . $i . '&per_page=' . $per_page . '">' . $i . '</a> ';
+	}
+	$return .= '</div>';
+	return $return;
+}
+	
 ?>

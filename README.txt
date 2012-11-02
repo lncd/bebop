@@ -42,13 +42,15 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 == Changelog ==
 
-v1.1.2 - 02.11.2012 - Minor Release
+v1.2 - 02.11.2012 - Minor Release
 
-This is a minor update which fixes some bugs found in version 1.1.1, improves security, an changes the user interface slightly.
+This is a Major, providing a new Facebook extension, and adding pagination where required. This release also fixes bugs with RSS feeds, user removal, and corrects many spelling mistakes.
 
 Feature Updates:
+* A brand new Facebook extension is added in this release, allowing content from facebook to be displayed in the activity stream.
 * Increased RSS output limit from 250 to 500.
 * Added admin option in each extension to hide content for that extension form the sitewide activity stream.
+* Added pagination to all admin and user content where needed, such as admin backend logs, content, and user OER content manager.
 
 
 Bug Fixes:
@@ -62,6 +64,7 @@ Bug Fixes:
 
 Other:
 * Corrected various spelling mistakes.
+
 
 v1.1.1 - 25.09.2012 - Minor Release
 
