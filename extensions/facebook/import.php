@@ -4,8 +4,8 @@
  * Please see the section below on how to do this.
  */
 
-//replace 'twitter' with the 'name' of your extension, as defined in your config.php file.
-function bebop_twitter_import( $extension, $user_metas = null ) {
+//replace 'facebook' with the 'name' of your extension, as defined in your config.php file.
+function bebop_facebook_import( $extension, $user_metas = null ) {
 	global $wpdb, $bp;
 	if ( empty( $extension ) ) {
 		bebop_tables::log_general( 'Importer', 'The $extension parameter is empty.' );
@@ -48,7 +48,7 @@ function bebop_twitter_import( $extension, $user_metas = null ) {
 				 * ******************************************************************************************************************
 				 */
 				
-				//Twitter uses oAuth - so let the pre-built oAuth class handle the data request.
+				//Facebook uses oAuth - so let the pre-built oAuth class handle the data request.
 				
 				//Handle the OAuth requests
 				$OAuth = new bebop_oauth();

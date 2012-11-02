@@ -174,7 +174,7 @@ function bebop_manage_provider() {
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}//End if ( isset( $_POST['submit'] ) ) {
 			
-			//Oauth stuff
+			//Twitter Oauth stuff
 			if ( isset( $_GET['oauth_token'] ) ) {
 				//Handle the oAuth requests
 				$OAuth = new bebop_oauth();
@@ -199,6 +199,52 @@ function bebop_manage_provider() {
 				bp_core_add_message( sprintf( __( 'You have successfully authenticated your %1$s account.', 'bebop' ), $extension['display_name'] ) );
 				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 			}
+			
+			//Facebook oAuth stuff.
+			if ( isset( $_REQUEST['code'] ) ) {
+				
+				$app_id = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' );
+				$app_secret = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' );
+				$my_url = urlencode( $bp->loggedin_user->domain . 'bebop/accounts/?provider=' . $extension['name'] . '&scope=read_stream' );
+				
+				if ( $_SESSION['facebook_state'] == $_GET['state'] ) {
+					
+					$code = $_GET['code'];
+					
+					$accessTokenUrl = str_replace( 'APP_ID', $app_id, $extension['access_token_url'] );
+					$accessTokenUrl = str_replace( 'REDIRECT_URI', $my_url, $accessTokenUrl );
+					$accessTokenUrl = str_replace( 'APP_SECRET', $app_secret, $accessTokenUrl );
+					$accessTokenUrl = str_replace( 'CODE', $code, $accessTokenUrl );
+					
+					$response = file_get_contents( $accessTokenUrl );
+					parse_str( $response, $params );
+					
+					//extend access token
+					$extendedAccessTokenUrl = str_replace( 'APP_ID', $app_id, $extension['extend_access_token_url'] );
+					$extendedAccessTokenUrl = str_replace( 'APP_SECRET', $app_secret, $extendedAccessTokenUrl );
+					$extendedAccessTokenUrl = str_replace( 'SHORT_TOKEN', $params['access_token'], $extendedAccessTokenUrl );
+					
+					$response = file_get_contents( $accessTokenUrl );
+					parse_str( $response, $params );
+					
+					//save the extnded access token
+					if ( isset( $params['access_token'] ) ) {
+						
+						bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token', $params['access_token'] );
+						bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
+						bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_do_initial_import', 1 );
+						
+						unset( $_SESSION['facebook_state'] );
+						
+						bp_core_add_message( sprintf( __( 'You have successfully authenticated your %1$s account.', 'bebop' ), $extension['display_name'] ) );
+						bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+					}
+				}
+				else {
+					echo 'You are a victim of CSRF';
+				}
+			}
+			
 			
 			//delete a user's feed
 			if ( isset( $_GET['delete_feed'] ) ) {
