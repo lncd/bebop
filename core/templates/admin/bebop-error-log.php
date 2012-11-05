@@ -57,7 +57,7 @@
 		echo $bebop_pagination;
 	}
 	else {
-		 _e( 'No data found in the error table.', 'bebop' );
+		 _e( 'No data for this page was found.', 'bebop' );
 	}
 	?>
 <!-- End bebop_admin_container -->

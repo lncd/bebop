@@ -57,7 +57,7 @@
 		echo $bebop_pagination;
 	}
 	else {
-		_e( 'Could not find any data on this page.', 'bebop' ); 
+		_e( 'No data for this page was found.', 'bebop' );
 	}
 	?>	
 <!-- End bebop_admin_container -->
