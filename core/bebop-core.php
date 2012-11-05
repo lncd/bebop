@@ -9,18 +9,18 @@
 add_action( 'bp_actions', 'bebop_manage_oers' );
 function bebop_manage_oers() {
 	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('manager' ) ) {
-		$should_users_verify_content = bebop_tables::get_option_value( 'bebop_content_user_verification' );
-		if ( $should_users_verify_content != 'no' ) { 
-			if ( isset( $_POST['action'] ) ) {
-				global $bp;
-				$oer_count = 0;
-				$success = false;
-				//Add OER's to the activity stream.
-				if ( $_POST['action'] == 'verify' ) {
-					foreach ( array_keys( $_POST ) as $oer ) {
-						if ( $oer != 'action' ) {
-							$data = bebop_tables::fetch_individual_oer_data( $oer ); //go and fetch data from the activity buffer table.
-							if ( ! empty( $data->secondary_item_id ) ) {
+		if ( isset( $_POST['action'] ) ) {
+			global $bp;
+			$oer_count = 0;
+			$success = false;
+			//Add OER's to the activity stream.
+			if ( $_POST['action'] == 'verify' ) {
+				foreach ( array_keys( $_POST ) as $oer ) {
+					if ( $oer != 'action' ) {
+						$data = bebop_tables::fetch_individual_oer_data( $oer ); //go and fetch data from the activity buffer table.
+						if ( ! empty( $data->secondary_item_id ) ) {
+							$should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $data->type . '_content_user_verification' );
+							if ( $should_users_verify_content != 'no' ) { 
 								global $wpdb;
 								if ( ! bp_has_activities( 'secondary_id=' . $data->secondary_item_id ) ) {
 									$new_activity_item = array (
@@ -45,25 +45,28 @@ function bebop_manage_oers() {
 								else {
 									bebop_tables::log_error(  __( 'Activity Stream', 'bebop'),  __( 'This content already exists in the activity stream.', 'bebop' ) );
 								}
-							}
+							}//End if ( $should_users_verify_content != 'no' ) { 
 						}
-					}//End foreach ( array_keys($_POST) as $oer ) {
-					if ( $oer_count > 1 ) {
-						$success = true;
-						$message = __( 'Resources verified.', 'bebop' );
 					}
-					else {
-						$success = true;
-						$message = __( 'Resource verified.', 'bebop' );
-					}
-				}//End if ( $_POST['action'] == 'verify' ) {
-				else if ( $_POST['action'] == 'delete' ) {
-					foreach ( array_keys( $_POST ) as $oer ) {
-						if ( $oer != 'action' ) {
-							$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
-							if ( ! empty( $data->id ) ) {
-								//delete the activity, let the filter update the tables.
-								if ( ! empty( $data->activity_stream_id ) ) {
+				}//End foreach ( array_keys($_POST) as $oer ) {
+				if ( $oer_count > 1 ) {
+					$success = true;
+					$message = __( 'Resources verified.', 'bebop' );
+				}
+				else {
+					$success = true;
+					$message = __( 'Resource verified.', 'bebop' );
+				}
+			}//End if ( $_POST['action'] == 'verify' ) {
+			else if ( $_POST['action'] == 'delete' ) {
+				foreach ( array_keys( $_POST ) as $oer ) {
+					if ( $oer != 'action' ) {
+						$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
+						if ( ! empty( $data->id ) ) {
+							//delete the activity, let the filter update the tables.
+							if ( ! empty( $data->activity_stream_id ) ) {
+								$should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $data->type . '_content_user_verification' );
+								if ( $should_users_verify_content != 'no' ) { 
 									bp_activity_delete(
 													array(
 														'id' => $data->activity_stream_id,
@@ -71,50 +74,53 @@ function bebop_manage_oers() {
 									);
 									$oer_count++;
 								}
-								else {
-									//else just update the status
-									bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'deleted' );
-									$oer_count++;
-								}
+							}
+							else {
+								//else just update the status
+								bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'deleted' );
+								$oer_count++;
 							}
 						}
-					} //End foreach ( array_keys( $_POST ) as $oer ) {
-					if ( $oer_count > 1 ) {
-						$success = true;
-						$message = __( 'Resources deleted.', 'bebop' );
 					}
-					else {
-						$success = true;
-						$message = __( 'Resource deleted.', 'bebop' );
-					}
+				} //End foreach ( array_keys( $_POST ) as $oer ) {
+				if ( $oer_count > 1 ) {
+					$success = true;
+					$message = __( 'Resources deleted.', 'bebop' );
 				}
-				else if ( $_POST['action'] == 'undelete' ) {
-					foreach ( array_keys( $_POST ) as $oer ) {
-						$exclude_array = array( 'action', 'submit' );
-						if ( ! in_array( $oer, $exclude_array ) ) {
-							$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
+				else {
+					$success = true;
+					$message = __( 'Resource deleted.', 'bebop' );
+				}
+			}
+			else if ( $_POST['action'] == 'undelete' ) {
+				foreach ( array_keys( $_POST ) as $oer ) {
+					$exclude_array = array( 'action', 'submit' );
+					if ( ! in_array( $oer, $exclude_array ) ) {
+						$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
+						$should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $data->type . '_content_user_verification' );
+						if ( $should_users_verify_content != 'no' ) { 
 							bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'unverified' );
 							$oer_count++;
 						}
 					}
-					if ( $oer_count > 1 ) {
-						$success = true;
-						$message =  __( 'Resources undeleted.', 'bebop' );
-					}
-					else {
-						$success = true;
-						$message = __( 'Resource undeleted.', 'bebop' );
-					}
 				}
-				if ( $success ) {
-					bp_core_add_message( $message );
+				if ( $oer_count > 1 ) {
+					$success = true;
+					$message =  __( 'Resources undeleted.', 'bebop' );
 				}
 				else {
-					bp_core_add_message( __( 'We couldnt do that for you. Please try again.', 'bebop' ), 'error' );
+					$success = true;
+					$message = __( 'Resource undeleted.', 'bebop' );
 				}
-				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
-			}//End if ( isset( $_POST['action'] ) ) {
-		}//End if ( $should_users_verify_content == 'yes' ) {
+			}
+			if ( $success ) {
+				bp_core_add_message( $message );
+			}
+			else {
+				bp_core_add_message( __( 'We couldnt do that for you. Please try again.', 'bebop' ), 'error' );
+			}
+			bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+		}//End if ( isset( $_POST['action'] ) ) {
 	}//End if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('manager' ) ) {
 	add_action( 'wp_enqueue_scripts', 'bebop_oer_js' ); //enqueue  selectall/none script
 }//End function bebop_manage_oers() {
@@ -389,13 +395,6 @@ function bebop_create_buffer_item( $params ) {
 				$action .= '<a href="' . $params['actionlink'] . '" target="_blank" rel="external"> '.__( $params['type'], 'bebop_' . $params['extension'] );
 				$action .= '</a>: ';
 				
-				$hide_sitewide = bebop_tables::get_option_value( 'bebop_' . $params['extension'] . '_hide_sitewide' );
-				if( $hide_sitewide == 'yes' ) {
-					$oer_hide_sitewide = 1;
-				}
-				else {
-					$oer_hide_sitewide = 0;
-				}
 				$date_imported = gmdate( 'Y-m-d H:i:s', time() );
 				
 				//extra check to be sure we don't have an empty activity
@@ -403,13 +402,21 @@ function bebop_create_buffer_item( $params ) {
 				$clean_comment = trim( strip_tags( $content ) );
 				
 				//controls how user content is verified.
-				$should_users_verify_content = bebop_tables::get_option_value( 'bebop_content_user_verification' );
+				$should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $params['extension'] . '_content_user_verification' );
 				
 				if ( $should_users_verify_content == 'no' ) {
 					$oer_status = 'verified';
 				}
 				else {
 					$oer_status = 'unverified';
+				}
+				
+				$hide_sitewide = bebop_tables::get_option_value( 'bebop_' . $params['extension'] . '_hide_sitewide' );
+				if( $hide_sitewide == 'yes' ) {
+					$oer_hide_sitewide = 1;
+				}
+				else {
+					$oer_hide_sitewide = 0;
 				}
 				
 				if ( ! empty( $clean_comment ) ) {

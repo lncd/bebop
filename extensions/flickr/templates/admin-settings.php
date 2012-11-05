@@ -25,6 +25,8 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			<p><?php _e( 'To pull content from some providers, the importer settings need to be configured correctly for some extensions. or example, "API Tokens", and "API secrets" may be required for API based sources, but not for RSS based sources.', 'bebop'); ?></p>
 			<p><?php _e( 'By default, RSS feeds are available for each extension in bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the "enabled" option of the RSS feed settings below. Please note
 				that RSS feeds will only be available when the extension is active.', 'bebop' ); ?></p>
+			<p><?php _e( 'As of version 1.2, you can choose whether content needs to be verified for each extension. This will allow you more control over how content is imported into your BuddyPress ctivity streams.', 'bebop' ); ?></p>
+			<p><?php _e( 'As of version 1.2, You can choose whether you wish to hide content for the extension on the sitewide activity steam. All content is still visible in members activity streams, and in the resources stream.', 'bebop' ); ?></p>
 		</div>
 	</div>
 	<form class='bebop_admin_form' method='post'>
@@ -32,6 +34,14 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			<span class='header'><?php echo sprintf( __( '%1$s Import Settings', 'bebop' ), $extension['display_name'] );?></span>
 			<label for='bebop_<?php echo $extension['name']; ?>_consumer_key'><?php echo sprintf( __( '%1$s API Token', 'bebop' ), $extension['display_name'] );?>:</label>
 			<input type='text' id='bebop_<?php echo $extension['name']; ?>_consumer_key' name='bebop_<?php echo $extension['name']; ?>_consumer_key' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ); ?>' size='50'><br><br>
+			
+			<?php $should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_content_user_verification' ); ?>
+			<label for='bebop_<?php echo $extension['name']; ?>_content_user_verification'><?php _e( 'Should imported content be user verified?', 'bebop' ); ?></label>
+			<select id='bebop_<?php echo $extension['name']; ?>_content_user_verification' name='bebop_<?php echo $extension['name']; ?>_content_user_verification'>
+				<option value='yes'<?php if ( $should_users_verify_content === 'yes' ) { echo 'SELECTED'; } ?>><?php _e( 'Yes', 'bebop' ); ?></option>
+				<option value='no'<?php if ( $should_users_verify_content === 'no' ) { echo 'SELECTED'; } ?>><?php _e( 'No', 'bebop' ); ?></option>
+			</select>
+			<br><br>
 			
 			<?php $bebop_hide_sitewide = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_hide_sitewide' ); ?>
 			<label for='bebop_<?php echo $extension['name']; ?>_hide_sitewide'><?php _e( 'Hide content on the sitewide activity stream?', 'bebop' ); ?></label>

@@ -17,13 +17,6 @@ function bebop_general_admin_update_settings() {
 		$current_page = $_GET['page'];
 		if ( $current_page == 'bebop_admin_settings' ) {
 			$edited = false;
-			if ( isset( $_POST['bebop_content_user_verification'] ) ) {
-				bebop_tables::update_option( 'bebop_content_user_verification', trim( strip_tags( strtolower( $_POST['bebop_content_user_verification'] ) ) ) );
-				$_SESSION['bebop_admin_notice'] = true;
-				
-				$edited = true;
-			}
-			
 			if ( isset( $_POST['bebop_general_crontime'] ) ) {
 				$crontime = trim( strip_tags( strtolower( $_POST['bebop_general_crontime'] ) ) );
 				$result = bebop_tables::update_option( 'bebop_general_crontime', $crontime );
@@ -106,6 +99,9 @@ function bebop_extension_admin_update_settings() {
 					if ( isset( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) ) {
 						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_consumer_secret', trim( $_POST['bebop_' . $extension['name'] . '_consumer_secret'] ) );
 					}
+					if ( isset( $_POST['bebop_' . $extension['name'] . '_content_user_verification'] ) ) {
+						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_content_user_verification', trim( strip_tags( strtolower( $_POST['bebop_' . $extension['name'] . '_content_user_verification'] ) ) ) );
+					}
 					if ( isset( $_POST['bebop_' . $extension['name'] . '_hide_sitewide'] ) ) {
 						bebop_tables::update_option( 'bebop_' . $extension['name'] . '_hide_sitewide', trim( strip_tags( strtolower( $_POST['bebop_' . $extension['name'] . '_hide_sitewide'] ) ) ) );
 					}
@@ -117,9 +113,6 @@ function bebop_extension_admin_update_settings() {
 							$success = '"Imports per day" must be a number (or blank).';
 						}
 					}
-					
-					
-					
 					
 					/*rss stuff, dont touch */
 					if ( isset( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) ) {
