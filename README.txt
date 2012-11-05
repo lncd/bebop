@@ -42,15 +42,16 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 == Changelog ==
 
-v1.2 - 02.11.2012 - Minor Release
+v1.2 - 02.11.2012 - Major Release
 
 This is a Major, providing a new Facebook extension, and adding pagination where required. This release also fixes bugs with RSS feeds, user removal, and corrects many spelling mistakes.
 
 Feature Updates:
 * A brand new Facebook extension is added in this release, allowing content from facebook to be displayed in the activity stream.
 * Increased RSS output limit from 250 to 500.
+* Moved the user verification option from the general settings to the extension settings, allowing content from certain extensions to be posted to the activity stream automatically, while other extensions can still be verified.
 * Added admin option in each extension to hide content for that extension form the sitewide activity stream.
-* Added pagination to all admin and user content where needed, such as admin backend logs, content, and user OER content manager.
+* Added pagination to all admin and user content where needed, such as admin backend logs, content, and user content manager.
 
 
 Bug Fixes:
@@ -59,7 +60,7 @@ Bug Fixes:
 * RSS - Added wpPubDate the the RSS feeds and defined it as the date it was added to BuddyPress.
 * Content Stream - had to allow bebop-core-user.php to be included on every page so the new 'hide_sitewide' feature works as expected.
 * Admin Area - forced checkboxes in forms to be on same line as text.
-* Admin Area - made it possible to actually remove users from extensions now...
+* Admin Area - Fixed the user removal bug, so admins can actually remove users from extensions now...
 
 
 Other:

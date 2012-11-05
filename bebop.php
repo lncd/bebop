@@ -81,7 +81,7 @@ function bebop_activate() {
 			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 			type varchar(40) NOT NULL,
 			message text NOT NULL
-	    );';
+		);';
 	
 		$bebop_options = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_options ( 
 			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,	
