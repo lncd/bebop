@@ -119,7 +119,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 						<td>' . bebop_tables::sanitise_element( $this_user->user_login ) . '</td>
 						<td>' . bebop_tables::sanitise_element( $this_user->user_email ) . '</td>
 						<td>' . bebop_tables::sanitise_element( bebop_tables::get_user_meta_value( $user->user_id, 'bebop_' . $extension['name'] . '_username' ) ) . "</td>
-						<td><a href='?page=bebop_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>"; _e( 'Reset User', 'bebop' ); echo "</a></td>
+						<td><a href='?page=bebop_providers&provider=" . $extension['name'] . "&reset_user_id=" . bebop_tables::sanitise_element( $user->user_id ) . "'>" . __( 'Reset User', 'bebop' ) . "</a></td>
 					</tr>";
 				}
 			?>
