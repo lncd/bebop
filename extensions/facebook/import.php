@@ -102,11 +102,6 @@ function bebop_facebook_import( $extension, $user_metas = null ) {
 									$get_username = false;
 								}
 								
-								
-								echo '<pre>';
-								var_dump($item);
-								echo '</pre>';
-								
 								if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $username ) ) {
 									
 									//Edit the following three variables to point to where the relevant content is being stored:
