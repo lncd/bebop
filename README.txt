@@ -18,6 +18,8 @@ Bebop is a BuddyPress plugin which allows you to connect your BuddyPress profile
 
 Bebop was developed by the University of Lincoln for a JISC-funded 'Open Educational Resources' project, to allow teachers to select and aggregate teaching resources they have shared on third-party sites into their BuddyPress profile. BuddyPress and Bebop are being used at the University of Lincoln to power staff and student profiles.
 
+German Language pack courtesy of HansRuedi Keller (http://www.info.ch)
+
 == Installation ==
 
 Requirements:
@@ -44,7 +46,7 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 v1.2 - 02.11.2012 - Major Release
 
-This is a Major, providing a new Facebook extension, and adding pagination where required. This release also fixes bugs with RSS feeds, user removal, and corrects many spelling mistakes.
+This is a Major release, providing a new Facebook extension, and adding pagination where required. This release also fixes bugs with RSS feeds, user removal, and corrects many spelling mistakes. Enjoy!
 
 Feature Updates:
 * A brand new Facebook extension is added in this release, allowing content from facebook to be displayed in the activity stream.
@@ -52,6 +54,7 @@ Feature Updates:
 * Moved the user verification option from the general settings to the extension settings, allowing content from certain extensions to be posted to the activity stream automatically, while other extensions can still be verified.
 * Added admin option in each extension to hide content for that extension form the sitewide activity stream.
 * Added pagination to all admin and user content where needed, such as admin backend logs, content, and user content manager.
+* Added German languae pack, courtesy of HansRuedi Keller (http://www.info.ch)
 
 
 Bug Fixes:
