@@ -25,7 +25,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			<p><?php _e( 'To pull content from some providers, the importer settings need to be configured correctly for some extensions. For example, "API Tokens", and "API secrets" may be required for API based sources, but not for RSS based sources.', 'bebop') ?></p>
 			<p><?php _e( 'By default, RSS feeds are available for each extension in Bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the "enabled" option of the RSS feed settings below. Please note
 				that RSS feeds will only be available when the extension is active.', 'bebop') ?></p>
-			<p><?php _e( 'As of version 1.2, you can choose whether content needs to be verified for each extension. This will allow you more control over how content is imported into your BuddyPress ctivity streams.', 'bebop' ); ?></p>
+			<p><?php _e( 'As of version 1.2, you can choose whether content needs to be verified for each extension. This will allow you more control over how content is imported into your BuddyPress activity streams.', 'bebop' ); ?></p>
 			<p><?php _e( 'As of version 1.2, You can choose whether you wish to hide content for the extension on the sitewide activity steam. All content is still visible in members activity streams, and in the resources stream.', 'bebop' ); ?></p>
 		</div>
 	</div>
