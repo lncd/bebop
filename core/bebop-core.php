@@ -39,7 +39,7 @@ function bebop_manage_oers() {
 										$oer_count++;
 									}
 									else {
-										bebop_tables::log_error( __( 'Activity Stream', 'bebop' ),  __( 'Could not update the oer buffer status.', 'bebop' ) );
+										bebop_tables::log_error( __( 'Activity Stream', 'bebop' ),  __( 'Could not update the content status.', 'bebop' ) );
 									}
 								}
 								else {

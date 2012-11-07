@@ -1,4 +1,4 @@
-<p><?php _e( 'Here you can manage your OERs. Recently imported OERs are categorised as unverified, items that appear in your activity stream are categorised as verified. The deleted category holds items which you do not want to show in your activity stream.', 'bebop' ); ?>
+<p><?php _e( 'Here you can manage your content. Recently imported content is categorised as unverified, items that appear in your activity stream are categorised as verified. The deleted category holds items which you do not want to show in your activity stream.', 'bebop' ); ?>
 </p><br>
 <div class="button_container"><a class="auto button min_width_100" href="?type=unverified"><?php _e( 'Unverified', 'bebop' ); ?></a></div>
 <div class="button_container"><a class="auto button min_width_100" href="?type=verified"><?php _e( 'Verified', 'bebop' ); ?></a></div>
@@ -16,7 +16,7 @@ if ( ! empty( $type ) ) {
 	$oers = bebop_get_oers( $type, $page_vars['page_number'], $page_vars['per_page'] );
 	if ( count( $oers ) > 0 ) {
 		echo '<form id="oer_table" class="bebop_user_form" method="post">';
-		echo '<h5>' . ucfirst( $type ) . ' ' . __( 'OERs', 'bebop' ) . '</h5>';
+		echo '<h5>' . ucfirst( $type ) . ' ' . __( 'Content', 'bebop' ) . '</h5>';
 		echo $bebop_pagination;
 		echo '<div class="button_container button_right"><a class="auto button" rel="#oer_table" href="#select_all">' . __( 'Select All', 'bebop' ) . '</a></div>';
 		echo '<div class="button_container button_right"><a class="auto button" rel="#oer_table" href="#select_none">' . __( 'Select None', 'bebop' ) . '</a></div>';
@@ -64,7 +64,7 @@ if ( ! empty( $type ) ) {
 		echo $bebop_pagination;
 	}
 	else {
-		echo '<p>' . __( 'Unfortunately, we could not find any oers for you to manage.', 'bebop' ) . '</p>';
+		echo '<p>' . __( 'Unfortunately, we could not find any content for you to manage.', 'bebop' ) . '</p>';
 	}
 }//End if ( ! empty( $type ) ) {
 ?>
