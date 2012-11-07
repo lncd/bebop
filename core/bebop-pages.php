@@ -95,12 +95,12 @@ function bebop_admin_menu() {
 					'bebop_admin', 
 					'bebop_admin_pages',
 					WP_PLUGIN_URL . '/bebop/core/resources/images/bebop_icon.png',
-					'101.101'
+					'101.191'
 	);
 	add_submenu_page( 'bebop_admin', 'Admin Main', 'Admin Main', 'manage_options', 'bebop_admin', 'bebop_admin_pages' );
 	add_submenu_page( 'bebop_admin', 'General Settings', 'General Settings', 'manage_options', 'bebop_admin_settings', 'bebop_admin_pages' );
-	add_submenu_page( 'bebop_admin', 'OER Providers', 'OER Providers', 'manage_options', 'bebop_oer_providers', 'bebop_admin_pages' );
-	add_submenu_page( 'bebop_admin', 'OERs', 'OERs', 'manage_options', 'bebop_oers', 'bebop_admin_pages' );
+	add_submenu_page( 'bebop_admin', 'Content Providers', 'Content Providers', 'manage_options', 'bebop_providers', 'bebop_admin_pages' );
+	add_submenu_page( 'bebop_admin', 'Content', 'Content', 'manage_options', 'bebop_content', 'bebop_admin_pages' );
 	add_submenu_page( 'bebop_admin', 'Error Log', 'Error Log', 'manage_options', 'bebop_error_log', 'bebop_admin_pages' );
 	add_submenu_page( 'bebop_admin', 'General Log', 'General Log', 'manage_options', 'bebop_general_log', 'bebop_admin_pages' );
 	
@@ -114,11 +114,11 @@ function bebop_admin_pages() {
 	else if ( $_GET['page'] == 'bebop_admin_settings' ) {
 		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-settings.php';
 	}
-	else if ( $_GET['page'] == 'bebop_oer_providers' ) {
-		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-oer-providers.php';
+	else if ( $_GET['page'] == 'bebop_providers' ) {
+		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-content-providers.php';
 	}
-	else if ( $_GET['page'] == 'bebop_oers' ) {
-		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-oers.php';
+	else if ( $_GET['page'] == 'bebop_content' ) {
+		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-content.php';
 	}
 	else if ( $_GET['page'] == 'bebop_error_log' ) {
 		include WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-error-log.php';

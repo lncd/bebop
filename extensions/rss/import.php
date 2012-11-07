@@ -5,7 +5,7 @@
  */
 
 //replace 'feed' with the 'name' of your extension, as defined in your config.php file.
-function bebop_feed_import( $extension, $user_metas = null ) {
+function bebop_rss_import( $extension, $user_metas = null ) {
 	global $wpdb, $bp;
 	
 	$itemCounter = 0;
@@ -58,7 +58,7 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 						 * ******************************************************************************************************************
 						 * Depending on the data source, you will need to switch how the data is retrieved. If the feed is RSS, use the 	*
 						 * SimplePie method, as shown in the youtube extension. If the feed is oAuth API based, use the oAuth implementation*
-						 * as shown in thr twitter extension. If the feed is an API without oAuth authentication, use SlideShare			*
+						 * as shown in the twitter extension. If the feed is an API without oAuth authentication, use SlideShare			*
 						 * ******************************************************************************************************************
 						 */
 						
@@ -146,7 +146,7 @@ function bebop_feed_import( $extension, $user_metas = null ) {
 							}
 						}
 						else {
-							bebop_tables::log_error( sprintf( __( 'Importer - %1$s', 'bebop' ), $this_extension['display_name'] ), sprintf( __( 'Feed Error: %1$s', 'bebop' ), $errors ) );
+							bebop_tables::log_error( sprintf( __( 'Importer - %1$s', 'bebop' ), $this_extension['display_name'] ), sprintf( __( 'RSS Error: %1$s', 'bebop' ), $errors ) );
 						}
 					}
 				}//End foreach ($user_feeds as $user_feed ) {
