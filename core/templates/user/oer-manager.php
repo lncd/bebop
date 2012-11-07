@@ -64,7 +64,7 @@ if ( ! empty( $type ) ) {
 		echo $bebop_pagination;
 	}
 	else {
-		_e( '<p>Unfortunately, we could not find any oers for you to manage.</p>', 'bebop' );
+		echo '<p>' . __( 'Unfortunately, we could not find any oers for you to manage.', 'bebop' ) . '</p>';
 	}
 }//End if ( ! empty( $type ) ) {
 ?>

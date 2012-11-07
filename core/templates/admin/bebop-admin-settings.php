@@ -10,7 +10,7 @@
 	<form class='bebop_admin_form' method='post'>
 		<fieldset>
 			<span class='header'><?php _e( 'Bebop Settings', 'bebop' ); ?></span>
-			<p><?php _e( 'The WordPress cron runs the import script for the given timeframe. The default is set to 10 minutes. (600 seconds). The only issue with the WordPress cron is that it can only be activated when a page is accessed. So, if no-one was to visit the site for a long period of time,
+			<p><?php _e( 'The WordPress cron runs the import script for the given timeframe. The default is set to 10 minutes (600 seconds). The only issue with the WordPress cron is that it can only be activated when a page is accessed. So, if no-one was to visit the site for a long period of time,
 			the importers might miss some content items. You should therefore use the WordPress cron only if you cannot use a traditional cron. Do not use both together.', 'bebop' ); ?></p>
 			<p><?php _e( 'To use the traditional cron, add the following cron command to your webhosting cron lists, setting a timeframe of your choice.', 'bebop' ); ?></p>
 			<p><?php _e( 'If you use a traditional cron, set the WordPress Cron time to "0".', 'bebop' ); ?></p>
@@ -26,9 +26,9 @@
 			<label for='traditional_cron'><?php _e( 'Traditional Cron:', 'bebop' ); ?></label>
 			<input type='text' id='traditional_cron' value="wget <?php echo plugins_url() . '/bebop/import.php -O /dev/null -q'?>" size='75' READONLY><br><br>
 			
-			<label><?php _e( 'Force  Main Cron:', 'bebop' ); ?></label>
+			<label><?php _e( 'Force Main Cron:', 'bebop' ); ?></label>
 			<a class="button auto" target="_blank" href="<?php echo plugins_url(); ?>/bebop/import.php"><?php _e( 'Main Import', 'bebop' ); ?></a> <?php _e( '(all users, all feeds)', 'bebop' ); ?><br><br>
-			<label><?php _e( 'Force  Secondary Cron:', 'bebop' ); ?></label>
+			<label><?php _e( 'Force Secondary Cron:', 'bebop' ); ?></label>
 			<a class="button auto" target="_blank" href="<?php echo plugins_url(); ?>/bebop/secondary_import.php"><?php _e( 'Secondary Import', 'bebop' ); ?></a> <?php _e( '(new users/new feeds)', 'bebop' ); ?><br><br>
 			<div class="clear"></div>
 		</fieldset>

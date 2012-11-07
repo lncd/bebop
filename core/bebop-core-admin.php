@@ -120,7 +120,7 @@ function bebop_extension_admin_update_settings() {
 							bebop_tables::update_option( 'bebop_' . $extension['name'] . '_rss_feed', trim( $_POST['bebop_' . $extension['name'] . '_rss_feed'] ) );
 						}
 						else {
-							$success = __( 'RSS feeds cannot be modified while the extension is not enabled.', 'bebop');
+							$success = __( 'RSS feeds cannot be enabled while the extension is inactive.', 'bebop');
 						}
 					}
 					else {

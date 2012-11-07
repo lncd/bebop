@@ -17,7 +17,7 @@
 				<p><?php _e( 'Version 1.2 of Bebop has landed. Say hello to the new Facebook extension, pagination, and many security updates. See the README.txt for a full list of changes.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.1.1 of Bebop has been released. This minor release fixes some bugs related to the wordpress cron time, and some redirection issues. See the README.txt file for a full list of updates.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.1 of Bebop has been released. Many requested features have been implemented, bugs have been fixed, and issues resolved. For more details, please see the changelog in README.txt.', 'bebop' ); ?></p>
-				<p><?php _e( 'Version 1.0 of Bebop has now been released. This BuddyPress plugin allows users to import Open Educational Resources from around the web, into their BuddyPress activity stream.</p>', 'bebop' ); ?>
+				<p><?php _e( 'Version 1.0 of Bebop has now been released. This BuddyPress plugin allows users to import content from around the web, into their BuddyPress activity stream.', 'bebop' ); ?></p>
 			</div>
 		</div></div>
 
@@ -40,11 +40,11 @@
 				if ( count( $contents ) > 0 ) {
 					echo '<table class="postbox_table">
 						<tr class="nodata">
-							<th>'; _e( 'Username', 'bebop' );  echo '</th>
-							<th>'; _e( 'Type', 'bebop' );  echo '</th>
-							<th>'; _e( 'Imported', 'bebop' );  echo '</th>
-							<th>'; _e( 'Published', 'bebop' );  echo '</th>
-							<th>'; _e( 'Content', 'bebop' );  echo '</th>
+							<th>' . __( 'Username', 'bebop' ) . '</th>
+							<th>' . __( 'Type', 'bebop' ) . '</th>
+							<th>' . __( 'Imported', 'bebop' ) . '</th>
+							<th>' . __( 'Published', 'bebop' ) . '</th>
+							<th>' . __( 'Content', 'bebop' ) . '</th>
 						</tr>';
 					
 					foreach ( $contents as $content ) {
@@ -59,7 +59,7 @@
 					echo '</table>';
 				}
 				else {
-					echo '<p>'; _e( 'No verified content exist in the content manager.', 'bebop' );  echo '</p>';
+					echo '<p>' . __( 'No verified content exist in the content manager.', 'bebop' ) . '</p>';
 				}
 				?>
 				

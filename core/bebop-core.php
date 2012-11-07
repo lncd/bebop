@@ -150,7 +150,7 @@ function bebop_manage_provider() {
 						bp_core_add_message( sprintf( __( '%1$s has been added to the %2$s feed.', 'bebop' ), $new_name, $extension['display_name'] ) );
 					}
 					else {
-						bp_core_add_message( sprintf( __( '%1$s  already exists in the %2$s feed; you cannot add it again.', 'bebop' ), $new_name, $extension['display_name'] ), 'error' );
+						bp_core_add_message( sprintf( __( '%1$s already exists in the %2$s feed; you cannot add it again.', 'bebop' ), $new_name, $extension['display_name'] ), 'error' );
 					}
 				}
 				

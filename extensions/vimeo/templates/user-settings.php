@@ -51,7 +51,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 		echo '<h5>Your ' . $extension['display_name'] . ' feeds</h5>';
 		echo '<table class="bebop_user_table">
 				<tr class="nodata">
-					<th>'; _e( 'Userame', 'bebop' ); echo '</th>
+					<th>'; _e( 'Username', 'bebop' ); echo '</th>
 					<th>'; _e( 'Options', 'bebop' ); echo '</th>
 				</tr>';
 		foreach ( $user_feeds as $user_feed ) {
