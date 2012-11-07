@@ -18,7 +18,7 @@ Bebop is a BuddyPress plugin which allows you to connect your BuddyPress profile
 
 Bebop was developed by the University of Lincoln for a JISC-funded 'Open Educational Resources' project, to allow teachers to select and aggregate teaching resources they have shared on third-party sites into their BuddyPress profile. BuddyPress and Bebop are being used at the University of Lincoln to power staff and student profiles.
 
-German Language pack courtesy of HansRuedi Keller (http://www.info.ch)
+German (de_DE) Language pack courtesy of HansRuedi Keller (http://www.info.ch)
 
 == Installation ==
 
@@ -54,7 +54,7 @@ Feature Updates:
 * Moved the user verification option from the general settings to the extension settings, allowing content from certain extensions to be posted to the activity stream automatically, while other extensions can still be verified.
 * Added admin option in each extension to hide content for that extension form the sitewide activity stream.
 * Added pagination to all admin and user content where needed, such as admin backend logs, content, and user content manager.
-* Added German languae pack, courtesy of HansRuedi Keller (http://www.info.ch)
+* Added German (de_DE) languae pack, courtesy of HansRuedi Keller (http://www.info.ch)
 
 
 Bug Fixes:
