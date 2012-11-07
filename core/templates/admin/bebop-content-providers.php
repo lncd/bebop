@@ -21,7 +21,7 @@ else {
 			<table class="widefat margin-top_22px margin-bottom_22px">
 				<thead>
 					<tr>
-						<th><?php _e( 'Extension Name', 'bebop' ); ?>/th>
+						<th><?php _e( 'Extension Name', 'bebop' ); ?></th>
 						<th><?php _e( 'Active Users', 'bebop' ); ?></th>
 						<th><?php _e( 'Inactive Users', 'bebop' ); ?></th>
 						<th colspan=><?php _e( 'Unverified Content', 'bebop' ); ?></th>
