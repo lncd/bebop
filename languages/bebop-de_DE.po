@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bebop\n"
-"POT-Creation-Date: 2012-11-07 13:00-0000\n"
-"PO-Revision-Date: 2012-11-07 13:00-0000\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2012-11-07 13:12-0000\n"
+"PO-Revision-Date: 2012-11-07 13:13-0000\n"
+"Last-Translator: HansRuedi Keller <keller@fusion.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,235 +19,241 @@ msgid ""
 "You cannot enable Bebop because BuddyPress is not active. Please install and "
 "activate BuddyPress before trying to activate Bebop again."
 msgstr ""
+"Du kannst Bebop nicht aktivieren, weil BuddyPress nicht verfügbar ist. Bitte "
+"installiere und aktiviere BuddyPress, bevor du versuchst, Bebop zu "
+"aktivieren."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/bebop.php:177
 msgid "main_cron"
-msgstr ""
+msgstr "main_cron"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/bebop.php:186
 msgid "secondary_cron"
-msgstr ""
+msgstr "secondary_cron"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/import.php:37
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/import.php:47
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/import.php:51
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/import.php:72
 msgid "Main Importer"
-msgstr ""
+msgstr "Primärer Importdienst"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/import.php:37
 msgid "Main importer service started."
-msgstr ""
+msgstr "Primärer Importdienst gestartet."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/import.php:47
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/secondary_import.php:47
 #, php-format
 msgid "The function: bebop_%1$s_import does not exist."
-msgstr ""
+msgstr "Die Funktion: bebop_%1$s_import existiert nicht."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/import.php:51
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/secondary_import.php:51
 #, php-format
 msgid "The function: %1$s/import.php does not exist."
-msgstr ""
+msgstr "Die Funktion: %1$s/import.php existiert nicht."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/import.php:64
 #, php-format
 msgid "Main importer service completed. Imported %1$s."
-msgstr ""
+msgstr "Primärer Importdienst abgeschlossen. %1$s importiert."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/import.php:69
 msgid "Main importer service completed. Nothing was imported."
-msgstr ""
+msgstr "Primärer Importdienst abgeschlossen. Es wurde nichts importiert."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/secondary_import.php:34
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/secondary_import.php:47
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/secondary_import.php:51
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/secondary_import.php:71
 msgid "Secondary Importer"
-msgstr ""
+msgstr "Sekundärer Importdienst"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/secondary_import.php:34
 msgid "Secondary importer service started."
-msgstr ""
+msgstr "Sekundärer Importdienst gestartet."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/secondary_import.php:64
 #, php-format
 msgid "Secondary importer service completed. Imported %1$s."
-msgstr ""
+msgstr "Sekundärer Importdienst abgeschlossen. %1$s importiert."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/secondary_import.php:68
 msgid "Secondary importer service completed. Nothing was imported."
-msgstr ""
+msgstr "Sekundärer Importdienst abgeschlossen. Es wurde nichts importiert."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core-admin.php:123
 msgid "RSS feeds cannot be enabled while the extension is inactive."
-msgstr ""
+msgstr "RSS Feeds sind nicht verfügbar, während eine Extension inaktiv ist."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core-admin.php:160
 msgid "Settings Saved"
-msgstr ""
+msgstr "Einstellungen gespeichert"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core-admin.php:184
 msgid "Error clearing table data."
-msgstr ""
+msgstr "Fehler beim Löschen der Tabellendaten."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:42
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:46
 msgid "Activity Stream"
-msgstr ""
+msgstr "Aktivitätsverlauf"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:42
 msgid "Could not update the content status."
-msgstr ""
+msgstr "Konnte den Status des Inhaltes nicht aktualisieren."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:46
 msgid "This content already exists in the activity stream."
-msgstr ""
+msgstr "Dieser Inhalt existiert bereits im Aktivitätsverlauf."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:54
 msgid "Resources verified."
-msgstr ""
+msgstr "Resourcen verifiziert."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:58
 msgid "Resource verified."
-msgstr ""
+msgstr "Resource verifiziert."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:88
 msgid "Resources deleted."
-msgstr ""
+msgstr "Resourcen gelöscht."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:92
 msgid "Resource deleted."
-msgstr ""
+msgstr "Resource gelöscht."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:109
 msgid "Resources undeleted."
-msgstr ""
+msgstr "Resourcen wiederhergestellt."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:113
 msgid "Resource undeleted."
-msgstr ""
+msgstr "Resource wiederhergestellt."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:120
 msgid "We couldnt do that for you. Please try again."
-msgstr ""
+msgstr "Wir konnten dies nicht ausführen. Bitte versuche es nochmals."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:150
 #, php-format
 msgid "%1$s has been added to the %2$s feed."
-msgstr ""
+msgstr "%1$s wurde hinzugefügt zum %2$s Feed."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:153
 #, php-format
 msgid "%1$s already exists in the %2$s feed; you cannot add it again."
 msgstr ""
+"%1$s existiert bereits im %2$s Feed; du kannst es nicht erneut hinzufügen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:165
 msgid "Feed successfully added."
-msgstr ""
+msgstr "Feed erfolgreich hinzugefügt."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:168
 msgid "This feed already exists, you cannot add it again."
-msgstr ""
+msgstr "Dieser Feed existiert bereits, du kannst ihn nicht erneut hinzufügen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:172
 msgid "That feed cannot be added as it is not a valid URL."
-msgstr ""
+msgstr "Dieser Feed kann nicht hinzugefügt werden, ungültiger URL."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:205
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:245
 #, php-format
 msgid "You have successfully authenticated your %1$s account."
-msgstr ""
+msgstr "Du hast erfolgreich dein %1$s Konto authentifiziert."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:263
 msgid "Feed successfully deleted."
-msgstr ""
+msgstr "Feed erfolgreich gelöscht."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:267
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:286
 msgid "We could not delete that feed."
-msgstr ""
+msgstr "Wir konnten diesen Feed nicht löschen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:282
 #, php-format
 msgid "%1$s has been removed from your %2$s feed."
-msgstr ""
+msgstr "%1$s wurde entfernt von deinem %2$s Feed."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:394
 msgid "posted a"
-msgstr ""
+msgstr "zeigt ein(e)"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:452
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:456
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:461
 msgid "Importer"
-msgstr ""
+msgstr "Importdienst"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:452
 msgid "Import query error"
-msgstr ""
+msgstr "Import Query-Fehler"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:456
 msgid "Could not import as a daycounter could not be found."
-msgstr ""
+msgstr "Konnte nicht importieren, weil kein Tageszähler gefunden wurde."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:461
 msgid "Could not import, content already exists."
-msgstr ""
+msgstr "Konnte nicht importieren, Inhalt existiert bereits."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:470
 #, php-format
 msgid "Import Error - %1$s"
-msgstr ""
+msgstr "Importfehler - %1$s"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:470
 #, php-format
 msgid "%1$s already exists"
-msgstr ""
+msgstr "%1$s existiert bereits"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:507
 msgid "All OERs"
-msgstr ""
+msgstr "Alle OERs"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:510
 msgid "No Extensions are active - please enable them in the admin panel"
 msgstr ""
+"Keine Extensions sind verfügbar – bitte aktiviere diese im Adminbereich"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-extensions.php:74
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-extensions.php:90
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-extensions.php:94
 msgid "Extension Error"
-msgstr ""
+msgstr "Extension-Fehler"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-extensions.php:74
 #, php-format
 msgid "Could not find a \"core.php\" file in %1$s."
-msgstr ""
+msgstr "Konnte keine \"core.php\" Datei finden in %1$s."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-extensions.php:90
 #, php-format
 msgid "Could not find the method \"get_%1$s_config\" for the %1$s extension."
 msgstr ""
+"Konnte die Methode \"get_%1$s_config\" nicht finden für die %1$s Extension."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-extensions.php:94
 #, php-format
 msgid "Could not find a \"config.php\" file in %1$s."
-msgstr ""
+msgstr "Konnte keine \"config.php\" Datei finden in %1$s."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-extensions.php:158
 msgid "Bebop Error"
-msgstr ""
+msgstr "Bebop Fehler"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-extensions.php:160
 #, php-format
 msgid "%1$s is not a valid extension."
-msgstr ""
+msgstr "%1$s ist keine gültige Extension."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:25
 msgid "Resources"
-msgstr ""
+msgstr "Resourcen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:36
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:16
@@ -260,77 +266,77 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:19
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:30
 msgid "Content"
-msgstr ""
+msgstr "Inhalt"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:50
 msgid "Content Manager"
-msgstr ""
+msgstr "Content Manager"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:62
 msgid "Accounts"
-msgstr ""
+msgstr "Benutzerkonti"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:92
 msgid "Bebop Admin"
-msgstr ""
+msgstr "Bebop Admin"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:93
 msgid "Bebop"
-msgstr ""
+msgstr "Bebop"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:11
 msgid "Table Truncate error"
-msgstr ""
+msgstr "Fehler beim Kürzen der Tabelle"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:11
 #, php-format
 msgid "Could not empty the %1$s table."
-msgstr ""
+msgstr "Konnte die %1$s Tabelle nicht entleeren."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:220
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:276
 msgid "bebop_option_error"
-msgstr ""
+msgstr "bebop_option_error"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:220
 #, php-format
 msgid "option: %1$s already exists."
-msgstr ""
+msgstr "Option: %1$s existiert bereits."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:276
 #, php-format
 msgid "option: %1$s does not exist."
-msgstr ""
+msgstr "Option: %1$s existiert nicht."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:4
 msgid "Admin Home"
-msgstr ""
+msgstr "Admin Home"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:8
 msgid "General Settings"
-msgstr ""
+msgstr "Grundeinstellungen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:12
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:13
 msgid "Content Providers"
-msgstr ""
+msgstr "Content Provider"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:20
 msgid "Error Log"
-msgstr ""
+msgstr "Fehler-Log"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:24
 msgid "General Log"
-msgstr ""
+msgstr "Log allgemein"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:5
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:12
 msgid "Bebop Settings"
-msgstr ""
+msgstr "Bebop Einstellungen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:7
 msgid "General settings can be modified here."
-msgstr ""
+msgstr "Allgemeine Einstellungen können hier verändert werden."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:13
 msgid ""
@@ -342,16 +348,25 @@ msgid ""
 "the WordPress cron only if you cannot use a traditional cron. Do not use "
 "both together."
 msgstr ""
+"Der WordPress Cron lässt das Importskript in den gegebenen Zeitabständen "
+"ablaufen. Vorgabe ist 10 Min. (600 Sek.). Mit dem WordPress Cron läuft es "
+"aber nur ab, wenn auf eine Seite zugegriffen wird.Wenn also für einen "
+"längeren Zeitraum niemand auf die Site zugegriffen hat,/n\t\t\tfehlt hier "
+"eventuell Inhalt. Du solltest also den WordPress Cron nur nutzen, falls du "
+"keinen traditionellen Cron einsetzen kannst. Nutze nie beide zusammen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:15
 msgid ""
 "To use the traditional cron, add the following cron command to your "
 "webhosting cron lists, setting a timeframe of your choice."
 msgstr ""
+"Füge das folgende Kommando deiner Webhosting-Cron-Liste hinzu, um den "
+"traditionellen Cron zu benutzen und wähle einen passenden Zeitintervall."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:16
 msgid "If you use a traditional cron, set the WordPress Cron time to \"0\"."
 msgstr ""
+"Falls du den traditionellen Cron benützt, setze den WordPress Cron auf \"0\"."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:18
 msgid ""
@@ -361,6 +376,11 @@ msgid ""
 "\t\t\t\tTherefore you should not need to run the cron any less than 10 "
 "minutes (600 seconds)."
 msgstr ""
+"Mit Version 1.1 wurde ein sekundärer Cron eingeführt. Dies erlaubt dem "
+"primären Importskript weniger häufig abzulaufen und trotzdem für neue "
+"Benutzer und Feeds Daten innerhalb von 20 Sek. zu importieren.\n"
+"\t\t\t\tDarum gibt es keine Notwendigkeit, den Cron häufiger als alle 10 "
+"Min. (600 Sek.) ablaufen zu lassen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:20
 msgid ""
@@ -368,44 +388,49 @@ msgid ""
 "This can be used to test whether content is being imported and does not "
 "affect the WordPress cron."
 msgstr ""
+"Seit Version 1.1 kann ein Cron durch Mausklick ausgelöst werden. Dies kann "
+"benutzt werden, um den Import zu testen und hat keinen Einfluss auf den "
+"WordPress Cron."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:21
 msgid ""
 "As of version 1.2, the content verification has been moved from the general "
 "settings, and has been added to each extension."
 msgstr ""
+"Seit Version 1.2 befindet sich die Einstellung für die Verifikation bei den "
+"Extensions und nicht mehr in den Grundeinstellungen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:23
 msgid "WordPress Cron time (in seconds):"
-msgstr ""
+msgstr "WordPress Cron Zeit (in Sekunden):"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:26
 msgid "Traditional Cron:"
-msgstr ""
+msgstr "Traditioneller Cron:"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:29
 msgid "Force Main Cron:"
-msgstr ""
+msgstr "Primären Cron auslösen:"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:30
 msgid "Main Import"
-msgstr ""
+msgstr "Primärer Importdienst"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:30
 msgid "(all users, all feeds)"
-msgstr ""
+msgstr "(alle Benutzer, alle Feeds)"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:31
 msgid "Force Secondary Cron:"
-msgstr ""
+msgstr "Sekundären Cron auslösen:"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:32
 msgid "Secondary Import"
-msgstr ""
+msgstr "Sekundärer Import"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:32
 msgid "(new users/new feeds)"
-msgstr ""
+msgstr "(neue Benutzer/neue Feeds)"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:36
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:70
@@ -423,13 +448,15 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:74
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/user-settings.php:42
 msgid "Save Changes"
-msgstr ""
+msgstr "Änderungen speichern"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:7
 msgid ""
 "Welcome to the Bebop plugin for BuddyPress. Developed by <a href=\"http://"
 "www.lncd.lincoln.ac.uk\">LNCD @ the University of Lincoln</a>."
 msgstr ""
+"Willkommen beim Bebop Plugin für BuddyPress. Entwickelt durch <a href="
+"\"http://www.lncd.lincoln.ac.uk\">LNCD @ the University of Lincoln</a>."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:8
 msgid ""
@@ -437,16 +464,22 @@ msgid ""
 "Educational Resources into BuddyPress Profiles. This plugin aids the "
 "discovery of OERs in the BuddyPress environment."
 msgstr ""
+"Bebop wurde entworfen für akademische Institutionen, welche Open Educational "
+"Resources in BuddyPress Profilen einbinden wollen. Dieses Plugin unterstützt "
+"das Auffinden von OERs in einer BuddyPress-Umgebung."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:9
 msgid ""
 "As requested by several users, we have also made the terminology more "
 "suitable to those who are using Bebop as a social media aggregator."
 msgstr ""
+"Wie von verschiedenen Benutzern vorgeschlagen, haben wir die Terminologie "
+"angepasst an die Bedürfnisse jener, die BuddyPress als Social Media "
+"Aggregator einsetzen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:15
 msgid "Latest News"
-msgstr ""
+msgstr "Neuigkeiten"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:17
 msgid ""
@@ -454,6 +487,9 @@ msgid ""
 "pagination, and many security updates. See the README.txt for a full list of "
 "changes."
 msgstr ""
+"Version 1.2 of Bebop has landed. Begrüsse die neue Facebook Extension, die "
+"Paginierung und viele Sicherheits-Updates. Beachte die Auflistung in der "
+"README.txt Datei."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:18
 msgid ""
@@ -461,6 +497,9 @@ msgid ""
 "related to the wordpress cron time, and some redirection issues. See the "
 "README.txt file for a full list of updates."
 msgstr ""
+"Version 1.1.1 von Bebop wurde veröffentlicht. Diese Version fixt Fehler im "
+"Zusammenhang mit dem WordPress Cron und dem Redirect-Verhalten. Beachte die "
+"Auflistung in der README.txt Datei."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:19
 msgid ""
@@ -468,6 +507,9 @@ msgid ""
 "implemented, bugs have been fixed, and issues resolved. For more details, "
 "please see the changelog in README.txt."
 msgstr ""
+"Version 1.1 von Bebop wurde veröffentlicht. Viele erwünschte Funktionen "
+"wurden implementiert, Fehler ausgemerzt und die Stabilität verbessert. "
+"Details findest du im Changelog von README.txt."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:20
 msgid ""
@@ -475,10 +517,13 @@ msgid ""
 "users to import content from around the web, into their BuddyPress activity "
 "stream."
 msgstr ""
+"Version 1.0 von Bebop wurde veröffentlicht. Dieses BuddyPress Plugin erlaubt "
+"Benutzern, Inhalte aus dem Web in ihren Aktivitätsverlauf von BuddyPress zu "
+"importieren."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:25
 msgid "Support"
-msgstr ""
+msgstr "Support"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:27
 msgid ""
@@ -486,10 +531,13 @@ msgid ""
 "help people sing this plugin. For support, please see our <a target=\"_blank"
 "\" href=\"https://github.com/lncd/bebop/wiki\">Github Wiki</a>."
 msgstr ""
+"Obwohl wir keinen offiziellen Support garantieren können, tun wir unser "
+"Bestes, um dich zu unterstützen. Beachte für Support unser <a target=\"_blank"
+"\" href=\"https://github.com/lncd/bebop/wiki\">Github Wiki</a>."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:35
 msgid "Recently Verified Content"
-msgstr ""
+msgstr "Aktuell verifizierter Inhalt"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:43
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:52
@@ -513,32 +561,32 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:98
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/user-settings.php:55
 msgid "Username"
-msgstr ""
+msgstr "Benutzername"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:44
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:53
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:65
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:27
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:45
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:54
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:66
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:28
 msgid "Imported"
-msgstr ""
+msgstr "Importiert"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:46
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:55
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:67
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:29
 msgid "Published"
-msgstr ""
+msgstr "Veröffentlicht"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:62
 msgid "No verified content exist in the content manager."
-msgstr ""
+msgstr "Es existiert kein verifizierter Inhalt im Content Manager."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:15
 msgid ""
@@ -548,39 +596,44 @@ msgid ""
 "\t\t\t\tchange any configuration settings the extension might require, such "
 "as API keys and import limits."
 msgstr ""
+"Hier kannst du die Bebop Extensions verwalten. Klicke auf die \"Aktiv\" "
+"Checkbox, um eine Extension verfügbar zu machen und dann auf \"Änderungen "
+"speichern\". Der \"Admin-Einstellungen\" Link \n"
+"\t\t\t\tführt zu den Konfigurationseinstellungen der Extension, wie zum "
+"Beispiel API-Keys und Importlimiten."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:24
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:35
 msgid "Extension Name"
-msgstr ""
+msgstr "Extension-Name"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:25
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:36
 msgid "Active Users"
-msgstr ""
+msgstr "Aktive Benutzer"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:26
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:37
 msgid "Inactive Users"
-msgstr ""
+msgstr "Inaktive Benutzer"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:27
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:38
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:31
 msgid "Unverified Content"
-msgstr ""
+msgstr "Unverifizierter Inhalt"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:28
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:39
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:32
 msgid "Verified Content"
-msgstr ""
+msgstr "Verifizierter Inhalt"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:29
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:40
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:33
 msgid "Deleted Content"
-msgstr ""
+msgstr "Gelöschter Inhalt"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:30
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:41
@@ -604,56 +657,58 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:101
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/user-settings.php:56
 msgid "Options"
-msgstr ""
+msgstr "Optionen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:56
 msgid "Enabled:"
-msgstr ""
+msgstr "Aktiviert:"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:9
 msgid "Lists all Bebop content in the database by type."
-msgstr ""
+msgstr "Auflistung aller Bebop Inhalte in der Datenbank nach Typ."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:16
 msgid "This content has not been verified by your users."
-msgstr ""
+msgstr "Dieser Inhalt wurde durch deine Benutzer nicht verifiziert."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:20
 msgid ""
 "This content has been verified and is actively displayed in your users "
 "activity streams."
 msgstr ""
+"Dieser Inhalt wurde verifiziert und wird aktuell in den Aktivitätsverläufen "
+"angezeigt."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:24
 msgid "This content has been deleted by your users."
-msgstr ""
+msgstr "Dieser Inhalt wurde durch deine Benutzer gelöscht."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:29
 msgid "This content has been verified by your users."
-msgstr ""
+msgstr "Dieser Inhalt wurde durch deine Benutzer verifiziert."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:49
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:61
 msgid "Buffer ID"
-msgstr ""
+msgstr "Buffer ID"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:50
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:62
 msgid "Secondary ID"
-msgstr ""
+msgstr "Sekundäre ID"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:51
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:63
 msgid "Activity Stream ID"
-msgstr ""
+msgstr "Aktivitätsverlaufs-ID"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:93
 msgid "No content was found in the content manager."
-msgstr ""
+msgstr "Im Content Manager wurde kein Inhalt gefunden."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:6
 msgid "Bebop Errors"
-msgstr ""
+msgstr "Bebop Fehler"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:8
 msgid ""
@@ -661,71 +716,78 @@ msgid ""
 "issue ticket on our <a target=\"_blank\" href=\"https://github.com/lncd/"
 "bebop/issues\">Github Issue Tracker</a>."
 msgstr ""
+"Zeichnet alle Fehler auf, welche das Plugin generiert. Bitte rapportiere "
+"diese mittels einem Ticket in unserem <a target=\"_blank\" href=\"https://"
+"github.com/lncd/bebop/issues\">Github Issue Tracker</a>."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:16
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:16
 msgid "Flush table data"
-msgstr ""
+msgstr "Datenbanktabelle leeren"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:29
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:37
 msgid "Error ID"
-msgstr ""
+msgstr "Fehler-ID"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:30
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:38
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:30
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:38
 msgid "Timestamp"
-msgstr ""
+msgstr "Zeitstempel"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:31
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:39
 msgid "Error Type"
-msgstr ""
+msgstr "Fehlertyp"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:32
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:40
 msgid "Error Message"
-msgstr ""
+msgstr "Fehlermeldung"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-error-log.php:60
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:60
 msgid "No data for this page was found."
-msgstr ""
+msgstr "Keine Daten gefunden für diese Seite."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:6
 msgid "Bebop Log"
-msgstr ""
+msgstr "Bebop Log"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:8
 msgid "When stuff happens, it is logged here."
-msgstr ""
+msgstr "Falls etwas passiert, wird es hier vermerkt."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:29
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:37
 msgid "Log ID"
-msgstr ""
+msgstr "Log ID"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:31
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:39
 msgid "Log Type"
-msgstr ""
+msgstr "Log-Typ"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:32
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-general-log.php:40
 msgid "Log Message"
-msgstr ""
+msgstr "Log-Meldung"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/bebop-user-settings.php:18
 msgid "Could not locate this extensions user settings template."
 msgstr ""
+"Konnte das Template für die Benutzereinstellung der Extension nicht "
+"lokalisieren."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/bebop-user-settings.php:25
 msgid ""
 "No extensions are currently active. Please activate them in the bebop "
 "content providers admin panel."
 msgstr ""
+"Zur Zeit sind keine Extensions aktiv. Bitte aktiviere diese im Bebop "
+"Inhaltsprovider Admin Panel."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/bebop-user-settings.php:30
 msgid ""
@@ -734,12 +796,18 @@ msgid ""
 "others. This content is then added to your activity stream, once you have "
 "verified it in the content manager."
 msgstr ""
+"Bebop erlaubt dir, Inhalte externer Benutzerkonti deinem Profil anzufügen. "
+"Das heisst, du kannst Inhalte von Sites wie YouTube, Vimeo, Flickr und "
+"anderen zeigen. Diese Inhalte werden deinem Aktivitätsverlauf angefügt, "
+"sobald du sie im Inhalts-Manager verifiziert hast."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/bebop-user-settings.php:33
 msgid ""
 "To add an account, click on the relevant button below. You will then be "
 "guided through the setup process."
 msgstr ""
+"Klicke unten auf den entsprechenden Provider, um ein neues Konto anzufügen. "
+"Du wirst dann durch den Setup-Prozess geführt."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:1
 msgid ""
@@ -748,56 +816,60 @@ msgid ""
 "verified. The deleted category holds items which you do not want to show in "
 "your activity stream."
 msgstr ""
+"Hier kannst du deine Inhalte verwalten. Aktuell importierte Inhalte werden "
+"als unverifiziert, Inhalte die in deinem Aktivitätsverlauf erscheinen als "
+"verifiziert kategorisiert. Die Kategorie der entfernten Inhalte enthält, was "
+"du nicht im Aktivitätsverlauf zeigen willst."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:3
 msgid "Unverified"
-msgstr ""
+msgstr "Unverifiziert"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:4
 msgid "Verified"
-msgstr ""
+msgstr "Verifiziert"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:5
 msgid "Deleted"
-msgstr ""
+msgstr "Gelöscht"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:21
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:44
 msgid "Select All"
-msgstr ""
+msgstr "Alles auswählen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:22
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:45
 msgid "Select None"
-msgstr ""
+msgstr "Nichts auswählen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:31
 msgid "Select"
-msgstr ""
+msgstr "Wählen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:47
 msgid "Action"
-msgstr ""
+msgstr "Aktion"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:48
 msgid "Verify"
-msgstr ""
+msgstr "Verifizieren"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:49
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:50
 msgid "Undelete"
-msgstr ""
+msgstr "Wiederherstellen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:67
 msgid "Unfortunately, we could not find any content for you to manage."
-msgstr ""
+msgstr "Leider konnten wir keine Inhalte finden, die du verwalten kannst."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/config.php:16
 msgid "Facebook post"
-msgstr ""
+msgstr "Facebook Post"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/import.php:79
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/import.php:149
@@ -806,7 +878,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/import.php:170
 #, php-format
 msgid "Importer - %1$s"
-msgstr ""
+msgstr "Importdienst - %1$s"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/import.php:79
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/slideshare/import.php:162
@@ -814,7 +886,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/import.php:170
 #, php-format
 msgid "Feed Error: %1$s"
-msgstr ""
+msgstr "Feed-Fehler: %1$s"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:22
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/user-settings.php:25
@@ -832,7 +904,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/user-settings.php:24
 #, php-format
 msgid "%1$s Settings"
-msgstr ""
+msgstr "%1$s Einstellungen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:24
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/templates/admin-settings.php:25
@@ -842,7 +914,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:24
 #, php-format
 msgid "Settings for the %1$s extension."
-msgstr ""
+msgstr "Einstellungen für die %1$s Extension."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:25
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:25
@@ -857,6 +929,10 @@ msgid ""
 "\"API secrets\" may be required for API based sources, but not for RSS based "
 "sources."
 msgstr ""
+"Um Inhalte von bestimmten Providern zu zeigen, müssen die Import-"
+"Einstellungen für die Extensions korrekt vorgenommen werden. Zum Beispiel "
+"\"API Tokens\" und \"API Secrets\" können notwendig sein für API-basierende, "
+"nicht aber für RSS-basierende Quellen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:26
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:26
@@ -872,6 +948,12 @@ msgid ""
 "settings below. Please note\n"
 "\t\t\t\tthat RSS feeds will only be available when the extension is active."
 msgstr ""
+"Gemäss Vorgabe sind RSS Feeds für alle Extensions in Bebop verfügbar und "
+"werden automatisch generiert, wenn eine Extension aktiviert wird. Du kannst "
+"den RSS Feed ausschalten, indem du einfach die \"aktiviert\" Option in den "
+"RSS-Einstellungen unten entfernst. Bitte beachte,\n"
+"\t\t\t\tdass RSS Feeds nur dann verfügbar sind, wenn eine Extension aktiv "
+"ist."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:28
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:28
@@ -885,6 +967,9 @@ msgid ""
 "each extension. This will allow you more control over how content is "
 "imported into your BuddyPress activity streams."
 msgstr ""
+"Ab Version 1.2 kannst du für jede Extension separat wählen, ob Inhalte "
+"verifiziert werden sollen. Dies gibt dir mehr Kontrolle darüber, welche "
+"Inhalte in deinem BuddyPress Aktivitätsverlauf erscheinen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:29
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:29
@@ -898,6 +983,9 @@ msgid ""
 "extension on the sitewide activity steam. All content is still visible in "
 "members activity streams, and in the resources stream."
 msgstr ""
+"Ab Version 1.2 kannst du für die Extension wählen, ob Inhalte im globalen "
+"Aktivitätsverlauf erscheinen sollen oder nicht. Sämtlicher Inhalt erscheint "
+"trotzdem in der Mitglieder-Aktivität und im Resourcen-Verlauf."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:34
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:34
@@ -908,7 +996,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:34
 #, php-format
 msgid "%1$s Import Settings"
-msgstr ""
+msgstr "%1$s Import-Einstellungen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:35
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:35
@@ -916,7 +1004,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/twitter/templates/admin-settings.php:36
 #, php-format
 msgid "%1$s API Token"
-msgstr ""
+msgstr "%1$s API Token"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:42
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:39
@@ -926,7 +1014,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/vimeo/templates/admin-settings.php:37
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:37
 msgid "Should imported content be user verified?"
-msgstr ""
+msgstr "Soll importierter Inhalt durch den Benutzer verifiziert werden?"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:44
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:53
@@ -950,7 +1038,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:48
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/user-settings.php:33
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:45
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:52
@@ -974,7 +1062,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:47
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/user-settings.php:37
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:50
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:47
@@ -984,7 +1072,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/vimeo/templates/admin-settings.php:45
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:45
 msgid "Hide content on the sitewide activity stream?"
-msgstr ""
+msgstr "Inhalt im globalen Aktivitätsverlauf verbergen?"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:57
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:54
@@ -994,7 +1082,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/vimeo/templates/admin-settings.php:52
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:52
 msgid "Imports per day (blank = unlimited)"
-msgstr ""
+msgstr "Importe pro Tag (leer = unlimitiert)"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:62
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:59
@@ -1005,7 +1093,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:57
 #, php-format
 msgid "%1$s RSS Settings"
-msgstr ""
+msgstr "%1$s RSS Einstellungen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:65
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:62
@@ -1015,7 +1103,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/vimeo/templates/admin-settings.php:60
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:60
 msgid "RSS Enabled"
-msgstr ""
+msgstr "RSS aktiviert"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:72
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:69
@@ -1027,6 +1115,8 @@ msgstr ""
 #, php-format
 msgid "RSS feeds cannot be enabled because %1$s is not an active extension."
 msgstr ""
+"RSS Feeds können nicht aktiviert werden, weil %1$s keine aktive Extension "
+"ist."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:89
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:88
@@ -1037,7 +1127,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:84
 #, php-format
 msgid "%1$s Users"
-msgstr ""
+msgstr "%1$s Benutzer"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:92
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:102
@@ -1054,7 +1144,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:87
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:97
 msgid "User ID"
-msgstr ""
+msgstr "Benutzer ID"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:94
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:104
@@ -1071,7 +1161,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:89
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:99
 msgid "User email"
-msgstr ""
+msgstr "Benutzer E-Mail"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:95
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:105
@@ -1087,7 +1177,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:100
 #, php-format
 msgid "%1$s name(s)"
-msgstr ""
+msgstr "%1$s Name(n)"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:122
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:127
@@ -1097,7 +1187,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/vimeo/templates/admin-settings.php:123
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:123
 msgid "Reset User"
-msgstr ""
+msgstr "Benutzer resetieren"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:132
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:137
@@ -1108,7 +1198,7 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/admin-settings.php:133
 #, php-format
 msgid "No users found for the %1$s extension."
-msgstr ""
+msgstr "Keine Benutzer gefunden für die %1$s Extension."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/user-settings.php:26
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/user-settings.php:25
@@ -1122,6 +1212,8 @@ msgid ""
 "Generic settings for %1$s. Here you can select whether content is actively "
 "imported into WordPress."
 msgstr ""
+"Grundeinstellung für %1$s. Hier kannst du wählen, ob Inhalte aktiv in "
+"WordPress importiert werden sollen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/user-settings.php:29
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/user-settings.php:28
@@ -1132,24 +1224,24 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/user-settings.php:29
 #, php-format
 msgid "Enable %1$s import"
-msgstr ""
+msgstr "%1$s Import aktivieren"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/user-settings.php:45
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/twitter/templates/user-settings.php:45
 msgid " Remove Authorisation"
-msgstr ""
+msgstr "Authorisierung entfernen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/user-settings.php:51
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/twitter/templates/user-settings.php:51
 #, php-format
 msgid "%1$s Setup"
-msgstr ""
+msgstr "%1$s Setup"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/user-settings.php:52
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/twitter/templates/user-settings.php:52
 #, php-format
 msgid "You can setup %1$s integration here."
-msgstr ""
+msgstr "Du kannst die %1$s Integration hier vornehmen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/user-settings.php:53
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/twitter/templates/user-settings.php:53
@@ -1158,11 +1250,13 @@ msgid ""
 "Before you can begin using %1$s with this site you must authorise on %1$s by "
 "clicking the link below."
 msgstr ""
+"Bevor du beginnen kannst, %1$s mit dieser Site zu benutzen, musst du dich "
+"auf %1$s mittels untenstehendem Link authorisieren."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/user-settings.php:69
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/twitter/templates/user-settings.php:76
 msgid " Start Authorisation"
-msgstr ""
+msgstr "Authorisierung starten"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/user-settings.php:83
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/user-settings.php:68
@@ -1176,25 +1270,27 @@ msgid ""
 "%1$s has not yet been configured. Please contact the blog admin to make sure "
 "%1$s is configured properly."
 msgstr ""
+"%1$s wurde noch nicht konfiguriert. Bitte kontaktiere den Admin um "
+"sicherzustellen, dass %1$s richtig konfiguriert ist."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/config.php:12
 msgid "Flickr photo"
-msgstr ""
+msgstr "Flickr Photo"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/admin-settings.php:24
 #, php-format
 msgid "Settings for the %1$s extension"
-msgstr ""
+msgstr "Einstellungen für die %1$s Extension"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/user-settings.php:38
 #, php-format
 msgid "New %1$s Username"
-msgstr ""
+msgstr "Neuer %1$s Benutzername"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/user-settings.php:51
 #, php-format
 msgid "Your %1$s Usernames"
-msgstr ""
+msgstr "Deine %1$s Benutzernamen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/user-settings.php:52
 #, php-format
@@ -1202,6 +1298,8 @@ msgid ""
 "These are usernames that are set to be imported for %1$s. To remove a feed, "
 "click the \"Delete Feed\" link."
 msgstr ""
+"Für diese Benutzernamen wird von %1$s importiert. Klicke auf den \"Feed "
+"löschen\" Link, um einen Feed zu entfernen."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/flickr/templates/user-settings.php:61
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/templates/user-settings.php:66
@@ -1209,65 +1307,65 @@ msgstr ""
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/vimeo/templates/user-settings.php:60
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/user-settings.php:61
 msgid "Delete Feed"
-msgstr ""
+msgstr "Feed löschen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/config.php:13
 msgid "RSS link"
-msgstr ""
+msgstr "RSS Link"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/import.php:149
 #, php-format
 msgid "RSS Error: %1$s"
-msgstr ""
+msgstr "RSS Fehler: %1$s"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/templates/user-settings.php:39
 msgid "New Feed Name"
-msgstr ""
+msgstr "Neuer Feed Name"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/templates/user-settings.php:42
 msgid "New Feed URL"
-msgstr ""
+msgstr "Neue Feed URL"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/templates/user-settings.php:54
 #, php-format
 msgid "Your %1$s feeds"
-msgstr ""
+msgstr "Deine %1$s Feeds"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/templates/user-settings.php:57
 msgid "Feed Name"
-msgstr ""
+msgstr "Feed-Name"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/rss/templates/user-settings.php:58
 msgid "Feed URL"
-msgstr ""
+msgstr "Feed URL"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/slideshare/config.php:12
 msgid "SlideShare slideshow"
-msgstr ""
+msgstr "SlideShare Slideshow"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/slideshare/templates/admin-settings.php:39
 #, php-format
 msgid "%1$s API Secret"
-msgstr ""
+msgstr "%1$s API Secret"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/slideshare/templates/user-settings.php:39
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/vimeo/templates/user-settings.php:38
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/templates/user-settings.php:39
 msgid "New Username"
-msgstr ""
+msgstr "Neuer Benutzername"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/twitter/config.php:15
 msgid "Tweet"
-msgstr ""
+msgstr "Tweet"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/twitter/templates/user-settings.php:80
 msgid "authentication is all broken :("
-msgstr ""
+msgstr "Authorisierung ist fehlgeschlagen :("
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/vimeo/config.php:12
 msgid "Vimeo video"
-msgstr ""
+msgstr "Vimeo Video"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/youtube/config.php:14
 msgid "YouTube video"
-msgstr ""
+msgstr "YouTube Video"
