@@ -102,7 +102,7 @@ function bebop_admin_menu() {
 	add_submenu_page( 'bebop_admin', __( 'Content Providers' ), __( 'Content Providers' ), 'manage_options', 'bebop_providers', 'bebop_admin_pages' );
 	add_submenu_page( 'bebop_admin', __( 'Content' ), __( 'Content' ), 'manage_options', 'bebop_content', 'bebop_admin_pages' );
 	add_submenu_page( 'bebop_admin', __( 'Error Log' ), __( 'Error Log' ), 'manage_options', 'bebop_error_log', 'bebop_admin_pages' );
-	add_submenu_page( 'bebop_admin', __( 'General Log' ), __( 'General Log' ),  'manage_options', 'bebop_general_log', 'bebop_admin_pages' );
+	add_submenu_page( 'bebop_admin', __( 'General Log' ), __( 'General Log' ), 'manage_options', 'bebop_general_log', 'bebop_admin_pages' );
 	
 }
 
