@@ -44,6 +44,10 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 == Changelog ==
 
+v1.2.1 - 08.11.2012 - Minor Release
+
+This update addresses an issue which accidentally allowed hidden content from groups to be displayed on the activity stream. 
+
 v1.2 - 02.11.2012 - Major Release
 
 This is a Major release, providing a new Facebook extension, and adding pagination where required. This release also fixes bugs with RSS feeds, user removal, and corrects many spelling mistakes. Enjoy!
