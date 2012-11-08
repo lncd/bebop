@@ -631,7 +631,6 @@ function bebop_dropdown_query_checker( $query_string ) {
 			$_SESSION['bebop_area'] = 'not_bebop_oer_plugin';
 		}
 	}
-	var_dump($query_string);
 	return $new_query_string;
 }
 
