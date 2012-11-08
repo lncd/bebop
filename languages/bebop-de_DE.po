@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bebop\n"
-"POT-Creation-Date: 2012-11-08 14:58-0000\n"
-"PO-Revision-Date: 2012-11-08 14:59-0000\n"
+"POT-Creation-Date: 2012-11-08 15:11-0000\n"
+"PO-Revision-Date: 2012-11-08 15:12-0000\n"
 "Last-Translator: HansRuedi Keller <keller@fusion.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -491,9 +491,11 @@ msgstr "Neuigkeiten"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:17
 msgid ""
-"Version 1.2.1 is a minor release which fixes a bug which inadvertantly made "
+"Version 1.2.1 is a minor release which fixes a bug which inadvertently made "
 "all content visible in the sitewide activity steam."
 msgstr ""
+"Version 1.2.1 fixt einen kleinen Bug, welcher unbeabsichtigt sämtliche "
+"Inhalte im globalen Aktivitätsverlauf sichtbar machte."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:18
 msgid ""
