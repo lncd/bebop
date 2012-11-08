@@ -565,10 +565,8 @@ function bebop_dropdown_query_checker( $query_string ) {
 		if ( empty( $new_query_string ) ) {
 			$new_query_string = 'type=thisisadelightfulplugin&action=soitisitsamazing';
 		}
-		else {
-		}
 		//Sets the page number for the bebop page.
-		$new_query_string .= '&per_page=10';
+		$new_query_string .= '&per_page=10&show_hidden=true';
 		
 		//sets the reset session variable to allow for resetting activty stream if they have come from the oer page.
 		if ( isset( $_SESSION['bebop_area'] ) ) {
@@ -633,8 +631,7 @@ function bebop_dropdown_query_checker( $query_string ) {
 			$_SESSION['bebop_area'] = 'not_bebop_oer_plugin';
 		}
 	}
-	//Returns the query string.
-	$new_query_string .= '&show_hidden=true';
+	var_dump($query_string);
 	return $new_query_string;
 }
 
