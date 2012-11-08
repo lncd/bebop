@@ -14,6 +14,7 @@
 		<div id="normal-sortables" class="meta-box-sortables ui-sortable"><div class='postbox'>
 			<h3><?php _e( 'Latest News' ); ?></h3>
 			<div class='inside'>
+				<p><?php _e( 'Version 1.2.1 is a minor release which fixes a bug which inadvertantly made all content visible in the sitewide activity steam.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.2 of Bebop has landed. Say hello to the new Facebook extension, pagination, and many security updates. See the README.txt for a full list of changes.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.1.1 of Bebop has been released. This minor release fixes some bugs related to the wordpress cron time, and some redirection issues. See the README.txt file for a full list of updates.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.1 of Bebop has been released. Many requested features have been implemented, bugs have been fixed, and issues resolved. For more details, please see the changelog in README.txt.', 'bebop' ); ?></p>

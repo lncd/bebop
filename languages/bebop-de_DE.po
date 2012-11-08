@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bebop\n"
-"POT-Creation-Date: 2012-11-07 13:12-0000\n"
-"PO-Revision-Date: 2012-11-07 13:13-0000\n"
+"POT-Creation-Date: 2012-11-08 14:58-0000\n"
+"PO-Revision-Date: 2012-11-08 14:59-0000\n"
 "Last-Translator: HansRuedi Keller <keller@fusion.ch>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -256,8 +256,9 @@ msgid "Resources"
 msgstr "Resourcen"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:36
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:103
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:16
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:47
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:48
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:7
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:41
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:56
@@ -284,6 +285,32 @@ msgstr "Bebop Admin"
 msgid "Bebop"
 msgstr "Bebop"
 
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:100
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:4
+msgid "Admin Home"
+msgstr "Admin Home"
+
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:101
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:8
+msgid "General Settings"
+msgstr "Grundeinstellungen"
+
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:102
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:12
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:13
+msgid "Content Providers"
+msgstr "Content Provider"
+
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:104
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:20
+msgid "Error Log"
+msgstr "Fehler-Log"
+
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-pages.php:105
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:24
+msgid "General Log"
+msgstr "Log allgemein"
+
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:11
 msgid "Table Truncate error"
 msgstr "Fehler beim Kürzen der Tabelle"
@@ -307,27 +334,6 @@ msgstr "Option: %1$s existiert bereits."
 #, php-format
 msgid "option: %1$s does not exist."
 msgstr "Option: %1$s existiert nicht."
-
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:4
-msgid "Admin Home"
-msgstr "Admin Home"
-
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:8
-msgid "General Settings"
-msgstr "Grundeinstellungen"
-
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:12
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content-providers.php:13
-msgid "Content Providers"
-msgstr "Content Provider"
-
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:20
-msgid "Error Log"
-msgstr "Fehler-Log"
-
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-menu.php:24
-msgid "General Log"
-msgstr "Log allgemein"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:5
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin-settings.php:12
@@ -452,11 +458,13 @@ msgstr "Änderungen speichern"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:7
 msgid ""
-"Welcome to the Bebop plugin for BuddyPress. Developed by <a href=\"http://"
-"www.lncd.lincoln.ac.uk\">LNCD @ the University of Lincoln</a>."
+"Welcome to the Bebop plugin for BuddyPress. Developed by <a target=\"_blank"
+"\" href=\"http://www.lncd.lincoln.ac.uk\">LNCD @ the University of Lincoln</"
+"a>."
 msgstr ""
-"Willkommen beim Bebop Plugin für BuddyPress. Entwickelt durch <a href="
-"\"http://www.lncd.lincoln.ac.uk\">LNCD @ the University of Lincoln</a>."
+"Willkommen beim Bebop Plugin für BuddyPress. Entwickelt durch <a target="
+"\"_blank\" href=\"http://www.lncd.lincoln.ac.uk\">LNCD @ the University of "
+"Lincoln</a>."
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:8
 msgid ""
@@ -483,6 +491,12 @@ msgstr "Neuigkeiten"
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:17
 msgid ""
+"Version 1.2.1 is a minor release which fixes a bug which inadvertantly made "
+"all content visible in the sitewide activity steam."
+msgstr ""
+
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:18
+msgid ""
 "Version 1.2 of Bebop has landed. Say hello to the new Facebook extension, "
 "pagination, and many security updates. See the README.txt for a full list of "
 "changes."
@@ -491,7 +505,7 @@ msgstr ""
 "Paginierung und viele Sicherheits-Updates. Beachte die Auflistung in der "
 "README.txt Datei."
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:18
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:19
 msgid ""
 "Version 1.1.1 of Bebop has been released. This minor release fixes some bugs "
 "related to the wordpress cron time, and some redirection issues. See the "
@@ -501,7 +515,7 @@ msgstr ""
 "Zusammenhang mit dem WordPress Cron und dem Redirect-Verhalten. Beachte die "
 "Auflistung in der README.txt Datei."
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:19
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:20
 msgid ""
 "Version 1.1 of Bebop has been released. Many requested features have been "
 "implemented, bugs have been fixed, and issues resolved. For more details, "
@@ -511,7 +525,7 @@ msgstr ""
 "wurden implementiert, Fehler ausgemerzt und die Stabilität verbessert. "
 "Details findest du im Changelog von README.txt."
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:20
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:21
 msgid ""
 "Version 1.0 of Bebop has now been released. This BuddyPress plugin allows "
 "users to import content from around the web, into their BuddyPress activity "
@@ -521,11 +535,11 @@ msgstr ""
 "Benutzern, Inhalte aus dem Web in ihren Aktivitätsverlauf von BuddyPress zu "
 "importieren."
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:25
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:26
 msgid "Support"
 msgstr "Support"
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:27
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:28
 msgid ""
 "While we cannot guarantee official support, we will always do what we can to "
 "help people sing this plugin. For support, please see our <a target=\"_blank"
@@ -535,11 +549,11 @@ msgstr ""
 "Bestes, um dich zu unterstützen. Beachte für Support unser <a target=\"_blank"
 "\" href=\"https://github.com/lncd/bebop/wiki\">Github Wiki</a>."
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:35
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:36
 msgid "Recently Verified Content"
 msgstr "Aktuell verifizierter Inhalt"
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:43
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:44
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:52
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:64
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/extensions/facebook/templates/admin-settings.php:93
@@ -563,28 +577,28 @@ msgstr "Aktuell verifizierter Inhalt"
 msgid "Username"
 msgstr "Benutzername"
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:44
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:45
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:53
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:65
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:27
 msgid "Type"
 msgstr "Typ"
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:45
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:46
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:54
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:66
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:28
 msgid "Imported"
 msgstr "Importiert"
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:46
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:47
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:55
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-content.php:67
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/user/oer-manager.php:29
 msgid "Published"
 msgstr "Veröffentlicht"
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:62
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:63
 msgid "No verified content exist in the content manager."
 msgstr "Es existiert kein verifizierter Inhalt im Content Manager."
 
