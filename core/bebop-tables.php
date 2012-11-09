@@ -8,7 +8,7 @@ class bebop_tables {
 		global $wpdb;
 		
 		if ( $wpdb->get_results( 'TRUNCATE TABLE ' . bp_core_get_table_prefix() . $table_name ) ) {
-			bebop_tables::log_error( __( 'Table Truncate error', 'bebop' ), sprintf( __( 'Could not empty the %1$s table.', 'bebop'), $table_name ) );
+			bebop_tables::log_error( __( 'Table Truncate error', 'bebop' ), sprintf( __( 'Could not empty the %1$s table.', 'bebop' ), $table_name ) );
 			return false;
 		}
 		else {
