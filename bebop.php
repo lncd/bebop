@@ -6,8 +6,8 @@ Plugin URI: http://bebop.blogs.lincoln.ac.uk/
 Description: Bebop is the name of a rapid innovation project funded by the Joint Information Systems Committee (JISC) and developed by the University of Lincoln. The project involved the utilisation of OER's from 3rd party providers such as YouTube, Vimeo, SlideShare and Flickr.
 Version: 1.2.1
 Text Domain: bebop
-Authors: Dale Mckeown, David Whitehead
-Author URI: http://phone.online.lincoln.ac.uk/dmckeown, http://phone.online.lincoln.ac.uk/dwhitehead
+Author: Dale Mckeown
+Author URI: http://www.dalemckeown.co.uk
 License: GNU General Public Licence - https://www.gnu.org/copyleft/gpl.html
 Copyright 2012 The University of Lincoln - http://www.lincoln.ac.uk.
 Credits: BuddySteam - buddystream.net
