@@ -246,9 +246,6 @@ function bebop_manage_provider() {
 						bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 					}
 				}
-				else {
-					echo 'You are a victim of CSRF';
-				}
 			}
 			
 			
@@ -302,13 +299,13 @@ function bebop_get_oer_type() {
 	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('manager' ) ) {
 		if ( isset( $_GET['type'] ) ) {
 			if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
-				return 'unverified';
+				return  __( 'unverified', 'bebop' );
 			}
 			else if ( strtolower( strip_tags( $_GET['type'] == 'verified' ) ) ) {
-				return 'verified';
+				return __( 'verified', 'bebop' );
 			}
 			else if ( strtolower( strip_tags( $_GET['type'] == 'deleted' ) ) ) {
-				return 'deleted';
+				return __( 'deleted', 'bebop' );
 			}
 		}
 	}
@@ -467,7 +464,7 @@ function bebop_create_buffer_item( $params ) {
 			}
 		}
 		else {
-			bebop_tables::log_error( sprintf(__( 'Import Error - %1$s', 'bebop' ), $params['extension'] ), sprintf( __( '%1$s already exists', 'bebop'), $params['item_id'] ) );
+			bebop_tables::log_error( sprintf(__( 'Import Error - %1$s', 'bebop' ), $params['extension'] ), sprintf( __( '%1$s already exists', 'bebop' ), $params['item_id'] ) );
 			return false;
 		}
 	}
