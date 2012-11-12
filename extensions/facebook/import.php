@@ -108,7 +108,15 @@ function bebop_facebook_import( $extension, $user_metas = null ) {
 									$id					= $item->id;
 									$item_content		= $item->message;
 									$item_published		= gmdate( 'Y-m-d H:i:s', strtotime( $item->created_time ) );
-									$action_link 		= $item->actions[0]->link;
+									echo '<pre>';
+									var_dump($item);
+									echo '</pre>';
+									if ( isset( $item->actions[0]->link ) ) {
+										$action_link = $item->actions[0]->link;
+									}
+									else if ( isset( $item->link ) ) {
+										$action_link = $item->link;
+									}
 									//Stop editing - you should be all done.
 									
 									
