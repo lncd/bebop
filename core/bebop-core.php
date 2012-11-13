@@ -230,20 +230,19 @@ function bebop_manage_provider() {
 					$extendedAccessTokenUrl = str_replace( 'APP_SECRET', $app_secret, $extendedAccessTokenUrl );
 					$extendedAccessTokenUrl = str_replace( 'SHORT_TOKEN', $params['access_token'], $extendedAccessTokenUrl );
 					
-					$response = file_get_contents( $accessTokenUrl );
-					parse_str( $response, $params );
+					$response2 = file_get_contents( $extendedAccessTokenUrl );
+					parse_str( $response2, $params2 );
 					
-					//save the extnded access token
+					//save the extended access token
 					if ( isset( $params['access_token'] ) ) {
 						
-						bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token', $params['access_token'] );
+						bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_oauth_token', $params2['access_token'] );
 						bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', 1 );
 						bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_do_initial_import', 1 );
 						
-						unset( $_SESSION['facebook_state'] );
-						
 						bp_core_add_message( sprintf( __( 'You have successfully authenticated your %1$s account.', 'bebop' ), $extension['display_name'] ) );
 						bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+						unset( $_SESSION['facebook_state'] );
 					}
 				}
 			}

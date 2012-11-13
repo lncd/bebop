@@ -47,7 +47,6 @@ function bebop_facebook_import( $extension, $user_metas = null ) {
 				 * as shown in the twitter extension. If the feed is an API without oAuth authentication, use SlideShare			*
 				 * ******************************************************************************************************************
 				 */
-				 
 					$data_request = new bebop_data();
 					
 					$params = array( 
