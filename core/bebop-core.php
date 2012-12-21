@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Hook into admin functions to provide functionality to update, delete, etc.
  */
