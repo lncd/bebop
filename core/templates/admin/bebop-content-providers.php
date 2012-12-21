@@ -21,7 +21,7 @@ else {
 			<table class="widefat margin-top_22px margin-bottom_22px">
 				<thead>
 					<tr>
-						<th><?php _e( 'Extension Name', 'bebop' ); ?>/th>
+						<th><?php _e( 'Extension Name', 'bebop' ); ?></th>
 						<th><?php _e( 'Active Users', 'bebop' ); ?></th>
 						<th><?php _e( 'Inactive Users', 'bebop' ); ?></th>
 						<th colspan=><?php _e( 'Unverified Content', 'bebop' ); ?></th>
@@ -58,7 +58,7 @@ else {
 							echo 'CHECKED';
 						}
 						echo '></td>
-						<td><a class="button auto" style="display:inline-block;margin:6px 0 6px 0;" href="?page=bebop_providers&provider=' . strtolower( $extension['name'] ) . '">Settings</a></td>
+						<td><a class="button auto" style="display:inline-block;margin:6px 0 6px 0;" href="?page=bebop_providers&provider=' . strtolower( $extension['name'] ) . '">' . __( 'Settings', 'bebop' ) . '</a></td>
 					</tr>';
 					}
 				?>
