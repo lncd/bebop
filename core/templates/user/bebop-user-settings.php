@@ -1,11 +1,6 @@
 <div id='bebop_user_container'>
 	
 <?php
-
-//see if this is still needed.
-//$page = bebop_page_url( 2 );
-
-
 if ( bp_is_my_profile() ) {
 	if ( bp_is_current_component( 'bebop' ) )
 	{
@@ -16,9 +11,11 @@ if ( bp_is_my_profile() ) {
 			}
 		}
 		else if ( bp_is_current_action('bebop-accounts' ) ) {
-			if ( isset( $_GET['provider'] ) ) {
-				if ( bebop_extensions::bebop_extension_exists( $_GET['provider'] ) ) {
-					include( WP_PLUGIN_DIR . '/bebop/extensions/' . $_GET['provider'] . '/templates/user-settings.php' );
+			$query_string = bp_action_variables();
+			if ( ! empty( $query_string ) ) {
+				$provider = $query_string[0];
+				if ( bebop_extensions::bebop_extension_exists( $provider ) ) {
+					include( WP_PLUGIN_DIR . '/bebop/extensions/' . $provider . '/templates/user-settings.php' );
 				}
 				else {
 					 _e( 'Could not locate this extensions user settings template.', 'bebop' );

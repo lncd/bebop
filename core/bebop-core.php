@@ -131,9 +131,14 @@ add_action( 'bp_actions', 'bebop_manage_provider' );
 function bebop_manage_provider() {
 	global $bp;
 	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-accounts' ) ) {
-		if ( isset( $_GET['provider'] ) ) {
+		$query_string = bp_action_variables();
+		if ( ! empty( $query_string ) ) {
+			$provider = $query_string[0];
+		}
+				
+		if ( !empty( $provider ) ) {
 			global $bp;
-			$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $_GET['provider'] ) );
+			$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $provider ) );
 			if ( isset( $_POST['submit'] ) ) {
 				
 				check_admin_referer( 'bebop_' . $extension['name'] . '_user_settings' );
@@ -189,7 +194,7 @@ function bebop_manage_provider() {
 				$OAuth->set_authorize_url( $extension['authorize_url'] );
 				
 				$OAuth->set_parameters( array( 'oauth_verifier' => $_GET['oauth_verifier'] ) );
-				$OAuth->set_callback_url( $bp->loggedin_user->domain . 'bebop/accounts/?provider=' . $extension['name'] );
+				$OAuth->set_callback_url( $bp->loggedin_user->domain . '/' . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] );
 				$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ) );
 				$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ) );
 				$OAuth->set_request_token( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_temp' ) );
@@ -211,7 +216,7 @@ function bebop_manage_provider() {
 				
 				$app_id = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' );
 				$app_secret = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' );
-				$my_url = urlencode( $bp->loggedin_user->domain . 'bebop/accounts/?provider=' . $extension['name'] . '&scope=read_stream' );
+				$my_url = urlencode( $bp->loggedin_user->domain . '/' . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] . '?scope=read_stream' );
 				
 				if ( $_SESSION['facebook_state'] == $_GET['state'] ) {
 					
@@ -286,7 +291,7 @@ function bebop_manage_provider() {
 			
 			//Extension authors: use this hook to add your own removal functionality.
 			do_action( 'bebop_admin_settings_pre_remove', $extension );
-		}//End if ( isset( $_GET['provider'] ) ) {
+		}//End if ( !empty( $provider ) ) {
 	}//End if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-accounts' ) ) {
 }//End function bebop_manage_provider() {
 
