@@ -63,7 +63,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		foreach ( $user_feeds as $user_feed ) {
 			echo '<tr>
 				<td>' . bebop_tables::sanitise_element( $user_feed->meta_value ) . '</td>
-				<td><a href="/' . $extension['name'] . '?remove_username=' . $user_feed->meta_value . '">' . __( 'Delete Feed', 'bebop' ) . '</a></td>
+				<td><a href="' . $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] . '?remove_username=' . $user_feed->meta_value . '">' . __( 'Delete Feed', 'bebop' ) . '</a></td>
 			</tr>';
 		}
 		echo '</table>';

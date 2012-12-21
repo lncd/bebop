@@ -30,7 +30,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		echo '<h5>' . sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ) . '</h5>
 		<p>' . sprintf( __( 'Generic settings for %1$s. Here you can select whether content is actively imported into WordPress.', 'bebop' ), $extension['display_name'] ) . '</p>';
 	
-		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . '/' . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] . '" method="post">
+		echo '<form id="settings_form" action="' . $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] . '" method="post">
 		<label>' . sprintf( __( 'Enable %1$s import', 'bebop' ), $extension['display_name'] ) . ':</label>
 		<input type="radio" name="bebop_' . $extension['name'] . '_active_for_user" id="bebop_' . $extension['name'] . '_active_for_user" value="1"';  if ( $$variable_name == 1 ) {
 			echo 'checked';
@@ -47,7 +47,7 @@ if ( ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provide
 		echo '<div class="clear_both"></div>';
 			
 		if ( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token' ) ) {
-			echo '<div class="button_container"><a class="auto button" href="/' . $extension['name'] . '?reset=true">' . __(' Remove Authorisation', 'bebop') . '</a></div>';
+			echo '<div class="button_container"><a class="auto button" href="' . $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] . '?reset=true">' . __(' Remove Authorisation', 'bebop') . '</a></div>';
 			echo '<div class="clear_both"></div>';
 		}
 		echo '</form>';

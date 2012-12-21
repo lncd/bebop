@@ -119,7 +119,7 @@ function bebop_manage_oers() {
 			else {
 				bp_core_add_message( __( 'We couldnt do that for you. Please try again.', 'bebop' ), 'error' );
 			}
-			bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+			bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 		}//End if ( isset( $_POST['action'] ) ) {
 	}//End if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-manager' ) ) {
 	add_action( 'wp_enqueue_scripts', 'bebop_oer_js' ); //enqueue  selectall/none script
@@ -182,7 +182,7 @@ function bebop_manage_provider() {
 				//Extension authors: use this hook to add your own data saves.
 				do_action( 'bebop_user_settings_pre_edit_save', $extension );
 				
-				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+				bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 			}//End if ( isset( $_POST['submit'] ) ) {
 			
 			//Twitter Oauth stuff
@@ -194,11 +194,11 @@ function bebop_manage_provider() {
 				$OAuth->set_authorize_url( $extension['authorize_url'] );
 				
 				$OAuth->set_parameters( array( 'oauth_verifier' => $_GET['oauth_verifier'] ) );
-				$OAuth->set_callback_url( $bp->loggedin_user->domain . '/' . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] );
+				$OAuth->set_callback_url( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] );
 				$OAuth->set_consumer_key( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ) );
 				$OAuth->set_consumer_secret( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ) );
-				$OAuth->set_request_token( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_temp' ) );
-				$OAuth->set_request_token_secret( bebop_tables::get_user_meta_value( $bp->loggedin_user->id,'bebop_' . $extension['name'] . '_oauth_token_secret_temp' ) );
+				$OAuth->set_request_token( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token_temp' ) );
+				$OAuth->set_request_token_secret( bebop_tables::get_user_meta_value( $bp->loggedin_user->id, 'bebop_' . $extension['name'] . '_oauth_token_secret_temp' ) );
 				
 				$accessToken = $OAuth->access_token();
 				
@@ -208,7 +208,7 @@ function bebop_manage_provider() {
 				bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_do_initial_import', 1 );
 				
 				bp_core_add_message( sprintf( __( 'You have successfully authenticated your %1$s account.', 'bebop' ), $extension['display_name'] ) );
-				bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+				bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 			}
 			
 			//Facebook oAuth stuff.
@@ -216,7 +216,7 @@ function bebop_manage_provider() {
 				
 				$app_id = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' );
 				$app_secret = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' );
-				$my_url = urlencode( $bp->loggedin_user->domain . '/' . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] . '?scope=read_stream' );
+				$my_url = urlencode( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() . '/' . $extension['name'] . '?scope=read_stream' );
 				
 				if ( $_SESSION['facebook_state'] == $_GET['state'] ) {
 					
@@ -246,7 +246,7 @@ function bebop_manage_provider() {
 						bebop_tables::add_to_first_importers_list( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_do_initial_import', 1 );
 						
 						bp_core_add_message( sprintf( __( 'You have successfully authenticated your %1$s account.', 'bebop' ), $extension['display_name'] ) );
-						bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+						bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 						unset( $_SESSION['facebook_state'] );
 					}
 				}
@@ -262,11 +262,11 @@ function bebop_manage_provider() {
 						if ( bebop_tables::remove_user_meta( $bp->loggedin_user->id, $feed_name ) ) {
 							bebop_tables::delete_from_first_importers( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_' . $feed_name . '_do_initial_import' );
 							bp_core_add_message( __('Feed successfully deleted.', 'bebop' ) );
-							//bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+							//bp_core_redirect( $bp->loggedin_user->domain  . bp_current_component() . '/' . bp_current_action() );
 						}
 						else {
 							bp_core_add_message( __('We could not delete that feed.', 'bebop' ), 'error' );
-							bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+							bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 						}
 					}
 				}
@@ -281,11 +281,11 @@ function bebop_manage_provider() {
 				$username = stripslashes( $_GET['remove_username'] );
 				if ( bebop_tables::remove_user_meta_value( $bp->loggedin_user->id, $username ) ) {
 					bp_core_add_message( sprintf( __( '%1$s has been removed from your %2$s feed.', 'bebop' ),$username, $extension['display_name'] ) );
-					bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+					bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 				}
 				else {
 					bp_core_add_message( __( 'We could not delete that feed.', 'bebop' ), 'error' );
-					bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
+					bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 				}
 			}
 			
