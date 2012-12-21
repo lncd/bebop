@@ -8,7 +8,7 @@
 //Adds a hook which detects and updates the oer status.
 add_action( 'bp_actions', 'bebop_manage_oers' );
 function bebop_manage_oers() {
-	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('manager' ) ) {
+	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-manager' ) ) {
 		if ( isset( $_POST['action'] ) ) {
 			global $bp;
 			$oer_count = 0;
@@ -121,7 +121,7 @@ function bebop_manage_oers() {
 			}
 			bp_core_redirect( $bp->loggedin_user->domain  .'/' . bp_current_component() . '/' . bp_current_action() . '/' );
 		}//End if ( isset( $_POST['action'] ) ) {
-	}//End if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('manager' ) ) {
+	}//End if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-manager' ) ) {
 	add_action( 'wp_enqueue_scripts', 'bebop_oer_js' ); //enqueue  selectall/none script
 }//End function bebop_manage_oers() {
 /*
@@ -130,7 +130,7 @@ function bebop_manage_oers() {
 add_action( 'bp_actions', 'bebop_manage_provider' );
 function bebop_manage_provider() {
 	global $bp;
-	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('accounts' ) ) {
+	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-accounts' ) ) {
 		if ( isset( $_GET['provider'] ) ) {
 			global $bp;
 			$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $_GET['provider'] ) );
@@ -287,7 +287,7 @@ function bebop_manage_provider() {
 			//Extension authors: use this hook to add your own removal functionality.
 			do_action( 'bebop_admin_settings_pre_remove', $extension );
 		}//End if ( isset( $_GET['provider'] ) ) {
-	}//End if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('accounts' ) ) {
+	}//End if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-accounts' ) ) {
 }//End function bebop_manage_provider() {
 
 /*
@@ -295,7 +295,7 @@ function bebop_manage_provider() {
  */
 function bebop_get_oer_type() {
 	global $bp, $wpdb;
-	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('manager' ) ) {
+	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-manager' ) ) {
 		if ( isset( $_GET['type'] ) ) {
 			if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
 				return  __( 'unverified', 'bebop' );
@@ -338,37 +338,6 @@ function bebop_user_stylesheets() {
 function bebop_oer_js() {
 	wp_register_script( 'bebop-oer-js', plugins_url() . '/bebop/core/resources/js/bebop-oers.js' );
 	wp_enqueue_script( 'bebop-oer-js' );
-}
-
-
-/*
- * Gets the url of a page
- */
-function bebop_page_url( $last_folders = null ) {
-	if ( isset( $_SERVER['HTTPS'] ) ) {
-		if (  $_SERVER['HTTPS'] == 'on' ) {
-			$page_url = 'https://';
-		}
-	}
-	else {
-		$page_url = 'http://';
-	}
-	if ( $_SERVER['SERVER_PORT'] != '80' ) {
-		$page_url .= $_SERVER['SERVER_NAME'] . ':' . $_SERVER['SERVER_PORT'] . $_SERVER['REQUEST_URI'];
-	}
-	else {
-		$page_url .= $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-	}
-	if ( $last_folders != null ) {
-		$exp = array_reverse( explode( '/', $page_url ) );
-		$arr = array();
-		while ( $last_folders > 0 ) {
-			$arr[] = $exp[$last_folders];
-			$last_folders--;
-		}
-		$page_url = '/' . implode( '/', $arr ) . '/';
-	}
-	return $page_url;
 }
 /*
  * Adds an imported item to the buffer table
