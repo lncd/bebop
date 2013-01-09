@@ -18,13 +18,24 @@ Bebop is a BuddyPress plugin which allows you to connect your BuddyPress profile
 
 Bebop was developed by the University of Lincoln for a JISC-funded 'Open Educational Resources' project, to allow teachers to select and aggregate teaching resources they have shared on third-party sites into their BuddyPress profile. BuddyPress and Bebop are being used at the University of Lincoln to power staff and student profiles.
 
+=======
+
+
+== Installation ==
+
+Requirements.
+- PHP 5.2.1+
+
+=======
+
+
 German (de_DE) Language pack courtesy of HansRuedi Keller (http://www.info.ch)
 
 == Installation ==
 
 Requirements:
 - PHP 5.2.1+
-Bebop is compatible with WordPress Networks as well as standalone sites.
+
 
 Instructions:
 1. Upload this plugin to your '/wp-content/plugins/' directory.
@@ -41,6 +52,7 @@ Configure extensions in the 'OER Provider' admin menu.
 Please read the documentation on Github: http://github.com/lncd/bebop/wiki
 
 Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
+=======
 
 == Changelog ==
 
@@ -98,8 +110,16 @@ Other:
 * Added some padding to admin secondary buttons.
 * .gitignore'd a few other unnecessary files and folders.
 * Updated the readme.txt file.
+<<<<<<< HEAD
+=======
 * Changed feed back to RSS
 * Changes some admin terminology so that it suites our social media users a little better.
+<<<<<<< HEAD
+=======
+
+=======
+>>>>>>> test_development
+>>>>>>> 688501db4f1c239a93e500f80fd8a9a9d2d5eee5
 
 v1.1 - 24.09.2012 - Major Release
 
