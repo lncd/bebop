@@ -110,16 +110,9 @@ Other:
 * Added some padding to admin secondary buttons.
 * .gitignore'd a few other unnecessary files and folders.
 * Updated the readme.txt file.
-<<<<<<< HEAD
-=======
 * Changed feed back to RSS
 * Changes some admin terminology so that it suites our social media users a little better.
-<<<<<<< HEAD
-=======
 
-=======
->>>>>>> test_development
->>>>>>> 688501db4f1c239a93e500f80fd8a9a9d2d5eee5
 
 v1.1 - 24.09.2012 - Major Release
 
