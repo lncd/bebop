@@ -56,9 +56,13 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 == Changelog ==
 
+v1.2.2 - 21.12.2012 - Minor Release
+
+*Fixed WP 3.5 compatability issues.
+
 v1.2.1 - 08.11.2012 - Minor Release
 
-This update addresses an issue which accidentally allowed hidden content from groups to be displayed on the activity stream. 
+*This update addresses an issue which accidentally allowed hidden content from groups to be displayed on the activity stream.
 
 v1.2 - 02.11.2012 - Major Release
 
