@@ -94,11 +94,10 @@ Other:
 * Added some padding to admin secondary buttons.
 * .gitignore'd a few other unnecessary files and folders.
 * Updated the readme.txt file.
-<<<<<<< HEAD
 * Changed feed back to RSS
 * Changes some admin terminology so that it suites our social media users a little better.
 =======
->>>>>>> readme FIX
+
 
 v1.1 - 24.09.2012 - Major Release
 
