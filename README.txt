@@ -17,9 +17,9 @@ Copyright 2012 The University of Lincoln - http://www.lincoln.ac.uk.
 Bebop is a BuddyPress plugin which allows you to connect your BuddyPress profile to other social media platforms such as Twitter, Flickr, Slideshare, Youtube and Vimeo. Bebop is an aggregator and curatorial tool, pulling content from other web services into your BuddyPress activity timeline. It will also pull in content from RSS/Atom feeds, so will work with sites like Tumblr, WordPress and Blogger. Bebop gives you control over exactly what items of content appear in your activity stream and works on WordPress network installs, too.
 
 Bebop was developed by the University of Lincoln for a JISC-funded 'Open Educational Resources' project, to allow teachers to select and aggregate teaching resources they have shared on third-party sites into their BuddyPress profile. BuddyPress and Bebop are being used at the University of Lincoln to power staff and student profiles.
-<<<<<<< HEAD
+
 =======
-<<<<<<< HEAD
+
 
 == Installation ==
 
@@ -27,7 +27,7 @@ Requirements.
 - PHP 5.2.1+
 
 =======
->>>>>>> 688501db4f1c239a93e500f80fd8a9a9d2d5eee5
+
 
 German (de_DE) Language pack courtesy of HansRuedi Keller (http://www.info.ch)
 
