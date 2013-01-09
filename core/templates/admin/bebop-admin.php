@@ -4,7 +4,7 @@
 <div id='bebop_admin_container'>
 	<div class='bebop_admin_box'>
 		<img class='bebop_logo' src="<?php echo plugins_url() . '/bebop/core/resources/images/bebop_logo.png';?>">
-		<p><?php _e( 'Welcome to the Bebop plugin for BuddyPress. Developed by <a href="http://www.lncd.lincoln.ac.uk">LNCD @ the University of Lincoln</a>.', 'bebop' ); ?></p>
+		<p><?php _e( 'Welcome to the Bebop plugin for BuddyPress. Developed by <a target="_blank" href="http://www.lncd.lincoln.ac.uk">LNCD @ the University of Lincoln</a>.', 'bebop' ); ?></p>
 		<p><?php _e( 'Bebop was designed for academic institutions who want to incorporate Open Educational Resources into BuddyPress Profiles. This plugin aids the discovery of OERs in the BuddyPress environment.', 'bebop' ); ?></p>
 		<p><?php _e( 'As requested by several users, we have also made the terminology more suitable to those who are using Bebop as a social media aggregator.', 'bebop' ); ?></p>
 		<div class="clear"></div>
@@ -14,6 +14,8 @@
 		<div id="normal-sortables" class="meta-box-sortables ui-sortable"><div class='postbox'>
 			<h3><?php _e( 'Latest News' ); ?></h3>
 			<div class='inside'>
+				<p><?php _e( 'Version 1.2.2 is a minor release which fixes a few compatability issued with WP 3.5 and BP 1.6.2. It also makes some URL\'s cleaner.', 'bebop' ); ?></p>
+				<p><?php _e( 'Version 1.2.1 is a minor release which fixes a bug which inadvertently made all content visible in the sitewide activity steam.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.2 of Bebop has landed. Say hello to the new Facebook extension, pagination, and many security updates. See the README.txt for a full list of changes.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.1.1 of Bebop has been released. This minor release fixes some bugs related to the wordpress cron time, and some redirection issues. See the README.txt file for a full list of updates.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.1 of Bebop has been released. Many requested features have been implemented, bugs have been fixed, and issues resolved. For more details, please see the changelog in README.txt.', 'bebop' ); ?></p>
