@@ -27,9 +27,9 @@
 			<input type='text' id='traditional_cron' value="wget <?php echo plugins_url() . '/bebop/import.php -O /dev/null -q'?>" size='75' READONLY><br><br>
 			
 			<label><?php _e( 'Force Main Cron:', 'bebop' ); ?></label>
-			<a class="button auto" target="_blank" href="<?php echo plugins_url(); ?>/bebop/import.php"><?php _e( 'Main Import', 'bebop' ); ?></a> <?php _e( '(all users, all feeds)', 'bebop' ); ?><br><br>
+			<a class="button-secondary" target="_blank" href="<?php echo plugins_url(); ?>/bebop/import.php"><?php _e( 'Main Import', 'bebop' ); ?></a> <?php _e( '(all users, all feeds)', 'bebop' ); ?><br><br>
 			<label><?php _e( 'Force Secondary Cron:', 'bebop' ); ?></label>
-			<a class="button auto" target="_blank" href="<?php echo plugins_url(); ?>/bebop/secondary_import.php"><?php _e( 'Secondary Import', 'bebop' ); ?></a> <?php _e( '(new users/new feeds)', 'bebop' ); ?><br><br>
+			<a class="button-secondary" target="_blank" href="<?php echo plugins_url(); ?>/bebop/secondary_import.php"><?php _e( 'Secondary Import', 'bebop' ); ?></a> <?php _e( '(new users/new feeds)', 'bebop' ); ?><br><br>
 			<div class="clear"></div>
 		</fieldset>
 		<?php wp_nonce_field( 'bebop_admin_settings' ); ?>

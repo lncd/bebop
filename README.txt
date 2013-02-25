@@ -43,7 +43,7 @@ Instructions:
 
 OR
 
-Install via the 'Add New' button in your plugins page.
+Install via the 'Add New' button on your plugins page.
 
 THEN
 
@@ -55,6 +55,11 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 =======
 
 == Changelog ==
+
+v1.2.3 - 25.02.2013 - Minor Release
+
+*Fixed WP 3.5.1 and BP1.6.4 compatability issues.
+
 
 v1.2.2 - 21.12.2012 - Minor Release
 

@@ -3,7 +3,7 @@ session_start();
 /*
 Plugin Name: Bebop
 Plugin URI: http://bebop.blogs.lincoln.ac.uk/
-Description: Bebop is the name of a rapid innovation project funded by the Joint Information Systems Committee (JISC) and developed by the University of Lincoln. The project involved the utilisation of OER's from 3rd party providers such as YouTube, Vimeo, SlideShare and Flickr.
+Description: Bebop provides your BuddyPress users with the ability to import and shae content from a wide range of online content providers, such as Facebook, Twitter, Vimeo, Youtube and Flickr. Bebop was originally developed as a method of sharing Open Educational Resources, but has since been opened up to the wider community.
 Version: 1.2.2
 Text Domain: bebop
 Author: Dale Mckeown
