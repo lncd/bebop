@@ -7,7 +7,13 @@ if ( ($pagenow == 'admin.php') && ( is_admin() ) ) {
 	add_action( 'admin_init', 'bebop_extension_admin_update_settings' );	//extension settings.
 	add_action( 'admin_init', 'bebop_admin_flush_table' );					//tables.
 	add_action( 'all_admin_notices', 'bebop_admin_notice' );				//Notices
+	add_action( 'wp_enqueue_scripts', 'bebop_provider_js' ); 					//enqueue  selectall/none script
 }
+function bebop_provider_js() {
+	wp_register_script( 'bebop-provider-helper', plugins_url() . '/bebop/core/resources/js/bebop-provider-helper.js' );
+	wp_enqueue_script( 'bebop-provider-helper' );
+}
+
 /*
  * Function to update the general admin settings.
  */
