@@ -48,8 +48,10 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 v1.2.3 - 25.02.2013 - Minor Release
 
-* Fixed WP 3.5.1 and BP 1.6.4 compatability issues.
+* Fixed some minor WP 3.5.1 and BP 1.6.4 compatability issues.
 * Better garbage collection on PHP 5.3
+* Added 'Resources' tab to the wp-buddypress admin bar.
+* Added tutorials for obtaining and installing API keys.
 
 
 v1.2.2 - 21.12.2012 - Minor Release
