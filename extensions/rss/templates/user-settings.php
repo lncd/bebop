@@ -46,7 +46,7 @@ if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider'
 	<label for="bebop_' . $extension['name'] . '_newfeedurl">' . __( 'New Feed URL', 'bebop' ) . '</label>
 	<input type="text" name="bebop_' . $extension['name'] . '_newfeedurl" size="75"><br><br>
 	
-	<div class="button_container"><input class="button-secondary" type="submit" id="submit" name="submit" value="' . __( 'Save Changes', 'bebop' ) . '"></div>';
+	<div class="button_container"><input class="button" type="submit" id="submit" name="submit" value="' . __( 'Save Changes', 'bebop' ) . '"></div>';
 	
 	wp_nonce_field( 'bebop_' . $extension['name'] . '_user_settings' );
 	
