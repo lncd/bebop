@@ -3,7 +3,6 @@
  * Hook into admin functions to provide functionality to update, delete, etc.
  */
 
-
 //Adds a hook which detects and updates the oer status.
 add_action( 'bp_actions', 'bebop_manage_oers' );
 function bebop_manage_oers() {
