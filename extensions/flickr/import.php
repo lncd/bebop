@@ -173,11 +173,13 @@ function bebop_flickr_import( $extension, $user_metas = null ) {
 										}
 									}//End if ( ! empty( $secondary->secondary_item_id ) ) {
 								}
+								unset($item);
 							}
 						}
 					}//End if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
 				}//End foreach ($user_feeds as $user_feed ) {
 			}
+			unset($user_meta);
 		}
 	}
 	//return the result

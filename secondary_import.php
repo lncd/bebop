@@ -51,12 +51,15 @@ if ( ! empty( $importers ) ) {
 				bebop_tables::log_error( __( 'Secondary Importer', 'bebop' ),  sprintf( __( 'The function: %1$s/import.php does not exist.', 'bebop'), WP_PLUGIN_DIR . '/bebop/extensions/' . strtolower( $extension ) ) );
 			}
 		}
+		unset($extension);
 	}
 	$log_array = array();
 	foreach ( $return_array as $key => $value ) {
 		if ( ! empty( $value ) ) {
 			$log_array[] = $value;
 		}
+		unset($key);
+		unset($value);
 	}
 	$log_results = implode( ', ', $log_array );
 	

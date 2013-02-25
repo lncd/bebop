@@ -145,10 +145,12 @@ function bebop_vimeo_import( $extension, $user_metas = null ) {
 										$itemCounter++;
 									}
 								}//End if ( ! empty( $secondary->secondary_item_id ) ) {
+								unset($item);
 							}
 						}
 					}
 				}
+				unset($user_meta);
 			}
 		}
 	}

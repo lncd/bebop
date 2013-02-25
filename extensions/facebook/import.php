@@ -146,9 +146,11 @@ function bebop_facebook_import( $extension, $user_metas = null ) {
 								}
 								
 							}//End if ( isset( $item->message ) ) {
+							unset($item);
 						}
 					}
 				}//End else
+				unset($user_meta);
 			}
 		}
 	}

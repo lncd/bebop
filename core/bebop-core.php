@@ -346,6 +346,7 @@ function bebop_oer_js() {
 /*
  * Adds an imported item to the buffer table
  */
+
 function bebop_create_buffer_item( $params ) {
 	global $bp, $wpdb;
 	if ( is_array( $params ) ) {
