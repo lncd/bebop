@@ -3,7 +3,7 @@
 Contributors: Dale Mckeown
 Tags: WordPress, BuddyPress, OER, Open Educational Resources, ukeor, oerri, Rapid Innovation, JISC, LNCD, The University of Lincoln.
 
-Tested on: WordPress 3.4.2, BuddyPress 1.6.1
+Tested up to: WordPress 3.5.1, BuddyPress 1.6.4
 
 
 == Licence ==
@@ -20,22 +20,12 @@ Bebop was developed by the University of Lincoln for a JISC-funded 'Open Educati
 
 =======
 
-
-== Installation ==
-
-Requirements.
-- PHP 5.2.1+
-
-=======
-
-
 German (de_DE) Language pack courtesy of HansRuedi Keller (http://www.info.ch)
 
 == Installation ==
 
-Requirements:
-- PHP 5.2.1+
-
+Requirements.
+- PHP 5.3+
 
 Instructions:
 1. Upload this plugin to your '/wp-content/plugins/' directory.
@@ -58,16 +48,17 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 v1.2.3 - 25.02.2013 - Minor Release
 
-*Fixed WP 3.5.1 and BP1.6.4 compatability issues.
+* Fixed WP 3.5.1 and BP 1.6.4 compatability issues.
+* PHP requirement is now 5.3+.
 
 
 v1.2.2 - 21.12.2012 - Minor Release
 
-*Fixed WP 3.5 compatability issues.
+* Fixed WP 3.5 compatability issues.
 
 v1.2.1 - 08.11.2012 - Minor Release
 
-*This update addresses an issue which accidentally allowed hidden content from groups to be displayed on the activity stream.
+* This update addresses an issue which accidentally allowed hidden content from groups to be displayed on the activity stream.
 
 v1.2 - 02.11.2012 - Major Release
 
