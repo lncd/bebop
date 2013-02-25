@@ -38,7 +38,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			
 			<label for='bebop_<?php echo $extension; ?>_consumer_secret'><?php echo $extension['display_name']; ?> API Secret:</label>
 			<input type='text' id='bebop_<?php echo $extension['name']; ?>_consumer_secret' name='bebop_<?php echo $extension['name']; ?>_consumer_secret' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ); ?>' size='50'>
-			API Token/Secret help
+			<a class="bebop_provider_helper_trigger">API Token/Secret help</a>
 			<div class="bebop_provider_helper hidden">
 				some content
 			</div>
