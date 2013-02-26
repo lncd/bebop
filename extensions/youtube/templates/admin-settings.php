@@ -21,7 +21,9 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 	<form class='bebop_admin_form' method='post'>
 		<fieldset>  
 			<span class='header'><?php echo sprintf( __( '%1$s Import Settings', 'bebop' ), $extension['display_name'] ); ?></span>
-			
+			<p><?php _e( 'By default, RSS feeds are available for each extension in Bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the "enabled" option of the RSS feed settings below. Please note
+				that RSS feeds will only be available when the extension is active.', 'bebop') ?></p>
+				
 			<?php $should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_content_user_verification' ); ?>
 			<label for='bebop_<?php echo $extension['name']; ?>_content_user_verification'><?php _e( 'Should imported content be user verified?', 'bebop' ); ?></label>
 			<select id='bebop_<?php echo $extension['name']; ?>_content_user_verification' name='bebop_<?php echo $extension['name']; ?>_content_user_verification'>

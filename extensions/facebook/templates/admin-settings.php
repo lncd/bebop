@@ -19,14 +19,14 @@ $extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
 <div id='bebop_admin_container'>
 	<div class="postbox center_margin margin-bottom_22px bebop_provider_helper hidden">
-		<h3><?php echo sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ); ?> API Setup</h3>
+		<h3><?php echo sprintf( __( '%1$s API Setup', 'bebop' ), $extension['display_name'] ) ?></h3>
 		<div class="inside">
-			<?php echo sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ); ?> Requires an application to be setup in order to obtain the required API token/secret. Follow these steps:
+			<?php echo sprintf( __( '%1$s requires an application to be setup in order to obtain the required API token/secret. Follow these steps', 'bebop' ), $extension['display_name'] ); ?>:
 			<ol>
-				<li>Go to the <a target="_blank" href="http://developers.facebook.com/apps">Facebook developer apps page</a>. Click <b>Create new app</b>. Complete the form as instructed.</li>
-				<li>Under <b>Select how your app integrates with Facebook</b>, click <b>Website with Facebook Login</b> Enter the URL of your site.</li>
-				<li>Copy the <b>App ID</b> into the <b>Facebook API Token</b> field and <b>App Secret</b> into the <b>Facebook API Secret</b> field on this page.</li>
-				<li>Click <b>Save Changes</b> and then test by adding a user on the front end. For more help, visit the <a target="_blank" href="http://wordpress.org/support/plugin/bebop">support forum.</a></li>
+				<li><?php _e( 'Go to the <a target="_blank" href="http://developers.facebook.com/apps">Facebook developer apps page</a>. Click <b>Create new app</b>. Complete the form as instructed.', 'bebop' ); ?></li>
+				<li><?php _e( 'Under <b>Select how your app integrates with Facebook</b>, click <b>Website with Facebook Login</b> Enter the URL of your site.', 'bebop' ); ?></li>
+				<li><?php _e( 'Copy the <b>App ID</b> into the <b>Facebook API Token</b> field and <b>App Secret</b> into the <b>Facebook API Secret</b> field on this page.', 'bebop' ); ?></li>
+				<li><?php _e( 'Click <b>Save Changes</b> and then test by adding a user on the front end. For more help, visit the <a target="_blank" href="http://wordpress.org/support/plugin/bebop">support forum.</a>', 'bebop' ); ?></li>
 			</ol>
 		</div>
 	</div>
@@ -37,10 +37,10 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			<label for='bebop_<?php echo $extension['name']; ?>_consumer_key'><?php echo sprintf( __( '%1$s API Token', 'bebop' ), $extension['display_name'] );?>:</label>
 			<input type='text' id='bebop_<?php echo $extension['name']; ?>_consumer_key' name='bebop_<?php echo $extension['name']; ?>_consumer_key' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_key' ); ?>' size='50'><br><br>
 			
-			<label for='bebop_<?php echo $extension; ?>_consumer_secret'><?php echo $extension['display_name']; ?> API Secret:</label>
+			<label for='bebop_<?php echo $extension['name']; ?>_consumer_secret'><?php echo sprintf( __( '%1$s API Secret', 'bebop' ), $extension['display_name'] );?>:</label>
 			<input type='text' id='bebop_<?php echo $extension['name']; ?>_consumer_secret' name='bebop_<?php echo $extension['name']; ?>_consumer_secret' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ); ?>' size='50'>
 			
-			<a href="#" class="button-primary bebop_provider_helper_trigger">API Token/Secret help</a><br><br>
+			<a href="#" class="button-primary bebop_provider_helper_trigger"><?php _e( 'API Token/Secret help', 'bebop' ); ?></a><br><br>
 			
 			<?php $should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_content_user_verification' ); ?>
 			<label for='bebop_<?php echo $extension['name']; ?>_content_user_verification'><?php _e( 'Should imported content be user verified?', 'bebop' ); ?></label>
@@ -64,6 +64,8 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		
 		<fieldset>
 			<span class='header'><?php echo sprintf( __( '%1$s RSS Settings', 'bebop' ), $extension['display_name'] );?></span>
+			<p><?php _e( 'By default, RSS feeds are available for each extension in Bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the "enabled" option of the RSS feed settings below. Please note
+				that RSS feeds will only be available when the extension is active.', 'bebop') ?></p>
 			<?php
 			if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 				echo "<label for='bebop_" . $extension['name'] . "_rss_feed'>" . __( 'RSS Enabled', 'bebop' ) . "</label><input id='bebop_" .$extension['name'] . "_rss_feed' name='bebop_".$extension['name'] . "_rss_feed' type='checkbox'";
