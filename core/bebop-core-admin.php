@@ -11,7 +11,6 @@ if ( ($pagenow == 'admin.php') && ( is_admin() ) ) {
 	
 }
 
-
 function bebop_provider_js() {
 	wp_register_script( 'bebop-provider-helper', plugins_url() . '/bebop/core/resources/js/bebop-provider-helper.js' );
 	wp_enqueue_script( 'bebop-provider-helper' );

@@ -18,18 +18,20 @@ $extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $
 
 //Include the admin menu.
 include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php' ); ?>
-<div id='bebop_admin_container'>
-	<div class='postbox center_margin margin-bottom_22px'>
-		<h3><?php echo sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ); ?></h3>
+<div id='bebop_admin_container'>	
+	<div class="postbox center_margin margin-bottom_22px bebop_provider_helper hidden">
+		<h3><?php echo sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ); ?> API Setup</h3>
 		<div class="inside">
-			<p><?php echo sprintf( __( 'Settings for the %1$s extension.', 'bebop' ), $extension['display_name'] ); ?></p>
-			<p><?php _e( 'To pull content from some providers, the importer settings need to be configured correctly for some extensions. For example, "API Tokens", and "API secrets" may be required for API based sources, but not for RSS based sources.', 'bebop') ?></p>
-			<p><?php _e( 'By default, RSS feeds are available for each extension in Bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the "enabled" option of the RSS feed settings below. Please note
-				that RSS feeds will only be available when the extension is active.', 'bebop') ?></p>
-			<p><?php _e( 'As of version 1.2, you can choose whether content needs to be verified for each extension. This will allow you more control over how content is imported into your BuddyPress activity streams.', 'bebop' ); ?></p>
-			<p><?php _e( 'As of version 1.2, You can choose whether you wish to hide content for the extension on the sitewide activity steam. All content is still visible in members activity streams, and in the resources stream.', 'bebop' ); ?></p>
+			<?php echo sprintf( __( '%1$s Settings', 'bebop' ), $extension['display_name'] ); ?> Requires an application to be setup in order to obtain the required API token/secret. You will therefore need to create a <a target="_blank" href="http://dev.twitter.com">developer account on Twitter</a> if you do not already have one. Follow these steps:
+			<ol>
+				<li>Go to <b>My applications</b> and click <b>Create a new application</b>. Complete the form as instructed.</li>
+				<li>Once the application is made you are taken to the application overview. Click the <b>Settings</b> tab, change <b>Application type</b> to <b>read and write</b>.</li>
+				<li>Click the <b>Details</b> tab. Copy the <b>Consumer key</b> into the <b>Twitter API Token</b> field and <b>Consumer secret</b> into the <b>Twitter API Secret</b> field on this page.</li>
+				<li>Click <b>Save Changes</b> and then test by adding a user on the front end. For more help, visit the <a target="_blank" href="http://wordpress.org/support/plugin/bebop">support forum.</a></li>
+			</ol>
 		</div>
 	</div>
+	
 	<form class='bebop_admin_form' method='post'>
 		<fieldset>
 			<span class='header'><?php echo sprintf( __( '%1$s Import Settings', 'bebop' ), $extension['display_name'] ); ?></span>
@@ -38,11 +40,8 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			
 			<label for='bebop_<?php echo $extension; ?>_consumer_secret'><?php echo $extension['display_name']; ?> API Secret:</label>
 			<input type='text' id='bebop_<?php echo $extension['name']; ?>_consumer_secret' name='bebop_<?php echo $extension['name']; ?>_consumer_secret' value='<?php echo bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_consumer_secret' ); ?>' size='50'>
-			<a class="bebop_provider_helper_trigger">API Token/Secret help</a>
-			<div class="bebop_provider_helper hidden">
-				some content
-			</div>
-			<br><br>
+			
+			<a href="#" class="button-primary bebop_provider_helper_trigger">API Token/Secret help</a><br><br>
 			
 			<?php $should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_content_user_verification' ); ?>
 			<label for='bebop_<?php echo $extension['name']; ?>_content_user_verification'><?php _e( 'Should imported content be user verified?', 'bebop' ); ?></label>
@@ -66,6 +65,8 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 		
 		<fieldset>
 			<span class='header'><?php echo sprintf( __( '%1$s RSS Settings', 'bebop' ), $extension['display_name'] );?></span>
+			<p><?php _e( 'By default, RSS feeds are available for each extension in Bebop, and are automaticlly generated when an extension is active. You can turn the rss feeds off by simply unchecking the "enabled" option of the RSS feed settings below. Please note
+				that RSS feeds will only be available when the extension is active.', 'bebop') ?></p>
 			<?php
 			if ( bebop_tables::get_option_value( 'bebop_' . $extension['name'] . '_provider' ) == 'on' ) {
 				echo "<label for='bebop_" . $extension['name'] . "_rss_feed'>" . __( 'RSS Enabled', 'bebop' ) . ":</label><input id='bebop_" .$extension['name'] . "_rss_feed' name='bebop_".$extension['name'] . "_rss_feed' type='checkbox'";
