@@ -349,7 +349,7 @@ function bebop_oer_js() {
 function bebop_create_buffer_item( $params ) {
 	global $bp, $wpdb;
 	if ( is_array( $params ) ) {
-		if ( ! bp_has_activities( 'secondary_id=' . $params['item_id'] ) ) {
+		if ( ! bebop_tables::check_existing_content_id( $params['user_id'], $params['extension'], $params['item_id'] ) ) {
 			$original_text = $params['content'];
 			if ( ! bebop_tables::bebop_check_existing_content_buffer( $params['user_id'], $params['extension'], $original_text ) ) {
 				$content = '';
@@ -697,5 +697,10 @@ function bebop_pagination( $number_of_rows, $per_page ) {
 	$return .= '</div>';
 	return $return;
 }
-	
+function print_args( $args )
+{
+	echo '<pre>';
+	var_dump( $args );
+	echo '</pre>';
+}
 ?>

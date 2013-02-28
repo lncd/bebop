@@ -74,7 +74,18 @@ class bebop_tables {
 		$content = strip_tags( $content );
 		$content = like_escape( $content );
 		
-		if ( $wpdb->get_row( 'SELECT content FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager user_id = '" . $wpdb->escape( $user_id ) . "' AND type = '" . $wpdb->escape( $extension ) . "' AND content LIKE '%" . $content . "%'" ) ) {
+		if ( $wpdb->get_row( 'SELECT content FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE user_id = '" . $wpdb->escape( $user_id ) . "' AND type = '" . $wpdb->escape( $extension ) . "' AND content LIKE '%" . $content . "%'" ) ) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	function check_existing_content_id( $user_id, $extension, $secondary_item_id ) {
+		global $wpdb;
+		
+		if ( $wpdb->get_row( 'SELECT secondary_item_id FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHER user_id = '" . $wpdb->escape( $user_id ) . "' AND type = '" . $wpdb->escape( $extension ) . "' AND secondary_item_id = '" . $wpdb->escape( $secondary_item_id ) . "'" ) ) {
 			return true;
 		}
 		else {

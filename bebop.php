@@ -33,7 +33,6 @@ function bebop_init() {
 	include_once( 'core/bebop-extensions.php' );
 	include_once( 'core/bebop-feeds.php' );
 	include_once( 'core/bebop-pages.php' );
-	include_once( 'core/bebop-updates.php' );
 	
 	if ( current_user_can( 'manage_options' ) && is_admin() ) {
 		include_once( 'core/bebop-core-admin.php' );
@@ -69,76 +68,12 @@ function bebop_init() {
 function bebop_activate() {
 	global $wpdb;
 	include_once( ABSPATH . 'wp-admin/includes/plugin.php' );
+	include_once( 'core/bebop-tables.php' );
 	if ( is_plugin_active( 'buddypress/bp-loader.php' ) ) {
-		//define table sql
-		$bebop_error_log = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_error_log ( 
-			id bigint(20) NOT NULL auto_increment PRIMARY KEY, 
-			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-			error_type varchar(40) NOT NULL,
-			error_message text NOT NULL
-		);';
-		$bebop_general_log = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_general_log ( 
-			id bigint(20) NOT NULL auto_increment PRIMARY KEY,
-			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-			type varchar(40) NOT NULL,
-			message text NOT NULL
-		);';
-	
-		$bebop_options = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_options ( 
-			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,	
-			option_name varchar(100) NOT NULL PRIMARY KEY,
-			option_value longtext NOT NULL
-		);';
-		
-		$bebop_user_meta = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta ( 
-			id bigint(20) NOT NULL auto_increment PRIMARY KEY,
-			user_id bigint(20) NOT NULL,
-			meta_type varchar(255) NOT NULL,
-			meta_name varchar(255) NOT NULL,
-			meta_value longtext NOT NULL
-		);';
-		
-		$bebop_oer_manager = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager ( 
-			id bigint(20) NOT NULL auto_increment PRIMARY KEY,
-			user_id bigint(20) NOT NULL,
-			status varchar(75) NOT NULL,
-			type varchar(255) NOT NULL,
-			action text NOT NULL,
-			content longtext NOT NULL,
-			activity_stream_id bigint(20),
-			secondary_item_id varchar(20),
-			date_imported datetime,
-			date_recorded datetime,
-			hide_sitewide tinyint(1)
-		);';
-		
-		$bebop_first_import = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports ( 
-			id bigint(20) NOT NULL auto_increment PRIMARY KEY,
-			user_id bigint(20) NOT NULL,
-			extension varchar(255) NOT NULL,
-			name varchar(255) NOT NULL,
-			value longtext NOT NULL
-		);'; 
-		//run queries
-		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-		dbDelta( $bebop_error_log );
-		dbDelta( $bebop_general_log );
-		dbDelta( $bebop_options );
-		dbDelta( $bebop_user_meta );
-		dbDelta( $bebop_oer_manager );
-		dbDelta( $bebop_first_import );
-		
-		//cleanup
-		unset( $bebop_error_log );
-		unset( $bebop_general_log );
-		unset( $bebop_options );
-		unset( $bebop_user_meta );
-		unset( $bebop_oer_manager );
-		unset( $bebop_first_import );
+		include_once( 'core/bebop-activate.php' );
 	}
 	else {
 		//BuddyPress is not installed, stop Bebop form activating and kill the script with an error message.
-		include_once( 'core/bebop-tables.php' );
 		deactivate_plugins( basename( __FILE__ ) ); // Deactivate this plugin
 		wp_die( _e( 'You cannot enable Bebop because BuddyPress is not active. Please install and activate BuddyPress before trying to activate Bebop again.', 'bebop') );
 	}
