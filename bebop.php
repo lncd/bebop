@@ -26,13 +26,14 @@ function bebop_init() {
 	
 	load_plugin_textdomain( 'bebop' , false, basename( dirname( __FILE__ ) ) . '/languages' );
 	
-	//include files from core. (also edit in import.php)
+	//include files from core. (also edit in import.php/secondary_import.php)
 	include_once( 'core/bebop-oauth.php' );
 	include_once( 'core/bebop-tables.php' );
 	include_once( 'core/bebop-filters.php' );
 	include_once( 'core/bebop-extensions.php' );
 	include_once( 'core/bebop-feeds.php' );
 	include_once( 'core/bebop-pages.php' );
+	include_once( 'core/bebop-updates.php' );
 	
 	if ( current_user_can( 'manage_options' ) && is_admin() ) {
 		include_once( 'core/bebop-core-admin.php' );
@@ -71,13 +72,13 @@ function bebop_activate() {
 	if ( is_plugin_active( 'buddypress/bp-loader.php' ) ) {
 		//define table sql
 		$bebop_error_log = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_error_log ( 
-			id int(10) NOT NULL auto_increment PRIMARY KEY, 
+			id bigint(20) NOT NULL auto_increment PRIMARY KEY, 
 			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 			error_type varchar(40) NOT NULL,
 			error_message text NOT NULL
 		);';
 		$bebop_general_log = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_general_log ( 
-			id int(10) NOT NULL auto_increment PRIMARY KEY,
+			id bigint(20) NOT NULL auto_increment PRIMARY KEY,
 			timestamp timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
 			type varchar(40) NOT NULL,
 			message text NOT NULL
@@ -90,30 +91,30 @@ function bebop_activate() {
 		);';
 		
 		$bebop_user_meta = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta ( 
-			id int(10) NOT NULL auto_increment PRIMARY KEY,
-			user_id int(10) NOT NULL,
+			id bigint(20) NOT NULL auto_increment PRIMARY KEY,
+			user_id bigint(20) NOT NULL,
 			meta_type varchar(255) NOT NULL,
 			meta_name varchar(255) NOT NULL,
 			meta_value longtext NOT NULL
 		);';
 		
 		$bebop_oer_manager = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager ( 
-			id int(10) NOT NULL auto_increment PRIMARY KEY,
-			user_id int(10) NOT NULL,
+			id bigint(20) NOT NULL auto_increment PRIMARY KEY,
+			user_id bigint(20) NOT NULL,
 			status varchar(75) NOT NULL,
 			type varchar(255) NOT NULL,
 			action text NOT NULL,
 			content longtext NOT NULL,
 			activity_stream_id bigint(20),
-			secondary_item_id bigint(20),
+			secondary_item_id varchar(20),
 			date_imported datetime,
 			date_recorded datetime,
 			hide_sitewide tinyint(1)
 		);';
 		
 		$bebop_first_import = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports ( 
-			id int(10) NOT NULL auto_increment PRIMARY KEY,
-			user_id int(10) NOT NULL,
+			id bigint(20) NOT NULL auto_increment PRIMARY KEY,
+			user_id bigint(20) NOT NULL,
 			extension varchar(255) NOT NULL,
 			name varchar(255) NOT NULL,
 			value longtext NOT NULL
