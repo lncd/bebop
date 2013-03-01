@@ -16,24 +16,24 @@ function bebop_manage_oers() {
 				foreach ( array_keys( $_POST ) as $oer ) {
 					if ( $oer != 'action' ) {
 						$data = bebop_tables::fetch_individual_oer_data( $oer ); //go and fetch data from the activity buffer table.
-						if ( ! empty( $data->secondary_item_id ) ) {
+						if ( ! empty( $data->id ) ) {
 							$should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $data->type . '_content_user_verification' );
-							if ( $should_users_verify_content != 'no' ) { 
+							if ( $should_users_verify_content != 'no' ) {
 								global $wpdb;
-								if ( ! bp_has_activities( 'secondary_id=' . $data->secondary_item_id ) ) {
-									$new_activity_item = array (
+								if ( ! bp_has_activities( 'action=bebop_oer_plugin&item_id=' . $data->id  ) ) {
+									$new_activity_item = array(
 										'user_id'			=> $data->user_id,
 										'component'			=> 'bebop_oer_plugin',
 										'type'				=> $data->type,
 										'action'			=> $data->action,
 										'content'			=> $data->content,
-										'secondary_item_id'	=> $data->secondary_item_id,
+										'item_id'			=> $data->id,
 										'date_recorded'		=> $data->date_recorded,
 										'hide_sitewide'		=> $data->hide_sitewide,
 									);
 									if ( bp_activity_add( $new_activity_item ) ) {
-										bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'verified' );
-										bebop_tables::update_oer_data( $data->secondary_item_id, 'activity_stream_id', $activity_stream_id = $wpdb->insert_id );
+										bebop_tables::update_oer_data( $data->id, 'status', 'verified' );
+										bebop_tables::update_oer_data( $data->id, 'activity_stream_id', $wpdb->insert_id );
 										$oer_count++;
 									}
 									else {
@@ -70,14 +70,10 @@ function bebop_manage_oers() {
 														'id' => $data->activity_stream_id,
 													)
 									);
-									$oer_count++;
 								}
 							}
-							else {
-								//else just update the status
-								bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'deleted' );
-								$oer_count++;
-							}
+							bebop_tables::update_oer_data( $data->id, 'status', 'deleted' );
+							$oer_count++;
 						}
 					}
 				} //End foreach ( array_keys( $_POST ) as $oer ) {
@@ -97,7 +93,7 @@ function bebop_manage_oers() {
 						$data = bebop_tables::fetch_individual_oer_data( $oer );//go and fetch data from the activity buffer table.
 						$should_users_verify_content = bebop_tables::get_option_value( 'bebop_' . $data->type . '_content_user_verification' );
 						if ( $should_users_verify_content != 'no' ) { 
-							bebop_tables::update_oer_data( $data->secondary_item_id, 'status', 'unverified' );
+							bebop_tables::update_oer_data( $data->id, 'status', 'unverified' );
 							$oer_count++;
 						}
 					}
@@ -115,7 +111,7 @@ function bebop_manage_oers() {
 				bp_core_add_message( $message );
 			}
 			else {
-				bp_core_add_message( __( 'We couldnt do that for you. Please try again.', 'bebop' ), 'error' );
+				bp_core_add_message( __( 'We couldnt do that for you. Please try again.', 'bebop' ), __( 'error', 'bebop' ) );
 			}
 			bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 		}//End if ( isset( $_POST['action'] ) ) {
@@ -153,7 +149,7 @@ function bebop_manage_provider() {
 						bp_core_add_message( sprintf( __( '%1$s has been added to the %2$s feed.', 'bebop' ), $new_name, $extension['display_name'] ) );
 					}
 					else {
-						bp_core_add_message( sprintf( __( '%1$s already exists in the %2$s feed; you cannot add it again.', 'bebop' ), $new_name, $extension['display_name'] ), 'error' );
+						bp_core_add_message( sprintf( __( '%1$s already exists in the %2$s feed; you cannot add it again.', 'bebop' ), $new_name, $extension['display_name'] ), __( 'error', 'bebop' ) );
 					}
 				}
 				
@@ -168,11 +164,11 @@ function bebop_manage_provider() {
 							bp_core_add_message( __( 'Feed successfully added.', 'bebop' ) );
 						}
 						else {
-							bp_core_add_message( __( 'This feed already exists, you cannot add it again.', 'bebop' ), 'error' );
+							bp_core_add_message( __( 'This feed already exists, you cannot add it again.', 'bebop' ), __( 'error', 'bebop' ) );
 						}
 					}
 					else {
-						bp_core_add_message( __( 'That feed cannot be added as it is not a valid URL.', 'bebop' ), 'error' );
+						bp_core_add_message( __( 'That feed cannot be added as it is not a valid URL.', 'bebop' ), __( 'error', 'bebop' ) );
 					}
 				}
 				
@@ -263,7 +259,7 @@ function bebop_manage_provider() {
 							//bp_core_redirect( $bp->loggedin_user->domain  . bp_current_component() . '/' . bp_current_action() );
 						}
 						else {
-							bp_core_add_message( __('We could not delete that feed.', 'bebop' ), 'error' );
+							bp_core_add_message( __('We could not delete that feed.', 'bebop' ), __( 'error', 'bebop' ) );
 							bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 						}
 					}
@@ -282,7 +278,7 @@ function bebop_manage_provider() {
 					bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 				}
 				else {
-					bp_core_add_message( __( 'We could not delete that feed.', 'bebop' ), 'error' );
+					bp_core_add_message( __( 'We could not delete that feed.', 'bebop' ), __( 'error', 'bebop' ) );
 					bp_core_redirect( $bp->loggedin_user->domain . bp_current_component() . '/' . bp_current_action() );
 				}
 			}
@@ -293,12 +289,27 @@ function bebop_manage_provider() {
 	}//End if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-accounts' ) ) {
 }//End function bebop_manage_provider() {
 
+
+/*
+ * Generic function to generate secondary_item_id's
+ */
+
+function bebop_generate_secondary_id( $user_id, $id, $timestamp = null ) {
+	if ( is_numeric( $id ) ) {
+		$item_id = $user_id . $id . strtotime( $timestamp );
+	}
+	else {
+		$item_id = $user_id . strtotime( $timestamp );
+	}
+	return md5( $item_id );
+}
+
 /*
  * Returns status from get array
  */
 function bebop_get_oer_type() {
 	global $bp, $wpdb;
-	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-manager' ) ) {
+	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action( 'bebop-manager' ) ) {
 		if ( isset( $_GET['type'] ) ) {
 			if ( strtolower( strip_tags( $_GET['type'] == 'unverified' ) ) ) {
 				return  __( 'unverified', 'bebop' );
@@ -320,18 +331,7 @@ function bebop_get_oers( $type, $page_number, $per_page ) {
 }
 
 
-/*
- * Generic function to generate secondary_item_id's
- */
-function bebop_generate_secondary_id( $user_id, $id, $timestamp = null ) {
-	if ( is_numeric( $id ) ) {
-		$item_id = $user_id . $id . strtotime( $timestamp );
-	}
-	else {
-		$item_id = $user_id . strtotime( $timestamp );
-	}
-	return $item_id;
-}
+
 //User styles.
 function bebop_user_stylesheets() {
 	wp_register_style( 'bebop-user-styles', plugins_url() . '/bebop/core/resources/css/user.css' );
@@ -408,7 +408,7 @@ function bebop_create_buffer_item( $params ) {
 											'type'				=> $params['extension'],
 											'action'			=> $action,
 											'content'			=> $content,
-											'secondary_item_id'	=> $params['item_id'],
+											'item_id'	=> $wpdb->insert_id,
 											'date_recorded'		=> $date_imported,
 											'hide_sitewide'		=>$oer_hide_sitewide,
 								);
@@ -416,6 +416,7 @@ function bebop_create_buffer_item( $params ) {
 									bebop_tables::update_oer_data( $params['item_id'], 'activity_stream_id', $activity_stream_id = $wpdb->insert_id );
 								}
 							}
+							return true;
 						}
 						else {
 							bebop_tables::log_error( __( 'Importer', 'bebop' ), __( 'Import query error', 'bebop' ) );
@@ -423,24 +424,15 @@ function bebop_create_buffer_item( $params ) {
 					}//End if ( bebop_filters::day_increase( $params['extension'], $params['user_id'], $params['username'] ) ) {
 					else {
 						bebop_tables::log_error( __( 'Importer', 'bebop' ), __( 'Could not import as a daycounter could not be found.', 'bebop' ) );
-						return false;
 					}
 				}
 				else {
 					bebop_tables::log_error( __( 'Importer', 'bebop' ), __( 'Could not import, content already exists.', 'bebop' ) );
-					return false;
 				}
 			}
-			else {
-				return false;
-			}
-		}
-		else {
-			bebop_tables::log_error( sprintf(__( 'Import Error - %1$s', 'bebop' ), $params['extension'] ), sprintf( __( '%1$s already exists', 'bebop' ), $params['item_id'] ) );
-			return false;
 		}
 	}
-	return true;
+	return false;
 }
 
 
@@ -450,10 +442,11 @@ add_action( 'bp_activity_deleted_activities', 'update_bebop_status' );
 function update_bebop_status( $deleted_ids ) {
 	global $wpdb;
 	foreach ( $deleted_ids as $id ) {
-		$result = $wpdb->get_row( 'SELECT secondary_item_id FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE activity_stream_id = '" . $id . "'" );
-		if ( ! empty( $result->secondary_item_id ) ) {
-			bebop_tables::update_oer_data( $result->secondary_item_id, 'status', 'deleted' );
-			bebop_tables::update_oer_data( $result->secondary_item_id, 'activity_stream_id', '' );
+		$result = $wpdb->get_row( 'SELECT id FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE activity_stream_id = '" . $id . "'" );
+		if ( ! empty( $result->id ) ) {
+			print_args($result);
+			bebop_tables::update_oer_data( $result->id, 'status', 'deleted' );
+			bebop_tables::update_oer_data( $result->id, 'activity_stream_id', '' );
 		}
 	}
 }
@@ -632,14 +625,14 @@ function bebop_rss_buttons() {
 		if ( bebop_tables::get_option_value( 'bebop_' . $extension . '_rss_feed' ) == 'on' ) {
 			$extension = bebop_extensions::bebop_get_extension_config_by_name( strtolower( $extension ) );
 			if ( bebop_tables::get_user_meta_value( $user->ID, 'bebop_' . $extension['name'] . '_active_for_user' ) == 1 ) {
-				echo '<a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/' . $extension['name'] . '"><img style="vertical-align: text-top;"' .
+				echo '<a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/' .bp_get_members_slug() . '/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/' . $extension['name'] . '"><img style="vertical-align: text-top;"' .
 				'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> ' .$extension['display_name'] . '</a>';
 				$count++;
 			}
 		}
 	}
 	if ( $count >= 2 ) {
-		echo ' <a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/all_oers"><img style="vertical-align: text-top;"' . 
+		echo ' <a class="button bp-secondary-action" href="' . get_bloginfo('url') . '/' .bp_get_members_slug() . '/' . $user->user_nicename . '/' . bp_get_activity_slug() . '/all_oers"><img style="vertical-align: text-top;"' . 
 		'src="' . plugins_url() . '/bebop/core/resources/images/feed_14px.png"> All</a>';
 	}
 

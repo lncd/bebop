@@ -37,7 +37,7 @@ $bebop_oer_manager = 'CREATE TABLE IF NOT EXISTS ' . bp_core_get_table_prefix() 
 	action text NOT NULL,
 	content longtext NOT NULL,
 	activity_stream_id bigint(20),
-	secondary_item_id varchar(20),
+	secondary_item_id varchar(32),
 	date_imported datetime,
 	date_recorded datetime,
 	hide_sitewide tinyint(1)
@@ -87,22 +87,30 @@ if ( ! $update_1 ) {
 //2 - update column definitions
 $update_2 = bebop_tables::get_option_value( 'bebop_db_update_2' );
 if ( ! $update_2 ) {
-	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager MODIFY secondary_item_id VARCHAR(20)' );
-	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager MODIFY id BIGINT(20)' );
+	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager MODIFY secondary_item_id VARCHAR(32)' );
+	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager MODIFY id BIGINT(20) NOT NULL AUTO_INCREMENT' );
 	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager MODIFY user_id BIGINT(20)' );
 	
-	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta MODIFY id BIGINT(20)' );
+	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta MODIFY id BIGINT(20) NOT NULL AUTO_INCREMENT' );
 	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_user_meta MODIFY user_id BIGINT(20)' );
 	
-	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports MODIFY id BIGINT(20)' );
+	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports MODIFY id BIGINT(20) NOT NULL AUTO_INCREMENT' );
 	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_first_imports MODIFY user_id BIGINT(20)' );
 	
-	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_error_log MODIFY id BIGINT(20)' );
-	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_general_log MODIFY id BIGINT(20)' );
-	//bebop_tables::add_option( 'bebop_db_update_2', true );
+	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_error_log MODIFY id BIGINT(20) NOT NULL AUTO_INCREMENT' );
+	$wpdb->get_results( 'ALTER TABLE ' . bp_core_get_table_prefix() . 'bp_bebop_general_log MODIFY id BIGINT(20) NOT NULL AUTO_INCREMENT' );
+	bebop_tables::add_option( 'bebop_db_update_2', true );
 }
 
-
+//3 - hash secondary_item_ids
+$update_3 = bebop_tables::get_option_value( 'bebop_db_update_3' );
+if ( ! $update_3 ) {
+	$results = $wpdb->get_results( 'SELECT secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager' );
+	foreach ( $results as $result ) {
+		$update = $wpdb->get_row( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager SET secondary_item_id = "' . $wpdb->escape( md5( $result->secondary_item_id ) ) . '" WHERE secondary_item_id = "' . $wpdb->escape( $result->secondary_item_id ) . '"' );
+	}
+	bebop_tables::add_option( 'bebop_db_update_3', true );
+}
 
 
 
