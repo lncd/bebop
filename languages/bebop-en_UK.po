@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-02-26 10:51-0000\n"
-"PO-Revision-Date: 2013-02-26 10:53-0000\n"
+"POT-Creation-Date: 2013-03-01 15:57-0000\n"
+"PO-Revision-Date: 2013-03-01 15:58-0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,17 +14,17 @@ msgstr ""
 "X-Poedit-SearchPath-0: /Users/mckeown/bebop_local/wordpress/wp-content/"
 "plugins/bebop\n"
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/bebop.php:142
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/bebop.php:78
 msgid ""
 "You cannot enable Bebop because BuddyPress is not active. Please install and "
 "activate BuddyPress before trying to activate Bebop again."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/bebop.php:177
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/bebop.php:113
 msgid "main_cron"
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/bebop.php:186
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/bebop.php:122
 msgid "secondary_cron"
 msgstr ""
 
@@ -121,77 +121,86 @@ msgstr ""
 msgid "Resource verified."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:86
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:82
 msgid "Resources deleted."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:90
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:86
 msgid "Resource deleted."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:107
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:103
 msgid "Resources undeleted."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:111
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:107
 msgid "Resource undeleted."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:118
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:114
 msgid "We couldnt do that for you. Please try again."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:153
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:114
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:152
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:167
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:171
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:262
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:281
+msgid "error"
+msgstr ""
+
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:149
 #, php-format
 msgid "%1$s has been added to the %2$s feed."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:156
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:152
 #, php-format
 msgid "%1$s already exists in the %2$s feed; you cannot add it again."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:168
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:164
 msgid "Feed successfully added."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:171
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:167
 msgid "This feed already exists, you cannot add it again."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:175
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:171
 msgid "That feed cannot be added as it is not a valid URL."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:208
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:246
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:204
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:242
 #, php-format
 msgid "You have successfully authenticated your %1$s account."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:262
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:258
 msgid "Feed successfully deleted."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:266
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:285
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:262
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:281
 msgid "We could not delete that feed."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:281
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:277
 #, php-format
 msgid "%1$s has been removed from your %2$s feed."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:304
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:315
 msgid "unverified"
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:307
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:318
 msgid "verified"
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:310
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:321
 msgid "deleted"
 msgstr ""
 
@@ -199,17 +208,17 @@ msgstr ""
 msgid "posted a"
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:421
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:425
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:422
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:426
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:430
 msgid "Importer"
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:421
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:422
 msgid "Import query error"
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:425
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:426
 msgid "Could not import as a daycounter could not be found."
 msgstr ""
 
@@ -217,21 +226,11 @@ msgstr ""
 msgid "Could not import, content already exists."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:439
-#, php-format
-msgid "Import Error - %1$s"
-msgstr ""
-
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:439
-#, php-format
-msgid "%1$s already exists"
-msgstr ""
-
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:476
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:469
 msgid "All OERs"
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:479
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-core.php:472
 msgid "No Extensions are active - please enable them in the admin panel"
 msgstr ""
 
@@ -338,17 +337,17 @@ msgstr ""
 msgid "Could not empty the %1$s table."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:220
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:276
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:230
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:286
 msgid "bebop_option_error"
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:220
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:230
 #, php-format
 msgid "option: %1$s already exists."
 msgstr ""
 
-#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:276
+#: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/bebop-tables.php:286
 #, php-format
 msgid "option: %1$s does not exist."
 msgstr ""
@@ -481,7 +480,7 @@ msgstr ""
 
 #: /Users/mckeown/bebop_local/wordpress/wp-content/plugins/bebop/core/templates/admin/bebop-admin.php:17
 msgid ""
-"Version 1.2.3 is a minor release which fixes a few compatability issued with "
+"Version 1.3 is a major release which fixes a few compatability issued with "
 "WP 3.5.1 and BP 1.6.4. It also adds more information on chearing any "
 "required apps, API keys, and API secrets."
 msgstr ""
