@@ -4,12 +4,12 @@ session_start();
 Plugin Name: Bebop
 Plugin URI: http://bebop.blogs.lincoln.ac.uk/
 Description: Bebop provides your BuddyPress users with the ability to import and shae content from a wide range of online content providers, such as Facebook, Twitter, Vimeo, Youtube and Flickr. Bebop was originally developed as a method of sharing Open Educational Resources, but has since been opened up to the wider community.
-Version: 1.2.2
+Version: 1.3.0
 Text Domain: bebop
 Author: Dale Mckeown
 Author URI: http://www.dalemckeown.co.uk
 License: GNU General Public Licence - https://www.gnu.org/copyleft/gpl.html
-Copyright 2012 The University of Lincoln - http://www.lincoln.ac.uk.
+Copyright 2013 The University of Lincoln - http://www.lincoln.ac.uk.
 Credits: BuddySteam - buddystream.net
 */
 // This plugin is intended for use on BuddyPress only.
@@ -132,7 +132,7 @@ function bebop_secondary_import_function() {
 	require_once( 'secondary_import.php' );
 }
 
-define( 'BP_BEBOP_VERSION', '1.2.2' );
+define( 'BP_BEBOP_VERSION', '1.3.0' );
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );

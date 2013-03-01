@@ -46,8 +46,8 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 == Changelog ==
 
-v1.2.3 - 25.02.2013 - Minor Release
-
+v1.3.0 - 01.03.2013 - Major release - Please backup your database before upgrading!
+* Rewrote all secondary id's to be universal. Also fixed icompatability issues with 32bit operating systems.
 * Fixed some minor WP 3.5.1 and BP 1.6.4 compatability issues.
 * Better garbage collection on PHP 5.3
 * Added 'Resources' tab to the wp-buddypress admin bar.
