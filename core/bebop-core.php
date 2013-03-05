@@ -8,6 +8,7 @@ add_action( 'bp_actions', 'bebop_manage_oers' );
 function bebop_manage_oers() {
 	if ( bp_is_current_component( 'bebop' ) && bp_is_current_action('bebop-manager' ) ) {
 		if ( isset( $_POST['action'] ) ) {
+			global $wpdb;
 			global $bp;
 			$oer_count = 0;
 			$success = false;
@@ -398,7 +399,7 @@ function bebop_create_buffer_item( $params ) {
 														$wpdb->escape( $params['item_id'] ), $wpdb->escape( $date_imported ), $wpdb->escape( $params['raw_date'] ), $wpdb->escape( $oer_hide_sitewide )
 										)
 						) ) {
-							
+							$id = $wpdb->insert_id;
 							//if users shouldn't verify content, add it to the activity stream immediately.
 							if ( $should_users_verify_content == 'no' ) {
 								
@@ -408,12 +409,12 @@ function bebop_create_buffer_item( $params ) {
 											'type'				=> $params['extension'],
 											'action'			=> $action,
 											'content'			=> $content,
-											'item_id'	=> $wpdb->insert_id,
+											'item_id'			=> $id,
 											'date_recorded'		=> $date_imported,
 											'hide_sitewide'		=>$oer_hide_sitewide,
 								);
 								if ( bp_activity_add( $new_activity_item ) ) {
-									bebop_tables::update_oer_data( $params['item_id'], 'activity_stream_id', $activity_stream_id = $wpdb->insert_id );
+									bebop_tables::update_oer_data( $id, 'activity_stream_id', $activity_stream_id = $wpdb->insert_id );
 								}
 							}
 							return true;
