@@ -70,18 +70,52 @@ unset( $bebop_first_import );
 
 //Scripts to change DB architecture and data from from previous versions of bebop to the latest version.
 
-
 //1 - update wp_bp_activity to use wp_bp_bebop_oer_manager id as the wp_bp_activity primary_item_id and remove secondary item_id
 $update_1 = bebop_tables::get_option_value( 'bebop_db_update_1' );
 if ( ! $update_1 ) {
-	$results = $wpdb->get_results( 'SELECT secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_activity WHERE component = "bebop_oer_plugin"' );
-	foreach ( $results as $result ) {
+	$secondary_ids				= array();
+	$update_item_id				= array();
+	$update_secondary_item_id 	= array();
+	
+	$secondary_id_query = $wpdb->get_results( 'SELECT secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_activity WHERE component = "bebop_oer_plugin"' );
+	
+	foreach ( $secondary_id_query as $result ) {
 		//get it's wp_bp_bebop_oer_manager id
-		$id = $wpdb->get_row( 'SELECT id FROM ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager WHERE secondary_item_id = "' . $wpdb->escape( $result->secondary_item_id ) . '"' );
-		//remove secondary_item_id, add item_id
-		$update = $wpdb->get_row( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_activity SET item_id = "' . $wpdb->escape( $id->id ) . '", secondary_item_id = "" WHERE secondary_item_id = "' . $wpdb->escape( $result->secondary_item_id ) . '"' );
+		$secondary_ids[] = $result->secondary_item_id;
 	}
+	$ids = implode( ',', $secondary_ids );
+	$oer_manager_query = $wpdb->get_results( 'SELECT id, secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager WHERE secondary_item_id IN (' . $ids . ')' );
+	foreach ( $oer_manager_query as $result )
+	{
+		$update_item_id[] 				= array( 'indices' => array( 'secondary_item_id' => $result->secondary_item_id ), 'data' => $result->id );
+		$update_secondary_item_id[] 	= array( 'indices' => array( 'secondary_item_id' => $result->secondary_item_id ), 'data' => '' );
+	}
+	$update_array = array(
+		'item_id' 			=> $update_item_id,
+		'secondary_item_id' => $update_secondary_item_id
+	);
+	
+	$update_string = array();
+	foreach ( $update_array as $key => $data )
+	{
+		$string = $key . ' = CASE ';
+		foreach ( $data as $update_data )
+		{
+			$indices_loop = array();
+			foreach (  $update_data['indices'] as $index_name => $index_data )
+			{
+				$indices_loop[] = $index_name . ' = \'' . $index_data . '\'';
+			}
+			$string .= 'WHEN ' . implode (' AND ', $indices_loop ) . ' THEN  \'' . $update_data['data'] . '\' ';
+		}
+		$update_string[] = $string . 'ELSE ' . $key . ' END';
+	}
+	$query = implode( ', ', $update_string );
+	$update = $wpdb->get_results( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_activity SET ' . $query );
 	bebop_tables::add_option( 'bebop_db_update_1', true );
+	unset($secondary_ids);
+	unset($update_item_id);
+	unset($update_secondary_item_id);
 }
 
 //2 - update column definitions
@@ -105,14 +139,35 @@ if ( ! $update_2 ) {
 //3 - hash secondary_item_ids
 $update_3 = bebop_tables::get_option_value( 'bebop_db_update_3' );
 if ( ! $update_3 ) {
-	$results = $wpdb->get_results( 'SELECT secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager' );
+	$update_secondary_item_id = array();
+	$results = $wpdb->get_results( 'SELECT id, secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager' );
 	foreach ( $results as $result ) {
-		$update = $wpdb->get_row( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager SET secondary_item_id = "' . $wpdb->escape( md5( $result->secondary_item_id ) ) . '" WHERE secondary_item_id = "' . $wpdb->escape( $result->secondary_item_id ) . '"' );
+		$update_secondary_item_id[] = array( 'indices' => array( 'id' => $result->id ), 'data' => md5( $result->secondary_item_id ) );
 	}
+	$update_array = array(
+		'secondary_item_id' => $update_secondary_item_id
+	);
+	
+	$update_string = array();
+	foreach ( $update_array as $key => $data )
+	{
+		$string = $key . ' = CASE ';
+		foreach ( $data as $update_data )
+		{
+			$indices_loop = array();
+			foreach (  $update_data['indices'] as $index_name => $index_data )
+			{
+				$indices_loop[] = $index_name . ' = \'' . $index_data . '\'';
+			}
+			$string .= 'WHEN ' . implode (' AND ', $indices_loop ) . ' THEN  \'' . $update_data['data'] . '\' ';
+		}
+		$update_string[] = $string . 'ELSE ' . $key . ' END';
+	}
+	$query = implode( ', ', $update_string );
+	$update = $wpdb->get_results( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager SET ' . $query );
+	
 	bebop_tables::add_option( 'bebop_db_update_3', true );
+	unset($update_secondary_item_id);
 }
-
-
-
 
 ?>
