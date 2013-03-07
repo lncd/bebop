@@ -9,7 +9,7 @@ Tested up to: WordPress 3.5.1, BuddyPress 1.6.4
 == Licence ==
 
 Released under the GNU General Public Licence - https://www.gnu.org/copyleft/gpl.html
-Copyright 2012 The University of Lincoln - http://www.lincoln.ac.uk.
+Copyright 2013 The University of Lincoln - http://www.lincoln.ac.uk.
 
 
 == Description ==
