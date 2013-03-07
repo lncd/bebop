@@ -78,44 +78,46 @@ if ( ! $update_1 ) {
 	$update_secondary_item_id 	= array();
 	
 	$secondary_id_query = $wpdb->get_results( 'SELECT secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_activity WHERE component = "bebop_oer_plugin"' );
-	
-	foreach ( $secondary_id_query as $result ) {
-		//get it's wp_bp_bebop_oer_manager id
-		$secondary_ids[] = $result->secondary_item_id;
-	}
-	$ids = implode( ',', $secondary_ids );
-	$oer_manager_query = $wpdb->get_results( 'SELECT id, secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager WHERE secondary_item_id IN (' . $ids . ')' );
-	foreach ( $oer_manager_query as $result )
+	if ( ! empty( $secondary_id_query ) )
 	{
-		$update_item_id[] 				= array( 'indices' => array( 'secondary_item_id' => $result->secondary_item_id ), 'data' => $result->id );
-		$update_secondary_item_id[] 	= array( 'indices' => array( 'secondary_item_id' => $result->secondary_item_id ), 'data' => '' );
-	}
-	$update_array = array(
-		'item_id' 			=> $update_item_id,
-		'secondary_item_id' => $update_secondary_item_id
-	);
-	
-	$update_string = array();
-	foreach ( $update_array as $key => $data )
-	{
-		$string = $key . ' = CASE ';
-		foreach ( $data as $update_data )
-		{
-			$indices_loop = array();
-			foreach (  $update_data['indices'] as $index_name => $index_data )
-			{
-				$indices_loop[] = $index_name . ' = \'' . $index_data . '\'';
-			}
-			$string .= 'WHEN ' . implode (' AND ', $indices_loop ) . ' THEN  \'' . $update_data['data'] . '\' ';
+		foreach ( $secondary_id_query as $result ) {
+			//get it's wp_bp_bebop_oer_manager id
+			$secondary_ids[] = $result->secondary_item_id;
 		}
-		$update_string[] = $string . 'ELSE ' . $key . ' END';
+		$ids = implode( ',', $secondary_ids );
+		$oer_manager_query = $wpdb->get_results( 'SELECT id, secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager WHERE secondary_item_id IN (' . $ids . ')' );
+		foreach ( $oer_manager_query as $result )
+		{
+			$update_item_id[] 				= array( 'indices' => array( 'secondary_item_id' => $result->secondary_item_id ), 'data' => $result->id );
+			$update_secondary_item_id[] 	= array( 'indices' => array( 'secondary_item_id' => $result->secondary_item_id ), 'data' => '' );
+		}
+		$update_array = array(
+			'item_id' 			=> $update_item_id,
+			'secondary_item_id' => $update_secondary_item_id
+		);
+		
+		$update_string = array();
+		foreach ( $update_array as $key => $data )
+		{
+			$string = $key . ' = CASE ';
+			foreach ( $data as $update_data )
+			{
+				$indices_loop = array();
+				foreach (  $update_data['indices'] as $index_name => $index_data )
+				{
+					$indices_loop[] = $index_name . ' = \'' . $index_data . '\'';
+				}
+				$string .= 'WHEN ' . implode (' AND ', $indices_loop ) . ' THEN  \'' . $update_data['data'] . '\' ';
+			}
+			$update_string[] = $string . 'ELSE ' . $key . ' END';
+		}
+		$query = implode( ', ', $update_string );
+		$update = $wpdb->get_results( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_activity SET ' . $query );
+		bebop_tables::add_option( 'bebop_db_update_1', true );
+		unset($secondary_ids);
+		unset($update_item_id);
+		unset($update_secondary_item_id);
 	}
-	$query = implode( ', ', $update_string );
-	$update = $wpdb->get_results( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_activity SET ' . $query );
-	bebop_tables::add_option( 'bebop_db_update_1', true );
-	unset($secondary_ids);
-	unset($update_item_id);
-	unset($update_secondary_item_id);
 }
 
 //2 - update column definitions
@@ -141,33 +143,36 @@ $update_3 = bebop_tables::get_option_value( 'bebop_db_update_3' );
 if ( ! $update_3 ) {
 	$update_secondary_item_id = array();
 	$results = $wpdb->get_results( 'SELECT id, secondary_item_id FROM ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager' );
-	foreach ( $results as $result ) {
-		$update_secondary_item_id[] = array( 'indices' => array( 'id' => $result->id ), 'data' => md5( $result->secondary_item_id ) );
-	}
-	$update_array = array(
-		'secondary_item_id' => $update_secondary_item_id
-	);
-	
-	$update_string = array();
-	foreach ( $update_array as $key => $data )
+	if ( ! empty( $results ) )
 	{
-		$string = $key . ' = CASE ';
-		foreach ( $data as $update_data )
-		{
-			$indices_loop = array();
-			foreach (  $update_data['indices'] as $index_name => $index_data )
-			{
-				$indices_loop[] = $index_name . ' = \'' . $index_data . '\'';
-			}
-			$string .= 'WHEN ' . implode (' AND ', $indices_loop ) . ' THEN  \'' . $update_data['data'] . '\' ';
+		foreach ( $results as $result ) {
+			$update_secondary_item_id[] = array( 'indices' => array( 'id' => $result->id ), 'data' => md5( $result->secondary_item_id ) );
 		}
-		$update_string[] = $string . 'ELSE ' . $key . ' END';
+		$update_array = array(
+			'secondary_item_id' => $update_secondary_item_id
+		);
+		
+		$update_string = array();
+		foreach ( $update_array as $key => $data )
+		{
+			$string = $key . ' = CASE ';
+			foreach ( $data as $update_data )
+			{
+				$indices_loop = array();
+				foreach (  $update_data['indices'] as $index_name => $index_data )
+				{
+					$indices_loop[] = $index_name . ' = \'' . $index_data . '\'';
+				}
+				$string .= 'WHEN ' . implode (' AND ', $indices_loop ) . ' THEN  \'' . $update_data['data'] . '\' ';
+			}
+			$update_string[] = $string . 'ELSE ' . $key . ' END';
+		}
+		$query = implode( ', ', $update_string );
+		$update = $wpdb->get_results( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager SET ' . $query );
+		
+		bebop_tables::add_option( 'bebop_db_update_3', true );
+		unset($update_secondary_item_id);
 	}
-	$query = implode( ', ', $update_string );
-	$update = $wpdb->get_results( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager SET ' . $query );
-	
-	bebop_tables::add_option( 'bebop_db_update_3', true );
-	unset($update_secondary_item_id);
 }
 
 ?>
