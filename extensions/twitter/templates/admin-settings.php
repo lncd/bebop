@@ -21,7 +21,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 	<div class="postbox center_margin margin-bottom_22px bebop_provider_helper hidden">
 		<h3><?php echo sprintf( __( '%1$s API Setup', 'bebop' ), $extension['display_name'] ) ?></h3>
 		<div class="inside">
-			<?php echo sprintf( __( '%1$s requires an <a href="http://dev.twitter.com/apps">application</a> to be setup in order to obtain the required API token/secret. Follow these steps', 'bebop' ), $extension['display_name'] ); ?>:
+			<?php echo sprintf( __( '%1$s requires an <a target="_blank" href="http://dev.twitter.com/apps">application</a> to be setup in order to obtain the required API token/secret. Follow these steps', 'bebop' ), $extension['display_name'] ); ?>:
 			<ol>
 				<li><?php _e( 'Go to <b>My applications</b> and click <b>Create a new application</b>. Complete the form as instructed.', 'bebop' ); ?></li>
 				<li><?php _e( 'Once the application is made you are taken to the application overview. Click the <b>Settings</b> tab, change <b>Application type</b> to <b>read and write</b>.', 'bebop' ); ?></li>

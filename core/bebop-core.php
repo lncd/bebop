@@ -445,7 +445,6 @@ function update_bebop_status( $deleted_ids ) {
 	foreach ( $deleted_ids as $id ) {
 		$result = $wpdb->get_row( 'SELECT id FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE activity_stream_id = '" . $id . "'" );
 		if ( ! empty( $result->id ) ) {
-			print_args($result);
 			bebop_tables::update_oer_data( $result->id, 'status', 'deleted' );
 			bebop_tables::update_oer_data( $result->id, 'activity_stream_id', '' );
 		}
