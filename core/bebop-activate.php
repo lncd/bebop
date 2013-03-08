@@ -180,4 +180,5 @@ if ( ! $update_3 ) {
 	}
 }
 
+bebop_tables::add_option( 'bebop_db_version', '1.3.0' );
 ?>
