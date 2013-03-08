@@ -1,7 +1,7 @@
 === Bebop ===
 
 Contributors: Dale Mckeown
-Tags: WordPress, BuddyPress, OER, Open Educational Resources, ukeor, oerri, Rapid Innovation, JISC, LNCD, The University of Lincoln.
+Tags: WordPress, BuddyPress, OER, Open Educational Resources, ukeor, oerri, Rapid Innovation, JISC, LNCD, The University of Lincoln, Facebook, Twitter, SlideShare, Youtube, Vimeo, RSS.
 
 Tested up to: WordPress 3.5.1, BuddyPress 1.6.4
 
@@ -14,13 +14,12 @@ Copyright 2013 The University of Lincoln - http://www.lincoln.ac.uk.
 
 == Description ==
 
-Bebop is a BuddyPress plugin which allows you to connect your BuddyPress profile to other social media platforms such as Twitter, Flickr, Slideshare, Youtube and Vimeo. Bebop is an aggregator and curatorial tool, pulling content from other web services into your BuddyPress activity timeline. It will also pull in content from RSS/Atom feeds, so will work with sites like Tumblr, WordPress and Blogger. Bebop gives you control over exactly what items of content appear in your activity stream and works on WordPress network installs, too.
-
+Bebop is a BuddyPress plugin which allows you to connect your BuddyPress profile to other social media platforms such as Twitter, Flickr, Slideshare, Youtube and Vimeo. Bebop is an aggregator and curatorial tool, pulling content from other web services into your BuddyPress activity timeline. It will also pull in content from RSS/Atom feeds, so will work with sites like Tumblr, WordPress and Blogger.
+Bebop gives you control over exactly what items of content appear in your activity stream and works on WordPress network installs, too.
 Bebop was developed by the University of Lincoln for a JISC-funded 'Open Educational Resources' project, to allow teachers to select and aggregate teaching resources they have shared on third-party sites into their BuddyPress profile. BuddyPress and Bebop are being used at the University of Lincoln to power staff and student profiles.
 
-=======
-
 German (de_DE) Language pack courtesy of HansRuedi Keller (http://www.info.ch)
+=======
 
 == Installation ==
 
