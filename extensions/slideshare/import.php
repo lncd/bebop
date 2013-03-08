@@ -156,14 +156,17 @@ function bebop_slideshare_import( $extension, $user_metas = null ) {
 										}
 									}//End if ( ! empty( $secondary->secondary_item_id ) ) {
 								}
+								unset($item);
 							}
 						}
 						else {
 							bebop_tables::log_error( sprintf( __( 'Importer - %1$s', 'bebop' ), $this_extension['display_name'] ), sprintf( __( 'Feed Error: %1$s', 'bebop' ), $errors ) );
 						}
 					}
+					unset($user_feed);
 				}//End foreach ($user_feeds as $user_feed ) {
 			}
+			unset($user_meta);
 		}
 	}
 	//return the result

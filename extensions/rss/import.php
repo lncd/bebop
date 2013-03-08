@@ -142,6 +142,7 @@ function bebop_rss_import( $extension, $user_metas = null ) {
 											}
 										}//End if ( ! empty( $secondary->secondary_item_id ) ) {
 									}
+									unset($item);
 								}
 							}
 						}
@@ -150,6 +151,7 @@ function bebop_rss_import( $extension, $user_metas = null ) {
 						}
 					}
 				}//End foreach ($user_feeds as $user_feed ) {
+				unset($user_meta);
 			}
 		}
 	}

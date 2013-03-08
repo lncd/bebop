@@ -99,7 +99,7 @@ function bebop_vimeo_import( $extension, $user_metas = null ) {
 						
 						foreach ( $items as $item ) {
 							//vimeo returns the item as an array, so cast it to an object for simplicity.
-							$item = (object)$item; //
+							$item = (object)$item;
 							
 							if ( ! bebop_filters::import_limit_reached( $this_extension['name'], $user_meta->user_id, $import_username ) ) {
 								
@@ -145,10 +145,12 @@ function bebop_vimeo_import( $extension, $user_metas = null ) {
 										$itemCounter++;
 									}
 								}//End if ( ! empty( $secondary->secondary_item_id ) ) {
+								unset($item);
 							}
 						}
 					}
 				}
+				unset($user_meta);
 			}
 		}
 	}
