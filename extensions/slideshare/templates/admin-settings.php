@@ -24,7 +24,7 @@ include_once( WP_PLUGIN_DIR . '/bebop/core/templates/admin/bebop-admin-menu.php'
 			<?php echo sprintf( __( '%1$s requires an application to be setup in order to obtain the required API token/secret. Follow these steps', 'bebop' ), $extension['display_name'] ); ?>:
 			<ol>
 				<li><?php _e( 'Go to the <a target="_blank" href="http://www.slideshare.net/developers">SlideShare developers page</a>. Click <b>apply</b>.', 'bebop' ); ?></li>
-				<li><?php _e( 'Complete and submit the form as instructed. SlideShare will them email you your details.', 'bebop' ); ?>/li>
+				<li><?php _e( 'Complete and submit the form as instructed. SlideShare will then email you your details.', 'bebop' ); ?>/li>
 				<li><?php _e( 'Copy the <b>App Key</b> into the <b>SlideShare API Token</b> field and <b>Shared Secret</b> into the <b>SlideShare API Secret</b> field on this page.', 'bebop' ); ?></li>
 				<li><?php _e( 'Click <b>Save Changes</b> and then test by adding a user on the front end. For more help, visit the <a target="_blank" href="http://wordpress.org/support/plugin/bebop">support forum.</a>', 'bebop' ); ?></li>
 			</ol>

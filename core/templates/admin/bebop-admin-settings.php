@@ -17,7 +17,7 @@
 			
 			<p><?php _e( 'As of version 1.1, a secondary cron was introduced. This allows the major import scripts to run at less frequency, while still allowing new users and new feeds to import data within 20 seconds.
 				Therefore you should not need to run the cron any less than 10 minutes (600 seconds).', 'bebop' ); ?></p>
-			<p><?php _e( 'As of version 1.1, A Crons can be forced to run at the click of a button. This can be used to test whether content is being imported and does not affect the WordPress cron.', 'bebop' ); ?></p>
+			<p><?php _e( 'As of version 1.1, a cron can be forced to run at the click of a button. This can be used to test whether content is being imported and does not affect the WordPress cron.', 'bebop' ); ?></p>
 			<p><?php _e( 'As of version 1.2, the content verification has been moved from the general settings, and has been added to each extension.', 'bebop' ); ?></p>
 			
 			<label for='bebop_general_crontime'><?php _e( 'WordPress Cron time (in seconds):', 'bebop' ); ?></label>
