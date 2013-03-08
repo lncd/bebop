@@ -18,17 +18,6 @@ Bebop is a BuddyPress plugin which allows you to connect your BuddyPress profile
 Bebop gives you control over exactly what items of content appear in your activity stream and works on WordPress network installs, too.
 Bebop was developed by the University of Lincoln for a JISC-funded 'Open Educational Resources' project, to allow teachers to select and aggregate teaching resources they have shared on third-party sites into their BuddyPress profile. BuddyPress and Bebop are being used at the University of Lincoln to power staff and student profiles.
 
-=======
-
-
-== Installation ==
-
-Requirements.
-- PHP 5.2.1+
-
-=======
-
-
 German (de_DE) Language pack courtesy of HansRuedi Keller (http://www.info.ch)
 =======
 
@@ -69,6 +58,8 @@ v1.2.2 - 21.12.2012 - Minor Release
 * Fixed WP 3.5 compatability issues.
 
 v1.2.1 - 08.11.2012 - Minor Release
+
+* This update addresses an issue which accidentally allowed hidden content from groups to be displayed on the activity stream.
 
 v1.2 - 02.11.2012 - Major Release
 
@@ -118,6 +109,7 @@ Other:
 * Updated the readme.txt file.
 * Changed feed back to RSS
 * Changes some admin terminology so that it suites our social media users a little better.
+
 
 v1.1 - 24.09.2012 - Major Release
 
