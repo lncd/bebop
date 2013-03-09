@@ -4,7 +4,7 @@ session_start();
 Plugin Name: Bebop
 Plugin URI: http://bebop.blogs.lincoln.ac.uk/
 Description: Bebop provides your BuddyPress users with the ability to import and share content from a wide range of online content providers, such as Facebook, Twitter, Vimeo, Youtube and Flickr. Bebop was originally developed as a method of sharing Open Educational Resources, but has since been opened up to the wider community.
-Version: 1.3.0
+Version: 1.3.1
 Text Domain: bebop
 Author: Dale Mckeown
 Author URI: http://www.dalemckeown.co.uk
@@ -41,7 +41,7 @@ function bebop_init() {
 	
 	//Plugin activation/deactivation hooks do not fire on plugin update, so check the current DB version and update as necessary.
 	$db_version = bebop_tables::get_option_value( 'bebop_db_version' );
-	if ( empty( $db_version ) || $db_version != '1.3.0' ) {
+	if ( empty( $db_version ) || $db_version != '1.3.1' ) {
 		include_once( 'core/bebop-activate.php' );
 	}
 	
@@ -139,7 +139,7 @@ function bebop_secondary_import_function() {
 	require_once( 'secondary_import.php' );
 }
 
-define( 'BP_BEBOP_VERSION', '1.3.0' );
+define( 'BP_BEBOP_VERSION', '1.3.1' );
 
 //hooks into activation and deactivation of the plugin.
 register_activation_hook( __FILE__, 'bebop_activate' );

@@ -179,5 +179,5 @@ if ( ! $update_3 ) {
 	bebop_tables::add_option( 'bebop_db_update_3', true );
 }
 
-bebop_tables::add_option( 'bebop_db_version', '1.3.0' );
+bebop_tables::add_option( 'bebop_db_version', '1.3.1' );
 ?>
