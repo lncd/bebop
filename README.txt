@@ -45,7 +45,7 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 == Changelog ==
 
-v1.3.0 - 09.03.2013 - Minor release, but please backup your database before upgrading!
+v1.3.1 - 09.03.2013 - Minor release, but please backup your database before upgrading!
 * Fixed the upgrade error in 1.3.0.
 * Rewrote database checks for checking secondary ids.
 * added twitter developer link.
