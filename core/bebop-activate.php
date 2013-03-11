@@ -118,11 +118,11 @@ if ( ! $update_1 ) {
 		}
 		$query = implode( ', ', $update_string );
 		$update = $wpdb->get_results( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_activity SET ' . $query );
-		bebop_tables::add_option( 'bebop_db_update_1', true );
 		unset($secondary_ids);
 		unset($update_item_id);
 		unset($update_secondary_item_id);
 	}
+	bebop_tables::add_option( 'bebop_db_update_1', true );
 }
 
 //2 - update column definitions
@@ -174,10 +174,10 @@ if ( ! $update_3 ) {
 		}
 		$query = implode( ', ', $update_string );
 		$update = $wpdb->get_results( 'UPDATE ' . bp_core_get_table_prefix() . 'bp_bebop_oer_manager SET ' . $query );
-		
-		bebop_tables::add_option( 'bebop_db_update_3', true );
 		unset($update_secondary_item_id);
 	}
+	bebop_tables::add_option( 'bebop_db_update_3', true );
 }
 
+bebop_tables::add_option( 'bebop_db_version', '1.3.1' );
 ?>

@@ -14,8 +14,9 @@
 		<div id="normal-sortables" class="meta-box-sortables ui-sortable"><div class='postbox'>
 			<h3><?php _e( 'Latest News' ); ?></h3>
 			<div class='inside'>
-				<p><?php _e( 'Version 1.3 is a major release which fixes a few compatability issued with WP 3.5.1 and BP 1.6.4. It also adds more information on creating any required apps, API keys, and API secrets.', 'bebop' ); ?></p>
-				<p><?php _e( 'Version 1.2.2 is a minor release which fixes a few compatability issued with WP 3.5 and BP 1.6.2. It also makes some URL\'s cleaner.', 'bebop' ); ?></p>
+				<p><?php _e( 'Version 1.3.1 is a minor release which fixes the update error many users were encountering with 1.3.0', 'bebop' ); ?></p>
+				<p><?php _e( 'Version 1.3 is a major release which fixes a few compatability issues with WP 3.5.1 and BP 1.6.4. It also adds more information on creating any required apps, API keys, and API secrets.', 'bebop' ); ?></p>
+				<p><?php _e( 'Version 1.2.2 is a minor release which fixes a few compatability issues with WP 3.5 and BP 1.6.2. It also makes some URL\'s cleaner.', 'bebop' ); ?></p>
 				<p><?php _e( 'Version 1.2.1 is a minor release which fixes a bug which inadvertently made all content visible in the sitewide activity steam.', 'bebop' ); ?></p>
 			</div>
 		</div></div>
