@@ -140,7 +140,7 @@ function bebop_manage_provider() {
 				
 				if ( isset( $_POST['bebop_' . $extension['name'] . '_active_for_user'] ) ) {
 					bebop_tables::update_user_meta( $bp->loggedin_user->id, $extension['name'], 'bebop_' . $extension['name'] . '_active_for_user', $_POST['bebop_' . $extension['name'] . '_active_for_user'] );
-					bp_core_add_message( 'Settings for ' . $extension['display_name'] . ' have been saved.' );
+					bp_core_add_message( sprintf( __( 'Settings for %1$s have been saved.', 'bebop' ), $extension['display_name'] ) );
 				}
 				
 				if ( ! empty( $_POST['bebop_' . $extension['name'] . '_username'] ) ) {
@@ -445,7 +445,6 @@ function update_bebop_status( $deleted_ids ) {
 	foreach ( $deleted_ids as $id ) {
 		$result = $wpdb->get_row( 'SELECT id FROM ' . bp_core_get_table_prefix() . "bp_bebop_oer_manager WHERE activity_stream_id = '" . $id . "'" );
 		if ( ! empty( $result->id ) ) {
-			print_args($result);
 			bebop_tables::update_oer_data( $result->id, 'status', 'deleted' );
 			bebop_tables::update_oer_data( $result->id, 'activity_stream_id', '' );
 		}
