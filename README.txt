@@ -45,6 +45,11 @@ Please report any bugs or issues on Github: http://github.com/lncd/bebop/issues
 
 == Changelog ==
 
+v1.3.2 Final - Minor release
+* Fixed not being able to see other peoples content. BuddyPress has changed the functionality of hide_sitewide so it is now impossible to show hidden activity of another user under the activity tab. This content can still be viewed under the resources tab.
+* This will be the final release of Bebop for the foresable future - Even if WP/BP breaks or changes anything I will be unable to provide fixes and support. Feel free to open ut Tickets on Github but do not expect a timely response.
+
+
 v1.3.1 - 11.03.2013 - Minor release, but please backup your database before upgrading!
 * Fixed the upgrade error in 1.3.0.
 * Rewrote database checks for checking secondary ids.
