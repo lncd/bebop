@@ -29,7 +29,7 @@ function bebop_setup_user_nav() {
 						'default_subnav_slug' => 'bebop-content',
 					)
 	);
-
+	
 	bp_core_new_subnav_item(
 					array(
 						'name' =>  __( 'Content', 'bebop' ),
@@ -81,7 +81,7 @@ function bebop_user_settings_screen_content() {
 /*
  * Admin pages
  * 
- * */
+ **/
 
 function bebop_admin_menu() {
 	if ( ! is_super_admin() ) {

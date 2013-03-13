@@ -483,7 +483,6 @@ function bebop_load_filter_options() {
 function bebop_dropdown_query_checker( $query_string ) {
 	global $bp;
 	
-	$new_query_string = '';
 	//Checks if this is the oer page
 	if ( $bp->current_component == 'bebop' ) {
 		
