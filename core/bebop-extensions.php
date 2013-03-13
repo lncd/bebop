@@ -163,7 +163,7 @@ class bebop_extensions {
 		global $bp;
 
 		add_action( 'wp_enqueue_scripts', 'bebop_user_stylesheets' );
-		add_action( 'bp_template_content', 'bebop_user_'.$page.'_screen_content' );
+		add_action( 'bp_template_content', 'bebop_user_'. $page . '_screen_content' );
 		bp_core_load_template( apply_filters( 'bp_core_template_plugin', 'members/single/plugins' ) );
 	}
 }
